@@ -1,0 +1,6 @@
+{
+  "extends":["next/core-web-vitals", "@it-incubator/eslint-config"],
+  "rules": {
+    "react/jsx-curly-brace-presence": "off"
+  }
+}
