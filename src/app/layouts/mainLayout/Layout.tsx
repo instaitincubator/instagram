@@ -8,7 +8,7 @@ export const Layout: NextPage<PropsWithChildren> = props => {
 
   return (
     <div>
-      <div className="flex gap-4 justify-center w-full bg-amber-400">
+      <div className="flex gap-4 justify-center w-full bg-accent_500">
         <Link href={'/'}>home</Link>
         <Link href={'/login'}>login</Link>
         <Link href={'/forgot-password'}>forgot-password</Link>
