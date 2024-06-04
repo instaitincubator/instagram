@@ -1,0 +1,109 @@
+.btn {
+  @apply flex justify-center items-center relative no-underline box-border rounded-[2px] py-[6px] px-[24px] text-h3;
+}
+
+.btn-full-width {
+  width: 100%;
+}
+
+/* Варианты кнопок */
+.btn-primary {
+  @apply bg-accent-500 text-light-100;
+}
+
+.btn-secondary {
+  @apply bg-dark-300 text-light-100;
+}
+
+.btn-outline {
+  @apply border border-accent-500 text-accent-500;
+}
+
+.btn-text {
+  @apply text-accent-500 w-[100px] h-[36px] text-h3;
+}
+
+/* Состояния кнопок */
+.btn-primary:hover {
+  @apply bg-accent-100;
+}
+
+.btn-primary:focus {
+  @apply bg-accent-500 border-2 border-accent-700 box-border;
+}
+
+.btn-primary:active {
+  @apply bg-accent-700;
+}
+
+.btn-primary:disabled {
+  @apply bg-accent-900;
+}
+
+.btn-secondary:hover {
+  @apply bg-dark-100;
+}
+
+.btn-secondary:focus {
+  @apply bg-dark-300 border border-accent-300;
+}
+
+.btn-secondary:active {
+  @apply bg-dark-500;
+}
+
+.btn-secondary:disabled {
+  @apply bg-dark-500;
+}
+
+.btn-outline:hover {
+  @apply border border-accent-100;
+}
+
+.btn-outline:focus {
+  @apply border-2 border-accent-700;
+}
+
+.btn-outline:active {
+  @apply border-accent-700;
+}
+
+.btn-outline:disabled {
+  @apply border border-accent-900;
+}
+
+.btn-text:hover {
+  @apply text-accent-100;
+}
+
+.btn-text:focus {
+  @apply border-2 border-accent-700 text-accent-500;
+}
+
+.btn-text:active {
+  @apply text-accent-700;
+}
+
+.btn-text:disabled {
+  @apply border border-accent-900 text-accent-900;
+}
+
+.btn-l {
+  @apply w-[120px] h-[20px];
+}
+
+.btn-m {
+  @apply w-[50px] h-[5px];
+}
+
+.btn-s {
+  @apply w-[182px] h-[36px];
+}
+
+.btn-xl {
+  @apply w-[182px] h-[36px];
+}
+
+.btn-xxl {
+  @apply w-[300px] h-[50px];
+}
