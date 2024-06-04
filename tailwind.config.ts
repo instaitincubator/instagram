@@ -3,36 +3,48 @@ import type { Config } from 'tailwindcss'
 import plugin from 'tailwindcss/plugin'
 
 const colors = {
-  accent_100: '#73A5FF',
-  accent_300: '#4C8DFF',
-  accent_500: '#397DF6',
-  accent_700: '#2F68CC',
-  accent_900: '#234E99',
-  danger_100: '#FF8099',
-  danger_300: '#F23D61',
-  danger_500: '#CC1439',
-  danger_700: '#990F2B',
-  danger_900: '#660A1D',
-  dark_100: '#4C4C4C',
-  dark_300: '#333333',
-  dark_500: '#171717',
-  dark_700: '#0D0D0D',
-  dark_900: '#000000',
-  light_100: '#FFFFFF',
-  light_300: '#F7FBFF',
-  light_500: '#EDF3FA',
-  light_700: '#D5DAE0',
-  light_900: '#8D9094',
-  success_100: '#80FFBF',
-  success_300: '#22E584',
-  success_500: '#14CC70',
-  success_700: '#0F9954',
-  success_900: '#0A6638',
-  warning_100: '#FFD073',
-  warning_300: '#E5AC39',
-  warning_500: '#D99000',
-  warning_700: '#996600',
-  warning_900: '#664400',
+  accent: {
+    100: '#73A5FF',
+    300: '#4C8DFF',
+    500: '#397DF6',
+    700: '#2F68CC',
+    900: '#234E99',
+  },
+  danger: {
+    100: '#FF8099',
+    300: '#F23D61',
+    500: '#CC1439',
+    700: '#990F2B',
+    900: '#660A1D',
+  },
+  dark: {
+    100: '#4C4C4C',
+    300: '#333333',
+    500: '#171717',
+    700: '#0D0D0D',
+    900: '#000000',
+  },
+  light: {
+    100: '#FFFFFF',
+    300: '#F7FBFF',
+    500: '#EDF3FA',
+    700: '#D5DAE0',
+    900: '#8D9094',
+  },
+  success: {
+    100: '#80FFBF',
+    300: '#22E584',
+    500: '#14CC70',
+    700: '#0F9954',
+    900: '#0A6638',
+  },
+  warning: {
+    100: '#FFD073',
+    300: '#E5AC39',
+    500: '#D99000',
+    700: '#996600',
+    900: '#664400',
+  },
 }
 
 const config: Config = {
@@ -40,6 +52,7 @@ const config: Config = {
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/shared/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   plugins: [
     plugin(function ({ addUtilities }) {
@@ -90,7 +103,7 @@ const config: Config = {
           lineHeight: '24px',
         },
         '.text-regular-link': {
-          color: colors.accent_500,
+          color: colors.accent['500'],
           fontSize: '14px',
           fontWeight: '400',
           lineHeight: '24px',
@@ -107,7 +120,7 @@ const config: Config = {
           lineHeight: '16px',
         },
         '.text-small-link': {
-          color: colors.accent_500,
+          color: colors.accent['500'],
           fontSize: '12px',
           fontWeight: '400',
           lineHeight: '16px',
@@ -119,19 +132,33 @@ const config: Config = {
     }),
   ],
   theme: {
+    colors: {
+      accent: colors.accent,
+      danger: colors.danger,
+      dark: colors.dark,
+      light: colors.light,
+      success: colors.success,
+      warning: colors.warning,
+    },
     extend: {
-      backgroundColors: colors,
-      colors: colors,
-      fontFamily: {
-        sans: ['Inter', 'sans-serif'],
+      backgroundColor: {
+        ...colors,
       },
-      screens: {
-        lg: '976px',
-        md: '768px',
-        sm: '480px',
-        xl: '1440px',
+      borderColor: {
+        ...colors,
       },
-      textColors: colors,
+      textColor: {
+        ...colors,
+      },
+    },
+    fontFamily: {
+      sans: ['Inter', 'sans-serif'],
+    },
+    screens: {
+      lg: '976px',
+      md: '768px',
+      sm: '480px',
+      xl: '1440px',
     },
   },
 }
