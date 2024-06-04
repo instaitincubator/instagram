@@ -1,4 +1,4 @@
-import { getLayout } from 'src/app/layouts/mainLayout/Layout'
+import { getLayout } from '@/app/layouts/mainLayout/Layout'
 
 const ForgotPassword = () => {
   return <div>ForgotPassword</div>

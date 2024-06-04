@@ -2,5 +2,13 @@
   "extends":["next/core-web-vitals", "@it-incubator/eslint-config"],
   "rules": {
     "react/jsx-curly-brace-presence": "off"
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "paths": ["src"],
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
   }
 }

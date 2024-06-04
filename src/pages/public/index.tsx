@@ -1,4 +1,4 @@
-import {getLayout} from "src/app/layouts/mainLayout/Layout";
+import {getLayout} from '@/app/layouts/mainLayout/Layout';
 
 const Public = () => {
     return <div>Public</div>
