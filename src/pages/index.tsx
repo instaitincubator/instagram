@@ -1,5 +1,5 @@
+import { getLayout } from '@/app/layouts/mainLayout/Layout'
 import { Inter } from 'next/font/google'
-import { getLayout } from 'src/app/layouts/mainLayout/Layout'
 
 const inter = Inter({ subsets: ['latin'] })
 
