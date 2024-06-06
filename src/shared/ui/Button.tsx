@@ -12,7 +12,7 @@ import clsx from 'clsx'
 import styles from './styles.module.css'
 
 export type ButtonVariant = 'outline' | 'primary' | 'secondary' | 'text'
-export type ButtonSize = 'l' | 'm' | 's' | 'xl' | 'xxl'
+export type ButtonSize = 'l' | 'lx' | 'm' | 'mx' | 's' | 'xl' | 'xxl'
 
 type InferType<T> = T extends ElementType<infer U> ? U : never
 
@@ -43,7 +43,9 @@ const Button = forwardRef(
     }
     const btnSizes = {
       l: styles['btn-l'],
+      lx: styles['btn-lx'],
       m: styles['btn-m'],
+      mx: styles['btn-mx'],
       s: styles['btn-s'],
       xl: styles['btn-xl'],
       xxl: styles['btn-xxl'],

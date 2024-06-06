@@ -1,5 +1,5 @@
 .btn {
-  @apply flex justify-center items-center relative no-underline box-border rounded-[2px] py-[6px] px-[24px] text-h3;
+  @apply flex justify-center items-center relative no-underline cursor-pointer box-border rounded-[2px] py-[6px] px-[24px] text-h3 text-center;
 }
 
 .btn-full-width {
@@ -89,11 +89,19 @@
 }
 
 .btn-l {
-  @apply w-[120px] h-[20px];
+  @apply w-[96px] h-[36px];
+}
+
+.btn-lx {
+  @apply w-[98px] h-[36px];
 }
 
 .btn-m {
-  @apply w-[50px] h-[5px];
+  @apply w-[100px] h-[36px];
+}
+
+.btn-mx {
+  @apply w-[162px] h-[36px];
 }
 
 .btn-s {
@@ -101,7 +109,7 @@
 }
 
 .btn-xl {
-  @apply w-[182px] h-[36px];
+  @apply w-[229px] h-[36px];
 }
 
 .btn-xxl {
