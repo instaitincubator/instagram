@@ -1,11 +1,6 @@
 .btn {
   @apply flex justify-center items-center relative no-underline cursor-pointer box-border rounded-[2px] py-[6px] px-[24px] text-h3 text-center;
 }
-
-.btn-full-width {
-  width: 100%;
-}
-
 /* Варианты кнопок */
 .btn-primary {
   @apply bg-accent-500 text-light-100;
@@ -114,4 +109,8 @@
 
 .btn-xxl {
   @apply w-[300px] h-[50px];
+}
+
+.btn-full-width {
+  width: 100%;
 }

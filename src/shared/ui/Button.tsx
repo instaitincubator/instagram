@@ -30,7 +30,7 @@ const Button = forwardRef(
       children,
       className,
       fullWidth = false,
-      size = 'l',
+      size,
       variant = 'primary',
       ...rest
     } = props
@@ -53,7 +53,7 @@ const Button = forwardRef(
     const classNames = clsx(
       styles.btn,
       variantClasses[variant],
-      btnSizes[size],
+      btnSizes[size ?? 'm'],
       fullWidth && styles['btn-full-width'],
       className,
       Component === 'a' && 'no-underline'
