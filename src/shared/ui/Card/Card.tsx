@@ -2,11 +2,11 @@ import { ComponentPropsWithoutRef, ElementRef, ElementType, forwardRef } from 'r
 
 import clsx from 'clsx'
 
-export type CardProps<T extends ElementType = 'div'> = {
+type Props<T extends ElementType = 'div'> = {
   className?: string
 } & ComponentPropsWithoutRef<T>
 
-export const Card = forwardRef<ElementRef<'div'>, CardProps>(
+export const Card = forwardRef<ElementRef<'div'>, Props>(
   ({ children, className, ...props }, ref) => {
     return (
       <div
