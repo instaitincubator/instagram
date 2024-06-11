@@ -1,5 +1,6 @@
 import { PropsWithChildren, ReactElement } from 'react'
 
+import { Header } from '@/shared/ui/header/Header'
 import { NextPage } from 'next'
 import Link from 'next/link'
 
@@ -7,8 +8,9 @@ export const Layout: NextPage<PropsWithChildren> = props => {
   const { children } = props
 
   return (
-    <div>
-      <div className="flex gap-4 justify-center w-full bg-accent_500">
+    <div className="flex flex-col w-full flex-wrap h-screen text-light-100 bg-dark-700 min-w-[360]">
+      <Header />
+      <div className="flex gap-4 justify-center w-full pt-[60px] flex-wrap ">
         <Link href={'/'}>home</Link>
         <Link href={'/login'}>login</Link>
         <Link href={'/forgot-password'}>forgot-password</Link>
