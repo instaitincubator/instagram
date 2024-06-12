@@ -1,6 +1,7 @@
 .btn {
-  @apply flex justify-center items-center relative no-underline cursor-pointer box-border rounded-[2px] py-[6px] px-[24px] text-h3 text-center;
+  @apply flex justify-center items-center relative no-underline cursor-pointer box-border rounded-[2px] py-[6px] px-[24px] text-h3 text-nowrap text-center;
 }
+
 /* Варианты кнопок */
 .btn-primary {
   @apply bg-accent-500 text-light-100;
