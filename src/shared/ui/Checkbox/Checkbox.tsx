@@ -42,5 +42,3 @@ export const Checkbox = forwardRef<ElementRef<'div'>, CheckboxProps>(
     )
   }
 )
-// 'before:h-[34px] before:w-[34px] before:hover:absolute before:active:bg-dark-100/30 before:hover:bg-dark-300/30 before:focus:bg-dark-500/30',
-//   'before:rounded-3xl before:top-1/2 before:left-1/2 before:transform before:-translate-x-1/2 before:-translate-y-1/2',
