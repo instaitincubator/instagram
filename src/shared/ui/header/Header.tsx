@@ -7,6 +7,8 @@ import { Menu } from '@/shared/ui/icons/menu'
 import { Notification } from '@/shared/ui/icons/notification'
 import { clsx } from 'clsx'
 
+import { useTranslation } from '../../../../hooks/useTranslation'
+
 export type HeaderProps = {
   isLoading?: boolean
 } & ComponentProps<'header'>
@@ -14,7 +16,8 @@ export type HeaderProps = {
 export const Header = ({ className, isLoading, ...rest }: HeaderProps) => {
   const breakPoint = 768
   const isMobile = useIsMobile(breakPoint)
-  const [isAuth, setIsAuth] = useState(true)
+  const [isAuth, setIsAuth] = useState(false)
+  const { t } = useTranslation()
 
   return (
     <header
@@ -39,8 +42,12 @@ export const Header = ({ className, isLoading, ...rest }: HeaderProps) => {
       )}
       {!isAuth && (
         <div className="flex">
-          <Button className="bg-blue-500 text-white rounded mr-4" size="m" variant="text">
-            Log in
+          <Button
+            className="bg-blue-500 text-white rounded mr-4 w-m[100px]"
+            size="m"
+            variant="text"
+          >
+            {t.header.login}
           </Button>
           <Button className="bg-blue-500 text-white rounded" size="m">
             Sign up

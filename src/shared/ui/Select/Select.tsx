@@ -4,6 +4,7 @@ import clsx from 'clsx'
 import Image from 'next/image'
 
 export interface Option {
+  imageSrc?: JSX.Element | string
   label: string
   value: string
 }
@@ -80,6 +81,17 @@ const Select: React.FC<SelectProps> = ({
         onClick={handleClick}
       >
         <div className={clsx('text-regular-14 text-light-100 px-[12px]', {})}>
+          {selectedOption?.imageSrc && typeof selectedOption.imageSrc === 'string' ? (
+            <Image
+              alt={selectedOption.label}
+              className="mr-2"
+              height={24}
+              src={selectedOption.imageSrc}
+              width={24}
+            />
+          ) : (
+            selectedOption?.imageSrc
+          )}
           {selectedOption ? selectedOption.value : ''}
         </div>
         <div className="pr-[2px]">
@@ -99,10 +111,21 @@ const Select: React.FC<SelectProps> = ({
         >
           {options.map(option => (
             <li
-              className="p-[8px] hover:bg-dark-300 hover:text-accent-500 cursor-pointer truncate"
+              className="flex p-[8px] hover:bg-dark-300 hover:text-accent-500 cursor-pointer truncate"
               key={option.value}
               onClick={() => handleSelect(option)}
             >
+              {option.imageSrc && typeof option.imageSrc === 'string' ? (
+                <Image
+                  alt={option.label}
+                  className="mr-2"
+                  height={24}
+                  src={option.imageSrc}
+                  width={24}
+                />
+              ) : (
+                option.imageSrc
+              )}
               {option.value}
             </li>
           ))}
