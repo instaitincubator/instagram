@@ -1,6 +1,6 @@
 import { ComponentProps, useState } from 'react'
 
-import Button from '@/shared/ui/Button'
+import Button from '@/shared/ui/Button/Button'
 import useIsMobile from '@/shared/ui/header/useIsMobile'
 import { Menu } from '@/shared/ui/icons/menu'
 import { Notification } from '@/shared/ui/icons/notification'
