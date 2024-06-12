@@ -61,24 +61,25 @@ const Select: React.FC<SelectProps> = ({
   }
 
   return (
-    <div className={clsx('relative', className)} onBlur={handleBlur} ref={selectRef} tabIndex={0}>
+    <div
+      className={clsx('relative min-w-[100px]', className)}
+      onBlur={handleBlur}
+      ref={selectRef}
+      tabIndex={0}
+    >
       {label && <div className="text-regular-14 text-light-900 mb-2">{label}</div>}
       <div
         className={clsx(
-          'flex justify-between items-center min-w-[210px] h-[36px] bg-dark-500 border cursor-pointer',
+          'flex justify-between items-center h-[36px] bg-dark-500 border cursor-pointer',
           {
-            'border-accent-500 border-2': isSelected && !isOpen,
+            'border-accent-500 border': isSelected && !isOpen,
             'border-dark-100 border': !isOpen && !isSelected,
             'border-light-100 border': isOpen,
           }
         )}
         onClick={handleClick}
       >
-        <div
-          className={clsx('text-regular-14 text-light-100 pl-[12px]', {
-            // 'border-light-100 text-light-100': isOpen,
-          })}
-        >
+        <div className={clsx('text-regular-14 text-light-100 px-[12px]', {})}>
           {selectedOption ? selectedOption.value : ''}
         </div>
         <div className="pr-[2px]">
@@ -93,7 +94,7 @@ const Select: React.FC<SelectProps> = ({
       </div>
       {isOpen && (
         <ul
-          className="absolute left-0 min-w-[210px] text-regular-16 text-light-100 bg-dark-500 border border-t-light-100 border-light-100 mt-[-1px] z-10"
+          className="absolute left-0 text-regular-16 text-light-100 bg-dark-500 border border-t-light-100 border-light-100 mt-[-1px] z-10"
           style={{ width: selectRef.current?.offsetWidth }}
         >
           {options.map(option => (

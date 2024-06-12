@@ -1,6 +1,7 @@
 import { ComponentProps, useState } from 'react'
 
 import Button from '@/shared/ui/Button/Button'
+import { LanguageSelect } from '@/shared/ui/LanguageSelect/LanguageSelect'
 import useIsMobile from '@/shared/ui/header/useIsMobile'
 import { Menu } from '@/shared/ui/icons/menu'
 import { Notification } from '@/shared/ui/icons/notification'
@@ -26,14 +27,14 @@ export const Header = ({ className, isLoading, ...rest }: HeaderProps) => {
       <span className="pl-[5%]">Instagram</span>
       {isMobile && (
         <div className="flex">
-          <span>сеелктор</span>
+          <LanguageSelect />
           <Menu />
         </div>
       )}
       {!isMobile && (
         <div className="flex gap-[18px]">
           <Notification />
-          <span>select</span>
+          <LanguageSelect />
         </div>
       )}
       {!isAuth && (
