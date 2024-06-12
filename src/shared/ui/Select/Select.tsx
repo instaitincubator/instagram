@@ -56,6 +56,7 @@ const Select: React.FC<SelectProps> = ({
   const handleBlur = (event: React.FocusEvent<HTMLDivElement>) => {
     if (!event.currentTarget.contains(event.relatedTarget as Node)) {
       setIsSelected(false)
+      setIsOpen(false)
     }
   }
 
