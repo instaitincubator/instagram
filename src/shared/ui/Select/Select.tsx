@@ -67,13 +67,18 @@ const Select: React.FC<SelectProps> = ({
         className={clsx(
           'flex justify-between items-center min-w-[210px] h-[36px] bg-dark-500 border cursor-pointer',
           {
-            'border-accent-500 border-[2px]': isSelected && !isOpen,
-            'border-light-100': !isSelected || isOpen,
+            'border-accent-500 border-2': isSelected && !isOpen,
+            'border-dark-100 border': !isOpen && !isSelected,
+            'border-light-100 border': isOpen,
           }
         )}
         onClick={handleClick}
       >
-        <div className="text-regular-14 text-light-900 pl-[12px]">
+        <div
+          className={clsx('text-regular-14 text-light-100 pl-[12px]', {
+            // 'border-light-100 text-light-100': isOpen,
+          })}
+        >
           {selectedOption ? selectedOption.value : ''}
         </div>
         <div className="pr-[2px]">
