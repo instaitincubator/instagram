@@ -16,7 +16,9 @@
 }
 
 .btn-text {
-  @apply text-accent-500 text-h3;
+  @apply text-accent-500 text-h3 border-none;
+
+  background-color: transparent;
 }
 
 /* Состояния кнопок */
