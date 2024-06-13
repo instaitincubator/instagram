@@ -33,7 +33,7 @@ export const Checkbox = forwardRef<ElementRef<'div'>, CheckboxProps>(
           </div>
           <div className="z-10 absolute w-[34px] h-[34px] group-hover:bg-dark-300 group-active:bg-dark-100 group-focus:bg-dark-500  top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-3xl"></div>
         </div>
-        {label && <label className="text-regular-14 pl-[15px]">{label}</label>}
+        {label && <label className="pl-[15px]">{label}</label>}
       </div>
     )
   }
