@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { JSX, useEffect, useRef, useState } from 'react'
 
 import clsx from 'clsx'
 import Image from 'next/image'
@@ -27,38 +27,44 @@ const Select: React.FC<SelectProps> = ({
   value,
 }) => {
   const [isOpen, setIsOpen] = useState(false)
-  const [selectedOption, setSelectedOption] = useState<Option | null>(options[0])
-  const [isSelected, setIsSelected] = useState(false)
+  const [selectedOption, setSelectedOption] = useState<Option | null>(null)
   const selectRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (value) {
       setSelectedOption(value)
-      setIsSelected(true)
     } else if (options.length > 0) {
       setSelectedOption(options[0])
       onChange(options[0])
     }
   }, [value, options, onChange])
+
   const handleSelect = (option: Option) => {
     setSelectedOption(option)
     onChange(option)
     setIsOpen(false)
-    setIsSelected(true)
   }
 
   const handleClick = () => {
     if (!disabled) {
       setIsOpen(!isOpen)
-      setIsSelected(false)
     }
   }
 
   const handleBlur = (event: React.FocusEvent<HTMLDivElement>) => {
     if (!event.currentTarget.contains(event.relatedTarget as Node)) {
-      setIsSelected(false)
       setIsOpen(false)
     }
+  }
+
+  const renderOptionImage = (option: Option) => {
+    if (option.imageSrc && typeof option.imageSrc === 'string') {
+      return (
+        <Image alt={option.label} className="mr-2" height={24} src={option.imageSrc} width={24} />
+      )
+    }
+
+    return option.imageSrc
   }
 
   return (
@@ -73,26 +79,20 @@ const Select: React.FC<SelectProps> = ({
         className={clsx(
           'flex justify-between items-center h-[36px] bg-dark-500 border cursor-pointer',
           {
-            'border-accent-500 border': isSelected && !isOpen,
-            'border-dark-100 border': !isOpen && !isSelected,
-            'border-light-100 border': isOpen,
+            'border-accent-500': !isOpen && selectedOption,
+            'border-dark-100': !isOpen && !selectedOption,
+            'border-light-100': isOpen,
           }
         )}
         onClick={handleClick}
       >
-        <div className={clsx('text-regular-14 text-light-100 px-[12px]', {})}>
-          {selectedOption?.imageSrc && typeof selectedOption.imageSrc === 'string' ? (
-            <Image
-              alt={selectedOption.label}
-              className="mr-2"
-              height={24}
-              src={selectedOption.imageSrc}
-              width={24}
-            />
-          ) : (
-            selectedOption?.imageSrc
+        <div className="text-regular-14 text-light-100 px-[12px] flex items-center">
+          {selectedOption && (
+            <>
+              {renderOptionImage(selectedOption)}
+              <span className="ml-2">{selectedOption.label}</span>
+            </>
           )}
-          {selectedOption ? selectedOption.value : ''}
         </div>
         <div className="pr-[2px]">
           <Image
@@ -115,18 +115,8 @@ const Select: React.FC<SelectProps> = ({
               key={option.value}
               onClick={() => handleSelect(option)}
             >
-              {option.imageSrc && typeof option.imageSrc === 'string' ? (
-                <Image
-                  alt={option.label}
-                  className="mr-2"
-                  height={24}
-                  src={option.imageSrc}
-                  width={24}
-                />
-              ) : (
-                option.imageSrc
-              )}
-              {option.value}
+              {renderOptionImage(option)}
+              {option.label}
             </li>
           ))}
         </ul>

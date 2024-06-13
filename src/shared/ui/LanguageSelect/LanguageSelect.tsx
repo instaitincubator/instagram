@@ -23,7 +23,7 @@ export const LanguageSelect = () => {
 
     return {
       imageSrc,
-      label: lg,
+      label: lg === 'russian' ? 'Русский' : 'English',
       value: lg,
     }
   })
@@ -32,7 +32,7 @@ export const LanguageSelect = () => {
     <Select
       onChange={changeLangHandler}
       options={options!}
-      value={{ label: router.locale!, value: router.locale! }}
+      value={options?.find(option => option.value === router.locale) || null}
     />
   )
 }
