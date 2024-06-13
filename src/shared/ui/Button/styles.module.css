@@ -16,7 +16,9 @@
 }
 
 .btn-text {
-  @apply text-accent-500 border-none w-[100px] h-[36px] text-h3;
+
+  @apply text-accent-500 text-h3 border-none;
+
 
   background-color: transparent;
 }
@@ -87,31 +89,31 @@
 }
 
 .btn-l {
-  @apply w-[96px] h-[36px];
+  @apply min-w-[96px] h-[36px];
 }
 
 .btn-lx {
-  @apply w-[98px] h-[36px];
+  @apply min-w-[98px] h-[36px];
 }
 
 .btn-m {
-  @apply w-[100px] h-[36px];
+  @apply min-w-[100px] h-[36px];
 }
 
 .btn-mx {
-  @apply w-[162px] h-[36px];
+  @apply min-w-[162px] h-[36px];
 }
 
 .btn-s {
-  @apply w-[182px] h-[36px];
+  @apply min-w-[182px] h-[36px];
 }
 
 .btn-xl {
-  @apply w-[229px] h-[36px];
+  @apply min-w-[229px] h-[36px];
 }
 
 .btn-xxl {
-  @apply w-[300px] h-[50px];
+  @apply min-w-[300px] h-[50px];
 }
 
 .btn-full-width {
