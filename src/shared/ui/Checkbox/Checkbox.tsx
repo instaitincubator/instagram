@@ -14,18 +14,14 @@ export type CheckboxProps = ComponentPropsWithoutRef<'div'> &
 export const Checkbox = forwardRef<ElementRef<'div'>, CheckboxProps>(
   ({ checked, className, disabled = false, label, onValueChange, ...props }, ref) => {
     return (
-      <div
-        className={clsx('flex select-none gap-2 items-center relative', className)}
-        ref={ref}
-        {...props}
-      >
+      <div className={clsx('flex select-none gap-2 items-center', className)} ref={ref} {...props}>
         <div className="relative group">
           <div
             className={clsx(
               'w-[18px] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-[18px] border-[2px] border-light-100 rounded-sm z-20',
               disabled && 'border-[2px] border-light-900',
               checked && disabled && 'bg-light-900',
-              checked && 'bg-light-100'
+              checked && 'bg-light-100 '
             )}
             onClick={() => !disabled && onValueChange?.(!checked)}
           >
