@@ -16,44 +16,46 @@ export type HeaderProps = {
 export const Header = ({ className, isLoading, ...rest }: HeaderProps) => {
   const breakPoint = 768
   const isMobile = useIsMobile(breakPoint)
-  const [isAuth, setIsAuth] = useState(false)
+  const [isAuth, setIsAuth] = useState(true)
   const { t } = useTranslation()
 
   return (
     <header
       {...rest}
       className={clsx(
-        'flex pr-[5%] w-full h-[60px] justify-between bg-dark-700 text-light-100 items-center min-w-[360px] border-b border-b-dark-300',
+        'flex pr-[5%] w-full h-[60px] items-center justify-between bg-dark-700 text-light-100 min-w-[360px] border-b border-b-dark-300',
         className
       )}
     >
       <span className="pl-[5%]">Instagram</span>
-      {isMobile && (
-        <div className="flex">
-          <LanguageSelect />
-          <Menu />
-        </div>
-      )}
-      {!isMobile && (
-        <div className="flex gap-[18px]">
-          <Notification />
-          <LanguageSelect />
-        </div>
-      )}
-      {!isAuth && (
-        <div className="flex">
-          <Button
-            className="bg-blue-500 text-white rounded mr-4 w-m[100px]"
-            size="m"
-            variant="text"
-          >
-            {t.header.login}
-          </Button>
-          <Button className="bg-blue-500 text-white rounded" size="m">
-            Sign up
-          </Button>
-        </div>
-      )}
+      <div className="flex items-center">
+        {isMobile && (
+          <div className="flex items-center gap-4">
+            <LanguageSelect />
+            <Menu />
+          </div>
+        )}
+        {!isMobile && (
+          <div className="flex gap-[18px] items-center">
+            {isAuth && <Notification />}
+            <LanguageSelect />
+          </div>
+        )}
+        {!isAuth && !isMobile && (
+          <div className="flex items-center">
+            <Button
+              className="bg-blue-500 text-white rounded mr-4 w-m[100px]"
+              size="m"
+              variant="text"
+            >
+              {t.header.login}
+            </Button>
+            <Button className="bg-blue-500 text-white rounded" size="m">
+              Sign up
+            </Button>
+          </div>
+        )}
+      </div>
     </header>
   )
 }
