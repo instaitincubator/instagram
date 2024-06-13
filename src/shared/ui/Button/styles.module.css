@@ -4,11 +4,11 @@
 
 /* Варианты кнопок */
 .btn-primary {
-  @apply bg-accent-500 text-light-100;
+  @apply bg-accent-500 border-none text-light-100;
 }
 
 .btn-secondary {
-  @apply bg-dark-300 text-light-100;
+  @apply bg-dark-300 border-none text-light-100;
 }
 
 .btn-outline {
@@ -16,7 +16,9 @@
 }
 
 .btn-text {
+
   @apply text-accent-500 text-h3 border-none;
+
 
   background-color: transparent;
 }
