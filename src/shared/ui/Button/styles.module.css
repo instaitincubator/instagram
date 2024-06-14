@@ -16,9 +16,7 @@
 }
 
 .btn-text {
-
-  @apply text-accent-500 text-h3 border-none;
-
+  @apply text-accent-500 text-h3;
 
   background-color: transparent;
 }
