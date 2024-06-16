@@ -154,6 +154,9 @@ const config: Config = {
         success: colors.success,
         warning: colors.warning,
       },
+      height: {
+        headerHeight: 'calc(100vh - 60px)',
+      },
       textColor: {
         ...colors,
       },
