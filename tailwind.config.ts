@@ -130,7 +130,7 @@ const config: Config = {
 
       addUtilities(newUtilities)
     }),
-    plugin(function ({ addBase, theme }) {
+    plugin(function ({ addBase }) {
       addBase({
         'button:focus': {
           outline: 'none',
