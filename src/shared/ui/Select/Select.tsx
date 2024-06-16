@@ -29,6 +29,7 @@ const Select: React.FC<SelectProps> = ({
   const [isOpen, setIsOpen] = useState(false)
   const [selectedOption, setSelectedOption] = useState<Option | null>(null)
   const selectRef = useRef<HTMLDivElement>(null)
+  const [focus, setFocus] = useState(false)
 
   useEffect(() => {
     if (value) {
@@ -48,20 +49,20 @@ const Select: React.FC<SelectProps> = ({
   const handleClick = () => {
     if (!disabled) {
       setIsOpen(!isOpen)
+      setFocus(true)
     }
   }
 
   const handleBlur = (event: React.FocusEvent<HTMLDivElement>) => {
     if (!event.currentTarget.contains(event.relatedTarget as Node)) {
       setIsOpen(false)
+      setFocus(false)
     }
   }
 
   const renderOptionImage = (option: Option) => {
     if (option.imageSrc && typeof option.imageSrc === 'string') {
-      return (
-        <Image alt={option.label} className="mr-2" height={24} src={option.imageSrc} width={24} />
-      )
+      return <Image alt={option.label} height={24} src={option.imageSrc} width={24} />
     }
 
     return option.imageSrc
@@ -69,7 +70,7 @@ const Select: React.FC<SelectProps> = ({
 
   return (
     <div
-      className={clsx('relative min-w-[100px]', className)}
+      className={clsx('relative min-w-[150px]', className)}
       onBlur={handleBlur}
       ref={selectRef}
       tabIndex={0}
@@ -77,11 +78,11 @@ const Select: React.FC<SelectProps> = ({
       {label && <div className="text-regular-14 text-light-900 mb-2">{label}</div>}
       <div
         className={clsx(
-          'flex justify-between items-center h-[36px] bg-dark-500 border cursor-pointer',
+          'flex justify-between items-center rounded-sm h-[36px] bg-dark-500 border cursor-pointer',
           {
-            'border-accent-500': !isOpen && selectedOption,
-            'border-dark-100': !isOpen && !selectedOption,
-            'border-light-100': isOpen,
+            'border-accent-500': !isOpen && selectedOption && focus,
+            'border-dark-100 ': !isOpen && !selectedOption,
+            'border-light-100 rounded-b-none': isOpen,
           }
         )}
         onClick={handleClick}
@@ -106,17 +107,19 @@ const Select: React.FC<SelectProps> = ({
       </div>
       {isOpen && (
         <ul
-          className="absolute left-0 text-regular-16 text-light-100 bg-dark-500 border border-t-light-100 border-light-100 mt-[-1px] z-10"
+          className="absolute left-0 text-regular-16 text-light-100 bg-dark-500 border border-t-light-100 rounded-b-sm border-light-100 mt-[-1px] z-10"
           style={{ width: selectRef.current?.offsetWidth }}
         >
           {options.map(option => (
             <li
-              className="flex p-[8px] hover:bg-dark-300 hover:text-accent-500 cursor-pointer truncate"
+              className="flex p-[8px] px-[12px] hover:bg-dark-300 hover:text-accent-500 cursor-pointer truncate"
               key={option.value}
               onClick={() => handleSelect(option)}
             >
-              {renderOptionImage(option)}
-              {option.label}
+              <div className="flex gap-2">
+                {renderOptionImage(option)}
+                {option.label}
+              </div>
             </li>
           ))}
         </ul>
