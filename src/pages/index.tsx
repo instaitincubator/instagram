@@ -9,7 +9,6 @@ import { russian } from '../../locales/russian'
 
 export default function Home() {
   const router = useRouter()
-
   const t = router.locale === 'english' ? english : russian
 
   const options = [
