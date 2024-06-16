@@ -139,20 +139,20 @@ const config: Config = {
     }),
   ],
   theme: {
-    colors: {
-      accent: colors.accent,
-      danger: colors.danger,
-      dark: colors.dark,
-      light: colors.light,
-      success: colors.success,
-      warning: colors.warning,
-    },
     extend: {
       backgroundColor: {
         ...colors,
       },
       borderColor: {
         ...colors,
+      },
+      colors: {
+        accent: colors.accent,
+        danger: colors.danger,
+        dark: colors.dark,
+        light: colors.light,
+        success: colors.success,
+        warning: colors.warning,
       },
       textColor: {
         ...colors,
