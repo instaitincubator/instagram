@@ -1,34 +1,19 @@
-import { Controller, SubmitHandler, useForm } from 'react-hook-form'
+import { Controller } from 'react-hook-form'
 
+import {
+  Form,
+  useForgotPasswordForm,
+} from '@/features/password-recovery-form/useForgotPasswordForm'
 import Button from '@/shared/ui/Button/Button'
 import { Card } from '@/shared/ui/Card/Card'
 import { Input } from '@/shared/ui/Input/Input'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
-
-interface Form {
-  email: string
-}
-const schema = z.object({
-  email: z
-    .string()
-    .min(1, { message: 'email required' })
-    .email({ message: 'The email must match the format example@example.com' }),
-})
 
 export const ForgotPasswordForm = () => {
-  const {
-    control,
-    formState: { errors, isValid },
-    handleSubmit,
-  } = useForm<Form>({
-    defaultValues: {
-      email: '',
-    },
-    mode: 'onSubmit',
-    resolver: zodResolver(schema),
-  })
-  const onSubmit: SubmitHandler<Form> = data => {}
+  const { control, errors, handleSubmit, isValid } = useForgotPasswordForm()
+
+  const onSubmit = (data: Form) => {
+    console.log(data)
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
