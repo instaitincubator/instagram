@@ -1,7 +1,12 @@
 import { getLayout } from '@/app/layouts/mainLayout/Layout'
+import { ForgotPasswordForm } from '@/features/password-recovery-form/ForgotPasswordForm'
 
 const ForgotPassword = () => {
-  return <div>ForgotPassword</div>
+  return (
+    <>
+      <ForgotPasswordForm />
+    </>
+  )
 }
 
 ForgotPassword.getLayout = getLayout
