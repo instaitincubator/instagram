@@ -53,6 +53,7 @@ const config: Config = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
     './src/shared/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/features/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   plugins: [
     plugin(function ({ addUtilities }) {
@@ -130,7 +131,7 @@ const config: Config = {
 
       addUtilities(newUtilities)
     }),
-    plugin(function ({ addBase, theme }) {
+    plugin(function ({ addBase }) {
       addBase({
         'button:focus': {
           outline: 'none',
@@ -153,6 +154,9 @@ const config: Config = {
         light: colors.light,
         success: colors.success,
         warning: colors.warning,
+      },
+      height: {
+        headerHeight: 'calc(100vh - 60px)',
       },
       textColor: {
         ...colors,
