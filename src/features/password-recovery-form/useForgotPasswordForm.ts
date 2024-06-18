@@ -3,13 +3,12 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
-export interface Form {
+export interface ForgotPasswordFormType {
   captcha: string
   email: string
 }
 
 const schema = z.object({
-  captcha: z.string(),
   email: z
     .string()
     .min(1, { message: 'email required' })
@@ -21,7 +20,7 @@ export const useForgotPasswordForm = () => {
     control,
     formState: { errors, isValid },
     handleSubmit,
-  } = useForm<Form>({
+  } = useForm<ForgotPasswordFormType>({
     mode: 'onSubmit',
     resolver: zodResolver(schema),
   })

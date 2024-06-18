@@ -14,6 +14,7 @@ export const Layout: NextPage<PropsWithChildren> = props => {
       <div className="flex gap-4 justify-center h-[60px]">
         <Link href={'/'}>home</Link>
         <Link href={'/login'}>login</Link>
+        <Link href={'/sign-in'}>signIn</Link>
         <Link href={'/forgot-password'}>forgot-password</Link>
         <Link href={'/public'}>public</Link>
         <Link href={'/profile'}>profile</Link>
