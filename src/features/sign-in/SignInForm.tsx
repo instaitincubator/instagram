@@ -8,14 +8,10 @@ import { Input } from '@/shared/ui/Input/Input'
 import Image from 'next/image'
 import Link from 'next/link'
 
-interface Props {
-  signIn: (arg: SignInFormType) => void
-}
-
-export const SignInForm = ({ signIn }: Props) => {
+export const SignInForm = () => {
   const { control, errors, handleSubmit, isValid } = useSignInForm()
   const onSubmit = (data: SignInFormType) => {
-    signIn(data)
+    console.log(data)
   }
 
   return (

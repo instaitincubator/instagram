@@ -9,15 +9,11 @@ import Button from '@/shared/ui/Button/Button'
 import { Card } from '@/shared/ui/Card/Card'
 import { Input } from '@/shared/ui/Input/Input'
 
-interface Props {
-  forgotPassword: (arg: ForgotPasswordFormType) => void
-}
-
-export const ForgotPasswordForm = ({ forgotPassword }: Props) => {
+export const ForgotPasswordForm = () => {
   const { control, errors, handleSubmit, isValid } = useForgotPasswordForm()
 
   const onSubmit = (data: ForgotPasswordFormType) => {
-    forgotPassword(data)
+    console.log(data)
   }
 
   return (
