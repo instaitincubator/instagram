@@ -1,6 +1,6 @@
 import { getLayout } from '@/app/layouts/mainLayout/Layout'
 import { SignInForm } from '@/features/sign-in/SignInForm'
-import { useSignInMutation } from '@/pages/sign-in/route'
+import { useSignInMutation } from '@/services/signInApi'
 
 const SignIn = () => {
   const [signIn] = useSignInMutation()
