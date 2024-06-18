@@ -17,3 +17,5 @@ const signInApi = baseApi.injectEndpoints({
 })
 
 export const { useSignInMutation } = signInApi
+
+export default signInApi

@@ -17,3 +17,4 @@ const forgotPasswordApi = baseApi.injectEndpoints({
 })
 
 export const { useForgotPasswordMutation } = forgotPasswordApi
+export default forgotPasswordApi

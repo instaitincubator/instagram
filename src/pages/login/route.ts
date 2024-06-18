@@ -5,3 +5,5 @@ const LoginApi = baseApi.injectEndpoints({
     return {}
   },
 })
+
+export default LoginApi
