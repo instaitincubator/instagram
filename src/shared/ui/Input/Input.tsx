@@ -1,8 +1,8 @@
 import React, { ChangeEvent, ComponentPropsWithoutRef, useEffect, useState } from 'react'
 
-import { Search } from '@/shared/ui/icons/Search'
-import { CrossedEye } from '@/shared/ui/icons/crossedEye'
-import { Eye } from '@/shared/ui/icons/eye'
+import { Search } from '@/shared/ui/Icons/Search'
+import { CrossedEye } from '@/shared/ui/Icons/crossedEye'
+import { Eye } from '@/shared/ui/Icons/eye'
 import { clsx } from 'clsx'
 
 export type Props = {

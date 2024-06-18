@@ -1,6 +1,6 @@
 import { PropsWithChildren, ReactElement } from 'react'
 
-import { Header } from '@/shared/ui/header/Header'
+import { Header } from '@/shared/ui/Header/Header'
 import { NextPage } from 'next'
 import Link from 'next/link'
 

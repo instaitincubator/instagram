@@ -1,10 +1,10 @@
 import { ComponentProps, useState } from 'react'
 
 import Button from '@/shared/ui/Button/Button'
+import useIsMobile from '@/shared/ui/Header/useIsMobile'
+import { Menu } from '@/shared/ui/Icons/menu'
+import { Notification } from '@/shared/ui/Icons/notification'
 import { LanguageSelect } from '@/shared/ui/LanguageSelect/LanguageSelect'
-import useIsMobile from '@/shared/ui/header/useIsMobile'
-import { Menu } from '@/shared/ui/icons/menu'
-import { Notification } from '@/shared/ui/icons/notification'
 import { clsx } from 'clsx'
 
 import { useTranslation } from '../../../../hooks/useTranslation'
