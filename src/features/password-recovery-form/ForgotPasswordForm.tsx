@@ -1,7 +1,7 @@
 import { Controller } from 'react-hook-form'
 
 import {
-  Form,
+  ForgotPasswordFormType,
   useForgotPasswordForm,
 } from '@/features/password-recovery-form/useForgotPasswordForm'
 import Button from '@/shared/ui/Button/Button'
@@ -11,7 +11,7 @@ import { Input } from '@/shared/ui/Input/Input'
 export const ForgotPasswordForm = () => {
   const { control, errors, handleSubmit, isValid } = useForgotPasswordForm()
 
-  const onSubmit = (data: Form) => {
+  const onSubmit = (data: ForgotPasswordFormType) => {
     console.log(data)
   }
 
