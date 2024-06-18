@@ -2,6 +2,7 @@ import type { NextPage } from 'next'
 import type { AppProps } from 'next/app'
 
 import type { ReactElement, ReactNode } from 'react'
+import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3'
 import { Provider } from 'react-redux'
 
 import { store } from '@/app/store'
@@ -21,7 +22,9 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 
   return getLayout(
     <Provider store={store}>
-      <Component {...pageProps} />
+      <GoogleReCaptchaProvider reCaptchaKey="6Ld_KPspAAAAANpz6dDB_M-uRf4cFInmlHGcai4P">
+        <Component {...pageProps} />
+      </GoogleReCaptchaProvider>
     </Provider>
   )
 }
