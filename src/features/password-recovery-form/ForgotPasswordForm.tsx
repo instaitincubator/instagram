@@ -1,7 +1,8 @@
+import { GoogleReCaptcha } from 'react-google-recaptcha-v3'
 import { Controller } from 'react-hook-form'
 
 import {
-  Form,
+  ForgotPasswordFormType,
   useForgotPasswordForm,
 } from '@/features/password-recovery-form/useForgotPasswordForm'
 import Button from '@/shared/ui/Button/Button'
@@ -9,13 +10,13 @@ import { Card } from '@/shared/ui/Card/Card'
 import { Input } from '@/shared/ui/Input/Input'
 
 interface Props {
-  forgotPassword: (arg: Form) => void
+  forgotPassword: (arg: ForgotPasswordFormType) => void
 }
 
 export const ForgotPasswordForm = ({ forgotPassword }: Props) => {
   const { control, errors, handleSubmit, isValid } = useForgotPasswordForm()
 
-  const onSubmit = (data: Form) => {
+  const onSubmit = (data: ForgotPasswordFormType) => {
     forgotPassword(data)
   }
 
