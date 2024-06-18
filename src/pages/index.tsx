@@ -1,3 +1,6 @@
+import { useState } from 'react'
+import { ReCAPTCHA } from 'react-google-recaptcha'
+
 import { getLayout } from '@/app/layouts/mainLayout/Layout'
 
 export default function Home() {

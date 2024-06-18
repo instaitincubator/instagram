@@ -1,18 +1,22 @@
 import { Controller } from 'react-hook-form'
 
 import {
-  ForgotPasswordFormType,
+  Form,
   useForgotPasswordForm,
 } from '@/features/password-recovery-form/useForgotPasswordForm'
 import Button from '@/shared/ui/Button/Button'
 import { Card } from '@/shared/ui/Card/Card'
 import { Input } from '@/shared/ui/Input/Input'
 
-export const ForgotPasswordForm = () => {
+interface Props {
+  forgotPassword: (arg: Form) => void
+}
+
+export const ForgotPasswordForm = ({ forgotPassword }: Props) => {
   const { control, errors, handleSubmit, isValid } = useForgotPasswordForm()
 
-  const onSubmit = (data: ForgotPasswordFormType) => {
-    console.log(data)
+  const onSubmit = (data: Form) => {
+    forgotPassword(data)
   }
 
   return (
@@ -41,6 +45,11 @@ export const ForgotPasswordForm = () => {
         <Button as="a" fullWidth href="/login" type="button" variant="text">
           Back to Sign In
         </Button>
+        <Controller
+          control={control}
+          name="captcha"
+          render={({ field }) => <GoogleReCaptcha onVerify={field.onChange} {...field} />}
+        />
       </Card>
     </form>
   )
