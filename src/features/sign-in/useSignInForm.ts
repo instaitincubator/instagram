@@ -8,6 +8,10 @@ export interface SignInFormType {
   password: string
 }
 
+const passwordRegex = new RegExp(
+  /^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[ !"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~]).{6,20}$/
+)
+
 const schema = z.object({
   email: z
     .string()
@@ -19,13 +23,10 @@ const schema = z.object({
       message: 'The password must contain at least 6 characters',
     })
     .max(20, { message: 'The password must store a maximum of 20 characters' })
-    .regex(
-      /^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[ !"#$%&'()*+,./:;<=>?@[\\\]^_`{|}~])[a-zA-Z0-9 !"#$%&'()*+,./:;<=>?@[\\\]^_`{|}~]*$/,
-      {
-        message:
-          'The password must contain at least one digit, one uppercase letter, one lowercase letter, and one special character ( ! " # $ % & \' ( ) * + , . / : ; < = > ? @ [ \\ ] ^ _ ` { | } ~ )',
-      }
-    ),
+    .regex(passwordRegex, {
+      message:
+        'The password must contain at least one digit, one uppercase letter, one lowercase letter, and one special character.',
+    }),
 })
 
 export const useSignInForm = () => {

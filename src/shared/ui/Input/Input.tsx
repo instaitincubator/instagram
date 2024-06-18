@@ -39,7 +39,7 @@ export const Input = (props: Props) => {
     if (type === 'password') {
       setShowPassword(true)
     }
-  }, [])
+  }, [type])
 
   return (
     <div className={clsx(fullWidth ? 'w-full' : 'w-[240px]')}>
