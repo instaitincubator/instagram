@@ -3,11 +3,9 @@ import { SignInForm } from '@/features/sign-in/SignInForm'
 import { useSignInMutation } from '@/services/signInApi'
 
 const SignIn = () => {
-  const [signIn] = useSignInMutation()
-
   return (
     <>
-      <SignInForm signIn={signIn} />
+      <SignInForm />
     </>
   )
 }

@@ -1,19 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Controller } from 'react-hook-form'
 
 import { SignInFormType, useSignInForm } from '@/features/sign-in/useSignInForm'
+import { GoogleButton } from '@/services/auth/googleButtoon'
+import { useSignInMutation } from '@/services/signInApi'
 import Button from '@/shared/ui/Button/Button'
 import { Card } from '@/shared/ui/Card/Card'
 import { Input } from '@/shared/ui/Input/Input'
 import Image from 'next/image'
 import Link from 'next/link'
 
-interface Props {
-  signIn: (arg: SignInFormType) => void
-}
-
-export const SignInForm = ({ signIn }: Props) => {
+export const SignInForm = () => {
   const { control, errors, handleSubmit, isValid } = useSignInForm()
+  const [signIn] = useSignInMutation()
   const onSubmit = (data: SignInFormType) => {
     signIn(data)
   }
@@ -25,7 +24,7 @@ export const SignInForm = ({ signIn }: Props) => {
           <span className="text-h1">Sign In</span>
         </div>
         <div className="flex items-center gap-[60px] pt-2">
-          <Image alt="git" height={36} src="/google.svg" width={36} />
+          <GoogleButton />
           <Image alt="git" height={36} src="/git.svg" width={36} />
         </div>
         <div className="flex flex-col gap-[24px] pt-[24px]">
