@@ -9,6 +9,7 @@ export interface ForgotPasswordFormType {
 }
 
 const schema = z.object({
+  captcha: z.string().min(1),
   email: z
     .string()
     .min(1, { message: 'email required' })
@@ -18,12 +19,14 @@ const schema = z.object({
 export const useForgotPasswordForm = () => {
   const {
     control,
-    formState: { errors, isValid },
+    formState: { errors, validatingFields },
+    getValues,
     handleSubmit,
+    register,
   } = useForm<ForgotPasswordFormType>({
     mode: 'onSubmit',
     resolver: zodResolver(schema),
   })
 
-  return { control, errors, handleSubmit, isValid }
+  return { control, errors, getValues, handleSubmit, register, validatingFields }
 }

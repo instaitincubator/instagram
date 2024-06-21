@@ -1,4 +1,4 @@
-import { GoogleReCaptcha } from 'react-google-recaptcha-v3'
+import React, { useEffect } from 'react'
 import { Controller } from 'react-hook-form'
 
 import {
@@ -8,17 +8,33 @@ import {
 import Button from '@/shared/ui/Button/Button'
 import { Card } from '@/shared/ui/Card/Card'
 import { Input } from '@/shared/ui/Input/Input'
+import { Recaptcha } from '@/shared/ui/Recaptcha/Recaptcha'
+
+import config from '../../../config'
 
 interface Props {
   forgotPassword: (arg: ForgotPasswordFormType) => void
 }
 
 export const ForgotPasswordForm = ({ forgotPassword }: Props) => {
-  const { control, errors, handleSubmit, isValid } = useForgotPasswordForm()
+  const { control, errors, handleSubmit, register } = useForgotPasswordForm()
 
   const onSubmit = (data: ForgotPasswordFormType) => {
     forgotPassword(data)
   }
+
+  useEffect(() => {
+    const script = document.createElement('script')
+
+    script.src = 'https://www.google.com/recaptcha/api.js'
+    script.async = true
+    script.defer = true
+    document.body.appendChild(script)
+
+    return () => {
+      document.body.removeChild(script)
+    }
+  }, [])
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -38,19 +54,14 @@ export const ForgotPasswordForm = ({ forgotPassword }: Props) => {
           )}
         />
         <span className="text-regular-14 text-light-900 pb-[10px]">
-          Enter your email address and we will send you further instructions{' '}
+          Enter your email address and we will send you further instructions
         </span>
-        <Button disabled={!isValid} fullWidth>
-          Send Link
-        </Button>
+        <Button fullWidth>Send Link</Button>
         <Button as="a" fullWidth href="/login" type="button" variant="text">
           Back to Sign In
         </Button>
-        <Controller
-          control={control}
-          name="captcha"
-          render={({ field }) => <GoogleReCaptcha onVerify={field.onChange} {...field} />}
-        />
+        <div data-sitekey={config.captchaKey} data-theme="dark"></div>
+        <Recaptcha {...register('captcha')} />
       </Card>
     </form>
   )
