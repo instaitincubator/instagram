@@ -4,16 +4,16 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
 export interface ForgotPasswordFormType {
-  captcha: string
   email: string
+  recaptcha: string
 }
 
 const schema = z.object({
-  captcha: z.string().min(1),
   email: z
     .string()
     .min(1, { message: 'email required' })
     .email({ message: 'The email must match the format example@example.com' }),
+  recaptcha: z.string().min(1),
 })
 
 export const useForgotPasswordForm = () => {

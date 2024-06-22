@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react'
+import React from 'react'
+import ReCAPTCHA from 'react-google-recaptcha'
 import { Controller } from 'react-hook-form'
 
 import {
@@ -8,7 +9,6 @@ import {
 import Button from '@/shared/ui/Button/Button'
 import { Card } from '@/shared/ui/Card/Card'
 import { Input } from '@/shared/ui/Input/Input'
-import { Recaptcha } from '@/shared/ui/Recaptcha/Recaptcha'
 
 import config from '../../../config'
 
@@ -17,24 +17,11 @@ interface Props {
 }
 
 export const ForgotPasswordForm = ({ forgotPassword }: Props) => {
-  const { control, errors, handleSubmit, register } = useForgotPasswordForm()
+  const { control, errors, handleSubmit } = useForgotPasswordForm()
 
   const onSubmit = (data: ForgotPasswordFormType) => {
     forgotPassword(data)
   }
-
-  useEffect(() => {
-    const script = document.createElement('script')
-
-    script.src = 'https://www.google.com/recaptcha/api.js'
-    script.async = true
-    script.defer = true
-    document.body.appendChild(script)
-
-    return () => {
-      document.body.removeChild(script)
-    }
-  }, [])
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -60,8 +47,11 @@ export const ForgotPasswordForm = ({ forgotPassword }: Props) => {
         <Button as="a" fullWidth href="/login" type="button" variant="text">
           Back to Sign In
         </Button>
-        <div data-sitekey={config.captchaKey} data-theme="dark"></div>
-        <Recaptcha {...register('captcha')} />
+        <Controller
+          control={control}
+          name="recaptcha"
+          render={({ field }) => <ReCAPTCHA {...field} sitekey={config.captchaKey!} theme="dark" />}
+        />
       </Card>
     </form>
   )
