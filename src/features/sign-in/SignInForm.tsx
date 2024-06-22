@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Controller } from 'react-hook-form'
 
 import { SignInFormType, useSignInForm } from '@/features/sign-in/useSignInForm'
-import { GoogleButton } from '@/services/auth/googleButtoon'
-import { useSignInMutation } from '@/services/signInApi'
+import { useSignInMutation } from '@/services/auth/signInApi'
 import Button from '@/shared/ui/Button/Button'
 import { Card } from '@/shared/ui/Card/Card'
 import { Input } from '@/shared/ui/Input/Input'
-import Image from 'next/image'
+import { GithubAuth } from '@/shared/ui/githubAuth'
+import { GoogleButton } from '@/shared/ui/googleAuth'
 import Link from 'next/link'
 
 export const SignInForm = () => {
@@ -25,7 +25,7 @@ export const SignInForm = () => {
         </div>
         <div className="flex items-center gap-[60px] pt-2">
           <GoogleButton />
-          <Image alt="git" height={36} src="/git.svg" width={36} />
+          <GithubAuth />
         </div>
         <div className="flex flex-col gap-[24px] pt-[24px]">
           <Controller
