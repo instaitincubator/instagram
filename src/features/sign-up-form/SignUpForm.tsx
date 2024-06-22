@@ -12,7 +12,7 @@ interface Props {
 }
 
 export const SignUpForm = ({ SignUp }: Props) => {
-  const { control, errors, handleSubmit } = useSignUpForm()
+  const { control, errors, handleSubmit, isValid } = useSignUpForm()
 
   const onSubmit = (data: SignUpFormType) => {
     SignUp(data)
@@ -89,20 +89,27 @@ export const SignUpForm = ({ SignUp }: Props) => {
             )}
           />
 
-          <Checkbox
-            checked
-            className="mb-[22px] text-small ml-[15px]"
-            label="I agree to the Terms of Service and Privacy Policy"
+          <Controller
+            control={control}
+            name="password"
+            render={({ field }) => (
+              <Checkbox
+                {...field}
+                checked
+                className="mb-[22px] text-small ml-[15px]"
+                label="I agree to the Terms of Service and Privacy Policy"
+              />
+            )}
           />
         </div>
 
-        <Button className="btn-primary mb-[20px]" fullWidth>
+        <Button className="btn-primary mb-[20px]" fullWidth disabled={!isValid}>
           Sign Up
         </Button>
 
         <p className="text-light-100 text-center mb-[6px]">Do you have an account?</p>
 
-        <Button fullWidth variant="text">
+        <Button fullWidth variant="text" type="button">
           Sign In
         </Button>
       </Card>
