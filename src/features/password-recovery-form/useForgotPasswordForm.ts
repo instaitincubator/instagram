@@ -19,14 +19,13 @@ const schema = z.object({
 export const useForgotPasswordForm = () => {
   const {
     control,
-    formState: { errors, validatingFields },
+    formState: { errors, isDirty, isValid },
     getValues,
     handleSubmit,
-    register,
   } = useForm<ForgotPasswordFormType>({
     mode: 'onSubmit',
     resolver: zodResolver(schema),
   })
 
-  return { control, errors, getValues, handleSubmit, register, validatingFields }
+  return { control, errors, getValues, handleSubmit, isDirty, isValid }
 }

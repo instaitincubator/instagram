@@ -58,7 +58,7 @@ export const Input = (props: Props) => {
           )}
           disabled={disabled}
           onChange={handleChange}
-          placeholder={placeholder}
+          placeholder={type === 'password' ? '*****************' : placeholder}
           type={showPassword ? 'password' : 'text'}
           value={props.value}
         />
