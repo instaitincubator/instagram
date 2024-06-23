@@ -1,18 +1,17 @@
 import { useForm } from 'react-hook-form'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { regex } from 'github-slugger/regex'
-import { ZodError, z } from 'zod'
+import { z } from 'zod'
 
 export interface NewPasswordFormType {
+  NewPassword: string
   confirm: string
-  newPassword: string
   passwordConfirm: string
 }
 
 const schema = z
   .object({
-    newPassword: z
+    NewPassword: z
       .string()
       .min(6, {
         message: 'The password must contain at least 6 characters',
@@ -39,7 +38,7 @@ const schema = z
         }
       ),
   })
-  .refine(data => data.newPassword === data.passwordConfirm, {
+  .refine(data => data.NewPassword === data.passwordConfirm, {
     message: 'The passwords must match',
     path: ['confirm'],
   })
