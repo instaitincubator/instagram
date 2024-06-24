@@ -1,11 +1,12 @@
-import { SignUpFormType, useSignUpForm } from '@/features/sign-up-form/useSignUpForm'
-import { Card } from '@/shared/ui/Card/Card'
-import { Input } from '@/shared/ui/Input/Input'
 import { Controller } from 'react-hook-form'
+
+import { SignUpFormType, useSignUpForm } from '@/features/sign-up-form/useSignUpForm'
+import Button from '@/shared/ui/Button/Button'
+import { Card } from '@/shared/ui/Card/Card'
+import { Checkbox } from '@/shared/ui/Checkbox/Checkbox'
+import { Input } from '@/shared/ui/Input/Input'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Checkbox } from '@/shared/ui/Checkbox/Checkbox'
-import Button from '@/shared/ui/Button/Button'
 
 interface Props {
   SignUp: (arg: SignUpFormType) => void
@@ -71,6 +72,7 @@ export const SignUpForm = ({ SignUp }: Props) => {
                 fullWidth
                 label="Password"
                 placeholder="******************"
+                type="password"
               />
             )}
           />
@@ -85,13 +87,14 @@ export const SignUpForm = ({ SignUp }: Props) => {
                 fullWidth
                 label="Password confirmation"
                 placeholder="******************"
+                type="password"
               />
             )}
           />
 
           <Controller
             control={control}
-            name="password"
+            name="passwordConfirmation"
             render={({ field }) => (
               <Checkbox
                 {...field}
@@ -103,13 +106,13 @@ export const SignUpForm = ({ SignUp }: Props) => {
           />
         </div>
 
-        <Button className="btn-primary mb-[20px]" fullWidth disabled={!isValid}>
+        <Button className="btn-primary mb-[20px]" disabled={!isValid} fullWidth>
           Sign Up
         </Button>
 
         <p className="text-light-100 text-center mb-[6px]">Do you have an account?</p>
 
-        <Button fullWidth variant="text" type="button">
+        <Button fullWidth type="button" variant="text">
           Sign In
         </Button>
       </Card>
