@@ -23,12 +23,12 @@ export const Modal: FC<PropsWithChildren<ModalProps>> = props => {
   }, [onClose])
 
   return (
-    <div className="fixed z-10 inset-0 flex flex-col items-center justify-center text-light-100">
+    <div className="fixed z-30 inset-0 flex flex-col items-center justify-center text-light-100">
       <div
-        className="fixed inset-0 z-20 w-full h-full bg-dark-900 bg-opacity-60"
+        className="fixed inset-0 z-40 w-full h-full bg-dark-900 bg-opacity-60"
         onClick={onClose}
       />
-      <div className="bg-dark-300 z-30 overflow-auto border border-dark-100">
+      <div className="bg-dark-300 z-50 overflow-auto border border-dark-100">
         <header className="flex justify-between items-center px-6 py-3 border-b border-dark-100">
           <h2 className="text-h1">{title}</h2>
           <button className="h-6" onClick={onClose} type={'button'}>
