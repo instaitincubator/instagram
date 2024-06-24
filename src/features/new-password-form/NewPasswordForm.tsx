@@ -20,8 +20,8 @@ export const NewPasswordForm = ({ code }: Props) => {
   const router = useRouter()
   const [newPasswordRequest, { isSuccess }] = useNewPasswordMutation()
 
-  const onSubmit = ({ NewPassword }: NewPasswordFormType) => {
-    newPasswordRequest({ NewPassword, recoveryCode: code })
+  const onSubmit = ({ newPassword }: NewPasswordFormType) => {
+    newPasswordRequest({ newPassword, recoveryCode: code })
     if (!isSuccess) {
       router.push('/sign-in')
     }
@@ -34,13 +34,13 @@ export const NewPasswordForm = ({ code }: Props) => {
         <div className="flex flex-col gap-[24px] w-full">
           <Controller
             control={control}
-            name="NewPassword"
+            name="newPassword"
             render={({ field }) => (
               <Input
                 {...field}
-                error={errors.NewPassword?.message}
+                error={errors.newPassword?.message}
                 fullWidth
-                label="new Password"
+                label="New Password"
                 type="password"
               />
             )}
