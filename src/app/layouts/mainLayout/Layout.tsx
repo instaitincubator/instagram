@@ -8,7 +8,7 @@ export const Layout: NextPage<PropsWithChildren> = props => {
   const { children } = props
 
   return (
-    <div className="flex flex-col h-screen justify-between items-center flex-wrap text-light-100 bg-dark-700 min-w-[360]">
+    <div className="flex flex-col min-h-screen justify-between items-center flex-wrap text-light-100 bg-dark-700 min-w-[360]">
       <Header />
       <div>{children}</div>
       <div className="flex gap-4 justify-center h-[60px]">
