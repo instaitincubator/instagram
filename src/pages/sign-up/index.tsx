@@ -1,14 +1,30 @@
+import { useState } from 'react'
+
 import { getLayout } from '@/app/layouts/mainLayout/Layout'
 import Button from '@/shared/ui/Button/Button'
 import { Card } from '@/shared/ui/Card/Card'
 import { Checkbox } from '@/shared/ui/Checkbox/Checkbox'
 import { Input } from '@/shared/ui/Input/Input'
+import { Modal } from '@/shared/ui/Modal/Modal'
 import Image from 'next/image'
 import Link from 'next/link'
 
 export default function SignUp() {
+  const [isOpenModal, setIsOpenModal] = useState(false)
+  const onCloseHandler = () => {
+    setIsOpenModal(false)
+  }
+
   return (
     <div>
+      {isOpenModal && (
+        <Modal onClose={onCloseHandler} title={'модалка'}>
+          <div>We have sent a link to confirm your email to (тут будет email)</div>
+          <Button className="" onClick={onCloseHandler}>
+            OK
+          </Button>
+        </Modal>
+      )}
       <Card className="w-[378px] h-[648px] mx-auto my-auto p-[24px]">
         <h1 className="text-light-100 text-h1 text-center mb-[13px]">Sign Up</h1>
 
@@ -27,16 +43,23 @@ export default function SignUp() {
           <Input fullWidth label="Password" placeholder="******************" />
           <Input fullWidth label="Password confirmation" placeholder="******************" />
         </div>
-
-        <Checkbox
-          checked
-          className="mb-[22px] text-small ml-[15px]"
-          label="I agree to the Terms of Service and Privacy Policy"
-        />
+        <div className="flex items-center">
+          <Checkbox checked className="mb-[22px] text-small ml-[15px]" />
+          <div className="ml-5 gap-0.5 text-[12px] mb-[22px]">
+            <span>I Agree </span>
+            <Link className={'text-blue-500 underline'} href={'/termsOfService'}>
+              Terms Of Service
+            </Link>
+            <span> and </span>
+            <Link className={'text-blue-500 underline'} href={'/privacy'}>
+              Privacy Policy
+            </Link>
+          </div>
+        </div>
 
         {/*<p className="text-small text-light-100">Test</p>*/}
 
-        <Button className="btn-primary mb-[20px]" fullWidth>
+        <Button className="btn-primary mb-[20px]" fullWidth onClick={() => setIsOpenModal(true)}>
           Sign Up
         </Button>
 
