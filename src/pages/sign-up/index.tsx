@@ -43,12 +43,19 @@ export default function SignUp() {
           <Input fullWidth label="Password" placeholder="******************" />
           <Input fullWidth label="Password confirmation" placeholder="******************" />
         </div>
-
-        <Checkbox
-          checked
-          className="mb-[22px] text-small ml-[15px]"
-          label="I agree to the Terms of Service and Privacy Policy"
-        />
+        <div className="flex items-center">
+          <Checkbox checked className="mb-[22px] text-small ml-[15px]" />
+          <div className="ml-5 gap-0.5 text-[12px] mb-[22px]">
+            <span>I Agree </span>
+            <Link className={'text-blue-500 underline'} href={'/termsOfService'}>
+              Terms Of Service
+            </Link>
+            <span> and </span>
+            <Link className={'text-blue-500 underline'} href={'/privacy'}>
+              Privacy Policy
+            </Link>
+          </div>
+        </div>
 
         {/*<p className="text-small text-light-100">Test</p>*/}
 
