@@ -37,13 +37,7 @@ export const SignInForm = () => {
             control={control}
             name="password"
             render={({ field }) => (
-              <Input
-                {...field}
-                error={errors.password?.message}
-                label="Password"
-                placeholder="***********"
-                type="password"
-              />
+              <Input {...field} error={errors.password?.message} label="Password" type="password" />
             )}
           />
         </div>

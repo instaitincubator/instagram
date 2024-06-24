@@ -1,20 +1,22 @@
-import { GoogleReCaptcha } from 'react-google-recaptcha-v3'
+import React from 'react'
+import ReCAPTCHA from 'react-google-recaptcha'
 import { Controller } from 'react-hook-form'
 
 import {
   ForgotPasswordFormType,
   useForgotPasswordForm,
 } from '@/features/password-recovery-form/useForgotPasswordForm'
+import { useForgotPasswordMutation } from '@/services/auth/forgotPasswordApi'
 import Button from '@/shared/ui/Button/Button'
 import { Card } from '@/shared/ui/Card/Card'
 import { Input } from '@/shared/ui/Input/Input'
 
-interface Props {
-  forgotPassword: (arg: ForgotPasswordFormType) => void
-}
+import config from '../../../config'
 
-export const ForgotPasswordForm = ({ forgotPassword }: Props) => {
-  const { control, errors, handleSubmit, isValid } = useForgotPasswordForm()
+export const ForgotPasswordForm = () => {
+  const [forgotPassword] = useForgotPasswordMutation()
+
+  const { control, errors, handleSubmit, isDirty, isValid } = useForgotPasswordForm()
 
   const onSubmit = (data: ForgotPasswordFormType) => {
     forgotPassword(data)
@@ -38,9 +40,9 @@ export const ForgotPasswordForm = ({ forgotPassword }: Props) => {
           )}
         />
         <span className="text-regular-14 text-light-900 pb-[10px]">
-          Enter your email address and we will send you further instructions{' '}
+          Enter your email address and we will send you further instructions
         </span>
-        <Button disabled={!isValid} fullWidth>
+        <Button disabled={!isValid || !isDirty} fullWidth>
           Send Link
         </Button>
         <Button as="a" fullWidth href="/login" type="button" variant="text">
@@ -48,8 +50,8 @@ export const ForgotPasswordForm = ({ forgotPassword }: Props) => {
         </Button>
         <Controller
           control={control}
-          name="captcha"
-          render={({ field }) => <GoogleReCaptcha onVerify={field.onChange} {...field} />}
+          name="recaptcha"
+          render={({ field }) => <ReCAPTCHA {...field} sitekey={config.captchaKey!} theme="dark" />}
         />
       </Card>
     </form>
