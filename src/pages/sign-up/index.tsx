@@ -1,14 +1,30 @@
+import { useState } from 'react'
+
 import { getLayout } from '@/app/layouts/mainLayout/Layout'
 import Button from '@/shared/ui/Button/Button'
 import { Card } from '@/shared/ui/Card/Card'
 import { Checkbox } from '@/shared/ui/Checkbox/Checkbox'
 import { Input } from '@/shared/ui/Input/Input'
+import { Modal } from '@/shared/ui/Modal/Modal'
 import Image from 'next/image'
 import Link from 'next/link'
 
 export default function SignUp() {
+  const [isOpenModal, setIsOpenModal] = useState(false)
+  const onCloseHandler = () => {
+    setIsOpenModal(false)
+  }
+
   return (
     <div>
+      {isOpenModal && (
+        <Modal onClose={onCloseHandler} title={'модалка'}>
+          <div>We have sent a link to confirm your email to (тут будет email)</div>
+          <Button className="" onClick={onCloseHandler}>
+            OK
+          </Button>
+        </Modal>
+      )}
       <Card className="w-[378px] h-[648px] mx-auto my-auto p-[24px]">
         <h1 className="text-light-100 text-h1 text-center mb-[13px]">Sign Up</h1>
 
@@ -36,7 +52,7 @@ export default function SignUp() {
 
         {/*<p className="text-small text-light-100">Test</p>*/}
 
-        <Button className="btn-primary mb-[20px]" fullWidth>
+        <Button className="btn-primary mb-[20px]" fullWidth onClick={() => setIsOpenModal(true)}>
           Sign Up
         </Button>
 
