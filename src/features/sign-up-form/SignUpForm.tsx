@@ -79,7 +79,7 @@ export const SignUpForm = ({ SignUp }: Props) => {
 
           <Controller
             control={control}
-            name="password"
+            name="confirmPassword"
             render={({ field }) => (
               <Input
                 {...field}
@@ -94,7 +94,7 @@ export const SignUpForm = ({ SignUp }: Props) => {
 
           <Controller
             control={control}
-            name="passwordConfirmation"
+            name="checkboxPolicy"
             render={({ field }) => (
               <Checkbox
                 {...field}
