@@ -13,10 +13,15 @@ interface Props {
 }
 
 export const SignUpForm = ({ SignUp }: Props) => {
-  const { control, errors, handleSubmit, isDirty } = useSignUpForm()
+  const { control, errors, getValues, handleSubmit, isDirty } = useSignUpForm()
 
   const onSubmit = (data: SignUpFormType) => {
-    SignUp(data)
+    SignUp({
+      baseUrl: 'breezeapp.club',
+      email: data.email,
+      password: data.password,
+      userName: data.userName,
+    })
   }
 
   return (
@@ -36,11 +41,11 @@ export const SignUpForm = ({ SignUp }: Props) => {
         <div className="flex flex-col gap-[20px] mb-[20px]">
           <Controller
             control={control}
-            name="username"
+            name="userName"
             render={({ field }) => (
               <Input
                 {...field}
-                error={errors.username?.message}
+                error={errors.userName?.message}
                 fullWidth
                 label="Username"
                 placeholder="Epam11"
@@ -90,22 +95,32 @@ export const SignUpForm = ({ SignUp }: Props) => {
             )}
           />
 
-          <Controller
-            control={control}
-            name="checkboxPolicy"
-            render={({ field }) => (
-              <Checkbox
-                checked
-                className="mb-[22px] text-small ml-[15px]"
-                label="I agree to the
-                Terms of Service
-                and Privacy Policy"
-              />
-            )}
-          />
+          <div className="flex justify-start">
+            <Controller
+              control={control}
+              name="checkboxPolicy"
+              render={({ field }) => (
+                <Checkbox checked className="mb-[22px] text-small ml-[15px]" />
+              )}
+            />
+            <div className="ml-5 gap-0.5 text-[12px] mb-[22px]">
+              <span>I Agree </span>
+              <Link className={'text-blue-500 underline'} href={'/termsOfService'}>
+                Terms Of Service
+              </Link>
+              <span> and </span>
+              <Link className={'text-blue-500 underline'} href={'/privacy'}>
+                Privacy Policy
+              </Link>
+            </div>
+          </div>
         </div>
 
-        <Button className="btn-primary mb-[20px]" disabled={!isDirty} fullWidth>
+        <Button
+          className="btn-primary mb-[20px]"
+          disabled={!getValues().checkboxPolicy || !isDirty}
+          fullWidth
+        >
           Sign Up
         </Button>
 

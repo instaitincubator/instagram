@@ -8,12 +8,12 @@ export interface SignUpFormType {
   confirmPassword: string
   email: string
   password: string
-  username: string
+  userName: string
 }
 
 const schema = z
   .object({
-    accept: z.literal(true, {
+    checkboxPolicy: z.literal(true, {
       invalid_type_error: 'You must accept Terms of Service and Privacy Policy',
     }),
     confirmPassword: z.string(),
@@ -33,13 +33,13 @@ const schema = z
         }
       ),
 
-    username: z
+    userName: z
       .string()
       .min(6, { message: 'The username must contain min 6 characters' })
       .max(30, { message: 'The username must contain max 30 characters' })
       .regex(/^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[_ -])*$/, {
         message:
-          'The password must contain at least one digit, one uppercase letter, one lowercase letter, and one special character ( _ -)',
+          'The username must contain at least one digit, one uppercase letter, one lowercase letter, and one special character ( _ -)',
       }),
   })
   .refine(
