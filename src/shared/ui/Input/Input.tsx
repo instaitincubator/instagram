@@ -39,7 +39,7 @@ export const Input = (props: Props) => {
     if (type === 'password') {
       setShowPassword(true)
     }
-  }, [])
+  }, [type])
 
   return (
     <div className={clsx(fullWidth ? 'w-full' : 'w-[240px]')}>
@@ -47,10 +47,10 @@ export const Input = (props: Props) => {
       <div className="relative flex w-full">
         <input
           className={clsx(
-            'peer/input text-light-100 disabled:opacity-50 placeholder:select-none active:placeholder:text-light-100 focus:placeholder:text-light-100 placeholder:text-regular-16 text-regular-16 focus:border-accent-500 active:border-light-100 w-full h-[36px] placeholder:text-light-900 rounded pl-[10px] border-[2px] bg-transparent hover:bg-dark-700 hover:border-dark-100',
+            'peer/input text-light-100 disabled:opacity-50 placeholder:select-none active:placeholder:text-light-100 focus:placeholder:text-transparent placeholder:text-regular-16 text-regular-16 focus:border-accent-500 active:border-light-100 w-full h-[36px] placeholder:text-light-900 rounded pl-[10px] border-[2px] bg-transparent hover:bg-dark-700 ',
             {
               'border-danger-500 placeholder:text-light-100': error,
-              'border-dark-300': !error,
+              'border-dark-300 hover:border-dark-100': !error,
               className,
               'pr-[20px], pl-[30px]': type === 'search',
               'pr-[35px]': type === 'password',
@@ -58,7 +58,7 @@ export const Input = (props: Props) => {
           )}
           disabled={disabled}
           onChange={handleChange}
-          placeholder={placeholder}
+          placeholder={type === 'password' ? '*****************' : placeholder}
           type={showPassword ? 'password' : 'text'}
           value={props.value}
         />
