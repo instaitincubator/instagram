@@ -13,7 +13,7 @@ interface Props {
 }
 
 export const SignUpForm = ({ SignUp }: Props) => {
-  const { control, errors, handleSubmit, isValid } = useSignUpForm()
+  const { control, errors, handleSubmit, isDirty } = useSignUpForm()
 
   const onSubmit = (data: SignUpFormType) => {
     SignUp(data)
@@ -21,7 +21,7 @@ export const SignUpForm = ({ SignUp }: Props) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Card className="w-[378px] h-[648px] mx-auto my-auto p-[24px]">
+      <Card className="w-[378px] mx-auto my-auto p-[24px]">
         <h1 className="text-light-100 text-h1 text-center mb-[13px]">Sign Up</h1>
 
         <div className="flex justify-evenly mb-[24px]">
@@ -71,7 +71,6 @@ export const SignUpForm = ({ SignUp }: Props) => {
                 error={errors.password?.message}
                 fullWidth
                 label="Password"
-                placeholder="******************"
                 type="password"
               />
             )}
@@ -86,7 +85,6 @@ export const SignUpForm = ({ SignUp }: Props) => {
                 error={errors.confirmPassword?.message}
                 fullWidth
                 label="Password confirmation"
-                placeholder="******************"
                 type="password"
               />
             )}
@@ -107,7 +105,7 @@ export const SignUpForm = ({ SignUp }: Props) => {
           />
         </div>
 
-        <Button className="btn-primary mb-[20px]" disabled={!isValid} fullWidth>
+        <Button className="btn-primary mb-[20px]" disabled={!isDirty} fullWidth>
           Sign Up
         </Button>
 

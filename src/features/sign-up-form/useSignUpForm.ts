@@ -55,7 +55,7 @@ const schema = z
 export const useSignUpForm = () => {
   const {
     control,
-    formState: { errors, isValid },
+    formState: { errors, isDirty },
     getValues,
     handleSubmit,
   } = useForm<SignUpFormType>({
@@ -63,5 +63,5 @@ export const useSignUpForm = () => {
     resolver: zodResolver(schema),
   })
 
-  return { control, errors, getValues, handleSubmit, isValid }
+  return { control, errors, getValues, handleSubmit, isDirty }
 }
