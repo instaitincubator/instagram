@@ -56,11 +56,12 @@ export const useSignUpForm = () => {
   const {
     control,
     formState: { errors, isValid },
+    getValues,
     handleSubmit,
   } = useForm<SignUpFormType>({
     mode: 'onSubmit',
     resolver: zodResolver(schema),
   })
 
-  return { control, errors, handleSubmit, isValid }
+  return { control, errors, getValues, handleSubmit, isValid }
 }
