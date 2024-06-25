@@ -1,6 +1,7 @@
 import { Controller } from 'react-hook-form'
 
 import { SignUpFormType, useSignUpForm } from '@/features/sign-up-form/useSignUpForm'
+import { useSignUpMutation } from '@/services/signUpApi'
 import Button from '@/shared/ui/Button/Button'
 import { Card } from '@/shared/ui/Card/Card'
 import { Checkbox } from '@/shared/ui/Checkbox/Checkbox'
@@ -8,12 +9,9 @@ import { Input } from '@/shared/ui/Input/Input'
 import Image from 'next/image'
 import Link from 'next/link'
 
-interface Props {
-  SignUp: (arg: SignUpFormType) => void
-}
-
-export const SignUpForm = ({ SignUp }: Props) => {
+export const SignUpForm = () => {
   const { control, errors, getValues, handleSubmit, isDirty } = useSignUpForm()
+  const [SignUp] = useSignUpMutation()
 
   const onSubmit = (data: SignUpFormType) => {
     SignUp({
@@ -100,7 +98,7 @@ export const SignUpForm = ({ SignUp }: Props) => {
               control={control}
               name="checkboxPolicy"
               render={({ field }) => (
-                <Checkbox checked className="mb-[22px] text-small ml-[15px]" />
+                <Checkbox {...field} className="mb-[22px] text-small ml-[15px]" />
               )}
             />
             <div className="ml-5 gap-0.5 text-[12px] mb-[22px]">
