@@ -40,7 +40,7 @@ export const SignUpForm = ({ SignUp }: Props) => {
             render={({ field }) => (
               <Input
                 {...field}
-                error={errors.email?.message}
+                error={errors.username?.message}
                 fullWidth
                 label="Username"
                 placeholder="Epam11"
@@ -68,7 +68,7 @@ export const SignUpForm = ({ SignUp }: Props) => {
             render={({ field }) => (
               <Input
                 {...field}
-                error={errors.email?.message}
+                error={errors.password?.message}
                 fullWidth
                 label="Password"
                 placeholder="******************"
@@ -83,7 +83,7 @@ export const SignUpForm = ({ SignUp }: Props) => {
             render={({ field }) => (
               <Input
                 {...field}
-                error={errors.email?.message}
+                error={errors.confirmPassword?.message}
                 fullWidth
                 label="Password confirmation"
                 placeholder="******************"
@@ -97,10 +97,11 @@ export const SignUpForm = ({ SignUp }: Props) => {
             name="checkboxPolicy"
             render={({ field }) => (
               <Checkbox
-                {...field}
                 checked
                 className="mb-[22px] text-small ml-[15px]"
-                label="I agree to the Terms of Service and Privacy Policy"
+                label="I agree to the
+                Terms of Service
+                and Privacy Policy"
               />
             )}
           />
