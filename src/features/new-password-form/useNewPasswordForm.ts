@@ -4,14 +4,14 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
 export interface NewPasswordFormType {
-  NewPassword: string
   confirm: string
+  newPassword: string
   passwordConfirm: string
 }
 
 const schema = z
   .object({
-    NewPassword: z
+    newPassword: z
       .string()
       .min(6, {
         message: 'The password must contain at least 6 characters',
@@ -38,7 +38,7 @@ const schema = z
         }
       ),
   })
-  .refine(data => data.NewPassword === data.passwordConfirm, {
+  .refine(data => data.newPassword === data.passwordConfirm, {
     message: 'The passwords must match',
     path: ['confirm'],
   })
