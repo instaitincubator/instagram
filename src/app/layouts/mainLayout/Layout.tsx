@@ -21,6 +21,7 @@ export const Layout: NextPage<PropsWithChildren> = props => {
         <Link href={'/profile'}>profile</Link>
         <Link href={'/settings'}>settings</Link>
         <Link href={'/statistics'}>statistics</Link>
+        <Link href={'/github'}>gitHub</Link>
       </div>
     </div>
   )
