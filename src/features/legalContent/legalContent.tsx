@@ -27,7 +27,7 @@ export const LegalContent = ({ content, labelButton, title }: PropsType) => {
       </div>
       <div className="mx-[161px] flex flex-col items-center text-center ">
         <h1 className={'text-h1 my-[20px]'}>{title}</h1>
-        <p className={'text-[14px]'}>{content}</p>
+        <div className={'text-[14px]'}>{content}</div>
       </div>
     </div>
   )

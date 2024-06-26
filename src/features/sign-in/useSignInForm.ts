@@ -3,32 +3,36 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
+import { useTranslation } from '../../../hooks/useTranslation'
+import { LocaleType } from '../../../locales/english'
+
 export interface SignInFormType {
   email: string
   password: string
 }
 
-const schema = z.object({
-  email: z
-    .string()
-    .min(1, { message: 'email required' })
-    .email({ message: 'The email must match the format example@example.com' }),
-  password: z
-    .string()
-    .min(6, {
-      message: 'The password must contain at least 6 characters',
-    })
-    .max(20, { message: 'The password must store a maximum of 20 characters' })
-    .regex(
-      /^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[ !"#$%&'()*+,./:;<=>?@[\\\]^_`{|}~])[a-zA-Z0-9 !"#$%&'()*+,./:;<=>?@[\\\]^_`{|}~]*$/,
-      {
-        message:
-          'The password must contain at least one digit, one uppercase letter, one lowercase letter, and one special character ( ! " # $ % & \' ( ) * + , . / : ; < = > ? @ [ \\ ] ^ _ ` { | } ~ )',
-      }
-    ),
-})
+const schema = (t: LocaleType) =>
+  z.object({
+    email: z
+      .string()
+      .min(1, { message: t.auth.field_required })
+      .email({ message: `${t.auth.email_val} example@example.com` }),
+    password: z
+      .string()
+      .min(6, {
+        message: t.auth.passwordMin,
+      })
+      .max(20, { message: t.auth.passwordMax })
+      .regex(
+        /^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[ !"#$%&'()*+,./:;<=>?@[\\\]^_`{|}~])[a-zA-Z0-9 !"#$%&'()*+,./:;<=>?@[\\\]^_`{|}~]*$/,
+        {
+          message: t.auth.passwordValidMessage,
+        }
+      ),
+  })
 
 export const useSignInForm = () => {
+  const { t } = useTranslation()
   const {
     control,
     formState: { errors, isValid },
@@ -36,7 +40,7 @@ export const useSignInForm = () => {
   } = useForm<SignInFormType>({
     defaultValues: { email: '' },
     mode: 'onSubmit',
-    resolver: zodResolver(schema),
+    resolver: zodResolver(schema(t)),
   })
 
   return { control, errors, handleSubmit, isValid }
