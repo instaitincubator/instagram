@@ -33,14 +33,7 @@ const schema = z
         }
       ),
 
-    userName: z
-      .string()
-      .min(6, { message: 'The username must contain min 6 characters' })
-      .max(30, { message: 'The username must contain max 30 characters' })
-      .regex(/^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[_ -])*$/, {
-        message:
-          'The username must contain at least one digit, one uppercase letter, one lowercase letter, and one special character ( _ -)',
-      }),
+    userName: z.string(),
   })
   .refine(
     values => {

@@ -15,7 +15,7 @@ export const SignUpForm = () => {
 
   const onSubmit = (data: SignUpFormType) => {
     SignUp({
-      baseUrl: 'breezeapp.club',
+      baseUrl: 'http://localhost:3000',
       email: data.email,
       password: data.password,
       userName: data.userName,
@@ -114,11 +114,7 @@ export const SignUpForm = () => {
           </div>
         </div>
 
-        <Button
-          className="btn-primary mb-[20px]"
-          disabled={!getValues().checkboxPolicy || !isDirty}
-          fullWidth
-        >
+        <Button className="btn-primary mb-[20px]" fullWidth>
           Sign Up
         </Button>
 
