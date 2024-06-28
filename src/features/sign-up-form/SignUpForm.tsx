@@ -13,7 +13,6 @@ import { useTranslation } from '../../../hooks/useTranslation'
 
 export const SignUpForm = () => {
   const { t } = useTranslation()
-  const { control, errors, getValues, handleSubmit, isDirty } = useSignUpForm()
   const { control, errors, handleSubmit, isDirty, isValid } = useSignUpForm()
   const [SignUp] = useSignUpMutation()
 
