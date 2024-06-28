@@ -29,7 +29,7 @@ export const NewPasswordForm = ({ code }: Props) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Card className="flex flex-col items-center w-[378px] p-[24px] ">
+      <Card className="bg-dark-700 p-[15px] sm:bg-dark-500 sm:p-[24px] sm:max-w-[378px] sm:m-auto  flex flex-col items-center   gap-2">
         <span className="pb-[20px] text-h1">Create New Password</span>
         <div className="flex flex-col gap-[24px] w-full">
           <Controller
