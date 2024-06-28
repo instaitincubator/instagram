@@ -14,11 +14,12 @@ import { useTranslation } from '../../../hooks/useTranslation'
 export const SignUpForm = () => {
   const { t } = useTranslation()
   const { control, errors, getValues, handleSubmit, isDirty } = useSignUpForm()
+  const { control, errors, handleSubmit, isDirty, isValid } = useSignUpForm()
   const [SignUp] = useSignUpMutation()
 
   const onSubmit = (data: SignUpFormType) => {
     SignUp({
-      baseUrl: 'breezeapp.club',
+      baseUrl: 'http://localhost:3000',
       email: data.email,
       password: data.password,
       userName: data.userName,
@@ -116,17 +117,10 @@ export const SignUpForm = () => {
             </div>
           </div>
         </div>
-
-        <Button
-          className="btn-primary mb-[20px]"
-          disabled={!getValues().checkboxPolicy || !isDirty}
-          fullWidth
-        >
+        <Button className="btn-primary mb-[20px]" disabled={!isDirty || !isValid} fullWidth>
           {t.auth.signUp}
         </Button>
-
         <p className="text-light-100 text-center mb-[6px]">{t.auth.doYouHaveAnAccount}</p>
-
         <Button fullWidth type="button" variant="text">
           {t.auth.signIn}
         </Button>

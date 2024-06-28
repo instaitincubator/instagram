@@ -9,16 +9,23 @@ import { Input } from '@/shared/ui/Input/Input'
 import { GithubAuth } from '@/shared/ui/githubAuth'
 import { GoogleButton } from '@/shared/ui/googleAuth'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 import { useTranslation } from '../../../hooks/useTranslation'
 
 export const SignInForm = () => {
   const { t } = useTranslation()
 
+  const router = useRouter()
+
   const { control, errors, handleSubmit, isValid } = useSignInForm()
-  const [signIn] = useSignInMutation()
+  const [signIn, { isSuccess }] = useSignInMutation()
   const onSubmit = (data: SignInFormType) => {
     signIn(data)
+  }
+
+  if (isSuccess) {
+    router.push('/')
   }
 
   return (
