@@ -23,8 +23,8 @@ const schema = z
       .email({ message: 'The email must match the format example@example.com' }),
     password: z
       .string()
-      .min(6, { message: 'The password must contain min 6 characters' })
-      .max(20, { message: 'The password must contain max 20 characters' })
+      .min(6, { message: 'Minimum number of characters 6' })
+      .max(20, { message: 'Maximum number of characters 20' })
       .regex(
         /^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[ !"#$%&'()*+,./:;<=>?@[\\\]^_`{|}~])[a-zA-Z0-9 !"#$%&'()*+,./:;<=>?@[\\\]^_`{|}~]*$/,
         {
@@ -32,8 +32,13 @@ const schema = z
             'The password must contain at least one digit, one uppercase letter, one lowercase letter, and one special character ( ! " # $ % & \' ( ) * + , . / : ; < = > ? @ [ \\ ] ^ _ ` { | } ~ )',
         }
       ),
-
-    userName: z.string(),
+    userName: z
+      .string()
+      .min(6, { message: 'Minimum number of characters 6' })
+      .max(30, { message: 'Maximum number of characters 30' })
+      .regex(/^[0-9A-Za-z_-]+$/, {
+        message: 'Username can contain: 0-9; A-Z; a-z; _ ; - ',
+      }),
   })
   .refine(
     values => {
@@ -48,13 +53,12 @@ const schema = z
 export const useSignUpForm = () => {
   const {
     control,
-    formState: { errors, isDirty },
-    getValues,
+    formState: { errors, isDirty, isValid },
     handleSubmit,
   } = useForm<SignUpFormType>({
-    mode: 'onSubmit',
+    mode: 'onChange',
     resolver: zodResolver(schema),
   })
 
-  return { control, errors, getValues, handleSubmit, isDirty }
+  return { control, errors, handleSubmit, isDirty, isValid }
 }

@@ -10,7 +10,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 export const SignUpForm = () => {
-  const { control, errors, getValues, handleSubmit, isDirty } = useSignUpForm()
+  const { control, errors, handleSubmit, isDirty, isValid } = useSignUpForm()
   const [SignUp] = useSignUpMutation()
 
   const onSubmit = (data: SignUpFormType) => {
@@ -114,7 +114,7 @@ export const SignUpForm = () => {
           </div>
         </div>
 
-        <Button className="btn-primary mb-[20px]" fullWidth>
+        <Button className="btn-primary mb-[20px]" disabled={!isDirty || !isValid} fullWidth>
           Sign Up
         </Button>
 
