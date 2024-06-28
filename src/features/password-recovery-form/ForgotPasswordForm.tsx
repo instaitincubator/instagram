@@ -24,7 +24,7 @@ export const ForgotPasswordForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Card className="flex flex-col items-center max-w-[378px] p-[24px] gap-2">
+      <Card className="bg-dark-700 p-[15px] sm:bg-dark-500 sm:p-[24px] sm:max-w-[378px] sm:m-auto  flex flex-col items-center   gap-2">
         <span className="pb-[20px] text-h1">Forgot Password</span>
         <Controller
           control={control}
@@ -39,8 +39,8 @@ export const ForgotPasswordForm = () => {
             />
           )}
         />
-        <span className="text-regular-14 text-light-900 pb-[10px]">
-          Enter your email address and we will send you further instructions
+        <span className="text-regular-14 text-light-900 pb-[10px] w-full">
+          Enter your email address and we will send you <br /> further instructions
         </span>
         <Button disabled={!isValid || !isDirty} fullWidth>
           Send Link
