@@ -1,7 +1,9 @@
 import React from 'react'
 
+import { Slider } from '@/entities/Slider/Slider'
+import { TimePublish } from '@/entities/TimePublish/TimePublish'
 import UserAvatar from '@/entities/UserAvatar/UserAvatar'
-import Image from 'next/image'
+import { Description } from '@/entities/description/Description'
 
 type Post = {
   avatarOwner: string | undefined
@@ -20,7 +22,7 @@ type Owner = {
   firstname: string
   lastname: string
 }
-type Images = {
+export type Images = {
   createdAt: string
   fileSize: number
   height: number
@@ -33,14 +35,18 @@ type Props = {
 }
 
 const PublicPosts = ({ posts }: Props) => {
+  console.log(posts)
+
   return (
-    <div className="flex py-[36px] justify-between">
+    <div className="flex gap-3 py-[36px] justify-between flex-wrap flex-grow">
       {posts?.map(post => {
         return (
           <div key={post.id}>
-            <Image alt={'PostImages'} height={240} src={post.images[0].url} width={234} />
+            {/*<Image alt={'PostImages'} height={240} src={post.images[0].url} width={234} />*/}
+            <Slider arrImages={post.images}/>
             <UserAvatar avatar={post.avatarOwner} userName={post.userName} />
-            <div>пару минут назад</div>
+            <TimePublish createdAt={post.createdAt} />
+            {post.description && <Description description={post.description} />}
           </div>
         )
       })}
