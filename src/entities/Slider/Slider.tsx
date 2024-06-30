@@ -4,9 +4,11 @@ import { Images } from '@/entities/PublicPosts/PublicPosts'
 import Image from 'next/image'
 type Props = {
   arrImages: Images[]
+  height: number
+  width: number
 }
 
-export const Slider = ({ arrImages }: Props) => {
+export const Slider = ({ arrImages, height, width }: Props) => {
   const [imageIndex, setImageIndex] = React.useState(0)
 
   const rightHandleClick = () => {
@@ -25,13 +27,13 @@ export const Slider = ({ arrImages }: Props) => {
   }
 
   return (
-    <div className="relative">
-      <Image alt={''} height={240} src={arrImages[imageIndex].url} width={240}></Image>
+    <div className="relative ">
+      <Image alt={''} height={height} src={arrImages[imageIndex].url} width={width} ></Image>
       {arrImages.length > 1 && (
-        <div>
+        <div className='flex justify-between px-6'>
           <Image
             alt="ArrowLeft"
-            className="z-20 absolute bottom-1/2 left-[5px] cursor-pointer"
+            className="absolute top-1/2 transform -translate-y-1/2 left-2 cursor-pointer z-10 "
             height={24}
             onClick={leftHandleClick}
             src="/arrowLeftSlider.svg"
@@ -39,7 +41,7 @@ export const Slider = ({ arrImages }: Props) => {
           />
           <Image
             alt="ArrowRight"
-            className="z-20 absolute bottom-1/2 left-[210px] cursor-pointer"
+            className="absolute top-1/2 transform -translate-y-1/2 right-2 cursor-pointer z-10"
             height={24}
             onClick={rightHandleClick}
             src="/arrowRightSlider.svg"
@@ -49,7 +51,7 @@ export const Slider = ({ arrImages }: Props) => {
             <div className="flex gap-[8px] justify-center px-[8px] py-[3px] bg-dark-100 rounded-[4px]">
               {arrImages.map((el, i) => (
                 <div
-                  className={`w-[8px] h-[8px] z-40 ${i === imageIndex ? 'bg-accent-500' : 'bg-light-100'} rounded-full`}
+                  className={`w-[8px] h-[8px] z-20 ${i === imageIndex ? 'bg-accent-500' : 'bg-light-100'} rounded-full`}
                   key={i}
                   onClick={() => setImageIndex(i)}
                 ></div>

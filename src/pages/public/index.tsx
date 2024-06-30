@@ -3,10 +3,15 @@ import CountRegisteredUsers from '@/entities/CountRegisteredUsers/CountRegistere
 import PublicPosts from '@/entities/PublicPosts/PublicPosts';
 import {useGetAllPublicPostsQuery} from '@/features/public/allPublicPost';
 import {useGetTotalUsersCountQuery} from '@/features/public/publicProfileCounts';
+import React from 'react';
 
 const Public = () => {
-    const { data } = useGetTotalUsersCountQuery()
-    const { data: posts } = useGetAllPublicPostsQuery({})
+    const { data, isLoading } = useGetTotalUsersCountQuery()
+    const { data: posts, isLoading:isLoadingPost } = useGetAllPublicPostsQuery({})
+
+    if (isLoading||isLoadingPost) {
+        return <div>Loading...</div>
+    }
 
     return <div>
         <CountRegisteredUsers count={data?.totalCount} />
