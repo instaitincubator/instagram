@@ -2,9 +2,9 @@ import React from 'react';
 
 import {getLayout} from '@/app/layouts/mainLayout/Layout';
 import CountRegisteredUsers from '@/entities/CountRegisteredUsers/CountRegisteredUsers';
-import PublicPosts from '@/entities/PublicPosts/PublicPosts';
-import {useGetAllPublicPostsQuery} from '@/features/public/allPublicPost';
-import {useGetTotalUsersCountQuery} from '@/features/public/publicProfileCounts';
+import PublicPosts from '@/features/public/PublicPosts';
+import {useGetAllPublicPostsQuery} from '@/features/public/api/allPublicPost';
+import {useGetTotalUsersCountQuery} from '@/features/public/api/publicProfileCounts';
 
 
 const Public = () => {
