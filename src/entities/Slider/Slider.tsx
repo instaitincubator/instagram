@@ -5,10 +5,11 @@ import Image from 'next/image'
 type Props = {
   arrImages: Images[]
   height: number
+  openModal?: () => void
   width: number
 }
 
-export const Slider = ({ arrImages, height, width }: Props) => {
+export const Slider = ({ arrImages, height, openModal, width }: Props) => {
   const [imageIndex, setImageIndex] = React.useState(0)
 
   const rightHandleClick = () => {
@@ -28,9 +29,9 @@ export const Slider = ({ arrImages, height, width }: Props) => {
 
   return (
     <div className="relative ">
-      <Image alt={''} height={height} src={arrImages[imageIndex].url} width={width} ></Image>
+      <Image alt={''} height={height} src={arrImages[imageIndex].url} width={width} onClick={openModal}></Image>
       {arrImages.length > 1 && (
-        <div className='flex justify-between px-6'>
+        <div className="flex justify-between px-6">
           <Image
             alt="ArrowLeft"
             className="absolute top-1/2 transform -translate-y-1/2 left-2 cursor-pointer z-10 "

@@ -6,9 +6,10 @@ import PublicPosts from '@/entities/PublicPosts/PublicPosts';
 import {useGetAllPublicPostsQuery} from '@/features/public/allPublicPost';
 import {useGetTotalUsersCountQuery} from '@/features/public/publicProfileCounts';
 
+
 const Public = () => {
-    const { data, isLoading, error } = useGetTotalUsersCountQuery()
-    const { data: posts, isLoading:isLoadingPost, error:errorPost } = useGetAllPublicPostsQuery({})
+    const { data, error, isLoading } = useGetTotalUsersCountQuery()
+    const { data: posts, error:errorPost, isLoading:isLoadingPost } = useGetAllPublicPostsQuery({})
 
     if (isLoading||isLoadingPost) {
         return <div>Loading...</div>
