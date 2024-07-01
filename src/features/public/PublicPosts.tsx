@@ -1,36 +1,8 @@
 import React, { useState } from 'react'
 
-import { Slider } from '@/entities/Slider/Slider'
-import { TimePublish } from '@/entities/TimePublish/TimePublish'
-import UserAvatar from '@/entities/UserAvatar/UserAvatar'
-import { Description } from '@/entities/description/Description'
-import { Modal } from '@/shared/ui/Modal/Modal'
+import {Post, PostCard} from '@/entities/Post/PostCard';
+import PostModal from '@/entities/Post/PostModal';
 
-type Post = {
-  avatarOwner: string | undefined
-  createdAt: string
-  description: string | undefined
-  id: number
-  images: Images[]
-  likesCount: number
-  location: string | undefined
-  owner: Owner
-  ownerId: number
-  updatedAt: string
-  userName: string
-}
-type Owner = {
-  firstname: string
-  lastname: string
-}
-export type Images = {
-  createdAt: string
-  fileSize: number
-  height: number
-  uploadId: string
-  url: string
-  width: number
-}
 type Props = {
   posts: Post[]
 }
@@ -51,37 +23,11 @@ const PublicPosts = ({ posts }: Props) => {
 
   return (
     <div className="flex gap-3 py-[36px] justify-between flex-wrap flex-grow">
-      {posts?.map(post => {
-        return (
-          <div key={post.id}>
-            {/*<Image alt={'PostImages'} height={240} src={post.images[0].url} width={234} />*/}
-            <div>
-              <Slider
-                arrImages={post.images}
-                height={240}
-                openModal={() => openModal(post)}
-                width={240}
-              />
-            </div>
-            <UserAvatar avatar={post.avatarOwner} userName={post.userName} />
-            <TimePublish createdAt={post.createdAt} />
-            {post.description && <Description description={post.description} />}
-          </div>
-        )
-      })}
+      {posts?.map(post => (
+          <PostCard key={post.id} openModal={() => openModal(post)} post={post} />
+      ))}
       {modalIsOpen && selectedPost && (
-        <Modal onClose={closeModal} withOutHeader>
-          <div className="flex">
-            <div>
-              <Slider arrImages={selectedPost.images} height={560} width={490} />
-            </div>
-            <div className="px-[24px] py-[8px]">
-              <UserAvatar avatar={selectedPost.avatarOwner} userName={selectedPost.userName} />
-              <TimePublish createdAt={selectedPost.createdAt} />
-              Comments
-            </div>
-          </div>
-        </Modal>
+          <PostModal onClose={closeModal} post={selectedPost} />
       )}
     </div>
   )

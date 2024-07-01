@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Images } from '@/entities/PublicPosts/PublicPosts'
+import { Images } from '@/entities/Post/PostCard'
 import Image from 'next/image'
 type Props = {
   arrImages: Images[]
@@ -13,23 +13,21 @@ export const Slider = ({ arrImages, height, openModal, width }: Props) => {
   const [imageIndex, setImageIndex] = React.useState(0)
 
   const rightHandleClick = () => {
-    if (imageIndex === 0) {
-      setImageIndex(arrImages.length - 1)
-    } else {
-      setImageIndex(imageIndex => imageIndex - 1)
-    }
+    setImageIndex(prevIndex => (prevIndex === 0 ? arrImages.length - 1 : prevIndex - 1))
   }
   const leftHandleClick = () => {
-    if (imageIndex === arrImages.length - 1) {
-      setImageIndex(0)
-    } else {
-      setImageIndex(imageIndex => imageIndex + 1)
-    }
+    setImageIndex(prevIndex => (prevIndex === arrImages.length - 1 ? 0 : prevIndex + 1))
   }
 
   return (
     <div className="relative ">
-      <Image alt={''} height={height} src={arrImages[imageIndex].url} width={width} onClick={openModal}></Image>
+      <Image
+        alt={'SlideImage'}
+        height={height}
+        onClick={openModal}
+        src={arrImages[imageIndex].url}
+        width={width}
+      ></Image>
       {arrImages.length > 1 && (
         <div className="flex justify-between px-6">
           <Image
