@@ -1,3 +1,4 @@
+import React from 'react'
 import { Controller } from 'react-hook-form'
 
 import { SignUpFormType, useSignUpForm } from '@/features/sign-up-form/useSignUpForm'
@@ -6,7 +7,8 @@ import Button from '@/shared/ui/Button/Button'
 import { Card } from '@/shared/ui/Card/Card'
 import { Checkbox } from '@/shared/ui/Checkbox/Checkbox'
 import { Input } from '@/shared/ui/Input/Input'
-import Image from 'next/image'
+import { GithubAuth } from '@/shared/ui/githubAuth'
+import { GoogleButton } from '@/shared/ui/googleAuth'
 import Link from 'next/link'
 
 import { useTranslation } from '../../../hooks/useTranslation'
@@ -31,12 +33,8 @@ export const SignUpForm = () => {
         <h1 className="text-light-100 text-h1 text-center mb-[13px]">{t.auth.signUp}</h1>
 
         <div className="flex justify-evenly mb-[24px]">
-          <Link href={'https://www.google.com/?client=safari'} target="_blank">
-            <Image alt="google-icon" height={36} src="/google.svg" width={36}></Image>
-          </Link>
-          <Link href={'https://github.com'} target="_blank">
-            <Image alt="github-icon" height={36} src="/git.svg" width={36}></Image>
-          </Link>
+          <GoogleButton />
+          <GithubAuth />
         </div>
 
         <div className="flex flex-col gap-[20px] mb-[20px]">

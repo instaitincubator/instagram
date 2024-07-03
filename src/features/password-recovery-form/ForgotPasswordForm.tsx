@@ -28,7 +28,7 @@ export const ForgotPasswordForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Card className="flex flex-col items-center max-w-[378px] p-[24px] gap-2">
+      <Card className="flex flex-col items-center max-w-[378px] p-[24px] mx-auto my-auto gap-2">
         <span className="pb-[20px] text-h1">{t.auth.forgotPassword}</span>
         <Controller
           control={control}
