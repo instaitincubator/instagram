@@ -10,8 +10,10 @@ import { useForgotPasswordMutation } from '@/services/auth/forgotPasswordApi'
 import Button from '@/shared/ui/Button/Button'
 import { Card } from '@/shared/ui/Card/Card'
 import { Input } from '@/shared/ui/Input/Input'
+import { useRouter } from 'next/router'
 
 import config from '../../../config'
+import { useTranslation } from '../../../hooks/useTranslation'
 
 export const ForgotPasswordForm = () => {
   const [forgotPassword] = useForgotPasswordMutation()
@@ -21,11 +23,13 @@ export const ForgotPasswordForm = () => {
   const onSubmit = (data: ForgotPasswordFormType) => {
     forgotPassword(data)
   }
+  const { t } = useTranslation()
+  const router = useRouter()
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Card className="flex flex-col items-center max-w-[378px] p-[24px] gap-2">
-        <span className="pb-[20px] text-h1">Forgot Password</span>
+        <span className="pb-[20px] text-h1">{t.auth.forgotPassword}</span>
         <Controller
           control={control}
           name="email"
@@ -34,24 +38,29 @@ export const ForgotPasswordForm = () => {
               {...field}
               error={errors.email?.message}
               fullWidth
-              label="Email"
+              label={t.auth.email}
               placeholder="Example@example.com"
             />
           )}
         />
-        <span className="text-regular-14 text-light-900 pb-[10px]">
-          Enter your email address and we will send you further instructions
-        </span>
+        <span className="text-regular-14 text-light-900 pb-[10px]">{t.auth.passwordRecovery}</span>
         <Button disabled={!isValid || !isDirty} fullWidth>
-          Send Link
+          {t.auth.sendLink}
         </Button>
         <Button as="a" fullWidth href="/login" type="button" variant="text">
-          Back to Sign In
+          {t.auth.backToSignIn}
         </Button>
         <Controller
           control={control}
           name="recaptcha"
-          render={({ field }) => <ReCAPTCHA {...field} sitekey={config.captchaKey!} theme="dark" />}
+          render={({ field }) => (
+            <ReCAPTCHA
+              {...field}
+              hl={router.locale === 'english' ? 'en' : 'ru'}
+              sitekey={config.captchaKey!}
+              theme="dark"
+            />
+          )}
         />
       </Card>
     </form>

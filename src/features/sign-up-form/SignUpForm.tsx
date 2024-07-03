@@ -9,13 +9,16 @@ import { Input } from '@/shared/ui/Input/Input'
 import Image from 'next/image'
 import Link from 'next/link'
 
+import { useTranslation } from '../../../hooks/useTranslation'
+
 export const SignUpForm = () => {
-  const { control, errors, getValues, handleSubmit, isDirty } = useSignUpForm()
+  const { t } = useTranslation()
+  const { control, errors, handleSubmit, isDirty, isValid } = useSignUpForm()
   const [SignUp] = useSignUpMutation()
 
   const onSubmit = (data: SignUpFormType) => {
     SignUp({
-      baseUrl: 'breezeapp.club',
+      baseUrl: 'http://localhost:3000',
       email: data.email,
       password: data.password,
       userName: data.userName,
@@ -25,7 +28,7 @@ export const SignUpForm = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Card className="w-[378px] mx-auto my-auto p-[24px]">
-        <h1 className="text-light-100 text-h1 text-center mb-[13px]">Sign Up</h1>
+        <h1 className="text-light-100 text-h1 text-center mb-[13px]">{t.auth.signUp}</h1>
 
         <div className="flex justify-evenly mb-[24px]">
           <Link href={'https://www.google.com/?client=safari'} target="_blank">
@@ -45,8 +48,8 @@ export const SignUpForm = () => {
                 {...field}
                 error={errors.userName?.message}
                 fullWidth
-                label="Username"
-                placeholder="Epam11"
+                label={t.auth.userName}
+                placeholder={t.auth.userName}
               />
             )}
           />
@@ -59,7 +62,7 @@ export const SignUpForm = () => {
                 {...field}
                 error={errors.email?.message}
                 fullWidth
-                label="Email"
+                label={t.auth.email}
                 placeholder="Epam@epam.com"
               />
             )}
@@ -73,7 +76,7 @@ export const SignUpForm = () => {
                 {...field}
                 error={errors.password?.message}
                 fullWidth
-                label="Password"
+                label={t.auth.password}
                 type="password"
               />
             )}
@@ -87,7 +90,7 @@ export const SignUpForm = () => {
                 {...field}
                 error={errors.confirmPassword?.message}
                 fullWidth
-                label="Password confirmation"
+                label={t.auth.passwordConfirmation}
                 type="password"
               />
             )}
@@ -102,30 +105,23 @@ export const SignUpForm = () => {
               )}
             />
             <div className="ml-5 gap-0.5 text-[12px] mb-[22px]">
-              <span>I Agree </span>
+              <span>{t.auth.iAgree} </span>
               <Link className={'text-blue-500 underline'} href={'/termsOfService'}>
-                Terms Of Service
+                {t.auth.termsOfService}
               </Link>
-              <span> and </span>
+              <span> {t.auth.and} </span>
               <Link className={'text-blue-500 underline'} href={'/privacy'}>
-                Privacy Policy
+                {t.auth.privacyPolicy}
               </Link>
             </div>
           </div>
         </div>
-
-        <Button
-          className="btn-primary mb-[20px]"
-          disabled={!getValues().checkboxPolicy || !isDirty}
-          fullWidth
-        >
-          Sign Up
+        <Button className="btn-primary mb-[20px]" disabled={!isDirty || !isValid} fullWidth>
+          {t.auth.signUp}
         </Button>
-
-        <p className="text-light-100 text-center mb-[6px]">Do you have an account?</p>
-
+        <p className="text-light-100 text-center mb-[6px]">{t.auth.doYouHaveAnAccount}</p>
         <Button fullWidth type="button" variant="text">
-          Sign In
+          {t.auth.signIn}
         </Button>
       </Card>
     </form>
