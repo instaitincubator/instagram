@@ -1,13 +1,10 @@
 import React, { useState } from 'react'
 
-import {Post, PostCard} from '@/entities/Post/PostCard';
+import {PostCard} from '@/entities/Post/PostCard';
 import PostModal from '@/entities/Post/PostModal';
+import {Post, PublicPostProps} from '@/shared/types/public.types';
 
-type Props = {
-  posts: Post[]
-}
-
-const PublicPosts = ({ posts }: Props) => {
+const PublicPosts = ({ posts }: PublicPostProps) => {
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [selectedPost, setSelectedPost] = useState<Post | null>(null)
 
