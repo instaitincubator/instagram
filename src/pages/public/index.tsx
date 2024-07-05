@@ -1,7 +1,27 @@
+import React from 'react';
+
 import {getLayout} from '@/app/layouts/mainLayout/Layout';
+import CountRegisteredUsers from '@/entities/CountRegisteredUsers/CountRegisteredUsers';
+import PublicPosts from '@/features/public/PublicPosts';
+import {useGetAllPublicPostsQuery} from '@/features/public/api/allPublicPost';
+import {useGetTotalUsersCountQuery} from '@/features/public/api/publicProfileCounts';
+
 
 const Public = () => {
-    return <div>Public</div>
+    const { data, error, isLoading } = useGetTotalUsersCountQuery()
+    const { data: posts, error:errorPost, isLoading:isLoadingPost } = useGetAllPublicPostsQuery({})
+
+    if (isLoading||isLoadingPost) {
+        return <div>Loading...</div>
+    }
+    if(error||errorPost){
+        return <div>Error...</div>
+    }
+
+    return <div>
+        <CountRegisteredUsers count={data?.totalCount} />
+        <PublicPosts posts={posts?.items} />
+    </div>
 }
 
 Public.getLayout = getLayout
