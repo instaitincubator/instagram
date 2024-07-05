@@ -1,7 +1,8 @@
 import React from 'react'
 
-import { Images } from '@/entities/Post/PostCard'
 import Image from 'next/image'
+import {Images} from '@/shared/types/public.types';
+
 type Props = {
   arrImages: Images[]
   height: number
