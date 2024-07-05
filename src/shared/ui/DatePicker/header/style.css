@@ -1,0 +1,18 @@
+.no-border .border {
+    min-width: unset !important;
+    border: none !important;;
+}
+
+input {
+    width: 100%;
+    padding: 6px 42px 6px 12px;
+
+    background: #171717;
+    border: 1px solid #333;
+    border-radius: 2px;
+
+
+    &&:focus-visible{
+        outline: 1px solid #FFF;
+    }
+}
