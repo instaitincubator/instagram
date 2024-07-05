@@ -18,7 +18,7 @@ const Public = () => {
         return <div>Error...</div>
     }
 
-    return <div>
+    return <div className='py-6 w-full max-w-[972px] mx-auto'>
         <CountRegisteredUsers count={data?.totalCount} />
         <PublicPosts posts={posts?.items} />
     </div>
