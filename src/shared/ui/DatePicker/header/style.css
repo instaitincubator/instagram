@@ -1,6 +1,6 @@
 .no-border .border {
     min-width: unset !important;
-    border: none !important;;
+    border: none ;
 }
 
 input {

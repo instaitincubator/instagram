@@ -114,7 +114,7 @@ const Select: React.FC<SelectProps> = ({
       </div>
       {isOpen && (
         <ul
-          className="absolute left-0 text-regular-16 text-light-100 bg-dark-500 border border-t-light-100 rounded-b-sm border-light-100 mt-[-1px] z-10"
+          className="absolute box-border max-h-[200px] overflow-y-auto text-regular-16 text-light-100 bg-dark-500 !border border-t-light-100 rounded-b-sm border-light-100 mt-[-1px] z-10 "
           style={{ width: selectRef.current?.offsetWidth }}
         >
           {options.map(option => (
