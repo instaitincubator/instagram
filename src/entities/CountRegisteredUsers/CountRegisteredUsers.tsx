@@ -1,6 +1,6 @@
 import React from 'react'
-import {CountRegisteredUsersProps} from '@/shared/types/public.types';
 
+import { CountRegisteredUsersProps } from '@/shared/types/public.types'
 
 const CountRegisteredUsers = ({ count }: CountRegisteredUsersProps) => {
   const arrayNumbers = Array.from('0' + '0' + '0' + count?.toString(), Number)

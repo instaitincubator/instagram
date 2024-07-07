@@ -3,9 +3,8 @@ import React from 'react'
 import { Slider } from '@/entities/Slider/Slider'
 import { TimePublish } from '@/entities/TimePublish/TimePublish'
 import UserAvatar from '@/entities/UserAvatar/UserAvatar'
+import { PostModalProps } from '@/shared/types/public.types'
 import { Modal } from '@/shared/ui/Modal/Modal'
-import {PostModalProps} from '@/shared/types/public.types';
-
 
 const PostModal = ({ onClose, post }: PostModalProps) => {
   return (
