@@ -1,7 +1,7 @@
 import React from 'react'
 
+import { Images } from '@/shared/types/public.types'
 import Image from 'next/image'
-import {Images} from '@/shared/types/public.types';
 
 type Props = {
   arrImages: Images[]
