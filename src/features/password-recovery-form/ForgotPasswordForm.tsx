@@ -28,7 +28,7 @@ export const ForgotPasswordForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Card className="flex flex-col items-center max-w-[378px] p-[24px] mx-auto my-auto gap-2">
+      <Card className="bg-dark-700 p-[15px] sm:bg-dark-500 sm:p-[24px] sm:max-w-[378px] sm:m-auto flex flex-col items-center gap-2">
         <span className="pb-[20px] text-h1">{t.auth.forgotPassword}</span>
         <Controller
           control={control}
@@ -43,7 +43,9 @@ export const ForgotPasswordForm = () => {
             />
           )}
         />
-        <span className="text-regular-14 text-light-900 pb-[10px]">{t.auth.passwordRecovery}</span>
+        <span className="text-regular-14 text-light-900 pb-[10px] w-full">
+          {t.auth.passwordRecovery}
+        </span>
         <Button disabled={!isValid || !isDirty} fullWidth>
           {t.auth.sendLink}
         </Button>
