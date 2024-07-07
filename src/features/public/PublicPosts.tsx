@@ -19,7 +19,7 @@ const PublicPosts = ({ posts }: PublicPostProps) => {
   }
 
   return (
-    <div className="flex gap-3 py-[36px] justify-between flex-wrap flex-grow">
+    <div className="flex py-[36px] justify-between mx-auto flex-wrap flex-grow">
       {posts?.map(post => (
           <PostCard key={post.id} openModal={() => openModal(post)} post={post} />
       ))}
