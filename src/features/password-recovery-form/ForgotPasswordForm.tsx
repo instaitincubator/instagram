@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import ReCAPTCHA from 'react-google-recaptcha'
 import { Controller } from 'react-hook-form'
 
@@ -10,15 +10,16 @@ import { useForgotPasswordMutation } from '@/services/auth/forgotPasswordApi'
 import Button from '@/shared/ui/Button/Button'
 import { Card } from '@/shared/ui/Card/Card'
 import { Input } from '@/shared/ui/Input/Input'
+import { Modal } from '@/shared/ui/Modal/Modal'
 import { useRouter } from 'next/router'
 
 import config from '../../../config'
 import { useTranslation } from '../../../hooks/useTranslation'
 
 export const ForgotPasswordForm = () => {
-  const [forgotPassword] = useForgotPasswordMutation()
-
-  const { control, errors, handleSubmit, isDirty, isValid } = useForgotPasswordForm()
+  const [forgotPassword, { error, isSuccess }] = useForgotPasswordMutation()
+  const [modal, setModal] = useState(true)
+  const { control, errors, getValues, handleSubmit, isDirty, isValid } = useForgotPasswordForm()
 
   const onSubmit = (data: ForgotPasswordFormType) => {
     forgotPassword(data)
@@ -36,7 +37,7 @@ export const ForgotPasswordForm = () => {
           render={({ field }) => (
             <Input
               {...field}
-              error={errors.email?.message}
+              error={errors.email?.message || error ? "User with this email doesn't exist" : ''}
               fullWidth
               label={t.auth.email}
               placeholder="Example@example.com"
@@ -65,6 +66,14 @@ export const ForgotPasswordForm = () => {
           )}
         />
       </Card>
+      {isSuccess && modal && (
+        <Modal className="w-[378px] m-auto" onClose={() => setModal(false)} title="Email sent">
+          <span>We have sent a link to confirm your email to {getValues().email}</span>
+          <Button onClick={() => setModal(false)} type="button">
+            OK
+          </Button>
+        </Modal>
+      )}
     </form>
   )
 }

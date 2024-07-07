@@ -1,15 +1,17 @@
 import React, { FC, PropsWithChildren, useEffect } from 'react'
 
+import { clsx } from 'clsx'
 import Image from 'next/image'
 
 export interface ModalProps {
+  className?: string
   onClose?: () => void
   title?: string
   withOutHeader?: boolean
 }
 
 export const Modal: FC<PropsWithChildren<ModalProps>> = props => {
-  const { children, onClose, title, withOutHeader } = props
+  const { children, className, onClose, title, withOutHeader } = props
 
   useEffect(() => {
     const handleClose = (event: KeyboardEvent): void => {
@@ -24,7 +26,12 @@ export const Modal: FC<PropsWithChildren<ModalProps>> = props => {
   }, [onClose])
 
   return (
-    <div className="fixed z-30 inset-0 flex flex-col items-center justify-center text-light-100">
+    <div
+      className={clsx(
+        'fixed z-30 inset-0 flex flex-col items-center justify-center text-light-100',
+        className
+      )}
+    >
       <div
         className="fixed inset-0 z-40 w-full h-full bg-dark-900 bg-opacity-20"
         onClick={onClose}

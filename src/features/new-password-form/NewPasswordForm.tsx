@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Controller } from 'react-hook-form'
 
 import {
@@ -6,6 +6,7 @@ import {
   useNewPasswordForm,
 } from '@/features/new-password-form/useNewPasswordForm'
 import { useNewPasswordMutation } from '@/services/auth/newPasswordApi'
+import { useTerminateSessionsMutation } from '@/services/auth/terminateAllSessionsApi'
 import Button from '@/shared/ui/Button/Button'
 import { Card } from '@/shared/ui/Card/Card'
 import { Input } from '@/shared/ui/Input/Input'
@@ -18,14 +19,25 @@ interface Props {
 export const NewPasswordForm = ({ code }: Props) => {
   const { control, errors, handleSubmit } = useNewPasswordForm()
   const router = useRouter()
-  const [newPasswordRequest, { isSuccess }] = useNewPasswordMutation()
+  const [newPasswordRequest, { error, isError, isSuccess }] = useNewPasswordMutation()
+  const [TerminateSessions] = useTerminateSessionsMutation()
 
   const onSubmit = ({ newPassword }: NewPasswordFormType) => {
     newPasswordRequest({ newPassword, recoveryCode: code })
-    if (!isSuccess) {
-      router.push('/sign-in')
-    }
   }
+
+  useEffect(() => {
+    if (isError) {
+      if ('status' in error) {
+        if (error.status === 400) {
+          router.push('/link-expired').then()
+        }
+      }
+    } else if (isSuccess) {
+      router.push('/sign-in').then()
+      TerminateSessions({})
+    }
+  }, [isError, isSuccess, error, router, TerminateSessions])
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
