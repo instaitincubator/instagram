@@ -4,16 +4,18 @@ import { getLayout } from '@/app/layouts/mainLayout/Layout'
 import Button from '@/shared/ui/Button/Button'
 import Image from 'next/image'
 
-const verificationLinkExpired = () => {
+import { useTranslation } from '../../../hooks/useTranslation'
+
+const VerificationLinkExpired = () => {
+  const { t } = useTranslation()
+
   return (
     <div className="flex flex-col items-center  m-auto gap-5">
-      <span className="text-h1 w-[300px] ">Email verification link expired</span>
-      <span className="text-regular-16 w-[300px] ">
-        Looks like the verification link has expired. Not to worry, we can send the link again
-      </span>
+      <span className="text-h1 w-[300px] ">{t.auth.verification}</span>
+      <span className="text-regular-16 w-[300px] ">{t.auth.verificationMessage}</span>
       <div className="w-[300px] order-4 sm:order-3">
         <Button as="a" fullWidth href="forgot-password">
-          Resend link
+          {t.auth.verificationButton}
         </Button>
       </div>
       <Image
@@ -27,5 +29,5 @@ const verificationLinkExpired = () => {
   )
 }
 
-verificationLinkExpired.getLayout = getLayout
-export default verificationLinkExpired
+VerificationLinkExpired.getLayout = getLayout
+export default VerificationLinkExpired

@@ -18,6 +18,7 @@ export const russian = {
     forgotPassword: 'Забыли пароль?',
     iAgree: 'Я принимаю',
     isAlreadyInSystem: 'уже находится в системе.',
+    linkExpired: 'Срок действия ссылки истек',
     logOutConfirmationBody: 'Вы действительно хотите выйти из аккаунта',
     logOutConfirmationHeader: 'Выход из аккаунта',
     mergeAcc: 'Объединить аккаунты',
@@ -25,6 +26,7 @@ export const russian = {
     no: 'Нет',
     password: 'Пароль',
     passwordConfirmation: 'Подтверждение пароля',
+    passwordLength: 'Ваш пароль должен содержать от 6 до 20 символов',
     passwordMax: 'Пароль должен содержать не более 20 символов',
     passwordMin: 'Пароль должен содержать не менее 6 символов',
     passwordRecovery: 'Введите адрес электронной почты, и мы вышлем вам дальнейшие инструкции',
@@ -46,8 +48,8 @@ export const russian = {
     unauthorizedMessage:
       'Не авторизовано. Перейдите на страницу регистрации, чтобы пройти регистрацию.',
     userName: 'Имя пользователя',
-    verification: 'Срок действия ссылки для подтверждения электронной почты истек',
-    verificationButton: 'Повторно отправить ссылку для подтверждения',
+    verification: 'Срок действия ссылки истек',
+    verificationButton: 'Отправить ссылку повторно',
     verificationMessage:
       'Срок действия ссылки для подтверждения истек. Не волнуйтесь, мы можем отправить ссылку еще раз',
     yes: 'Да, объединить',

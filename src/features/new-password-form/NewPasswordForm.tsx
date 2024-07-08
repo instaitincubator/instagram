@@ -12,6 +12,8 @@ import { Card } from '@/shared/ui/Card/Card'
 import { Input } from '@/shared/ui/Input/Input'
 import { useRouter } from 'next/router'
 
+import { useTranslation } from '../../../hooks/useTranslation'
+
 interface Props {
   code: null | string | string[]
 }
@@ -21,6 +23,7 @@ export const NewPasswordForm = ({ code }: Props) => {
   const router = useRouter()
   const [newPasswordRequest, { error, isError, isSuccess }] = useNewPasswordMutation()
   const [TerminateSessions] = useTerminateSessionsMutation()
+  const { t } = useTranslation()
 
   const onSubmit = ({ newPassword }: NewPasswordFormType) => {
     newPasswordRequest({ newPassword, recoveryCode: code })
@@ -42,7 +45,7 @@ export const NewPasswordForm = ({ code }: Props) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Card className="bg-dark-700 p-[15px] sm:bg-dark-500 sm:p-[24px] sm:max-w-[378px] sm:m-auto  flex flex-col items-center   gap-2">
-        <span className="pb-[20px] text-h1">Create New Password</span>
+        <span className="pb-[20px] text-h1">{t.auth.createNewPassword}</span>
         <div className="flex flex-col gap-[24px] w-full">
           <Controller
             control={control}
@@ -52,7 +55,7 @@ export const NewPasswordForm = ({ code }: Props) => {
                 {...field}
                 error={errors.newPassword?.message}
                 fullWidth
-                label="New Password"
+                label={t.auth.newPassword}
                 type="password"
               />
             )}
@@ -65,18 +68,16 @@ export const NewPasswordForm = ({ code }: Props) => {
                 {...field}
                 error={errors.passwordConfirm?.message ?? errors.confirm?.message}
                 fullWidth
-                label="Password confirmation"
+                label={t.auth.passwordConfirmation}
                 type="password"
               />
             )}
           />
         </div>
-        <span className="mt-2 text-regular-14 text-light-900">
-          Your password must be between 6 and 20 characters
-        </span>
+        <span className="mt-2 text-regular-14 text-light-900">{t.auth.passwordLength}</span>
 
         <Button className="mt-10" fullWidth>
-          Create new password
+          {t.auth.createNewPassword}
         </Button>
       </Card>
     </form>

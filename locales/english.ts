@@ -25,6 +25,7 @@ export const english = {
     no: 'No',
     password: 'Password',
     passwordConfirmation: 'Password confirmation',
+    passwordLength: 'Your password must be between 6 and 20 characters',
     passwordMax: 'The password must store a maximum of 20 characters',
     passwordMin: 'The password must contain at least 6 characters',
     passwordRecovery: 'Enter your email address and we will send you further instructions',
@@ -46,7 +47,7 @@ export const english = {
     unauthorizedMessage: 'Unauthorized , go to sign up page to make registration',
     userName: 'Username',
     verification: 'Email verification link expired',
-    verificationButton: 'Resend verification link',
+    verificationButton: 'Resend link',
     verificationMessage:
       'Looks like the verification link has expired. Not to worry, we can send the link again',
     yes: 'Yes, merge',
