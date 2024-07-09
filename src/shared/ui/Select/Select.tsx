@@ -1,4 +1,4 @@
-import React, { JSX, useEffect, useRef, useState } from 'react'
+import React, { CSSProperties, JSX, useEffect, useRef, useState } from 'react'
 
 import clsx from 'clsx'
 import Image from 'next/image'
@@ -15,7 +15,9 @@ interface SelectProps {
   label?: string
   onChange: (option: Option) => void
   options: Option[]
+  style?: CSSProperties
   value?: Option | null
+  withArrow?: boolean
 }
 
 const Select: React.FC<SelectProps> = ({
@@ -24,7 +26,9 @@ const Select: React.FC<SelectProps> = ({
   label,
   onChange,
   options,
+  style = {},
   value,
+  withArrow = true,
 }) => {
   const [isOpen, setIsOpen] = useState(false)
   const [selectedOption, setSelectedOption] = useState<Option | null>(null)
@@ -70,9 +74,10 @@ const Select: React.FC<SelectProps> = ({
 
   return (
     <div
-      className={clsx('relative min-w-[150px]', className)}
+      className={clsx('relative ', className)}
       onBlur={handleBlur}
       ref={selectRef}
+      style={style}
       tabIndex={0}
     >
       {label && <div className="text-regular-14 text-light-900 mb-2">{label}</div>}
@@ -87,7 +92,7 @@ const Select: React.FC<SelectProps> = ({
         )}
         onClick={handleClick}
       >
-        <div className="text-regular-14 text-light-100 px-[12px] flex items-center">
+        <div className="min-w-[95px] text-regular-14 text-light-100 px-[12px] flex items-center">
           {selectedOption && (
             <>
               {renderOptionImage(selectedOption)}
@@ -96,18 +101,20 @@ const Select: React.FC<SelectProps> = ({
           )}
         </div>
         <div className="pr-[2px]">
-          <Image
-            alt="arrow"
-            className={clsx({ 'transform rotate-180': isOpen })}
-            height={24}
-            src="/arrow.svg"
-            width={24}
-          />
+          {withArrow && (
+            <Image
+              alt="arrow"
+              className={clsx({ 'transform rotate-180': isOpen })}
+              height={24}
+              src="/arrow.svg"
+              width={24}
+            />
+          )}
         </div>
       </div>
       {isOpen && (
         <ul
-          className="absolute left-0 text-regular-16 text-light-100 bg-dark-500 border border-t-light-100 rounded-b-sm border-light-100 mt-[-1px] z-10"
+          className="absolute box-border max-h-[200px] overflow-y-auto text-regular-16 text-light-100 bg-dark-500 !border border-t-light-100 rounded-b-sm border-light-100 mt-[-1px] z-10 "
           style={{ width: selectRef.current?.offsetWidth }}
         >
           {options.map(option => (

@@ -1,4 +1,18 @@
 export const russian = {
+  datePicker:{
+    January:'Январь',
+    February:'Февраль',
+    March:'Март',
+    April:'Апрель',
+    May:'Май',
+    June:'Июнь',
+    July:'Июль',
+    August:'Август',
+    September:'Сентябрь',
+    October:'Октябрь',
+    November:'Ноябрь',
+    December:'Декабрь',
+  },
   auth: {
     alreadyRegistered: 'Пользователь уже зарегистрирован',
     and: 'и',
