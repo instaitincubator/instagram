@@ -1,7 +1,7 @@
 import { Controller } from 'react-hook-form'
 
 import { SignUpFormType, useSignUpForm } from '@/features/sign-up-form/useSignUpForm'
-import { useSignUpMutation } from '@/services/signUpApi'
+import { useSignUpMutation } from '@/services/auth/signUpApi'
 import Button from '@/shared/ui/Button/Button'
 import { Card } from '@/shared/ui/Card/Card'
 import { Checkbox } from '@/shared/ui/Checkbox/Checkbox'
