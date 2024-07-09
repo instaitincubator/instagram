@@ -1,0 +1,7 @@
+export {default as Bookmark} from "./Bookmark.svg"
+export {default as Home} from "./Home.svg"
+export {default as Message} from "./Message.svg"
+export {default as Plus} from "./Plus.svg"
+export {default as Profile} from "./Profile.svg"
+export {default as Search} from "./Search.svg"
+export {default as Trending} from "./Trending.svg"
