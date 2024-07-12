@@ -9,19 +9,30 @@ import { Input } from '@/shared/ui/Input/Input'
 import { GithubAuth } from '@/shared/ui/githubAuth'
 import { GoogleButton } from '@/shared/ui/googleAuth'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
+
+import { useTranslation } from '../../../hooks/useTranslation'
 
 export const SignInForm = () => {
+  const { t } = useTranslation()
+
+  const router = useRouter()
+
   const { control, errors, handleSubmit, isValid } = useSignInForm()
-  const [signIn] = useSignInMutation()
+  const [signIn, { isSuccess }] = useSignInMutation()
   const onSubmit = (data: SignInFormType) => {
     signIn(data)
   }
 
+  if (isSuccess) {
+    router.push('/')
+  }
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Card className="flex flex-col p-6 items-center">
+      <Card className="flex flex-col max-w-[360px] sl:max-w-[378px] p-6 mx-auto my-auto items-center">
         <div>
-          <span className="text-h1">Sign In</span>
+          <span className="text-h1">{t.auth.signIn}</span>
         </div>
         <div className="flex items-center gap-[60px] pt-2">
           <GoogleButton />
@@ -31,26 +42,33 @@ export const SignInForm = () => {
           <Controller
             control={control}
             name="email"
-            render={({ field }) => <Input {...field} error={errors.email?.message} label="Email" />}
+            render={({ field }) => (
+              <Input {...field} error={errors.email?.message} label={t.auth.email} />
+            )}
           />
           <Controller
             control={control}
             name="password"
             render={({ field }) => (
-              <Input {...field} error={errors.password?.message} label="Password" type="password" />
+              <Input
+                {...field}
+                error={errors.password?.message}
+                label={t.auth.password}
+                type="password"
+              />
             )}
           />
         </div>
         <Link className="text-regular-14 text-light-900 ml-auto pt-[36px]" href="/">
-          Forgot Password
+          {t.auth.forgotPassword}
         </Link>
         <div className="w-full flex flex-col items-center pt-[24px]">
           <Button className="text-h3" fullWidth>
-            Sign In
+            {t.auth.signIn}
           </Button>
-          <span className="text-regular-16 pt-[18px] pb-[6px]">Dont have an account?</span>
+          <span className="text-regular-16 pt-[18px] pb-[6px]">{t.auth.dontHaveAnAccount}</span>
           <Button className="text-h3" variant="text">
-            Sign Up
+            {t.auth.signUp}
           </Button>
         </div>
       </Card>

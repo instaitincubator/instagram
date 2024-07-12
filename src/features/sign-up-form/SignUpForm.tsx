@@ -1,3 +1,4 @@
+import React from 'react'
 import { Controller } from 'react-hook-form'
 
 import { SignUpFormType, useSignUpForm } from '@/features/sign-up-form/useSignUpForm'
@@ -6,10 +7,14 @@ import Button from '@/shared/ui/Button/Button'
 import { Card } from '@/shared/ui/Card/Card'
 import { Checkbox } from '@/shared/ui/Checkbox/Checkbox'
 import { Input } from '@/shared/ui/Input/Input'
-import Image from 'next/image'
+import { GithubAuth } from '@/shared/ui/githubAuth'
+import { GoogleButton } from '@/shared/ui/googleAuth'
 import Link from 'next/link'
 
+import { useTranslation } from '../../../hooks/useTranslation'
+
 export const SignUpForm = () => {
+  const { t } = useTranslation()
   const { control, errors, handleSubmit, isDirty, isValid } = useSignUpForm()
   const [SignUp] = useSignUpMutation()
 
@@ -25,15 +30,11 @@ export const SignUpForm = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Card className="w-[378px] mx-auto my-auto p-[24px]">
-        <h1 className="text-light-100 text-h1 text-center mb-[13px]">Sign Up</h1>
+        <h1 className="text-light-100 text-h1 text-center mb-[13px]">{t.auth.signUp}</h1>
 
         <div className="flex justify-evenly mb-[24px]">
-          <Link href={'https://www.google.com/?client=safari'} target="_blank">
-            <Image alt="google-icon" height={36} src="/google.svg" width={36}></Image>
-          </Link>
-          <Link href={'https://github.com'} target="_blank">
-            <Image alt="github-icon" height={36} src="/git.svg" width={36}></Image>
-          </Link>
+          <GoogleButton />
+          <GithubAuth />
         </div>
 
         <div className="flex flex-col gap-[20px] mb-[20px]">
@@ -45,8 +46,8 @@ export const SignUpForm = () => {
                 {...field}
                 error={errors.userName?.message}
                 fullWidth
-                label="Username"
-                placeholder="Epam11"
+                label={t.auth.userName}
+                placeholder={t.auth.userName}
               />
             )}
           />
@@ -59,7 +60,7 @@ export const SignUpForm = () => {
                 {...field}
                 error={errors.email?.message}
                 fullWidth
-                label="Email"
+                label={t.auth.email}
                 placeholder="Epam@epam.com"
               />
             )}
@@ -73,7 +74,7 @@ export const SignUpForm = () => {
                 {...field}
                 error={errors.password?.message}
                 fullWidth
-                label="Password"
+                label={t.auth.password}
                 type="password"
               />
             )}
@@ -87,7 +88,7 @@ export const SignUpForm = () => {
                 {...field}
                 error={errors.confirmPassword?.message}
                 fullWidth
-                label="Password confirmation"
+                label={t.auth.passwordConfirmation}
                 type="password"
               />
             )}
@@ -102,26 +103,23 @@ export const SignUpForm = () => {
               )}
             />
             <div className="ml-5 gap-0.5 text-[12px] mb-[22px]">
-              <span>I Agree </span>
+              <span>{t.auth.iAgree} </span>
               <Link className={'text-blue-500 underline'} href={'/termsOfService'}>
-                Terms Of Service
+                {t.auth.termsOfService}
               </Link>
-              <span> and </span>
+              <span> {t.auth.and} </span>
               <Link className={'text-blue-500 underline'} href={'/privacy'}>
-                Privacy Policy
+                {t.auth.privacyPolicy}
               </Link>
             </div>
           </div>
         </div>
-
         <Button className="btn-primary mb-[20px]" disabled={!isDirty || !isValid} fullWidth>
-          Sign Up
+          {t.auth.signUp}
         </Button>
-
-        <p className="text-light-100 text-center mb-[6px]">Do you have an account?</p>
-
+        <p className="text-light-100 text-center mb-[6px]">{t.auth.doYouHaveAnAccount}</p>
         <Button fullWidth type="button" variant="text">
-          Sign In
+          {t.auth.signIn}
         </Button>
       </Card>
     </form>
