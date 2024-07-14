@@ -1,6 +1,8 @@
 import React from 'react'
 import { Controller } from 'react-hook-form'
 
+import { authActions } from '@/app/authSlice'
+import { useAppDispatch } from '@/app/store'
 import { SignInFormType, useSignInForm } from '@/features/sign-in/useSignInForm'
 import { useSignInMutation } from '@/services/auth/signInApi'
 import Button from '@/shared/ui/Button/Button'
@@ -15,17 +17,19 @@ import { useTranslation } from '../../../hooks/useTranslation'
 
 export const SignInForm = () => {
   const { t } = useTranslation()
-
+  const dispatch = useAppDispatch()
   const router = useRouter()
 
   const { control, errors, handleSubmit } = useSignInForm()
   const [signIn, { isSuccess }] = useSignInMutation()
+
   const onSubmit = (data: SignInFormType) => {
     signIn(data)
   }
 
   if (isSuccess) {
     router.push('/')
+    dispatch(authActions.setIsAuth(true))
   }
 
   return (

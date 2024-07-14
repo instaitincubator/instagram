@@ -1,5 +1,6 @@
-import { ComponentProps, useState } from 'react'
+import { ComponentProps } from 'react'
 
+import { useAppSelector } from '@/app/store'
 import Button from '@/shared/ui/Button/Button'
 import { LanguageSelect } from '@/shared/ui/LanguageSelect/LanguageSelect'
 import useIsMobile from '@/shared/ui/header/useIsMobile'
@@ -18,7 +19,7 @@ export const Header = ({ className, isLoading, ...rest }: HeaderProps) => {
   const router = useRouter()
   const breakPoint = 768
   const isMobile = useIsMobile(breakPoint)
-  const [isAuth, setIsAuth] = useState(false)
+  const isAuth = useAppSelector(state => state.auth.isAuth)
   const { t } = useTranslation()
 
   return (

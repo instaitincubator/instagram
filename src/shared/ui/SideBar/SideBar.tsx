@@ -1,8 +1,12 @@
 import React, { useState } from 'react'
 
+import { authActions } from '@/app/authSlice'
+import { useAppDispatch, useAppSelector } from '@/app/store'
+import { useLogOutMutation } from '@/services/auth/signInApi'
 import Button from '@/shared/ui/Button/Button'
 import CustomLink from '@/shared/ui/SideBar/CustomLink'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 
 import {
   Bookmark,
@@ -19,8 +23,21 @@ import {
   Trending,
 } from '../../../../public'
 
-const SideBar = () => {
+export const SideBar = () => {
+  const router = useRouter()
+  const dispatch = useAppDispatch()
   const [activeLink, setActiveLink] = useState('/')
+  const [logOut, { isSuccess }] = useLogOutMutation()
+  const accessToken = useAppSelector(state => state.auth.accessToken)
+
+  const handleClickLogOut = () => {
+    logOut(accessToken)
+  }
+
+  if (isSuccess) {
+    router.push('/sign-in')
+    dispatch(authActions.setIsAuth(false))
+  }
 
   return (
     <nav className="flex flex-col min-h-screen min-w-[220px] py-[73px] border-r border-dark-300">
@@ -91,12 +108,10 @@ const SideBar = () => {
       </div>
       <div className="flex items-start w-full pl-16 pt-[180px] text-light-100">
         <Image alt="logOut" className="cursor-pointer" height={36} src="/log-out.svg" width={36} />
-        <Button as="a" variant="text">
+        <Button as="a" onClick={handleClickLogOut} variant="text">
           <span className="text-light-100 p-0 ">Log Out</span>
         </Button>
       </div>
     </nav>
   )
 }
-
-export default SideBar
