@@ -48,19 +48,10 @@ export const Header = ({ className, isLoading, ...rest }: HeaderProps) => {
         )}
         {!isAuth && !isMobile && (
           <div className="flex items-center w-full pl-6">
-            <Button
-              className="bg-blue-500 text-white rounded mr-4 w-m[100px]"
-              onClick={() => router.push('/sign-in')}
-              size="m"
-              variant="text"
-            >
+            <Button onClick={() => router.push('/sign-in')} size="m" variant="text">
               {t.header.login}
             </Button>
-            <Button
-              className="bg-blue-500 text-white rounded"
-              onClick={() => router.push('/sign-up')}
-              size="m"
-            >
+            <Button onClick={() => router.push('/sign-up')} size="m">
               {t.auth.signUp}
             </Button>
           </div>

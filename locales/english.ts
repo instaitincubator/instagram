@@ -14,6 +14,7 @@ export const english = {
     email: 'Email',
     email_val: 'The email must match the format',
     emailConfirmation: 'We have sent a link to confirm your email to',
+    emailPlaceholder: 'Epam@epam.com',
     field_required: 'Field is required',
     forgotPassword: 'Forgot Password',
     iAgree: 'I agree to the',

@@ -117,8 +117,10 @@ export const SignUpForm = () => {
         <Button className="btn-primary mb-[20px]" disabled={!isDirty || !isValid} fullWidth>
           {t.auth.signUp}
         </Button>
-        <p className="text-light-100 text-center mb-[6px]">{t.auth.doYouHaveAnAccount}</p>
-        <Button fullWidth type="button" variant="text">
+        <p className="text-light-100 select-none text-center mb-[6px]">
+          {t.auth.doYouHaveAnAccount}
+        </p>
+        <Button as="a" fullWidth href="/sign-in" type="button" variant="text">
           {t.auth.signIn}
         </Button>
       </Card>

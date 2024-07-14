@@ -40,7 +40,7 @@ export const ForgotPasswordForm = () => {
               error={errors.email?.message || error ? "User with this email doesn't exist" : ''}
               fullWidth
               label={t.auth.email}
-              placeholder="Example@example.com"
+              placeholder={t.auth.emailPlaceholder}
             />
           )}
         />

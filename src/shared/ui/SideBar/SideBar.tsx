@@ -40,14 +40,14 @@ export const SideBar = () => {
   }
 
   return (
-    <nav className="flex flex-col min-h-screen min-w-[220px] py-[73px] border-r border-dark-300">
+    <nav className="flex flex-col h-headerHeight min-w-[220px] py-[73px] border-r border-dark-300">
       <div className="flex flex-col items-start w-full pl-14 gap-[24px] ">
         <CustomLink
           activeLink={activeLink}
           alt="home"
           child1={<Home />}
           child2={<HomeFill />}
-          href="/"
+          href="/profile"
           setActiveLink={setActiveLink}
           title={'Home'}
         ></CustomLink>
@@ -108,8 +108,8 @@ export const SideBar = () => {
       </div>
       <div className="flex items-start w-full pl-16 pt-[180px] text-light-100">
         <Image alt="logOut" className="cursor-pointer" height={36} src="/log-out.svg" width={36} />
-        <Button as="a" onClick={handleClickLogOut} variant="text">
-          <span className="text-light-100 p-0 ">Log Out</span>
+        <Button as="a" className="pl-0" onClick={handleClickLogOut} variant="text">
+          <span className="text-light-100">Log Out</span>
         </Button>
       </div>
     </nav>

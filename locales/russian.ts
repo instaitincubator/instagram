@@ -14,6 +14,7 @@ export const russian = {
     email: 'Почта',
     email_val: 'Почта должна соответсвовать формату',
     emailConfirmation: 'Мы отправили ссылку для подтверждения электронной почты на',
+    emailPlaceholder: 'Epam@epam.com',
     field_required: 'Обязательное поле',
     forgotPassword: 'Забыли пароль?',
     iAgree: 'Я принимаю',
