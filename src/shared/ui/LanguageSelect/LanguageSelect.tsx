@@ -9,8 +9,9 @@ export const LanguageSelect = () => {
 
   const changeLangHandler = (option: Option) => {
     const locale = option.value
+    const currentPath = router.asPath
 
-    router.push('/', '', { locale })
+    router.replace(currentPath, currentPath, { locale })
   }
 
   const options = router.locales?.map(lg => {

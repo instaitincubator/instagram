@@ -47,7 +47,12 @@ export const SignInForm = () => {
             control={control}
             name="email"
             render={({ field }) => (
-              <Input {...field} error={errors.email?.message} label={t.auth.email} />
+              <Input
+                {...field}
+                error={errors.email?.message}
+                label={t.auth.email}
+                placeholder={t.auth.emailPlaceholder}
+              />
             )}
           />
           <Controller

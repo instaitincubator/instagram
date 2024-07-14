@@ -7,14 +7,9 @@ import {
   forwardRef,
 } from 'react'
 
+import { BTNSIZES, VATIANCLASSES } from '@/shared/ui/Button/consts'
+import { ButtonSize, ButtonVariant, InferType } from '@/shared/ui/Button/types'
 import clsx from 'clsx'
-
-import styles from './styles.module.css'
-
-export type ButtonVariant = 'outline' | 'primary' | 'secondary' | 'text'
-export type ButtonSize = 'l' | 'lx' | 'm' | 'mx' | 's' | 'xl' | 'xxl'
-
-type InferType<T> = T extends ElementType<infer U> ? U : never
 
 export type ButtonProps<T extends ElementType = 'button'> = {
   as?: T
@@ -35,28 +30,12 @@ const Button = forwardRef(
       ...rest
     } = props
 
-    const variantClasses = {
-      outline: styles['btn-outline'],
-      primary: styles['btn-primary'],
-      secondary: styles['btn-secondary'],
-      text: styles['btn-text'],
-    }
-    const btnSizes = {
-      l: styles['btn-l'],
-      lx: styles['btn-lx'],
-      m: styles['btn-m'],
-      mx: styles['btn-mx'],
-      s: styles['btn-s'],
-      xl: styles['btn-xl'],
-      xxl: styles['btn-xxl'],
-    }
     const classNames = clsx(
-      styles.btn,
-      variantClasses[variant],
-      btnSizes[size ?? 'm'],
-      fullWidth && styles['btn-full-width'],
+      'flex justify-center items-center relative no-underline cursor-pointer box-border rounded-[2px] py-[6px] px-[24px] text-h3 text-nowrap text-center',
+      VATIANCLASSES[variant],
       className,
-      Component === 'a' && 'no-underline'
+      fullWidth && 'w-full',
+      BTNSIZES[size ?? 'm']
     )
 
     return (
