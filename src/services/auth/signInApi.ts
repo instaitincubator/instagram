@@ -26,6 +26,15 @@ const signInApi = baseApi.injectEndpoints({
           }
         },
       }),
+      logOut: build.mutation({
+        invalidatesTags: ['Me'],
+        query: () => {
+          return {
+            method: 'POST',
+            url: '/api/v1/auth/logout',
+          }
+        },
+      }),
       me: build.query({
         providesTags: ['Me'],
         query: () => {
@@ -57,5 +66,10 @@ const signInApi = baseApi.injectEndpoints({
   },
 })
 
-export const { useGitHubSignInQuery, useGoogleSignInMutation, useMeQuery, useSignInMutation } =
-  signInApi
+export const {
+  useGitHubSignInQuery,
+  useGoogleSignInMutation,
+  useLogOutMutation,
+  useMeQuery,
+  useSignInMutation,
+} = signInApi

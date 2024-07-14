@@ -1,8 +1,8 @@
-import { getLayout } from '@/app/layouts/mainLayout/Layout'
+import { getLayoutWithSidebar } from '@/app/layouts/LayoutWithSidebar/LayoutWithSidebar'
 
 const Profile = () => {
   return <div>Profile</div>
 }
 
-Profile.getLayout = getLayout
+Profile.getLayout = getLayoutWithSidebar
 export default Profile

@@ -1,11 +1,13 @@
-import { ComponentProps, useState } from 'react'
+import { ComponentProps } from 'react'
 
+import { useAppSelector } from '@/app/store'
 import Button from '@/shared/ui/Button/Button'
 import { LanguageSelect } from '@/shared/ui/LanguageSelect/LanguageSelect'
 import useIsMobile from '@/shared/ui/header/useIsMobile'
 import { Menu } from '@/shared/ui/icons/menu'
 import { Notification } from '@/shared/ui/icons/notification'
 import { clsx } from 'clsx'
+import { useRouter } from 'next/router'
 
 import { useTranslation } from '../../../../hooks/useTranslation'
 
@@ -14,9 +16,10 @@ export type HeaderProps = {
 } & ComponentProps<'header'>
 
 export const Header = ({ className, isLoading, ...rest }: HeaderProps) => {
+  const router = useRouter()
   const breakPoint = 768
   const isMobile = useIsMobile(breakPoint)
-  const [isAuth, setIsAuth] = useState(true)
+  const isAuth = useAppSelector(state => state.auth.isAuth)
   const { t } = useTranslation()
 
   return (
@@ -27,7 +30,9 @@ export const Header = ({ className, isLoading, ...rest }: HeaderProps) => {
         className
       )}
     >
-      <span className="pl-[5%]">Instagram</span>
+      <span className="pl-[5%] cursor-pointer" onClick={() => router.push('/profile')}>
+        Instagram
+      </span>
       <div className="flex items-center">
         {isMobile && (
           <div className="flex items-center gap-4">
@@ -42,16 +47,21 @@ export const Header = ({ className, isLoading, ...rest }: HeaderProps) => {
           </div>
         )}
         {!isAuth && !isMobile && (
-          <div className="flex items-center">
+          <div className="flex items-center w-full pl-6">
             <Button
               className="bg-blue-500 text-white rounded mr-4 w-m[100px]"
+              onClick={() => router.push('/sign-in')}
               size="m"
               variant="text"
             >
               {t.header.login}
             </Button>
-            <Button className="bg-blue-500 text-white rounded" size="m">
-              Sign up
+            <Button
+              className="bg-blue-500 text-white rounded"
+              onClick={() => router.push('/sign-up')}
+              size="m"
+            >
+              {t.auth.signUp}
             </Button>
           </div>
         )}

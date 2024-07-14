@@ -8,5 +8,12 @@ const nextConfig = {
     domains: ['staging-it-incubator.s3.eu-central-1.amazonaws.com'],
   },
   reactStrictMode: true,
+  webpack(config){
+    config.module.rules.push({
+      test: /\.svg$/,
+      use:[{loader:'@svgr/webpack', options:{icons:true}}]
+    })
+    return config
+  }
 }
 export default nextConfig;

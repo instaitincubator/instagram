@@ -1,6 +1,8 @@
 import React from 'react'
 import { Controller } from 'react-hook-form'
 
+import { authActions } from '@/app/authSlice'
+import { useAppDispatch } from '@/app/store'
 import { SignInFormType, useSignInForm } from '@/features/sign-in/useSignInForm'
 import { useSignInMutation } from '@/services/auth/signInApi'
 import Button from '@/shared/ui/Button/Button'
@@ -15,22 +17,24 @@ import { useTranslation } from '../../../hooks/useTranslation'
 
 export const SignInForm = () => {
   const { t } = useTranslation()
-
+  const dispatch = useAppDispatch()
   const router = useRouter()
 
-  const { control, errors, handleSubmit, isValid } = useSignInForm()
+  const { control, errors, handleSubmit } = useSignInForm()
   const [signIn, { isSuccess }] = useSignInMutation()
+
   const onSubmit = (data: SignInFormType) => {
     signIn(data)
   }
 
   if (isSuccess) {
     router.push('/')
+    dispatch(authActions.setIsAuth(true))
   }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Card className="flex flex-col max-w-[360px] sl:max-w-[378px] p-6 mx-auto my-auto items-center">
+      <Card className="flex flex-col max-w-[360px] sl:max-w-[378px] p-6 m-auto items-center">
         <div>
           <span className="text-h1">{t.auth.signIn}</span>
         </div>
@@ -59,7 +63,7 @@ export const SignInForm = () => {
             )}
           />
         </div>
-        <Link className="text-regular-14 text-light-900 ml-auto pt-[36px]" href="/">
+        <Link className="text-regular-14 text-light-900 ml-auto pt-[36px]" href="/forgot-password">
           {t.auth.forgotPassword}
         </Link>
         <div className="w-full flex flex-col items-center pt-[24px]">

@@ -1,0 +1,47 @@
+import React from 'react'
+
+import { clsx } from 'clsx'
+import Link from 'next/link'
+
+interface LinkProps {
+  activeLink: string
+  alt: string
+  child1: React.ReactElement
+  child2?: React.ReactElement
+  className?: string
+  href: string
+  setActiveLink: (href: string) => void
+  title: string
+}
+
+const CustomLink = ({
+  activeLink,
+  child1,
+  child2,
+  className,
+  href,
+  setActiveLink,
+  title,
+}: LinkProps) => {
+  const isActive = href === activeLink
+  const handleClick = () => {
+    setActiveLink(href)
+  }
+
+  return (
+    <Link
+      className={clsx(
+        'flex border-2 border-transparent items-center gap-4 hover:text-accent-100 focus:border-2 focus:border-accent-700 rounded active:text-accent-700',
+        isActive ? 'text-accent-700' : '',
+        className
+      )}
+      href={href}
+      onClick={handleClick}
+    >
+      {isActive && child2 ? child2 : child1 || null}
+      {title}
+    </Link>
+  )
+}
+
+export default CustomLink
