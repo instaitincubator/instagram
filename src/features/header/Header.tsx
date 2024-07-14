@@ -3,13 +3,12 @@ import { ComponentProps } from 'react'
 import { useAppSelector } from '@/app/store'
 import Button from '@/shared/ui/Button/Button'
 import { LanguageSelect } from '@/shared/ui/LanguageSelect/LanguageSelect'
-import useIsMobile from '@/shared/ui/header/useIsMobile'
 import { Menu } from '@/shared/ui/icons/menu'
 import { Notification } from '@/shared/ui/icons/notification'
 import { clsx } from 'clsx'
 import { useRouter } from 'next/router'
 
-import { useTranslation } from '../../../../hooks/useTranslation'
+import { useTranslation } from '../../../hooks/useTranslation'
 
 export type HeaderProps = {
   isLoading?: boolean
@@ -17,8 +16,6 @@ export type HeaderProps = {
 
 export const Header = ({ className, isLoading, ...rest }: HeaderProps) => {
   const router = useRouter()
-  const breakPoint = 768
-  const isMobile = useIsMobile(breakPoint)
   const isAuth = useAppSelector(state => state.auth.isAuth)
   const { t } = useTranslation()
 
@@ -33,21 +30,18 @@ export const Header = ({ className, isLoading, ...rest }: HeaderProps) => {
       <span className="pl-[5%] cursor-pointer" onClick={() => router.push('/profile')}>
         Instagram
       </span>
-      <div className="flex items-center">
-        {isMobile && (
-          <div className="flex items-center gap-4">
-            <LanguageSelect />
-            <Menu />
+      <div className="flex items-center gap-4">
+        {isAuth && (
+          <div className="hidden  md:flex">
+            <Notification />
           </div>
         )}
-        {!isMobile && (
-          <div className="flex gap-[18px] items-center">
-            {isAuth && <Notification />}
-            <LanguageSelect />
-          </div>
-        )}
-        {!isAuth && !isMobile && (
-          <div className="flex items-center w-full pl-6">
+        <LanguageSelect />
+        <div className="md:hidden">
+          <Menu />
+        </div>
+        {!isAuth && (
+          <div className="hidden md:flex items-center w-full ">
             <Button onClick={() => router.push('/sign-in')} size="m" variant="text">
               {t.header.login}
             </Button>
