@@ -1,22 +1,8 @@
-import React, { JSX, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
+import { Option, SelectProps } from '@/shared/ui/Select/types'
 import clsx from 'clsx'
 import Image from 'next/image'
-
-export interface Option {
-  imageSrc?: JSX.Element | string
-  label: string
-  value: string
-}
-
-interface SelectProps {
-  className?: string
-  disabled?: boolean
-  label?: string
-  onChange: (option: Option) => void
-  options: Option[]
-  value?: Option | null
-}
 
 const Select: React.FC<SelectProps> = ({
   className,
@@ -62,19 +48,26 @@ const Select: React.FC<SelectProps> = ({
 
   const renderOptionImage = (option: Option) => {
     if (option.imageSrc && typeof option.imageSrc === 'string') {
-      return <Image alt={option.label} height={24} src={option.imageSrc} width={24} />
+      return <Image alt={option.label!} height={24} src={option.imageSrc} width={24} />
     }
 
     return option.imageSrc
   }
+  const mappedOptions = options.map(option => (
+    <li
+      className="flex p-[8px] px-[12px] hover:bg-dark-300 hover:text-accent-500 cursor-pointer truncate"
+      key={option.value}
+      onClick={() => handleSelect(option)}
+    >
+      <div className="flex gap-2">
+        {renderOptionImage(option)}
+        {option.label}
+      </div>
+    </li>
+  ))
 
   return (
-    <div
-      className={clsx('relative min-w-[150px]', className)}
-      onBlur={handleBlur}
-      ref={selectRef}
-      tabIndex={0}
-    >
+    <div className="relative min-w-fit" onBlur={handleBlur} ref={selectRef} tabIndex={0}>
       {label && <div className="text-regular-14 text-light-900 mb-2">{label}</div>}
       <div
         className={clsx(
@@ -83,7 +76,8 @@ const Select: React.FC<SelectProps> = ({
             'border-accent-500': !isOpen && selectedOption && focus,
             'border-dark-100 ': !isOpen && !selectedOption,
             'border-light-100 rounded-b-none': isOpen,
-          }
+          },
+          className
         )}
         onClick={handleClick}
       >
@@ -91,7 +85,7 @@ const Select: React.FC<SelectProps> = ({
           {selectedOption && (
             <>
               {renderOptionImage(selectedOption)}
-              <span className="ml-2">{selectedOption.label}</span>
+              {selectedOption.label && <span className="ml-2">{selectedOption.label}</span>}
             </>
           )}
         </div>
@@ -107,21 +101,13 @@ const Select: React.FC<SelectProps> = ({
       </div>
       {isOpen && (
         <ul
-          className="absolute left-0 text-regular-16 text-light-100 bg-dark-500 border border-t-light-100 rounded-b-sm border-light-100 mt-[-1px] z-10"
+          className={clsx(
+            'absolute left-0 text-regular-16 text-light-100 bg-dark-500 border border-t-light-100 rounded-b-sm border-light-100 mt-[-1px] z-10',
+            className
+          )}
           style={{ width: selectRef.current?.offsetWidth }}
         >
-          {options.map(option => (
-            <li
-              className="flex p-[8px] px-[12px] hover:bg-dark-300 hover:text-accent-500 cursor-pointer truncate"
-              key={option.value}
-              onClick={() => handleSelect(option)}
-            >
-              <div className="flex gap-2">
-                {renderOptionImage(option)}
-                {option.label}
-              </div>
-            </li>
-          ))}
+          {mappedOptions}
         </ul>
       )}
     </div>
