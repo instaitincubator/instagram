@@ -11,7 +11,7 @@ interface LinkProps {
   className?: string
   href: string
   setActiveLink: (href: string) => void
-  title: string
+  title?: string
 }
 
 const CustomLink = ({
@@ -39,7 +39,7 @@ const CustomLink = ({
       onClick={handleClick}
     >
       {isActive && child2 ? child2 : child1 || null}
-      {title}
+      <span className="hidden md:flex">{title}</span>
     </Link>
   )
 }
