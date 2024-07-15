@@ -1,8 +1,8 @@
 import { ComponentProps } from 'react'
 
 import { useAppSelector } from '@/app/store'
+import { LanguageSelect } from '@/features/LanguageSelect/LanguageSelect'
 import Button from '@/shared/ui/Button/Button'
-import { LanguageSelect } from '@/shared/ui/LanguageSelect/LanguageSelect'
 import { Menu } from '@/shared/ui/icons/menu'
 import { Notification } from '@/shared/ui/icons/notification'
 import { clsx } from 'clsx'

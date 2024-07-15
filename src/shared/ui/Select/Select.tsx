@@ -76,8 +76,8 @@ const Select: React.FC<SelectProps> = ({
             'border-accent-500': !isOpen && selectedOption && focus,
             'border-dark-100 ': !isOpen && !selectedOption,
             'border-light-100 rounded-b-none': isOpen,
-            className,
-          }
+          },
+          className
         )}
         onClick={handleClick}
       >
@@ -85,7 +85,7 @@ const Select: React.FC<SelectProps> = ({
           {selectedOption && (
             <>
               {renderOptionImage(selectedOption)}
-              <span className="ml-2">{selectedOption.label}</span>
+              {selectedOption.label && <span className="ml-2">{selectedOption.label}</span>}
             </>
           )}
         </div>
@@ -101,7 +101,10 @@ const Select: React.FC<SelectProps> = ({
       </div>
       {isOpen && (
         <ul
-          className="absolute left-0 text-regular-16 text-light-100 bg-dark-500 border border-t-light-100 rounded-b-sm border-light-100 mt-[-1px] z-10"
+          className={clsx(
+            'absolute left-0 text-regular-16 text-light-100 bg-dark-500 border border-t-light-100 rounded-b-sm border-light-100 mt-[-1px] z-10',
+            className
+          )}
           style={{ width: selectRef.current?.offsetWidth }}
         >
           {mappedOptions}
