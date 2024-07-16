@@ -11,7 +11,7 @@ interface LinkProps {
   className?: string
   href: string
   setActiveLink: (href: string) => void
-  title: string
+  title?: string
 }
 
 const CustomLink = ({
@@ -31,7 +31,7 @@ const CustomLink = ({
   return (
     <Link
       className={clsx(
-        'flex border-2 border-transparent items-center gap-4 hover:text-accent-100 focus:border-2 focus:border-accent-700 rounded active:text-accent-700',
+        'flex border-2 border-transparent items-center gap-4 hover:text-accent-100 rounded active:text-accent-700',
         isActive ? 'text-accent-700' : '',
         className
       )}
@@ -39,7 +39,7 @@ const CustomLink = ({
       onClick={handleClick}
     >
       {isActive && child2 ? child2 : child1 || null}
-      {title}
+      <span className="hidden sm:flex">{title}</span>
     </Link>
   )
 }
