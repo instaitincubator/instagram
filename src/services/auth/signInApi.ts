@@ -46,13 +46,9 @@ const signInApi = baseApi.injectEndpoints({
       }),
       signIn: build.mutation({
         async onQueryStarted(arg, { dispatch, queryFulfilled }) {
-          try {
-            const { data } = await queryFulfilled
+          const { data } = await queryFulfilled
 
-            dispatch(authActions.setAccessToken(data.accessToken))
-          } catch (error) {
-            throw new Error('Login failed')
-          }
+          dispatch(authActions.setAccessToken(data.accessToken))
         },
         query: body => {
           return {
