@@ -1,7 +1,8 @@
 import { ComponentProps } from 'react'
 
 import { useAppSelector } from '@/app/store'
-import { LanguageSelect } from '@/features/LanguageSelect/LanguageSelect'
+import { LanguageSelect } from '@/features/language-select/LanguageSelect'
+import { MobileMenuSelector } from '@/features/mobile-menu-selector/Mobile-menu-selector'
 import Button from '@/shared/ui/Button/Button'
 import { Menu } from '@/shared/ui/icons/menu'
 import { Notification } from '@/shared/ui/icons/notification'
@@ -11,10 +12,11 @@ import { useRouter } from 'next/router'
 import { useTranslation } from '../../../hooks/useTranslation'
 
 export type HeaderProps = {
+  isError?: boolean
   isLoading?: boolean
 } & ComponentProps<'header'>
 
-export const Header = ({ className, isLoading, ...rest }: HeaderProps) => {
+export const Header = ({ className, isError, isLoading, ...rest }: HeaderProps) => {
   const router = useRouter()
   const isAuth = useAppSelector(state => state.auth.isAuth)
   const { t } = useTranslation()
@@ -38,9 +40,9 @@ export const Header = ({ className, isLoading, ...rest }: HeaderProps) => {
         )}
         <LanguageSelect />
         <div className="md:hidden">
-          <Menu />
+          <MobileMenuSelector />
         </div>
-        {!isAuth && (
+        {!isAuth && isError && (
           <div className="hidden md:flex items-center w-full ">
             <Button onClick={() => router.push('/sign-in')} size="m" variant="text">
               {t.header.login}

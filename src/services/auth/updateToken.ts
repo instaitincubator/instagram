@@ -9,6 +9,7 @@ const updateTokenApi = baseApi.injectEndpoints({
           const { data } = await queryFulfilled
 
           dispatch(authActions.setAccessToken(data.accessToken))
+          dispatch(authActions.setIsAuth(true))
         },
         query: () => {
           return {

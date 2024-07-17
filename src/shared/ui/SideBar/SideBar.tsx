@@ -35,8 +35,8 @@ export const SideBar = () => {
   }
 
   if (isSuccess) {
-    router.push('/sign-in')
     dispatch(authActions.setIsAuth(false))
+    router.push('/sign-in')
   }
 
   return (

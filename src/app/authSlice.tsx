@@ -3,7 +3,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 const slice = createSlice({
   initialState: {
     accessToken: '',
-    isAuth: true,
+    isAuth: false,
   },
   name: 'auth',
   reducers: {
