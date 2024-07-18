@@ -8,7 +8,7 @@ interface LinkProps {
   alt: string
   child1: React.ReactElement
   child2?: React.ReactElement
-  children?: React.ReactNode
+  children?: React.ReactElement
   className?: string
   href: string
   setActiveLink: (href: string) => void
@@ -23,6 +23,7 @@ const CustomLink = ({
   className,
   href,
   setActiveLink,
+  title,
 }: LinkProps) => {
   const isActive = href === activeLink
   const handleClick = () => {
@@ -40,7 +41,8 @@ const CustomLink = ({
       onClick={handleClick}
     >
       {isActive && child2 ? child2 : child1 || null}
-      {children}
+      {title && <span className="hidden sm:flex text-medium-14">{title}</span>}
+      {children && children}
     </Link>
   )
 }

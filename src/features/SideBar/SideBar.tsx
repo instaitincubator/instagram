@@ -111,10 +111,10 @@ export const SideBar = () => {
           title={'Favorites'}
         ></CustomLink>
       </div>
-      <div className="hidden sm:flex items-start w-full pl-16 pt-[180px] text-light-100">
+      <div className="hidden sm:flex items-center w-full pl-16 pt-[180px] text-light-100">
         <LogOut />
         <Button as="a" className="pl-0" onClick={handleClickLogOut} variant="text">
-          <span className="text-light-100">Log Out</span>
+          <span className="text-light-100 text-medium-14">Log Out</span>
         </Button>
       </div>
     </nav>
