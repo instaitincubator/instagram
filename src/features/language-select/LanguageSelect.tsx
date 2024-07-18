@@ -17,7 +17,7 @@ export const LanguageSelect = () => {
 
     router.replace(currentPath, currentPath, { locale })
   }
-  const isMobile = useIsMobile()
+  const isMobile = useIsMobile(480)
 
   const options = router.locales?.map(lg => {
     const imageSrc =

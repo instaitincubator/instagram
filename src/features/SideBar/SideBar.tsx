@@ -2,16 +2,16 @@ import React, { useState } from 'react'
 
 import { authActions } from '@/app/authSlice'
 import { useAppDispatch, useAppSelector } from '@/app/store'
+import CustomLink from '@/features/SideBar/CustomLink'
 import { useLogOutMutation } from '@/services/auth/signInApi'
 import Button from '@/shared/ui/Button/Button'
-import CustomLink from '@/shared/ui/SideBar/CustomLink'
-import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 import {
   Bookmark,
   Home,
   HomeFill,
+  LogOut,
   Message,
   MessageFill,
   Plus,
@@ -21,7 +21,7 @@ import {
   Search,
   SearchFill,
   Trending,
-} from '../../../../public'
+} from '../../../public'
 
 export const SideBar = () => {
   const router = useRouter()
@@ -112,7 +112,7 @@ export const SideBar = () => {
         ></CustomLink>
       </div>
       <div className="hidden sm:flex items-start w-full pl-16 pt-[180px] text-light-100">
-        <Image alt="logOut" className="cursor-pointer" height={36} src="/log-out.svg" width={36} />
+        <LogOut />
         <Button as="a" className="pl-0" onClick={handleClickLogOut} variant="text">
           <span className="text-light-100">Log Out</span>
         </Button>

@@ -34,12 +34,12 @@ export const Header = ({ className, isError, isLoading, ...rest }: HeaderProps) 
       </span>
       <div className="flex items-center gap-4">
         {isAuth && (
-          <div className="hidden  md:flex">
+          <div className="hidden  sm:flex">
             <Notification />
           </div>
         )}
         <LanguageSelect />
-        <div className="md:hidden">
+        <div className="sm:hidden">
           <MobileMenuSelector />
         </div>
         {!isAuth && isError && (
