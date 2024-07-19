@@ -11,7 +11,8 @@ export const GithubAuthCallback = () => {
 
   if (accessToken) {
     dispatch(authActions.setAccessToken(accessToken as string))
-    router.push('/')
+
+    router.push('/profile')
   }
 
   return <div>gitHub</div>

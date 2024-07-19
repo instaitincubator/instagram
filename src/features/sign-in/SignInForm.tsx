@@ -17,7 +17,6 @@ import { useTranslation } from '../../../hooks/useTranslation'
 
 export const SignInForm = () => {
   const { t } = useTranslation()
-  const dispatch = useAppDispatch()
   const router = useRouter()
 
   const { control, errors, handleSubmit } = useSignInForm()
@@ -29,7 +28,6 @@ export const SignInForm = () => {
 
   if (isSuccess) {
     router.push('/')
-    dispatch(authActions.setIsAuth(true))
   }
 
   return (

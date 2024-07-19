@@ -1,14 +1,35 @@
-import { PropsWithChildren, ReactElement } from 'react'
+import { PropsWithChildren, ReactElement, useEffect } from 'react'
 
+import { authActions } from '@/app/authSlice'
+import { useAppDispatch, useAppSelector } from '@/app/store'
 import { Header } from '@/features/header/Header'
+import { useUpdateTokenMutation } from '@/services/auth/updateToken'
 import { NextPage } from 'next'
+import { useRouter } from 'next/router'
 
 export const Layout: NextPage<PropsWithChildren> = props => {
   const { children } = props
+  const [updateToken, { error, isError }] = useUpdateTokenMutation()
+  const dispatch = useAppDispatch()
+  const router = useRouter()
+  const isAuth = useAppSelector(state => state.auth.isAuth)
+
+  useEffect(() => {
+    if (error && 'status' in error! && error?.status === 401) {
+      router.push('/sign-in')
+      dispatch(authActions.setIsAuth(false))
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!isAuth) {
+      updateToken({})
+    }
+  }, [])
 
   return (
     <div className="flex flex-col min-h-screen text-light-100 bg-dark-700 min-w-[360px]">
-      <Header />
+      <Header isError={isError} />
       <div className="flex flex-1 sm:justify-center sm:items-center">{children}</div>
     </div>
   )

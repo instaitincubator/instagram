@@ -58,6 +58,9 @@ export const english = {
     login: 'Log In',
   },
   pages: {
+    profile: {
+      profileSettings: 'Profile Settings',
+    },
     terms: {
       welcome: `Welcome to Instagram!
       These Terms of Use (the “Terms”) govern your use of Instagram (unless it is expressly stated that separate terms and conditions rather than these apply) and contain the information about the Instagram Service (the “Service”) set forth below. By creating an Instagram account or using Instagram, you accept these terms.
@@ -73,6 +76,16 @@ You may not engage in any unlawful, misleading or deceptive conduct, or otherwis
 You may not use a domain name or URL in your username without our prior written consent. We do not claim ownership of your content, but you do give us a license to use it.
 Your rights to your content remain unaffected. We do not claim ownership of your content that you post on or through the Service, and you are free to share it with anyone at any time. However, we need to obtain certain legal permissions (referred to as a “license”) from you in order to provide the Service. When you post or upload content that is subject to intellectual property rights (such as photos or videos) to our Service or share such content on or in connection with our Service, you hereby grant us a non-exclusive, royalty-free, worldwide license with the right transferring and sublicensing to store, use, distribute, modify, run, copy, publicly perform or display, translate, and create derivative works from your content (subject to your privacy and application settings). The license terminates when your content is removed from our systems. You can delete content individually or all at once by deleting your account.`,
     },
+  },
+  sidebar: {
+    create: 'Create',
+    favourites: 'Favourites',
+    home: 'Home',
+    logOut: 'Log Out',
+    message: 'Message',
+    myProfile: 'My Profile',
+    search: 'Search',
+    statistics: 'Statistics',
   },
 }
 export type LocaleType = typeof english
