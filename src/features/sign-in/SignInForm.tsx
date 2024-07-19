@@ -1,8 +1,6 @@
 import React from 'react'
 import { Controller } from 'react-hook-form'
 
-import { authActions } from '@/app/authSlice'
-import { useAppDispatch } from '@/app/store'
 import { SignInFormType, useSignInForm } from '@/features/sign-in/useSignInForm'
 import { useSignInMutation } from '@/services/auth/signInApi'
 import Button from '@/shared/ui/Button/Button'

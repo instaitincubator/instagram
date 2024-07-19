@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { authActions } from '@/app/authSlice'
 import { useAppDispatch, useAppSelector } from '@/app/store'
@@ -29,11 +29,17 @@ export const SideBar = () => {
   const dispatch = useAppDispatch()
   const [activeLink, setActiveLink] = useState('/')
   const [logOut, { isSuccess }] = useLogOutMutation()
-  const accessToken = useAppSelector(state => state.auth.accessToken)
   const { t } = useTranslation()
 
+  useEffect(() => {
+    setActiveLink(router.pathname)
+  }, [])
+
   const handleClickLogOut = () => {
+    const accessToken = localStorage.getItem('accessToken')
+
     logOut(accessToken)
+    localStorage.removeItem('accessToken')
   }
 
   if (isSuccess) {
@@ -50,7 +56,7 @@ export const SideBar = () => {
           child1={<Home />}
           child2={<HomeFill />}
           className="order-1"
-          href="/profile"
+          href="/home"
           setActiveLink={setActiveLink}
           title={t.sidebar.home}
         ></CustomLink>
