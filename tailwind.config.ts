@@ -167,7 +167,7 @@ const config: Config = {
       sans: ['Inter', 'sans-serif'],
     },
     screens: {
-      lg: '976px',
+      lg: '1240px',
       md: '768px',
       sm: '480px',
       xl: '1440px',

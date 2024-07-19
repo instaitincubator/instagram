@@ -10,7 +10,7 @@ export const LayoutWithSidebar: NextPage<PropsWithChildren> = props => {
   return (
     <Layout>
       <div className="sm:flex sm:flex-1 w-full">
-        <div className="flex flex-col order-1">{children}</div>
+        <div className="flex flex-1 flex-col overflow-x-auto order-1">{children}</div>
         <SideBar />
       </div>
     </Layout>
