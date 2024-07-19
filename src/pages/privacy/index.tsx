@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { getLayout } from '@/app/layouts/mainLayout/Layout'
-import { LegalContent } from '@/features/legalContent/legalContent'
+import { LegalContent } from '@/features/legal-content/LegalContent'
 
 import { useTranslation } from '../../../hooks/useTranslation'
 

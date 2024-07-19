@@ -5,7 +5,6 @@ import CountRegisteredUsers from "@/entities/CountRegisteredUsers/CountRegistere
 import PublicPosts from "@/features/public/PublicPosts";
 import { useGetAllPublicPostsQuery } from "@/features/public/api/allPublicPost";
 import { useGetTotalUsersCountQuery } from "@/features/public/api/publicProfileCounts";
-import { PrivateRoute } from "@/shared/HOC/redirect";
 
 
 const Public = () => {
@@ -19,12 +18,10 @@ const Public = () => {
     return <div>Error...</div>;
   }
 
-  return <PrivateRoute>
-    <div className="py-6 w-full max-w-[972px] mx-auto">
-      <CountRegisteredUsers count={data?.totalCount} />
-      <PublicPosts posts={posts?.items} />
-    </div>
-  </PrivateRoute>;
+  return <div className="py-6 w-full max-w-[972px] mx-auto">
+    <CountRegisteredUsers count={data?.totalCount} />
+    <PublicPosts posts={posts?.items} />
+  </div>;
 
 };
 

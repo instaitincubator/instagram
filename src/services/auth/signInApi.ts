@@ -4,19 +4,12 @@ import { baseApi } from '@/app/inctagram-api'
 const signInApi = baseApi.injectEndpoints({
   endpoints: build => {
     return {
-      gitHubSignIn: build.query({
-        query: () => {
-          return {
-            method: 'GET',
-            url: '/api/v1/auth/github/login',
-          }
-        },
-      }),
       googleSignIn: build.mutation({
         async onQueryStarted(arg, { dispatch, queryFulfilled }) {
           const { data } = await queryFulfilled
 
           dispatch(authActions.setAccessToken(data.accessToken))
+          dispatch(authActions.setIsAuth(true))
         },
         query: body => {
           return {
@@ -46,13 +39,10 @@ const signInApi = baseApi.injectEndpoints({
       }),
       signIn: build.mutation({
         async onQueryStarted(arg, { dispatch, queryFulfilled }) {
-          try {
-            const { data } = await queryFulfilled
+          const { data } = await queryFulfilled
 
-            dispatch(authActions.setAccessToken(data.accessToken))
-          } catch (error) {
-            throw new Error('Login failed')
-          }
+          dispatch(authActions.setAccessToken(data.accessToken))
+          dispatch(authActions.setIsAuth(true))
         },
         query: body => {
           return {
@@ -66,10 +56,5 @@ const signInApi = baseApi.injectEndpoints({
   },
 })
 
-export const {
-  useGitHubSignInQuery,
-  useGoogleSignInMutation,
-  useLogOutMutation,
-  useMeQuery,
-  useSignInMutation,
-} = signInApi
+export const { useGoogleSignInMutation, useLogOutMutation, useMeQuery, useSignInMutation } =
+  signInApi

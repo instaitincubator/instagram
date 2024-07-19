@@ -17,7 +17,7 @@ export const LanguageSelect = () => {
 
     router.replace(currentPath, currentPath, { locale })
   }
-  const isMobile = useIsMobile()
+  const isMobile = useIsMobile(480)
 
   const options = router.locales?.map(lg => {
     const imageSrc =
@@ -42,7 +42,7 @@ export const LanguageSelect = () => {
 
   return (
     <Select
-      className={clsx('select-none', { 'border-none bg-dark-700': isMobile })}
+      className={clsx('select-none ', { 'border-none bg-dark-700 ': isMobile })}
       onChange={changeLangHandler}
       options={options!}
       value={options?.find(option => option.value === router.locale) || null}

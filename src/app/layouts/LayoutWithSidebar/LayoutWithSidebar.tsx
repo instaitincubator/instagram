@@ -1,7 +1,7 @@
 import { PropsWithChildren, ReactElement } from 'react'
 
 import { Layout } from '@/app/layouts/mainLayout/Layout'
-import { SideBar } from '@/shared/ui/SideBar/SideBar'
+import { SideBar } from '@/features/SideBar/SideBar'
 import { NextPage } from 'next'
 
 export const LayoutWithSidebar: NextPage<PropsWithChildren> = props => {
