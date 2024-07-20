@@ -8,7 +8,7 @@ const signInApi = baseApi.injectEndpoints({
         async onQueryStarted(arg, { dispatch, queryFulfilled }) {
           const { data } = await queryFulfilled
 
-          dispatch(authActions.setAccessToken(data.accessToken))
+          localStorage.setItem('accessToken', data.accessToken)
           dispatch(authActions.setIsAuth(true))
         },
         query: body => {
@@ -29,6 +29,11 @@ const signInApi = baseApi.injectEndpoints({
         },
       }),
       me: build.query({
+        async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+          const { data } = await queryFulfilled
+
+          dispatch(authActions.setMe(data))
+        },
         providesTags: ['Me'],
         query: () => {
           return {
@@ -41,7 +46,7 @@ const signInApi = baseApi.injectEndpoints({
         async onQueryStarted(arg, { dispatch, queryFulfilled }) {
           const { data } = await queryFulfilled
 
-          dispatch(authActions.setAccessToken(data.accessToken))
+          localStorage.setItem('accessToken', data.accessToken)
           dispatch(authActions.setIsAuth(true))
         },
         query: body => {

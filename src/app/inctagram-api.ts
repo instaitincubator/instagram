@@ -1,23 +1,8 @@
-import { RootState } from '@/app/store'
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-
-import config from '../../config'
-
+import { baseQueryWithReauth } from '@/app/baseApiWithReauth'
+import { createApi } from '@reduxjs/toolkit/query/react'
 export const baseApi = createApi({
-  baseQuery: fetchBaseQuery({
-    baseUrl: config.baseUrl,
-    credentials: 'include',
-    prepareHeaders: (headers, { getState }) => {
-      const accessToken = (getState() as RootState).auth.accessToken
-
-      if (accessToken) {
-        headers.set('Authorization', `Bearer ${accessToken}`)
-      }
-
-      return headers
-    },
-  }),
-  endpoints: () => ({}),
+  baseQuery: baseQueryWithReauth,
+  endpoints: build => ({}),
   reducerPath: 'inctagram-api',
   tagTypes: ['Me'],
 })

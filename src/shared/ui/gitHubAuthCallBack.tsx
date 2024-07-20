@@ -10,7 +10,7 @@ export const GithubAuthCallback = () => {
   const { accessToken } = router.query
 
   if (accessToken) {
-    dispatch(authActions.setAccessToken(accessToken as string))
+    localStorage.setItem('accessToken', accessToken as string)
 
     router.push('/profile')
   }

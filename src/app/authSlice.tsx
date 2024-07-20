@@ -1,17 +1,18 @@
+import { MeResponse } from '@/shared/types/ApiTypes/AuthApiTypes'
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 const slice = createSlice({
   initialState: {
-    accessToken: '',
     isAuth: false,
+    me: {} as MeResponse,
   },
   name: 'auth',
   reducers: {
-    setAccessToken: (state, action: PayloadAction<string>) => {
-      state.accessToken = action.payload
-    },
     setIsAuth: (state, action: PayloadAction<boolean>) => {
       state.isAuth = action.payload
+    },
+    setMe: (state, action: PayloadAction<MeResponse>) => {
+      state.me = action.payload
     },
   },
 })
