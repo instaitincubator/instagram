@@ -1,10 +1,10 @@
 import { PropsWithChildren, ReactElement, useEffect } from 'react'
 
 import { authActions } from '@/app/authSlice'
-import { useUpdateTokenMutation } from '@/app/inctagram-api'
 import { useAppDispatch, useAppSelector } from '@/app/store'
 import { Header } from '@/features/header/Header'
 import { useMeQuery } from '@/services/auth/signInApi'
+import { useUpdateTokenMutation } from '@/services/auth/updateToken'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 

@@ -1,12 +1,14 @@
 import { getLayoutWithSidebar } from '@/app/layouts/LayoutWithSidebar/LayoutWithSidebar'
-import { useAppSelector } from '@/app/store'
+import { useMeQuery } from '@/services/auth/signInApi'
 import { useGetPostsQuery } from '@/services/profile/postsApi'
 
 const Profile = () => {
+  const { data: me } = useMeQuery({})
+
   const arg = {
     pageNumber: 1,
     pageSize: 10,
-    userName: 'gem4ik',
+    userName: me.userName,
   }
 
   const { data } = useGetPostsQuery(arg)
