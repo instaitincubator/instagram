@@ -20,7 +20,11 @@ const signInApi = baseApi.injectEndpoints({
         },
       }),
       logOut: build.mutation({
-        invalidatesTags: ['Me'],
+        async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+          queryFulfilled.then(() => {
+            dispatch(authActions.setIsAuth(false))
+          })
+        },
         query: () => {
           return {
             method: 'POST',
@@ -33,6 +37,7 @@ const signInApi = baseApi.injectEndpoints({
           const { data } = await queryFulfilled
 
           dispatch(authActions.setMe(data))
+          dispatch(authActions.setIsAuth(true))
         },
         providesTags: ['Me'],
         query: () => {
@@ -43,6 +48,7 @@ const signInApi = baseApi.injectEndpoints({
         },
       }),
       signIn: build.mutation({
+        invalidatesTags: ['Me'],
         async onQueryStarted(arg, { dispatch, queryFulfilled }) {
           const { data } = await queryFulfilled
 

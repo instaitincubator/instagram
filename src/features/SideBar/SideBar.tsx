@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react'
 
-import { authActions } from '@/app/authSlice'
-import { useAppDispatch, useAppSelector } from '@/app/store'
 import CustomLink from '@/features/SideBar/CustomLink'
 import { useLogOutMutation } from '@/services/auth/signInApi'
 import Button from '@/shared/ui/Button/Button'
@@ -26,24 +24,22 @@ import {
 
 export const SideBar = () => {
   const router = useRouter()
-  const dispatch = useAppDispatch()
   const [activeLink, setActiveLink] = useState('/')
   const [logOut, { isSuccess }] = useLogOutMutation()
   const { t } = useTranslation()
 
   useEffect(() => {
     setActiveLink(router.pathname)
-  }, [])
+  }, [router.pathname])
 
-  const handleClickLogOut = () => {
+  const logOutHandler = () => {
     const accessToken = localStorage.getItem('accessToken')
 
     logOut(accessToken)
-    localStorage.removeItem('accessToken')
   }
 
   if (isSuccess) {
-    dispatch(authActions.setIsAuth(false))
+    localStorage.removeItem('accessToken')
     router.push('/sign-in')
   }
 
@@ -121,7 +117,7 @@ export const SideBar = () => {
       </div>
       <div className="hidden sm:flex items-center w-full pl-16 pt-[180px] text-light-100">
         <LogOut />
-        <Button as="a" className="pl-0" onClick={handleClickLogOut} variant="text">
+        <Button as="a" className="pl-0" onClick={logOutHandler} variant="text">
           <span className="text-light-100 text-medium-14">{t.sidebar.logOut}</span>
         </Button>
       </div>
