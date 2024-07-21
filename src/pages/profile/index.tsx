@@ -8,7 +8,7 @@ const Profile = () => {
   const arg = {
     pageNumber: 1,
     pageSize: 10,
-    userName: me.userName,
+    userName: me ? me.userName : 'gem4ik',
   }
 
   const { data } = useGetPostsQuery(arg)
@@ -16,7 +16,7 @@ const Profile = () => {
   return (
     <div>
       <div>ava и статусы с кнопками</div>
-      <div>фотки</div>
+      <div>{JSON.stringify(data, null, 2)}</div>
     </div>
   )
 }

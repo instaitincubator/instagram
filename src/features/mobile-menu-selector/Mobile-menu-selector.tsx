@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 
-import { useAppSelector } from '@/app/store'
 import CustomLink from '@/features/SideBar/CustomLink'
 import { useLogOutMutation } from '@/services/auth/signInApi'
 import Button from '@/shared/ui/Button/Button'
@@ -12,16 +11,17 @@ import { Bookmark, LogOut, SettingsOutline, Trending } from '../../../public'
 
 export const MobileMenuSelector = () => {
   const [activeLink, setActiveLink] = useState('/')
-  const [logOut] = useLogOutMutation()
+  const [logOut, { isSuccess }] = useLogOutMutation()
   const { t } = useTranslation()
 
   const logOutHandler = () => {
     const accessToken = localStorage.getItem('accessToken')
 
-    if (accessToken) {
-      logOut(accessToken)
-      localStorage.removeItem('accessToken')
-    }
+    logOut(accessToken)
+  }
+
+  if (isSuccess) {
+    localStorage.removeItem('accessToken')
   }
 
   return (

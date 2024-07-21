@@ -3,6 +3,9 @@ import type { BaseQueryFn, FetchArgs, FetchBaseQueryError } from '@reduxjs/toolk
 import { fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { Mutex } from 'async-mutex'
 
+interface RefreshResultData {
+  accessToken: string
+}
 const baseQuery = fetchBaseQuery({
   baseUrl: 'https://inctagram.work',
   credentials: 'include',
@@ -38,6 +41,12 @@ export const baseQueryWithReauth: BaseQueryFn<
           api,
           extraOptions
         )
+
+        if (refreshResult.data) {
+          const { accessToken } = refreshResult.data as RefreshResultData
+
+          localStorage.setItem('accessToken', accessToken)
+        }
 
         if (!refreshResult.error) {
           result = await baseQuery(args, api, extraOptions)
