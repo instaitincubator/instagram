@@ -4,6 +4,8 @@ import { Layout } from '@/app/layouts/mainLayout/Layout'
 import { SideBar } from '@/features/SideBar/SideBar'
 import { NextPage } from 'next'
 
+import withAuth from '../../../../hooks/authHOK'
+
 export const LayoutWithSidebar: NextPage<PropsWithChildren> = props => {
   const { children } = props
 
@@ -19,6 +21,8 @@ export const LayoutWithSidebar: NextPage<PropsWithChildren> = props => {
   )
 }
 
+export const WrappedLayoutWithSidebar = withAuth(LayoutWithSidebar)
+
 export const getLayoutWithSidebar = (page: ReactElement) => {
-  return <LayoutWithSidebar>{page}</LayoutWithSidebar>
+  return <WrappedLayoutWithSidebar>{page}</WrappedLayoutWithSidebar>
 }
