@@ -1,7 +1,8 @@
 import { getLayout } from '@/app/layouts/mainLayout/Layout'
+import { Avatar } from '@/shared/ui/Avatar/Avatar'
 
 const Statistics = () => {
-  return <div>Statistics</div>
+  return <Avatar />
 }
 
 Statistics.getLayout = getLayout
