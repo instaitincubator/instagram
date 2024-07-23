@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Controller } from 'react-hook-form'
 
 import { SignUpFormType, useSignUpForm } from '@/features/sign-up-form/useSignUpForm'
@@ -7,6 +7,7 @@ import Button from '@/shared/ui/Button/Button'
 import { Card } from '@/shared/ui/Card/Card'
 import { Checkbox } from '@/shared/ui/Checkbox/Checkbox'
 import { Input } from '@/shared/ui/Input/Input'
+import { Modal } from '@/shared/ui/Modal/Modal'
 import { GithubAuth } from '@/shared/ui/githubAuth'
 import { GoogleButton } from '@/shared/ui/googleAuth'
 import Link from 'next/link'
@@ -15,8 +16,9 @@ import { useTranslation } from '../../../hooks/useTranslation'
 
 export const SignUpForm = () => {
   const { t } = useTranslation()
-  const { control, errors, handleSubmit, isDirty, isValid } = useSignUpForm()
-  const [SignUp] = useSignUpMutation()
+  const { control, errors, getValues, handleSubmit, isDirty, isValid } = useSignUpForm()
+  const [SignUp, { isSuccess }] = useSignUpMutation()
+  const [modal, setModal] = useState(true)
 
   const onSubmit = (data: SignUpFormType) => {
     SignUp({
@@ -114,6 +116,7 @@ export const SignUpForm = () => {
             </div>
           </div>
         </div>
+
         <Button className="btn-primary mb-[20px]" disabled={!isDirty || !isValid} fullWidth>
           {t.auth.signUp}
         </Button>
@@ -124,6 +127,14 @@ export const SignUpForm = () => {
           {t.auth.signIn}
         </Button>
       </Card>
+      {isSuccess && modal && (
+        <Modal className="w-[378px] m-auto" onClose={() => setModal(false)} title="Email sent">
+          <span>We have sent a link to confirm your email to {getValues().email}</span>
+          <Button onClick={() => setModal(false)} type="button">
+            OK
+          </Button>
+        </Modal>
+      )}
     </form>
   )
 }
