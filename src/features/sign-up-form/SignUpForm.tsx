@@ -12,12 +12,13 @@ import { GithubAuth } from '@/shared/ui/githubAuth'
 import { GoogleButton } from '@/shared/ui/googleAuth'
 import Link from 'next/link'
 
+import { rtkErrorHandling } from '../../../hooks/rtkErrorsHandling'
 import { useTranslation } from '../../../hooks/useTranslation'
 
 export const SignUpForm = () => {
   const { t } = useTranslation()
   const { control, errors, getValues, handleSubmit, isDirty, isValid } = useSignUpForm()
-  const [SignUp, { isSuccess }] = useSignUpMutation()
+  const [SignUp, { error, isSuccess }] = useSignUpMutation()
   const [modal, setModal] = useState(true)
 
   const onSubmit = (data: SignUpFormType) => {
@@ -60,7 +61,7 @@ export const SignUpForm = () => {
             render={({ field }) => (
               <Input
                 {...field}
-                error={errors.email?.message}
+                error={error ? rtkErrorHandling(error) : errors.email?.message}
                 fullWidth
                 label={t.auth.email}
                 placeholder="Epam@epam.com"

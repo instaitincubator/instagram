@@ -8,15 +8,12 @@ const withAuth = <P extends object>(WrappedComponent: ComponentType<P>): Compone
     const isAuth = useAppSelector(state => state.auth.isAuth)
     const router = useRouter()
 
-    // Проверяем состояние авторизации пользователя
-    // Если пользователь не авторизован, перенаправляем на страницу входа
     useEffect(() => {
       if (!isAuth) {
-        router.push('/login') // Замените '/login' на путь к вашей странице входа
+        router.push('/login')
       }
     }, [isAuth, router])
 
-    // Если пользователь авторизован, отрисовываем обернутый компонент
     if (isAuth) {
       return <WrappedComponent {...props} />
     }
