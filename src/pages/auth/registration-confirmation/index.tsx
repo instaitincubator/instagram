@@ -1,17 +1,25 @@
 import { getLayout } from '@/app/layouts/mainLayout/Layout'
 import Button from '@/shared/ui/Button/Button'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
+
+import { useTranslation } from '../../../../hooks/useTranslation'
 
 const EmailConfirmed = () => {
+  const { t } = useTranslation()
+  const router = useRouter()
+
   return (
     <div>
       <div className="pt-[35px]">
-        <h1 className="text-center text-h1 text-light-100 mb-[19px]">Congratulations!</h1>
+        <h1 className="text-center text-h1 text-light-100 mb-[19px]">{t.auth.congratulations}</h1>
         <p className="text-regular-16 text-center text-light-100 mb-[54px]">
-          Your email has been confirmed
+          {t.auth.confirmMessage}
         </p>
 
-        <Button className="mx-auto my-auto mb-[72px]">Sign In</Button>
+        <Button className="mx-auto my-auto mb-[72px]" onClick={() => router.push('/sign-in')}>
+          {t.auth.signIn}
+        </Button>
 
         <Image
           alt="icon"
