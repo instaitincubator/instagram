@@ -9,6 +9,7 @@ export const GithubAuthCallback = () => {
 
   if (accessToken) {
     localStorage.setItem('accessToken', accessToken as string)
+    dispatch(authActions.setIsAuth(true))
 
     router.push('/profile')
   }
