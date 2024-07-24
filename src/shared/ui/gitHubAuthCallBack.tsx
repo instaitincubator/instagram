@@ -1,5 +1,3 @@
-import { useEffect } from 'react'
-
 import { authActions } from '@/app/authSlice'
 import { useAppDispatch } from '@/app/store'
 import { useRouter } from 'next/router'
@@ -11,6 +9,7 @@ export const GithubAuthCallback = () => {
 
   if (accessToken) {
     localStorage.setItem('accessToken', accessToken as string)
+    dispatch(authActions.setIsAuth(true))
 
     router.push('/profile')
   }
