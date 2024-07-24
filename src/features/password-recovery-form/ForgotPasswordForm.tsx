@@ -37,7 +37,7 @@ export const ForgotPasswordForm = () => {
           render={({ field }) => (
             <Input
               {...field}
-              error={errors.email?.message || error ? "User with this email doesn't exist" : ''}
+              error={errors.email?.message || error ? t.auth.errors.userNotExist : ''}
               fullWidth
               label={t.auth.email}
               placeholder={t.auth.emailPlaceholder}
@@ -68,7 +68,10 @@ export const ForgotPasswordForm = () => {
       </Card>
       {isSuccess && modal && (
         <Modal className="w-[378px] m-auto" onClose={() => setModal(false)} title="Email sent">
-          <span>We have sent a link to confirm your email to {getValues().email}</span>
+          <span>
+            {t.auth.emailConfirmation}
+            {getValues().email}
+          </span>
           <Button onClick={() => setModal(false)} type="button">
             OK
           </Button>
