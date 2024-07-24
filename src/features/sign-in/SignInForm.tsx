@@ -30,7 +30,7 @@ export const SignInForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Card className="flex flex-col max-w-[360px] sl:max-w-[378px] p-6 m-auto items-center">
+      <Card className="flex flex-col w-[378px] p-6 m-auto items-center">
         <div>
           <span className="text-h1">{t.auth.signIn}</span>
         </div>
@@ -38,7 +38,7 @@ export const SignInForm = () => {
           <GoogleButton />
           <GithubAuth />
         </div>
-        <div className="flex flex-col gap-[24px] pt-[24px]">
+        <div className="flex w-full flex-col gap-[24px] pt-[24px]">
           <Controller
             control={control}
             name="email"
@@ -46,6 +46,7 @@ export const SignInForm = () => {
               <Input
                 {...field}
                 error={errors.email?.message}
+                fullWidth
                 label={t.auth.email}
                 placeholder={t.auth.emailPlaceholder}
               />
@@ -58,6 +59,7 @@ export const SignInForm = () => {
               <Input
                 {...field}
                 error={errors.password?.message}
+                fullWidth
                 label={t.auth.password}
                 type="password"
               />

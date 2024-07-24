@@ -8,7 +8,7 @@ const signUpApi = baseApi.injectEndpoints({
           return {
             body,
             method: 'POST',
-            url: '/api/v1/auth/registration',
+            url: '/api/v1/auth/registration-confirmation',
           }
         },
       }),
@@ -17,7 +17,7 @@ const signUpApi = baseApi.injectEndpoints({
           return {
             body,
             method: 'POST',
-            url: '/api/v1/auth/registration-confirmation',
+            url: '/api/v1/auth/registration',
           }
         },
       }),

@@ -11,17 +11,20 @@ import { useTranslation } from '../../../../hooks/useTranslation'
 const EmailConfirmed = () => {
   const { t } = useTranslation()
   const router = useRouter()
-  const [confirmCode, { isSuccess }] = useConfirmCodeMutation()
+  const [confirmCode, { isLoading, isSuccess }] = useConfirmCodeMutation()
 
   useEffect(() => {
-    if (isSuccess) {
-      confirmCode(router.query.code)
+    if (router.query.code) {
+      confirmCode({ confirmationCode: router.query.code })
     }
-  }, [confirmCode, isSuccess, router.query.code])
+  }, [confirmCode, router.query.code])
+  if (isLoading) {
+    return <div>isLoading...</div>
+  }
 
   return (
-    <div>
-      {isSuccess && (
+    <>
+      {isSuccess ? (
         <div className="pt-[35px]">
           <h1 className="text-center text-h1 text-light-100 mb-[19px]">{t.auth.congratulations}</h1>
           <p className="text-regular-16 text-center text-light-100 mb-[54px]">
@@ -40,9 +43,7 @@ const EmailConfirmed = () => {
             width={432}
           ></Image>
         </div>
-      )}
-
-      {!isSuccess && (
+      ) : (
         <div className="flex flex-col items-center  m-auto gap-5">
           <span className="text-h1 w-[300px] ">{t.auth.verification}</span>
           <span className="text-regular-16 w-[300px] ">{t.auth.verificationMessage}</span>
@@ -60,7 +61,7 @@ const EmailConfirmed = () => {
           />
         </div>
       )}
-    </div>
+    </>
   )
 }
 
