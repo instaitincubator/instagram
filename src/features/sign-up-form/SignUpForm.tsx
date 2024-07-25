@@ -13,7 +13,6 @@ import { Modal } from '@/shared/ui/Modal/Modal'
 import { GithubAuth } from '@/shared/ui/githubAuth'
 import { GoogleButton } from '@/shared/ui/googleAuth'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 
 export const SignUpForm = () => {
   const { t } = useTranslation()
