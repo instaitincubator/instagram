@@ -3,12 +3,11 @@ import { ComponentProps } from 'react'
 import { useAppSelector } from '@/app/store'
 import { LanguageSelect } from '@/features/language-select/LanguageSelect'
 import { MobileMenuSelector } from '@/features/mobile-menu-selector/Mobile-menu-selector'
+import { useTranslation } from '@/shared/hooks/useTranslation'
 import Button from '@/shared/ui/Button/Button'
 import { Notification } from '@/shared/ui/icons/notification'
 import { clsx } from 'clsx'
 import { useRouter } from 'next/router'
-
-import { useTranslation } from '../../../hooks/useTranslation'
 
 export type HeaderProps = {
   isLoading?: boolean

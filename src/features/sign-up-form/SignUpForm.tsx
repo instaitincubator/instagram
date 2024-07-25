@@ -3,6 +3,9 @@ import { Controller } from 'react-hook-form'
 
 import { SignUpFormType, useSignUpForm } from '@/features/sign-up-form/useSignUpForm'
 import { useSignUpMutation } from '@/services/auth/signUpApi'
+import { WHOLE_URL } from '@/shared/consts/wholeUrl'
+import { rtkErrorHandling } from '@/shared/hooks/rtkErrorsHandling'
+import { useTranslation } from '@/shared/hooks/useTranslation'
 import Button from '@/shared/ui/Button/Button'
 import { Card } from '@/shared/ui/Card/Card'
 import { Checkbox } from '@/shared/ui/Checkbox/Checkbox'
@@ -11,19 +14,18 @@ import { Modal } from '@/shared/ui/Modal/Modal'
 import { GithubAuth } from '@/shared/ui/githubAuth'
 import { GoogleButton } from '@/shared/ui/googleAuth'
 import Link from 'next/link'
-
-import { rtkErrorHandling } from '../../../hooks/rtkErrorsHandling'
-import { useTranslation } from '../../../hooks/useTranslation'
+import { useRouter } from 'next/router'
 
 export const SignUpForm = () => {
   const { t } = useTranslation()
   const { control, errors, getValues, handleSubmit, isDirty, isValid } = useSignUpForm()
   const [SignUp, { error, isSuccess }] = useSignUpMutation()
   const [modal, setModal] = useState(true)
+  const router = useRouter()
 
   const onSubmit = (data: SignUpFormType) => {
     SignUp({
-      baseUrl: 'http://localhost:3000',
+      baseUrl: WHOLE_URL,
       email: data.email,
       password: data.password,
       userName: data.userName,

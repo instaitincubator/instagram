@@ -1,10 +1,9 @@
 import React from 'react'
 
 import { getLayout } from '@/app/layouts/mainLayout/Layout'
+import { useTranslation } from '@/shared/hooks/useTranslation'
 import Button from '@/shared/ui/Button/Button'
 import Image from 'next/image'
-
-import { useTranslation } from '../../../hooks/useTranslation'
 
 const VerificationLinkExpired = () => {
   const { t } = useTranslation()

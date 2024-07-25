@@ -7,6 +7,7 @@ import {
   useForgotPasswordForm,
 } from '@/features/password-recovery-form/useForgotPasswordForm'
 import { useForgotPasswordMutation } from '@/services/auth/forgotPasswordApi'
+import { useTranslation } from '@/shared/hooks/useTranslation'
 import Button from '@/shared/ui/Button/Button'
 import { Card } from '@/shared/ui/Card/Card'
 import { Input } from '@/shared/ui/Input/Input'
@@ -14,7 +15,6 @@ import { Modal } from '@/shared/ui/Modal/Modal'
 import { useRouter } from 'next/router'
 
 import config from '../../../config'
-import { useTranslation } from '../../../hooks/useTranslation'
 
 export const ForgotPasswordForm = () => {
   const [forgotPassword, { error, isSuccess }] = useForgotPasswordMutation()

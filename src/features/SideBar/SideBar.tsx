@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react'
 
 import CustomLink from '@/features/SideBar/CustomLink'
 import { useLogOutMutation } from '@/services/auth/signInApi'
+import { useTranslation } from '@/shared/hooks/useTranslation'
 import Button from '@/shared/ui/Button/Button'
 import { useRouter } from 'next/router'
 
-import { useTranslation } from '../../../hooks/useTranslation'
 import {
   Bookmark,
   Home,

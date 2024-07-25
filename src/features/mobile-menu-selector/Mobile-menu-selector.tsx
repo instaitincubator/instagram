@@ -2,11 +2,11 @@ import React, { useState } from 'react'
 
 import CustomLink from '@/features/SideBar/CustomLink'
 import { useLogOutMutation } from '@/services/auth/signInApi'
+import { useTranslation } from '@/shared/hooks/useTranslation'
 import Button from '@/shared/ui/Button/Button'
 import { Menu } from '@/shared/ui/icons/menu'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 
-import { useTranslation } from '../../../hooks/useTranslation'
 import { Bookmark, LogOut, SettingsOutline, Trending } from '../../../public'
 
 export const MobileMenuSelector = () => {

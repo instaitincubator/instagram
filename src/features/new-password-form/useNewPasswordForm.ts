@@ -1,9 +1,8 @@
 import { useForm } from 'react-hook-form'
 
+import { useTranslation } from '@/shared/hooks/useTranslation'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-
-import { useTranslation } from '../../../hooks/useTranslation'
 
 export interface NewPasswordFormType {
   confirm: string

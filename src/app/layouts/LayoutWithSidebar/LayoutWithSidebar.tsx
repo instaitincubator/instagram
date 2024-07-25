@@ -2,9 +2,8 @@ import { PropsWithChildren, ReactElement } from 'react'
 
 import { Layout } from '@/app/layouts/mainLayout/Layout'
 import { SideBar } from '@/features/SideBar/SideBar'
+import withAuth from '@/shared/hooks/authHOK'
 import { NextPage } from 'next'
-
-import withAuth from '../../../../hooks/authHOK'
 
 export const LayoutWithSidebar: NextPage<PropsWithChildren> = props => {
   const { children } = props
