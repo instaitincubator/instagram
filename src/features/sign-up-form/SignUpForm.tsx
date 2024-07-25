@@ -13,18 +13,16 @@ import { Modal } from '@/shared/ui/Modal/Modal'
 import { GithubAuth } from '@/shared/ui/githubAuth'
 import { GoogleButton } from '@/shared/ui/googleAuth'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 
 export const SignUpForm = () => {
   const { t } = useTranslation()
   const { control, errors, getValues, handleSubmit, isDirty, isValid } = useSignUpForm()
   const [SignUp, { error, isSuccess }] = useSignUpMutation()
   const [modal, setModal] = useState(true)
-  const router = useRouter()
 
   const onSubmit = (data: SignUpFormType) => {
     SignUp({
-      baseUrl: process.env.NEXT_PUBLIC_LOCALHOST,
+      baseUrl: process.env.NEXT_PUBLIC_DOMAIN,
       email: data.email,
       password: data.password,
       userName: data.userName,
