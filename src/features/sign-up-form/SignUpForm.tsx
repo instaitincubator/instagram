@@ -23,7 +23,7 @@ export const SignUpForm = () => {
 
   const onSubmit = (data: SignUpFormType) => {
     SignUp({
-      baseUrl: process.env.NEXT_PUBLIC_BREEZEAPP,
+      baseUrl: process.env.NEXT_PUBLIC_DOMAIN,
       email: data.email,
       password: data.password,
       userName: data.userName,
