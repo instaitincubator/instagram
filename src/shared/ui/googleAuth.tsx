@@ -5,7 +5,7 @@ import Image from 'next/image'
 export const GoogleButton = () => {
   const login = () => {
     const CLIENT_ID = '617342613759-f3kbvgm8l310fn40vh6qna2pv8u2uccr.apps.googleusercontent.com'
-    const REDIRECT_URI = process.env.NEXT_PUBLIC_LOCALHOST
+    const REDIRECT_URI = process.env.NEXT_PUBLIC_BREEZEAPP
     const SCOPE = 'email profile'
     const RESPONSE_TYPE = 'code'
 

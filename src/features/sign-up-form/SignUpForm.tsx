@@ -20,11 +20,10 @@ export const SignUpForm = () => {
   const { control, errors, getValues, handleSubmit, isDirty, isValid } = useSignUpForm()
   const [SignUp, { error, isSuccess }] = useSignUpMutation()
   const [modal, setModal] = useState(true)
-  const router = useRouter()
 
   const onSubmit = (data: SignUpFormType) => {
     SignUp({
-      baseUrl: process.env.NEXT_PUBLIC_LOCALHOST,
+      baseUrl: process.env.NEXT_PUBLIC_BREEZEAPP,
       email: data.email,
       password: data.password,
       userName: data.userName,
