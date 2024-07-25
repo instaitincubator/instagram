@@ -3,6 +3,7 @@ import { Controller } from 'react-hook-form'
 
 import { SignInFormType, useSignInForm } from '@/features/sign-in/useSignInForm'
 import { useSignInMutation } from '@/services/auth/signInApi'
+import { useTranslation } from '@/shared/hooks/useTranslation'
 import Button from '@/shared/ui/Button/Button'
 import { Card } from '@/shared/ui/Card/Card'
 import { Input } from '@/shared/ui/Input/Input'
@@ -10,8 +11,6 @@ import { GithubAuth } from '@/shared/ui/githubAuth'
 import { GoogleButton } from '@/shared/ui/googleAuth'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-
-import { useTranslation } from '../../../hooks/useTranslation'
 
 export const SignInForm = () => {
   const { t } = useTranslation()

@@ -1,12 +1,11 @@
 import React from 'react'
 
+import useIsMobile from '@/shared/hooks/useIsMobile'
 import Select from '@/shared/ui/Select/Select'
 import { Option } from '@/shared/ui/Select/types'
 import { clsx } from 'clsx'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-
-import useIsMobile from '../../../hooks/useIsMobile'
 
 export const LanguageSelect = () => {
   const router = useRouter()

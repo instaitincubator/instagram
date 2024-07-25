@@ -7,12 +7,11 @@ import {
 } from '@/features/new-password-form/useNewPasswordForm'
 import { useNewPasswordMutation } from '@/services/auth/newPasswordApi'
 import { useTerminateSessionsMutation } from '@/services/auth/terminateAllSessionsApi'
+import { useTranslation } from '@/shared/hooks/useTranslation'
 import Button from '@/shared/ui/Button/Button'
 import { Card } from '@/shared/ui/Card/Card'
 import { Input } from '@/shared/ui/Input/Input'
 import { useRouter } from 'next/router'
-
-import { useTranslation } from '../../../hooks/useTranslation'
 
 interface Props {
   code: null | string | string[]
