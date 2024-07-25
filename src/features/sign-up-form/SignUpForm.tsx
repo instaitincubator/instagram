@@ -3,7 +3,6 @@ import { Controller } from 'react-hook-form'
 
 import { SignUpFormType, useSignUpForm } from '@/features/sign-up-form/useSignUpForm'
 import { useSignUpMutation } from '@/services/auth/signUpApi'
-import { WHOLE_URL } from '@/shared/consts/wholeUrl'
 import { rtkErrorHandling } from '@/shared/hooks/rtkErrorsHandling'
 import { useTranslation } from '@/shared/hooks/useTranslation'
 import Button from '@/shared/ui/Button/Button'
@@ -25,7 +24,7 @@ export const SignUpForm = () => {
 
   const onSubmit = (data: SignUpFormType) => {
     SignUp({
-      baseUrl: WHOLE_URL,
+      baseUrl: process.env.NEXT_PUBLIC_LOCALHOST,
       email: data.email,
       password: data.password,
       userName: data.userName,
