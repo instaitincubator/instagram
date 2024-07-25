@@ -10,7 +10,7 @@ const withAuth = <P extends object>(WrappedComponent: ComponentType<P>): Compone
 
     useEffect(() => {
       if (!isAuth) {
-        router.push('/login')
+        router.push('/sign-in')
       }
     }, [isAuth, router])
 

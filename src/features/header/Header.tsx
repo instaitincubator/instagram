@@ -41,7 +41,7 @@ export const Header = ({ className, isLoading, ...rest }: HeaderProps) => {
           <MobileMenuSelector />
         </div>
         {!isAuth && (
-          <div className="hidden md:flex items-center w-full ">
+          <div className="hidden md:flex items-center gap-4 w-full ">
             <Button onClick={() => router.push('/sign-in')} size="m" variant="text">
               {t.header.login}
             </Button>
