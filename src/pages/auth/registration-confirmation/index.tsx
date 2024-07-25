@@ -1,29 +1,32 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { getLayout } from '@/app/layouts/mainLayout/Layout'
 import { useConfirmCodeMutation } from '@/services/auth/signUpApi'
 import { useTranslation } from '@/shared/hooks/useTranslation'
 import Button from '@/shared/ui/Button/Button'
+import { LinkExpired } from '@/widgets/LinkExpired'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 const EmailConfirmed = () => {
   const { t } = useTranslation()
   const router = useRouter()
-  const [confirmCode, { isLoading, isSuccess }] = useConfirmCodeMutation()
+  const [confirmCode, { isSuccess }] = useConfirmCodeMutation()
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     if (router.query.code) {
       confirmCode({ confirmationCode: router.query.code })
+      setLoading(false)
     }
   }, [confirmCode, router.query.code])
-  if (isLoading) {
+  if (loading) {
     return <div>isLoading...</div>
   }
 
   return (
     <>
-      {isSuccess ? (
+      {isSuccess && !loading ? (
         <div className="pt-[35px]">
           <h1 className="text-center text-h1 text-light-100 mb-[19px]">{t.auth.congratulations}</h1>
           <p className="text-regular-16 text-center text-light-100 mb-[54px]">
@@ -43,22 +46,7 @@ const EmailConfirmed = () => {
           ></Image>
         </div>
       ) : (
-        <div className="flex flex-col items-center  m-auto gap-5">
-          <span className="text-h1 w-[300px] ">{t.auth.verification}</span>
-          <span className="text-regular-16 w-[300px] ">{t.auth.verificationMessage}</span>
-          <div className="w-[300px] order-4 sm:order-3">
-            <Button as="a" fullWidth href="forgot-password">
-              {t.auth.verificationButton}
-            </Button>
-          </div>
-          <Image
-            alt="verification-img"
-            className="m-auto mt-[30px] order-3 sm:order-4"
-            height={352}
-            src="/expiredLinkImage.svg"
-            width={473}
-          />
-        </div>
+        <LinkExpired href={'sign-up'} title={t.auth.verification} />
       )}
     </>
   )
