@@ -1,7 +1,7 @@
 import { getLayout } from '@/app/layouts/mainLayout/Layout'
 
 const Statistics = () => {
-  return <div>Statistics</div>
+  return <div>StatisticsPage</div>
 }
 
 Statistics.getLayout = getLayout
