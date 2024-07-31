@@ -2,6 +2,7 @@ import type { BaseQueryFn, FetchArgs, FetchBaseQueryError } from '@reduxjs/toolk
 
 import { fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { Mutex } from 'async-mutex'
+import NProgress from 'nprogress'
 
 interface RefreshResultData {
   accessToken: string
@@ -27,6 +28,7 @@ export const baseQueryWithReauth: BaseQueryFn<
 > = async (args, api, extraOptions) => {
   const mutex = new Mutex()
 
+  NProgress.start()
   await mutex.waitForUnlock()
   let result = await baseQuery(args, api, extraOptions)
 
@@ -59,6 +61,7 @@ export const baseQueryWithReauth: BaseQueryFn<
       result = await baseQuery(args, api, extraOptions)
     }
   }
+  NProgress.done()
 
   return result
 }
