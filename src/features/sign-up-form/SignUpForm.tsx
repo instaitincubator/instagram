@@ -55,11 +55,11 @@ export const SignUpForm = () => {
             name="userName"
             render={({ field }) => (
               <Input
-                {...field}
                 error={errors.userName?.message}
                 fullWidth
                 label={t.auth.userName}
                 placeholder={t.auth.userName}
+                {...field}
               />
             )}
           />
@@ -69,11 +69,11 @@ export const SignUpForm = () => {
             name="email"
             render={({ field }) => (
               <Input
-                {...field}
                 error={error ? rtkErrorHandling(error) : errors.email?.message}
                 fullWidth
                 label={t.auth.email}
                 placeholder="Epam@epam.com"
+                {...field}
               />
             )}
           />
@@ -83,11 +83,11 @@ export const SignUpForm = () => {
             name="password"
             render={({ field }) => (
               <Input
-                {...field}
                 error={errors.password?.message}
                 fullWidth
                 label={t.auth.password}
                 type="password"
+                {...field}
               />
             )}
           />
@@ -97,11 +97,11 @@ export const SignUpForm = () => {
             name="confirmPassword"
             render={({ field }) => (
               <Input
-                {...field}
                 error={errors.confirmPassword?.message}
                 fullWidth
                 label={t.auth.passwordConfirmation}
                 type="password"
+                {...field}
               />
             )}
           />

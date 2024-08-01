@@ -57,7 +57,7 @@ export const useSignUpForm = () => {
     handleSubmit,
     reset,
   } = useForm<SignUpFormType>({
-    mode: 'onBlur',
+    mode: 'onTouched',
     resolver: zodResolver(schema),
   })
 

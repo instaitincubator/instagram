@@ -1,4 +1,12 @@
-import React, { ChangeEvent, ComponentPropsWithoutRef, useEffect, useState } from 'react'
+import React, {
+  ChangeEvent,
+  ComponentPropsWithRef,
+  ComponentPropsWithoutRef,
+  ElementRef,
+  Ref,
+  useEffect,
+  useState,
+} from 'react'
 
 import { Search } from '@/shared/ui/icons/Search'
 import { CrossedEye } from '@/shared/ui/icons/crossedEye'
@@ -12,10 +20,11 @@ export type Props = {
   error?: string
   fullWidth?: boolean
   label?: string
+  onBlur?: () => void
   onChangeText?: (value: string) => void
   placeholder?: string
   type?: string
-} & ComponentPropsWithoutRef<'input'>
+} & ComponentPropsWithRef<'input'>
 
 export const Input = (props: Props) => {
   const {
@@ -24,6 +33,7 @@ export const Input = (props: Props) => {
     error,
     fullWidth,
     label,
+    onBlur,
     onChange,
     onChangeText,
     placeholder,
@@ -57,6 +67,7 @@ export const Input = (props: Props) => {
             }
           )}
           disabled={disabled}
+          onBlur={onBlur}
           onChange={handleChange}
           placeholder={type === 'password' ? '*****************' : placeholder}
           type={showPassword ? 'password' : 'text'}
