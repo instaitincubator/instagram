@@ -16,7 +16,7 @@ import Link from 'next/link'
 
 export const SignUpForm = () => {
   const { t } = useTranslation()
-  const { control, errors, getValues, handleSubmit, isDirty, isValid } = useSignUpForm()
+  const { control, errors, getValues, handleSubmit, isDirty, isValid, reset } = useSignUpForm()
   const [SignUp, { error, isSuccess }] = useSignUpMutation()
   const [modal, setModal] = useState(true)
 
@@ -27,6 +27,16 @@ export const SignUpForm = () => {
       password: data.password,
       userName: data.userName,
     })
+      .unwrap()
+      .then(() => {
+        reset({
+          checkboxPolicy: false,
+          confirmPassword: '',
+          email: '',
+          password: '',
+          userName: '',
+        })
+      })
   }
 
   return (
