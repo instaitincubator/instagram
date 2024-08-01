@@ -10,7 +10,7 @@ export const english = {
     couldWeMerge: 'Could we merge this accounts ?',
     createNewPassword: 'Create New Password',
     doYouHaveAnAccount: 'Do you have an account?',
-    dontHaveAnAccount: 'Dont have an account?',
+    dontHaveAnAccount: "Don't have an account?",
     email: 'Email',
     email_val: 'The email must match the format',
     emailConfirmation: 'We have sent a link to confirm your email to',
