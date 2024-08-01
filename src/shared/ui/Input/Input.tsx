@@ -1,12 +1,4 @@
-import React, {
-  ChangeEvent,
-  ComponentPropsWithRef,
-  ComponentPropsWithoutRef,
-  ElementRef,
-  Ref,
-  useEffect,
-  useState,
-} from 'react'
+import React, { ChangeEvent, ComponentPropsWithRef, useEffect, useState } from 'react'
 
 import { Search } from '@/shared/ui/icons/Search'
 import { CrossedEye } from '@/shared/ui/icons/crossedEye'
