@@ -40,7 +40,6 @@ export const Avatar = () => {
     }
   }
 
-  console.log(err)
   function readFile(file: File): Promise<string> {
     return new Promise(resolve => {
       const reader = new FileReader()
@@ -49,8 +48,11 @@ export const Avatar = () => {
       reader.readAsDataURL(file)
     })
   }
-  const containerClassName = 'w-[10px]'
-  const containerStyle = 'w-[10px]'
+  const cropperClasses = {
+    containerClassName: '',
+    cropAreaClassName: 'w-[332px] h-[340px]',
+    mediaClassName: 'w-[332px] h-[340px]',
+  }
 
   return (
     <>
@@ -67,42 +69,44 @@ export const Avatar = () => {
       </div>
       {openModal && (
         <Modal onClose={() => setOpenModal(false)} title="Add a Profile Photo">
-          {err && (
-            <div className="absolute max-w-[445px] border border-red-500 bg-red-900 px-6">
-              <span className="px-6 text-wrap flex justify-center text-center text-bold-14">
-                {err}
-              </span>
+          {imageFile ? (
+            <div className="min-h-[500px] min-w-[468px]">
+              <Cropper
+                aspect={1}
+                classes={cropperClasses}
+                crop={{ x: 0, y: 0 }}
+                cropShape={'round'}
+                image={imageFile as string}
+                onCropChange={() => {}}
+                // onCropComplete={onCropComplete}
+                // onZoomChange={setZoom}
+                // zoom={zoom}
+              />
             </div>
+          ) : (
+            <>
+              {err && (
+                <div className="absolute max-w-[445px] border border-red-500 bg-red-900 px-6">
+                  <span className="px-6 text-wrap flex justify-center text-center text-bold-14">
+                    {err}
+                  </span>
+                </div>
+              )}
+              <div className="flex flex-col px-[111px] pt-[80px] items-center w-[468px] m-auto">
+                <div className="flex relative  w-[222px] h-[228px] ">
+                  <div className="absolute inset-0 flex items-center justify-center bg-dark-900">
+                    <Image alt="картинка" height={48} src="/avatar.svg" width={48} />
+                  </div>
+                </div>
+                <div className="pt-[60px] pb-[96px]">
+                  <Button className="w-[222px]" onClick={uploadButtonClickHandler} type="button">
+                    Select from Computer
+                  </Button>
+                  <input className="hidden" onChange={uploadImage} ref={inputRef} type="file" />
+                </div>
+              </div>
+            </>
           )}
-          <div className="flex flex-col px-[111px] pt-[80px] items-center w-[468px] m-auto">
-            <div className="flex relative  w-[222px] h-[228px] ">
-              <div className="absolute inset-0 flex items-center justify-center bg-dark-900">
-                {/*<Image alt="картинка" height={48} src="/avatar.svg" width={48} />*/}
-              </div>
-            </div>
-            <div className="pt-[60px] pb-[96px]">
-              <Button className="w-[222px]" onClick={uploadButtonClickHandler} type="button">
-                Select from Computer
-              </Button>
-              <input className="hidden" onChange={uploadImage} ref={inputRef} type="file" />
-            </div>
-            {imageFile && (
-              <div className="w-[100px]">
-                <Cropper
-                  aspect={1}
-                  // classes={containerClassName}
-                  crop={{ x: 0, y: 0 }}
-                  cropShape={'round'}
-                  image={imageFile as string}
-                  onCropChange={() => {}}
-
-                  // onCropComplete={onCropComplete}
-                  // onZoomChange={setZoom}
-                  // zoom={zoom}
-                />
-              </div>
-            )}
-          </div>
         </Modal>
       )}
     </>
