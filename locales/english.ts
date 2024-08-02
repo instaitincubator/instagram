@@ -60,6 +60,10 @@ export const english = {
   pages: {
     profile: {
       profileSettings: 'Profile Settings',
+      settings: {
+        formatImage: 'Error! The format of the uploaded photo must be PNG and JPEG',
+        maxFileSize: 'Error! Photo size must be less than 10 MB'!,
+      },
     },
     terms: {
       welcome: `Welcome to Instagram!

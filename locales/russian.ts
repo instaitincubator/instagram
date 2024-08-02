@@ -62,6 +62,10 @@ export const russian = {
   pages: {
     profile: {
       profileSettings: 'Настройки профиля',
+      settings: {
+        formatImage: 'Ошибка! Формат загружаемой фотографии должен быть PNG и JPEG.',
+        maxFileSize: 'Ошибка! Размер фотографии должен быть меньше 10 МБ!'!,
+      },
     },
     terms: {
       welcome: `Добро пожаловать в Instagram!
