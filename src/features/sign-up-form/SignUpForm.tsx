@@ -16,7 +16,7 @@ import Link from 'next/link'
 
 export const SignUpForm = () => {
   const { t } = useTranslation()
-  const { control, errors, getValues, handleSubmit, isDirty, isValid } = useSignUpForm()
+  const { control, errors, getValues, handleSubmit, isDirty, isValid, reset } = useSignUpForm()
   const [SignUp, { error, isSuccess }] = useSignUpMutation()
   const [modal, setModal] = useState(true)
 
@@ -27,6 +27,16 @@ export const SignUpForm = () => {
       password: data.password,
       userName: data.userName,
     })
+      .unwrap()
+      .then(() => {
+        reset({
+          checkboxPolicy: false,
+          confirmPassword: '',
+          email: '',
+          password: '',
+          userName: '',
+        })
+      })
   }
 
   return (
@@ -45,11 +55,11 @@ export const SignUpForm = () => {
             name="userName"
             render={({ field }) => (
               <Input
-                {...field}
                 error={errors.userName?.message}
                 fullWidth
                 label={t.auth.userName}
                 placeholder={t.auth.userName}
+                {...field}
               />
             )}
           />
@@ -59,11 +69,11 @@ export const SignUpForm = () => {
             name="email"
             render={({ field }) => (
               <Input
-                {...field}
                 error={error ? rtkErrorHandling(error) : errors.email?.message}
                 fullWidth
                 label={t.auth.email}
                 placeholder="Epam@epam.com"
+                {...field}
               />
             )}
           />
@@ -73,11 +83,11 @@ export const SignUpForm = () => {
             name="password"
             render={({ field }) => (
               <Input
-                {...field}
                 error={errors.password?.message}
                 fullWidth
                 label={t.auth.password}
                 type="password"
+                {...field}
               />
             )}
           />
@@ -87,11 +97,11 @@ export const SignUpForm = () => {
             name="confirmPassword"
             render={({ field }) => (
               <Input
-                {...field}
                 error={errors.confirmPassword?.message}
                 fullWidth
                 label={t.auth.passwordConfirmation}
                 type="password"
+                {...field}
               />
             )}
           />

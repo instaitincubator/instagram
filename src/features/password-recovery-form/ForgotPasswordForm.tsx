@@ -12,6 +12,7 @@ import Button from '@/shared/ui/Button/Button'
 import { Card } from '@/shared/ui/Card/Card'
 import { Input } from '@/shared/ui/Input/Input'
 import { Modal } from '@/shared/ui/Modal/Modal'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 import config from '../../../config'
@@ -50,9 +51,11 @@ export const ForgotPasswordForm = () => {
         <Button disabled={!isValid || !isDirty} fullWidth>
           {t.auth.sendLink}
         </Button>
-        <Button as="a" fullWidth href="/login" type="button" variant="text">
-          {t.auth.backToSignIn}
-        </Button>
+        <Link href="/sign-in">
+          <Button fullWidth type="button" variant="text">
+            {t.auth.backToSignIn}
+          </Button>
+        </Link>
         <Controller
           control={control}
           name="recaptcha"
