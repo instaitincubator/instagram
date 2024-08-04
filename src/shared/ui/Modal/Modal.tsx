@@ -1,6 +1,6 @@
 import React, { FC, PropsWithChildren, useEffect } from 'react'
 
-import { clsx } from 'clsx'
+import { cn } from '@/shared/utils/cn'
 import Image from 'next/image'
 
 export interface ModalProps {
@@ -27,7 +27,7 @@ export const Modal: FC<PropsWithChildren<ModalProps>> = props => {
 
   return (
     <div
-      className={clsx(
+      className={cn(
         'fixed z-30 inset-0 flex flex-col items-center justify-center text-light-100',
         className
       )}
