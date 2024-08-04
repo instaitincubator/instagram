@@ -9,7 +9,7 @@ import {
 
 import { BTNSIZES, VATIANCLASSES } from '@/shared/ui/Button/consts'
 import { ButtonSize, ButtonVariant, InferType } from '@/shared/ui/Button/types'
-import clsx from 'clsx'
+import { cn } from '@/shared/utils/cn'
 
 export type ButtonProps<T extends ElementType = 'button'> = {
   as?: T
@@ -30,7 +30,7 @@ const Button = forwardRef(
       ...rest
     } = props
 
-    const classNames = clsx(
+    const classNames = cn(
       'flex justify-center items-center relative no-underline cursor-pointer box-border rounded-[2px] py-[6px] px-[24px] text-h3 text-nowrap text-center',
       VATIANCLASSES[variant],
       className,

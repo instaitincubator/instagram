@@ -6,7 +6,7 @@ import { MobileMenuSelector } from '@/features/mobile-menu-selector/Mobile-menu-
 import { useTranslation } from '@/shared/hooks/useTranslation'
 import Button from '@/shared/ui/Button/Button'
 import { Notification } from '@/shared/ui/icons/notification'
-import { clsx } from 'clsx'
+import { cn } from '@/shared/utils/cn'
 import { useRouter } from 'next/router'
 
 export type HeaderProps = {
@@ -21,7 +21,7 @@ export const Header = ({ className, isLoading, ...rest }: HeaderProps) => {
   return (
     <header
       {...rest}
-      className={clsx(
+      className={cn(
         'flex pr-[5%] w-full h-[60px] items-center justify-between bg-dark-700 text-light-100 min-w-[360px] border-b border-b-dark-300',
         className
       )}

@@ -1,6 +1,6 @@
 import { ChangeEvent, ComponentPropsWithoutRef } from 'react'
 
-import { clsx } from 'clsx'
+import { cn } from '@/shared/utils/cn'
 
 type Props = {
   className?: string
@@ -34,7 +34,7 @@ export const Textarea = ({
   return (
     <div className="flex flex-col">
       <label
-        className={clsx('text-regular-14 text-light-900', {
+        className={cn('text-regular-14 text-light-900', {
           'text-dark-100': disabled,
         })}
       >
@@ -42,7 +42,7 @@ export const Textarea = ({
       </label>
       <textarea
         {...restProps}
-        className={clsx(
+        className={cn(
           'disabled:placeholder:text-dark-100 focus:text-light-100 focus:placeholder:text-light-100  focus:border-accent-700 active:text-light-100 active:border-light-100 bg-dark-500 text-regular-16 border resize-none rounded-sm px-3 py-[6px] h-[85px] w-[280px]',
           {
             'border-danger-500': error,
