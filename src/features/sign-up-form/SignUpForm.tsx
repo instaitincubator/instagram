@@ -16,7 +16,7 @@ import Link from 'next/link'
 
 export const SignUpForm = () => {
   const { t } = useTranslation()
-  const { control, errors, getValues, handleSubmit, isDirty, isValid, reset } = useSignUpForm()
+  const { control, errors, getValues, handleSubmit, reset } = useSignUpForm()
   const [SignUp, { error, isSuccess }] = useSignUpMutation()
   const [modal, setModal] = useState(true)
 
@@ -127,7 +127,7 @@ export const SignUpForm = () => {
           </div>
         </div>
 
-        <Button className="btn-primary mb-[20px]" disabled={!isDirty || !isValid} fullWidth>
+        <Button className="btn-primary mb-[20px]" fullWidth>
           {t.auth.signUp}
         </Button>
         <p className="text-light-100 select-none text-center mb-[6px]">

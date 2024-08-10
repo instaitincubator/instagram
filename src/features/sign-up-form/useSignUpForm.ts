@@ -20,10 +20,13 @@ export const useSignUpForm = () => {
       checkboxPolicy: z.literal(true, {
         invalid_type_error: t.auth.errors.termsAccept,
       }),
-      confirmPassword: z.string(),
-      email: z.string().min(1, { message: t.auth.email }).email({ message: t.auth.email_val }),
+      confirmPassword: z.string({ message: t.auth.field_required }),
+      email: z
+        .string({ message: t.auth.field_required })
+        .min(1, { message: t.auth.errors.emailRequired })
+        .email({ message: t.auth.email_val }),
       password: z
-        .string()
+        .string({ message: t.auth.field_required })
         .min(6, { message: t.auth.errors.lowLength })
         .max(20, { message: t.auth.errors.highLength20 })
         .regex(
@@ -33,7 +36,7 @@ export const useSignUpForm = () => {
           }
         ),
       userName: z
-        .string()
+        .string({ message: t.auth.field_required })
         .min(6, { message: t.auth.errors.lowLength })
         .max(30, { message: t.auth.errors.highLength30 })
         .regex(/^[0-9A-Za-z_-]+$/, {
@@ -57,7 +60,7 @@ export const useSignUpForm = () => {
     handleSubmit,
     reset,
   } = useForm<SignUpFormType>({
-    mode: 'onTouched',
+    mode: 'onSubmit',
     resolver: zodResolver(schema),
   })
 
