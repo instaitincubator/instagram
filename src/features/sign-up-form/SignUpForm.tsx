@@ -48,9 +48,6 @@ export const SignUpForm = () => {
     })
   }
 
-  //   iPhone2584!
-  //   gema44@yandex.ru
-  //   gena1231
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Card className="w-[378px] mx-auto my-auto p-[24px]">
@@ -60,7 +57,6 @@ export const SignUpForm = () => {
           <GoogleButton />
           <GithubAuth />
         </div>
-
         <div className="flex flex-col gap-[20px] mb-[20px]">
           <Controller
             control={control}
@@ -75,7 +71,6 @@ export const SignUpForm = () => {
               />
             )}
           />
-
           <Controller
             control={control}
             name="email"
@@ -89,7 +84,6 @@ export const SignUpForm = () => {
               />
             )}
           />
-
           <Controller
             control={control}
             name="password"
@@ -103,7 +97,6 @@ export const SignUpForm = () => {
               />
             )}
           />
-
           <Controller
             control={control}
             name="confirmPassword"
@@ -117,13 +110,16 @@ export const SignUpForm = () => {
               />
             )}
           />
-
           <div className="flex justify-start">
             <Controller
               control={control}
               name="checkboxPolicy"
               render={({ field }) => (
-                <Checkbox {...field} className="mb-[22px] text-small ml-[15px]" />
+                <Checkbox
+                  {...field}
+                  className="mb-[22px] text-small ml-[15px]"
+                  error={errors.checkboxPolicy?.message}
+                />
               )}
             />
             <div className="ml-5 gap-0.5 text-[12px] mb-[22px]">
@@ -138,7 +134,6 @@ export const SignUpForm = () => {
             </div>
           </div>
         </div>
-
         <Button className="btn-primary mb-[20px]" fullWidth>
           {t.auth.signUp}
         </Button>
