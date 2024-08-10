@@ -146,7 +146,7 @@ export const SignUpForm = () => {
       </Card>
       {isSuccess && modal && (
         <Modal className="w-[378px] m-auto" onClose={() => setModal(false)} title="Email sent">
-          <span>We have sent a link to confirm your email to {getValues().email}</span>
+          <span>{`We have sent a link to confirm your email to ` + ` ` + getValues().email}</span>
           <Button onClick={onCloseModal} type="button">
             OK
           </Button>
