@@ -19,6 +19,25 @@ export const SignUpForm = () => {
   const { control, errors, getValues, handleSubmit, reset } = useSignUpForm()
   const [SignUp, { error, isSuccess }] = useSignUpMutation()
   const [modal, setModal] = useState(true)
+  let userNameError = ''
+  let emailError = ''
+
+  if (rtkErrorHandling(error!).field === 'userName') {
+    userNameError = rtkErrorHandling(error!).message
+  } else if (rtkErrorHandling(error!).field === 'email') {
+    emailError = rtkErrorHandling(error!).message
+  }
+
+  const onCloseModal = () => {
+    setModal(false)
+    reset({
+      checkboxPolicy: false,
+      confirmPassword: '',
+      email: '',
+      password: '',
+      userName: '',
+    })
+  }
 
   const onSubmit = (data: SignUpFormType) => {
     SignUp({
@@ -27,18 +46,11 @@ export const SignUpForm = () => {
       password: data.password,
       userName: data.userName,
     })
-      .unwrap()
-      .then(() => {
-        reset({
-          checkboxPolicy: false,
-          confirmPassword: '',
-          email: '',
-          password: '',
-          userName: '',
-        })
-      })
   }
 
+  //   iPhone2584!
+  //   gema44@yandex.ru
+  //   gena1231
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Card className="w-[378px] mx-auto my-auto p-[24px]">
@@ -55,7 +67,7 @@ export const SignUpForm = () => {
             name="userName"
             render={({ field }) => (
               <Input
-                error={errors.userName?.message}
+                error={error ? userNameError : errors.userName?.message}
                 fullWidth
                 label={t.auth.userName}
                 placeholder={t.auth.userName}
@@ -69,7 +81,7 @@ export const SignUpForm = () => {
             name="email"
             render={({ field }) => (
               <Input
-                error={error ? rtkErrorHandling(error) : errors.email?.message}
+                error={error ? emailError : errors.email?.message}
                 fullWidth
                 label={t.auth.email}
                 placeholder="Epam@epam.com"
@@ -140,7 +152,7 @@ export const SignUpForm = () => {
       {isSuccess && modal && (
         <Modal className="w-[378px] m-auto" onClose={() => setModal(false)} title="Email sent">
           <span>We have sent a link to confirm your email to {getValues().email}</span>
-          <Button onClick={() => setModal(false)} type="button">
+          <Button onClick={onCloseModal} type="button">
             OK
           </Button>
         </Modal>
