@@ -12,7 +12,7 @@ export const english = {
     doYouHaveAnAccount: 'Do you have an account?',
     dontHaveAnAccount: "Don't have an account?",
     email: 'Email',
-    email_val: 'The email must match the format',
+    email_val: 'The email must match the format example@example.com',
     emailConfirmation: 'We have sent a link to confirm your email to',
     emailPlaceholder: 'Epam@epam.com',
     errors: {

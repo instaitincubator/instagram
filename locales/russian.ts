@@ -12,7 +12,7 @@ export const russian = {
     doYouHaveAnAccount: 'У вас есть аккаунт?',
     dontHaveAnAccount: 'У вас нет аккаунта?',
     email: 'Почта',
-    email_val: 'Почта должна соответсвовать формату',
+    email_val: 'Почта должна соответсвовать формату example@example.com',
     emailConfirmation: 'Мы отправили ссылку для подтверждения электронной почты на',
     emailPlaceholder: 'Epam@epam.com',
     errors: {
