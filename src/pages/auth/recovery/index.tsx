@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 
 import { getLayout } from '@/app/layouts/mainLayout/Layout'
 import { NewPasswordForm } from '@/features/new-password-form/NewPasswordForm'
@@ -11,27 +11,18 @@ export const Recovery = () => {
   const { t } = useTranslation()
   const router = useRouter()
   const { code } = router.query
-  const [checkCode, { isSuccess }] = useCheckRecoveryCodeMutation()
-  const [loading, setLoading] = useState(true)
+  const [checkCode, { isError, isSuccess }] = useCheckRecoveryCodeMutation()
 
   useEffect(() => {
     if (code) {
       checkCode({ recoveryCode: code })
-      setLoading(false)
     }
   }, [checkCode, code])
 
-  if (loading) {
-    return <div>isLoading...</div>
-  }
-
   return (
     <>
-      {isSuccess ? (
-        <NewPasswordForm code={code ? code : null} />
-      ) : (
-        <LinkExpired href={'/forgot-password'} title={t.auth.verification} />
-      )}
+      {isSuccess && <NewPasswordForm code={code ? code : null} />}
+      {isError && <LinkExpired href={'/forgot-password'} title={t.auth.verification} />}
     </>
   )
 }
