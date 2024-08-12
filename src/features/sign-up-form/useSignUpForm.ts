@@ -52,6 +52,14 @@ export const useSignUpForm = () => {
         path: ['confirmPassword'],
       }
     )
+    .refine(
+      values => {
+        const passwordContainsSpaces = values.password.includes(' ')
+
+        return !passwordContainsSpaces
+      },
+      { message: t.auth.errors.passwordCannotContainSpaces, path: ['password'] }
+    )
 
   const {
     control,

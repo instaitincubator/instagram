@@ -43,6 +43,14 @@ export const useNewPasswordForm = () => {
       message: t.auth.passwords_notMatch,
       path: ['confirm'],
     })
+    .refine(
+      values => {
+        const passwordContainsSpaces = values.newPassword.includes(' ')
+
+        return !passwordContainsSpaces
+      },
+      { message: t.auth.errors.passwordCannotContainSpaces, path: ['newPassword'] }
+    )
 
   const {
     control,

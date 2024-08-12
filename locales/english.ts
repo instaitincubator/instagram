@@ -17,9 +17,11 @@ export const english = {
     emailPlaceholder: 'Epam@epam.com',
     errors: {
       emailRequired: 'Email is required',
+
       highLength20: 'Maximum number of characters 20',
       highLength30: 'Maximum number of characters 30',
       lowLength: 'Minimum number of characters 6',
+      passwordCannotContainSpaces: 'The password must not contain spaces',
       termsAccept: 'You must accept Terms of Service and Privacy Policy',
       userName_val: 'Username can contain: 0-9; A-Z; a-z; _ ; - ',
       userNotExist: "User with this email doesn't exist",

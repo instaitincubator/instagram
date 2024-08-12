@@ -43,7 +43,7 @@ export const SignUpForm = () => {
     SignUp({
       baseUrl: process.env.NEXT_PUBLIC_DOMAIN,
       email: data.email,
-      password: data.password,
+      password: data.password.trim(),
       userName: data.userName,
     })
   }
