@@ -12,7 +12,7 @@ export const russian = {
     doYouHaveAnAccount: 'У вас есть аккаунт?',
     dontHaveAnAccount: 'У вас нет аккаунта?',
     email: 'Почта',
-    email_val: 'Почта должна соответсвовать формату',
+    email_val: 'Почта должна соответсвовать формату example@example.com',
     emailConfirmation: 'Мы отправили ссылку для подтверждения электронной почты на',
     emailPlaceholder: 'Epam@epam.com',
     errors: {
@@ -20,6 +20,7 @@ export const russian = {
       highLength20: 'Максимальное количество символов 20',
       highLength30: 'Максимальное количество символов 30',
       lowLength: 'Минимальное количество символов 6',
+      passwordCannotContainSpaces: 'Пароль не должен содержать пробелы',
       termsAccept: 'Вы должны принять Условия предоставления услуг и Политику конфиденциальности',
       userName_val: 'Имя пользователя может содержать: 0-9; A-Z; a-z; _ ; - ',
       userNotExist: 'Пользователь с таким адресом электронной почты не существует',

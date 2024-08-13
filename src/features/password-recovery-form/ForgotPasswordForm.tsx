@@ -71,10 +71,7 @@ export const ForgotPasswordForm = () => {
       </Card>
       {isSuccess && modal && (
         <Modal className="w-[378px] m-auto" onClose={() => setModal(false)} title="Email sent">
-          <span>
-            {t.auth.emailConfirmation}
-            {getValues().email}
-          </span>
+          <span>{t.auth.emailConfirmation + ` ` + getValues().email}</span>
           <Button onClick={() => setModal(false)} type="button">
             OK
           </Button>
