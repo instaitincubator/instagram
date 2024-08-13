@@ -1,34 +1,29 @@
-import {FieldValues, useController, UseControllerProps} from 'react-hook-form'
+import { FieldValues, UseControllerProps, useController } from 'react-hook-form'
 
-import Select from '@/shared/ui/Select/Select';
-import {SelectProps} from '@/shared/ui/Select/types';
+import Select from '@/shared/ui/Select/Select'
+import { SelectProps } from '@/shared/ui/Select/types'
 
-
-export type ControlledCheckboxProps<TFieldValues extends FieldValues> =
-    UseControllerProps<TFieldValues> & Omit<SelectProps, 'onChange' | 'value'>
+export type ControlledCheckboxProps<TFieldValues extends FieldValues> = Omit<
+  SelectProps,
+  'onChange' | 'value'
+> &
+  UseControllerProps<TFieldValues>
 export const ControlledSelect = <TFieldValues extends FieldValues>({
-                                                                       name,
-                                                                       rules,
-                                                                       shouldUnregister,
-                                                                       control,
-                                                                       options,
-                                                                       ...selectProps
-                                                                   }: ControlledCheckboxProps<TFieldValues>) => {
-    const {
-        field: {onChange, value},
-    } = useController({
-        name,
-        rules,
-        shouldUnregister,
-        control,
-    })
+  control,
+  name,
+  options,
+  rules,
+  shouldUnregister,
+  ...selectProps
+}: ControlledCheckboxProps<TFieldValues>) => {
+  const {
+    field: { onChange, value },
+  } = useController({
+    control,
+    name,
+    rules,
+    shouldUnregister,
+  })
 
-    return (
-        <Select
-            options={options}
-            onChange={onChange}
-            value={value}
-            {...selectProps}
-        />
-    )
+  return <Select onChange={onChange} options={options} value={value} {...selectProps} />
 }

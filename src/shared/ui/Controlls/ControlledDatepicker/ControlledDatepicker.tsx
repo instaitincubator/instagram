@@ -24,6 +24,5 @@ export const ControlledDatepicker = <TFieldValues extends FieldValues>({
     shouldUnregister,
   })
 
-  // @ts-ignore
   return <Datepicker onChange={onChange} selected={value} {...DatepickerProps} {...rest} />
 }

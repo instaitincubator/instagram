@@ -1,47 +1,41 @@
-import { FieldValues, useController, UseControllerProps } from 'react-hook-form'
-import {Input} from '@/shared/ui/Input/Input';
-import {ComponentPropsWithoutRef} from 'react';
+import { ComponentPropsWithoutRef } from 'react'
+import { FieldValues, UseControllerProps, useController } from 'react-hook-form'
 
+import { Input } from '@/shared/ui/Input/Input'
 
- type InputProps = {
-    checked?: boolean
-    className?: string
-    disabled?: boolean
-    error?: string
-    fullWidth?: boolean
-    label?: string
-    onChangeText?: (value: string) => void
-    placeholder?: string
-    type?: string
+type InputProps = {
+  checked?: boolean
+  className?: string
+  disabled?: boolean
+  error?: string
+  fullWidth?: boolean
+  label?: string
+  onChangeText?: (value: string) => void
+  placeholder?: string
+  type?: string
 } & ComponentPropsWithoutRef<'input'>
 
-
-export type ControlledTextFieldProps<TFieldValues extends FieldValues> =
-    UseControllerProps<TFieldValues> & Omit<InputProps, 'onChange' | 'value'>
+export type ControlledTextFieldProps<TFieldValues extends FieldValues> = Omit<
+  InputProps,
+  'onChangeText' | 'value'
+> &
+  UseControllerProps<TFieldValues>
 
 export const ControlledInput = <TFieldValues extends FieldValues>({
-                                                                          name,
-                                                                          rules,
-                                                                          shouldUnregister,
-                                                                          control,
-                                                                          ...textFieldProps
-                                                                      }: ControlledTextFieldProps<TFieldValues>) => {
-    const {
-        field: { onChange, value },
-    } = useController({
-        name,
-        control,
-        shouldUnregister,
-        rules,
-    })
+  control,
+  name,
+  rules,
+  shouldUnregister,
+  ...textFieldProps
+}: ControlledTextFieldProps<TFieldValues>) => {
+  const {
+    field: { onChange, value, ...rest },
+  } = useController({
+    control,
+    name,
+    rules,
+    shouldUnregister,
+  })
 
-    return (
-        <Input
-            {...{
-                onChange,
-                value,
-                ...textFieldProps,
-            }}
-        />
-    )
+  return <Input onChangeText={onChange} value={value} {...rest} {...textFieldProps} />
 }
