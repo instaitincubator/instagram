@@ -4,7 +4,7 @@ import { Datepicker, DatepickerProps } from '@/shared/ui/Datepicker/Datepicker'
 
 export type ControlledDatepickerProps<TFieldValues extends FieldValues> = Omit<
   DatepickerProps,
-  'onChange' | 'selected'
+  'onChange' | 'selected' | 'selectsMultiple' | 'selectsRange'
 > &
   UseControllerProps<TFieldValues>
 
