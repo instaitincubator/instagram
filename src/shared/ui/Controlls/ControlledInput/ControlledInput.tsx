@@ -37,5 +37,5 @@ export const ControlledInput = <TFieldValues extends FieldValues>({
     shouldUnregister,
   })
 
-  return <Input onChangeText={onChange} value={value} {...rest} {...textFieldProps} />
+  return <Input onChangeText={onChange} value={value} {...textFieldProps} {...rest} />
 }
