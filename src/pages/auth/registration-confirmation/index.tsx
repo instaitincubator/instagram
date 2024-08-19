@@ -46,7 +46,7 @@ const EmailConfirmed = () => {
           ></Image>
         </div>
       ) : (
-        <LinkExpired href={'sign-up'} title={t.auth.verification} />
+        <LinkExpired href={'/sign-up'} title={t.auth.verification} />
       )}
     </>
   )
