@@ -1,15 +1,16 @@
 import { authActions } from '@/app/authSlice'
 import { baseApi } from '@/app/inctagram-api'
 
-const signInApi = baseApi.injectEndpoints({
+export const signInApi = baseApi.injectEndpoints({
   endpoints: build => {
     return {
       googleSignIn: build.mutation({
         async onQueryStarted(arg, { dispatch, queryFulfilled }) {
           const { data } = await queryFulfilled
 
-          localStorage.setItem('accessToken', data.accessToken)
           dispatch(authActions.setIsAuth(true))
+
+          localStorage.setItem('accessToken', data.accessToken)
         },
         query: body => {
           return {
@@ -21,9 +22,7 @@ const signInApi = baseApi.injectEndpoints({
       }),
       logOut: build.mutation({
         async onQueryStarted(arg, { dispatch, queryFulfilled }) {
-          queryFulfilled.then(() => {
-            dispatch(authActions.setIsAuth(false))
-          })
+          queryFulfilled.then(() => {})
         },
         query: () => {
           return {
@@ -36,7 +35,6 @@ const signInApi = baseApi.injectEndpoints({
         async onQueryStarted(arg, { dispatch, queryFulfilled }) {
           const { data } = await queryFulfilled
 
-          dispatch(authActions.setMe(data))
           dispatch(authActions.setIsAuth(true))
         },
         providesTags: ['Me'],
@@ -52,8 +50,9 @@ const signInApi = baseApi.injectEndpoints({
         async onQueryStarted(arg, { dispatch, queryFulfilled }) {
           const { data } = await queryFulfilled
 
-          localStorage.setItem('accessToken', data.accessToken)
           dispatch(authActions.setIsAuth(true))
+
+          localStorage.setItem('accessToken', data.accessToken)
         },
         query: body => {
           return {

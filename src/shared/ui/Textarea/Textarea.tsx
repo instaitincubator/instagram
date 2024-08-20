@@ -2,7 +2,7 @@ import { ChangeEvent, ComponentPropsWithoutRef } from 'react'
 
 import { cn } from '@/shared/utils/cn'
 
-type Props = {
+export type TextareaProps = {
   className?: string
   disabled?: boolean
   error?: string
@@ -24,7 +24,7 @@ export const Textarea = ({
   placeholder,
   value,
   ...restProps
-}: Props) => {
+}: TextareaProps) => {
   const onChangeText = (e: ChangeEvent<HTMLTextAreaElement>) => {
     if (onChange) {
       onChange(e.currentTarget.value)
