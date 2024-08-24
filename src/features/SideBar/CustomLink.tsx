@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { clsx } from 'clsx'
+import { cn } from '@/shared/utils/cn'
 import Link from 'next/link'
 
 interface LinkProps {
@@ -32,7 +32,7 @@ const CustomLink = ({
 
   return (
     <Link
-      className={clsx(
+      className={cn(
         'flex border-2 border-transparent items-center gap-4 hover:text-accent-100 rounded active:text-accent-700',
         isActive ? 'text-accent-700' : '',
         className

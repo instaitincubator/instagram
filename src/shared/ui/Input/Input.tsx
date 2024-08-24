@@ -1,9 +1,9 @@
-import React, { ChangeEvent, ComponentPropsWithoutRef, useEffect, useState } from 'react'
+import React, { ChangeEvent, ComponentPropsWithRef, useEffect, useState } from 'react'
 
 import { Search } from '@/shared/ui/icons/Search'
 import { CrossedEye } from '@/shared/ui/icons/crossedEye'
 import { Eye } from '@/shared/ui/icons/eye'
-import { clsx } from 'clsx'
+import { cn } from '@/shared/utils/cn'
 
 export type Props = {
   checked?: boolean
@@ -12,10 +12,11 @@ export type Props = {
   error?: string
   fullWidth?: boolean
   label?: string
+  onBlur?: () => void
   onChangeText?: (value: string) => void
   placeholder?: string
   type?: string
-} & ComponentPropsWithoutRef<'input'>
+} & ComponentPropsWithRef<'input'>
 
 export const Input = (props: Props) => {
   const {
@@ -24,6 +25,7 @@ export const Input = (props: Props) => {
     error,
     fullWidth,
     label,
+    onBlur,
     onChange,
     onChangeText,
     placeholder,
@@ -42,11 +44,11 @@ export const Input = (props: Props) => {
   }, [type])
 
   return (
-    <div className={clsx(fullWidth ? 'w-full' : 'w-[240px]')}>
+    <div className={cn(fullWidth ? 'w-full' : 'w-[240px]')}>
       {label && <span className="text-regular-14 text-light-900">{label}</span>}
       <div className="relative flex w-full">
         <input
-          className={clsx(
+          className={cn(
             'peer/input text-light-100 disabled:opacity-50 placeholder:select-none active:placeholder:text-light-100 focus:placeholder:text-transparent placeholder:text-regular-16 text-regular-16 focus:border-accent-500 active:border-light-100 w-full h-[36px] placeholder:text-light-900 rounded pl-[10px] border-[2px] bg-transparent hover:bg-dark-700 ',
             {
               'border-danger-500 placeholder:text-light-100': error,
@@ -57,6 +59,7 @@ export const Input = (props: Props) => {
             }
           )}
           disabled={disabled}
+          onBlur={onBlur}
           onChange={handleChange}
           placeholder={type === 'password' ? '*****************' : placeholder}
           type={showPassword ? 'password' : 'text'}
@@ -65,7 +68,7 @@ export const Input = (props: Props) => {
         {type === 'password' &&
           (!showPassword ? (
             <Eye
-              className={clsx(
+              className={cn(
                 'cursor-pointer absolute top-[6px] h-[24px] w-[24px] right-[9px] fill-light-100',
                 disabled && 'fill-light-900'
               )}
@@ -73,7 +76,7 @@ export const Input = (props: Props) => {
             />
           ) : (
             <CrossedEye
-              className={clsx(
+              className={cn(
                 'cursor-pointer absolute top-[6px] h-[24px] w-[24px] right-[9px] fill-light-100',
                 disabled && 'fill-light-900'
               )}
@@ -83,7 +86,7 @@ export const Input = (props: Props) => {
 
         {type === 'search' && (
           <Search
-            className={clsx(
+            className={cn(
               'peer-active/input:fill-light-100 peer-focus/input:fill-light-100 cursor-pointer absolute h-[20px] w-[20px] top-[8px] left-[5px] fill-light-900',
               error && 'fill-light-100'
             )}

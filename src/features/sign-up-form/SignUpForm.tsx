@@ -16,15 +16,34 @@ import Link from 'next/link'
 
 export const SignUpForm = () => {
   const { t } = useTranslation()
-  const { control, errors, getValues, handleSubmit, isDirty, isValid } = useSignUpForm()
+  const { control, errors, getValues, handleSubmit, reset } = useSignUpForm()
   const [SignUp, { error, isSuccess }] = useSignUpMutation()
   const [modal, setModal] = useState(true)
+  let userNameError = ''
+  let emailError = ''
+
+  if (rtkErrorHandling(error!).field === 'userName') {
+    userNameError = rtkErrorHandling(error!).message
+  } else if (rtkErrorHandling(error!).field === 'email') {
+    emailError = rtkErrorHandling(error!).message
+  }
+
+  const onCloseModal = () => {
+    setModal(false)
+    reset({
+      checkboxPolicy: false,
+      confirmPassword: '',
+      email: '',
+      password: '',
+      userName: '',
+    })
+  }
 
   const onSubmit = (data: SignUpFormType) => {
     SignUp({
       baseUrl: process.env.NEXT_PUBLIC_DOMAIN,
       email: data.email,
-      password: data.password,
+      password: data.password.trim(),
       userName: data.userName,
     })
   }
@@ -38,70 +57,69 @@ export const SignUpForm = () => {
           <GoogleButton />
           <GithubAuth />
         </div>
-
         <div className="flex flex-col gap-[20px] mb-[20px]">
           <Controller
             control={control}
             name="userName"
             render={({ field }) => (
               <Input
-                {...field}
-                error={errors.userName?.message}
+                error={error ? userNameError : errors.userName?.message}
                 fullWidth
                 label={t.auth.userName}
                 placeholder={t.auth.userName}
+                {...field}
               />
             )}
           />
-
           <Controller
             control={control}
             name="email"
             render={({ field }) => (
               <Input
-                {...field}
-                error={error ? rtkErrorHandling(error) : errors.email?.message}
+                error={error ? emailError : errors.email?.message}
                 fullWidth
                 label={t.auth.email}
                 placeholder="Epam@epam.com"
+                {...field}
               />
             )}
           />
-
           <Controller
             control={control}
             name="password"
             render={({ field }) => (
               <Input
-                {...field}
                 error={errors.password?.message}
                 fullWidth
                 label={t.auth.password}
                 type="password"
+                {...field}
               />
             )}
           />
-
           <Controller
             control={control}
             name="confirmPassword"
             render={({ field }) => (
               <Input
-                {...field}
                 error={errors.confirmPassword?.message}
                 fullWidth
                 label={t.auth.passwordConfirmation}
                 type="password"
+                {...field}
               />
             )}
           />
-
           <div className="flex justify-start">
             <Controller
               control={control}
               name="checkboxPolicy"
               render={({ field }) => (
-                <Checkbox {...field} className="mb-[22px] text-small ml-[15px]" />
+                <Checkbox
+                  {...field}
+                  className="mb-[22px] text-small ml-[15px]"
+                  error={errors.checkboxPolicy?.message}
+                />
               )}
             />
             <div className="ml-5 gap-0.5 text-[12px] mb-[22px]">
@@ -116,8 +134,7 @@ export const SignUpForm = () => {
             </div>
           </div>
         </div>
-
-        <Button className="btn-primary mb-[20px]" disabled={!isDirty || !isValid} fullWidth>
+        <Button className="btn-primary mb-[20px]" fullWidth>
           {t.auth.signUp}
         </Button>
         <p className="text-light-100 select-none text-center mb-[6px]">
@@ -128,9 +145,9 @@ export const SignUpForm = () => {
         </Button>
       </Card>
       {isSuccess && modal && (
-        <Modal className="w-[378px] m-auto" onClose={() => setModal(false)} title="Email sent">
-          <span>We have sent a link to confirm your email to {getValues().email}</span>
-          <Button onClick={() => setModal(false)} type="button">
+        <Modal className="w-[378px] m-auto" onClose={onCloseModal} title="Email sent">
+          <span>{`We have sent a link to confirm your email to ` + ` ` + getValues().email}</span>
+          <Button onClick={onCloseModal} type="button">
             OK
           </Button>
         </Modal>

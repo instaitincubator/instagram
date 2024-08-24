@@ -3,7 +3,7 @@ import React from 'react'
 import useIsMobile from '@/shared/hooks/useIsMobile'
 import Select from '@/shared/ui/Select/Select'
 import { Option } from '@/shared/ui/Select/types'
-import { clsx } from 'clsx'
+import { cn } from '@/shared/utils/cn'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 
@@ -41,7 +41,7 @@ export const LanguageSelect = () => {
 
   return (
     <Select
-      className={clsx('select-none ', { 'border-none bg-dark-700 ': isMobile })}
+      className={cn('select-none ', { 'border-none bg-dark-700 ': isMobile })}
       onChange={changeLangHandler}
       options={options!}
       value={options?.find(option => option.value === router.locale) || null}

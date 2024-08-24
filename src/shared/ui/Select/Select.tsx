@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 
 import { Option, SelectProps } from '@/shared/ui/Select/types'
-import clsx from 'clsx'
+import { cn } from '@/shared/utils/cn'
 import Image from 'next/image'
 
 const Select: React.FC<SelectProps> = ({
@@ -70,7 +70,7 @@ const Select: React.FC<SelectProps> = ({
     <div className="relative min-w-fit" onBlur={handleBlur} ref={selectRef} tabIndex={0}>
       {label && <div className="text-regular-14 text-light-900 mb-2">{label}</div>}
       <div
-        className={clsx(
+        className={cn(
           'flex justify-between items-center rounded-sm h-[36px] bg-dark-500 border cursor-pointer',
           {
             'border-accent-500': !isOpen && selectedOption && focus,
@@ -92,7 +92,7 @@ const Select: React.FC<SelectProps> = ({
         <div className="pr-[2px]">
           <Image
             alt="arrow"
-            className={clsx({ 'transform rotate-180': isOpen })}
+            className={cn({ 'transform rotate-180': isOpen })}
             height={24}
             src="/arrow.svg"
             width={24}
@@ -101,7 +101,7 @@ const Select: React.FC<SelectProps> = ({
       </div>
       {isOpen && (
         <ul
-          className={clsx(
+          className={cn(
             'absolute left-0 text-regular-16 text-light-100 bg-dark-500 border border-t-light-100 rounded-b-sm border-light-100 mt-[-1px] z-10',
             className
           )}
