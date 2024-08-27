@@ -1,15 +1,15 @@
-import { authActions } from '@/app/authSlice'
-import { baseApi } from '@/app/inctagram-api'
+import { baseApi } from '@/services/inctagram-api'
+import { LoginArgs, LoginResponse, MeResponse } from '@/shared/types/ApiTypes/AuthApiTypes'
+import { deleteToken, setToken } from '@/shared/utils/storage'
 
 const signInApi = baseApi.injectEndpoints({
   endpoints: build => {
     return {
       googleSignIn: build.mutation({
-        async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+        async onQueryStarted(_, { queryFulfilled }) {
           const { data } = await queryFulfilled
 
-          localStorage.setItem('accessToken', data.accessToken)
-          dispatch(authActions.setIsAuth(true))
+          setToken(data.accessToken)
         },
         query: body => {
           return {
@@ -19,26 +19,22 @@ const signInApi = baseApi.injectEndpoints({
           }
         },
       }),
-      logOut: build.mutation({
-        async onQueryStarted(arg, { dispatch, queryFulfilled }) {
-          queryFulfilled.then(() => {
-            dispatch(authActions.setIsAuth(false))
-          })
+      logOut: build.mutation<void, void>({
+        async onQueryStarted(_, { dispatch, queryFulfilled }) {
+          await queryFulfilled
+          deleteToken()
+          dispatch(signInApi.util.invalidateTags(['Me']))
+          dispatch(signInApi.util.resetApiState())
         },
         query: () => {
           return {
+            credentials: 'include',
             method: 'POST',
             url: '/api/v1/auth/logout',
           }
         },
       }),
-      me: build.query({
-        async onQueryStarted(arg, { dispatch, queryFulfilled }) {
-          const { data } = await queryFulfilled
-
-          dispatch(authActions.setMe(data))
-          dispatch(authActions.setIsAuth(true))
-        },
+      me: build.query<MeResponse, void>({
         providesTags: ['Me'],
         query: () => {
           return {
@@ -47,17 +43,12 @@ const signInApi = baseApi.injectEndpoints({
           }
         },
       }),
-      signIn: build.mutation({
+      signIn: build.mutation<LoginResponse, LoginArgs>({
         invalidatesTags: ['Me'],
-        async onQueryStarted(arg, { dispatch, queryFulfilled }) {
-          const { data } = await queryFulfilled
-
-          localStorage.setItem('accessToken', data.accessToken)
-          dispatch(authActions.setIsAuth(true))
-        },
         query: body => {
           return {
             body,
+            credentials: 'include',
             method: 'POST',
             url: '/api/v1/auth/login',
           }
@@ -67,5 +58,10 @@ const signInApi = baseApi.injectEndpoints({
   },
 })
 
-export const { useGoogleSignInMutation, useLogOutMutation, useMeQuery, useSignInMutation } =
-  signInApi
+export const {
+  useGoogleSignInMutation,
+  useLazyMeQuery,
+  useLogOutMutation,
+  useMeQuery,
+  useSignInMutation,
+} = signInApi

@@ -1,24 +1,28 @@
 import { ComponentType, ReactElement, useEffect } from 'react'
 
-import { useAppSelector } from '@/app/store'
+import { useMeQuery } from '@/services/auth/signInApi'
 import { useRouter } from 'next/router'
 
 const withAuth = <P extends object>(WrappedComponent: ComponentType<P>): ComponentType<P> => {
   return (props: P): ReactElement | null => {
-    const isAuth = useAppSelector(state => state.auth.isAuth)
+    const { isError, isLoading } = useMeQuery()
     const router = useRouter()
 
     useEffect(() => {
-      if (!isAuth) {
-        router.push('/sign-in')
+      if (!isError) {
+        return
       }
-    }, [isAuth, router])
+      void router.push('/sign-in')
+    }, [isError])
 
-    if (isAuth) {
-      return <WrappedComponent {...props} />
+    if (isLoading) {
+      return <div>Loading</div>
+    }
+    if (isError) {
+      return null
     }
 
-    return null
+    return <WrappedComponent {...props} />
   }
 }
 
