@@ -44,7 +44,7 @@ const signInApi = baseApi.injectEndpoints({
         },
       }),
       signIn: build.mutation<LoginResponse, LoginArgs>({
-        invalidatesTags: ['Me'],
+        // invalidatesTags: ['Me'],
         query: body => {
           return {
             body,

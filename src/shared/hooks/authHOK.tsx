@@ -9,11 +9,10 @@ const withAuth = <P extends object>(WrappedComponent: ComponentType<P>): Compone
     const router = useRouter()
 
     useEffect(() => {
-      if (!isError) {
-        return
+      if (isError) {
+        void router.push('/sign-in')
       }
-      void router.push('/sign-in')
-    }, [isError])
+    }, [isError, router])
 
     if (isLoading) {
       return <div>Loading</div>
