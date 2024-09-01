@@ -1,12 +1,13 @@
 import { ComponentProps } from 'react'
 
-import { useAppSelector } from '@/app/store'
 import { LanguageSelect } from '@/features/language-select/LanguageSelect'
 import { MobileMenuSelector } from '@/features/mobile-menu-selector/Mobile-menu-selector'
+import { useMeQuery } from '@/services/auth/signInApi'
 import { useTranslation } from '@/shared/hooks/useTranslation'
 import Button from '@/shared/ui/Button/Button'
 import { Notification } from '@/shared/ui/icons/notification'
 import { cn } from '@/shared/utils/cn'
+import { getToken } from '@/shared/utils/storage'
 import { useRouter } from 'next/router'
 
 export type HeaderProps = {
@@ -15,7 +16,7 @@ export type HeaderProps = {
 
 export const Header = ({ className, isLoading, ...rest }: HeaderProps) => {
   const router = useRouter()
-  const isAuth = useAppSelector(state => state.auth.isAuth)
+  const { data } = useMeQuery()
   const { t } = useTranslation()
 
   return (
@@ -30,7 +31,7 @@ export const Header = ({ className, isLoading, ...rest }: HeaderProps) => {
         Instagram
       </span>
       <div className="flex items-center gap-4">
-        {isAuth && (
+        {data?.userId && (
           <div className="hidden  sm:flex">
             <Notification />
           </div>
@@ -39,7 +40,7 @@ export const Header = ({ className, isLoading, ...rest }: HeaderProps) => {
         <div className="sm:hidden">
           <MobileMenuSelector />
         </div>
-        {!isAuth && (
+        {!data?.userId && (
           <div className="hidden md:flex items-center gap-4 w-full ">
             <Button onClick={() => router.push('/sign-in')} size="m" variant="text">
               {t.header.login}

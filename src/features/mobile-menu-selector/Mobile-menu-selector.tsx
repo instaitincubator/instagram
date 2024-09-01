@@ -6,6 +6,7 @@ import { useTranslation } from '@/shared/hooks/useTranslation'
 import Button from '@/shared/ui/Button/Button'
 import { Menu } from '@/shared/ui/icons/menu'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
+import { useRouter } from 'next/router'
 
 import { Bookmark, LogOut, SettingsOutline, Trending } from '../../../public'
 
@@ -13,11 +14,11 @@ export const MobileMenuSelector = () => {
   const [activeLink, setActiveLink] = useState('/')
   const [logOut, { isSuccess }] = useLogOutMutation()
   const { t } = useTranslation()
+  const router = useRouter()
 
   const logOutHandler = () => {
-    const accessToken = localStorage.getItem('accessToken')
-
-    logOut(accessToken)
+    logOut()
+    void router.replace('/')
   }
 
   if (isSuccess) {

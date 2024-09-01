@@ -17,7 +17,7 @@ const schema = (t: LocaleType) =>
       email: z
         .string()
         .min(1, { message: t.auth.field_required })
-        .email({ message: `${t.auth.email_val} example@example.com` }),
+        .email({ message: `${t.auth.email_val}` }),
       password: z
         .string()
         .min(6, {

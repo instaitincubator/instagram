@@ -4,7 +4,7 @@ import { useGetPostsQuery } from '@/services/profile/postsApi'
 import { Datepicker } from '@/shared/ui/Datepicker/Datepicker'
 
 const Profile = () => {
-  const { data: me } = useMeQuery({})
+  const { data: me } = useMeQuery()
 
   const arg = {
     pageNumber: 1,

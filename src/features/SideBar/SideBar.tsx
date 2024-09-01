@@ -4,6 +4,7 @@ import CustomLink from '@/features/SideBar/CustomLink'
 import { useLogOutMutation } from '@/services/auth/signInApi'
 import { useTranslation } from '@/shared/hooks/useTranslation'
 import Button from '@/shared/ui/Button/Button'
+import { deleteToken } from '@/shared/utils/storage'
 import { useRouter } from 'next/router'
 
 import {
@@ -33,14 +34,12 @@ export const SideBar = () => {
   }, [router.pathname])
 
   const logOutHandler = () => {
-    const accessToken = localStorage.getItem('accessToken')
-
-    logOut(accessToken)
+    logOut()
+    void router.replace('/')
   }
 
   if (isSuccess) {
-    localStorage.removeItem('accessToken')
-    router.push('/sign-in')
+    void router.push('/sign-in')
   }
 
   return (

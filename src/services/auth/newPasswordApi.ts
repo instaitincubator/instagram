@@ -1,4 +1,4 @@
-import { baseApi } from '@/app/inctagram-api'
+import { baseApi } from '@/services/inctagram-api'
 
 const newPasswordApi = baseApi.injectEndpoints({
   endpoints: build => {
