@@ -1,4 +1,4 @@
-import { baseApi } from '@/app/inctagram-api'
+import { baseApi } from '@/services/inctagram-api'
 
 const getPostsApi = baseApi.injectEndpoints({
   endpoints: build => {

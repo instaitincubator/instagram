@@ -2,13 +2,14 @@ import React from 'react'
 import { Controller } from 'react-hook-form'
 
 import { SignInFormType, useSignInForm } from '@/features/sign-in/useSignInForm'
-import { useSignInMutation } from '@/services/auth/signInApi'
+import { useLazyMeQuery, useSignInMutation } from '@/services/auth/signInApi'
 import { useTranslation } from '@/shared/hooks/useTranslation'
 import Button from '@/shared/ui/Button/Button'
 import { Card } from '@/shared/ui/Card/Card'
 import { Input } from '@/shared/ui/Input/Input'
 import { GithubAuth } from '@/shared/ui/githubAuth'
 import { GoogleButton } from '@/shared/ui/googleAuth'
+import { setToken } from '@/shared/utils/storage'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
@@ -18,13 +19,44 @@ export const SignInForm = () => {
 
   const { control, errors, handleSubmit } = useSignInForm()
   const [signIn, { isSuccess }] = useSignInMutation()
-
+  const [getMe] = useLazyMeQuery()
   const onSubmit = (data: SignInFormType) => {
     signIn(data)
+      .unwrap()
+      .then(async res => {
+        setToken(res.accessToken)
+        const tokenPayload = res.accessToken.split('.')?.[1]
+        const decodedPayload = atob(tokenPayload)
+        let parsed
+
+        try {
+          parsed = JSON.parse(decodedPayload)
+        } catch {
+          parsed = {}
+        }
+
+        let userId
+
+        if (parsed?.userId) {
+          userId = parsed.userId
+        } else {
+          const meRes = await getMe()
+
+          userId = meRes?.data?.userId
+        }
+
+        if (!userId) {
+          return
+        }
+        void router.replace(`/profile`)
+
+        // void router.replace(`/profile/${userId}`)
+      })
+      .catch()
   }
 
   if (isSuccess) {
-    router.push('/')
+    void router.push('/')
   }
 
   return (

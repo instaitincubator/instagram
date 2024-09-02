@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { getLayout } from '@/app/layouts/mainLayout/Layout'
 import { NewPasswordForm } from '@/features/new-password-form/NewPasswordForm'

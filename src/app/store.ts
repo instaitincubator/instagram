@@ -1,18 +1,13 @@
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 
-import { authReducer } from '@/app/authSlice'
-import { baseCityApi } from '@/app/cities-api'
 import { googleReducer } from '@/app/googleSlice'
-import { baseApi } from '@/app/inctagram-api'
+import { baseApi } from '@/services/inctagram-api'
 import { configureStore } from '@reduxjs/toolkit'
 
 export const store = configureStore({
-  middleware: getDefaultMiddleware =>
-    getDefaultMiddleware().concat(baseApi.middleware).concat(baseCityApi.middleware),
+  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(baseApi.middleware),
   reducer: {
-    auth: authReducer,
     [baseApi.reducerPath]: baseApi.reducer,
-    [baseCityApi.reducerPath]: baseCityApi.reducer,
     google: googleReducer,
   },
 })

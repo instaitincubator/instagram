@@ -5,7 +5,7 @@ import Button from '@/shared/ui/Button/Button'
 import Link from 'next/link'
 
 const Profile = () => {
-  const { data: me } = useMeQuery({})
+  const { data: me } = useMeQuery()
 
   const arg = {
     pageNumber: 1,
