@@ -29,7 +29,7 @@ export const ProfileSettingsForm = () => {
       <div className="flex gap-[24px]">
         <ControlledInput control={control} fullWidth label="Select your country" name="country" />
         <ControlledInput control={control} fullWidth label="Select your city" name="city" />
-        <ControlledSelect name="country" options={} />
+        <ControlledSelect name="country" options={[]} />
       </div>
       <ControlledTextarea
         control={control}
