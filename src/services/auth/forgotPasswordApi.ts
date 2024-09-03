@@ -21,8 +21,18 @@ const forgotPasswordApi = baseApi.injectEndpoints({
           }
         },
       }),
+      newPassword: build.mutation({
+        query: body => {
+          return {
+            body,
+            method: 'POST',
+            url: '/api/v1/auth/new-password',
+          }
+        },
+      }),
     }
   },
 })
 
-export const { useCheckRecoveryCodeMutation, useForgotPasswordMutation } = forgotPasswordApi
+export const { useCheckRecoveryCodeMutation, useForgotPasswordMutation, useNewPasswordMutation } =
+  forgotPasswordApi
