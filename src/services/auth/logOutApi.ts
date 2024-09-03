@@ -7,12 +7,16 @@ const logOutApi = baseApi.injectEndpoints({
     return {
       logOut: build.mutation<void, void>({
         async onQueryStarted(_, { dispatch, queryFulfilled }) {
-          await queryFulfilled
-          deleteToken()
-          dispatch(signInApi.util.invalidateTags(['Me']))
-          dispatch(signInApi.util.resetApiState())
+          try {
+            await queryFulfilled
+            deleteToken()
+            dispatch(signInApi.util.invalidateTags(['Me']))
+            dispatch(signInApi.util.resetApiState())
+          } catch {
+            /* empty */
+          }
         },
-        query: () => {
+        query() {
           return {
             credentials: 'include',
             method: 'POST',
