@@ -1,14 +1,10 @@
-import { log } from 'node:util'
-
 import { useProfileSettingsForm } from '@/features/profile-settings-form/useProfileSettingsForm'
-import { useGetCitiesQuery } from '@/services/cities/citiesApi'
 import {
   ControlledDatepicker,
   ControlledInput,
   ControlledSelect,
   ControlledTextarea,
 } from '@/shared/ui'
-
 import Button from '@/shared/ui/Button/Button'
 
 export const ProfileSettingsForm = () => {
