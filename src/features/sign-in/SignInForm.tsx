@@ -2,7 +2,7 @@ import React from 'react'
 import { Controller } from 'react-hook-form'
 
 import { SignInFormType, useSignInForm } from '@/features/sign-in/useSignInForm'
-import { useLazyMeQuery, useSignInMutation } from '@/services/auth/signInApi'
+import { useLazyMeQuery, useMeQuery, useSignInMutation } from '@/services/auth/signInApi'
 import { useTranslation } from '@/shared/hooks/useTranslation'
 import Button from '@/shared/ui/Button/Button'
 import { Card } from '@/shared/ui/Card/Card'
@@ -20,11 +20,14 @@ export const SignInForm = () => {
   const { control, errors, handleSubmit } = useSignInForm()
   const [signIn, { isSuccess }] = useSignInMutation()
   const [getMe] = useLazyMeQuery()
+  const { refetch } = useMeQuery()
+
   const onSubmit = (data: SignInFormType) => {
     signIn(data)
       .unwrap()
       .then(async res => {
         setToken(res.accessToken)
+        refetch()
         const tokenPayload = res.accessToken.split('.')?.[1]
         const decodedPayload = atob(tokenPayload)
         let parsed
@@ -48,7 +51,7 @@ export const SignInForm = () => {
         if (!userId) {
           return
         }
-        void router.replace(`/profile`)
+        refetch()
 
         // void router.replace(`/profile/${userId}`)
       })

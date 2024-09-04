@@ -1,8 +1,8 @@
 import { baseApi } from '@/services/inctagram-api'
 import { LoginArgs, LoginResponse, MeResponse } from '@/shared/types/ApiTypes/AuthApiTypes'
-import { deleteToken, setToken } from '@/shared/utils/storage'
+import { setToken } from '@/shared/utils/storage'
 
-const signInApi = baseApi.injectEndpoints({
+export const signInApi = baseApi.injectEndpoints({
   endpoints: build => {
     return {
       googleSignIn: build.mutation({
@@ -19,21 +19,6 @@ const signInApi = baseApi.injectEndpoints({
           }
         },
       }),
-      logOut: build.mutation<void, void>({
-        async onQueryStarted(_, { dispatch, queryFulfilled }) {
-          await queryFulfilled
-          deleteToken()
-          dispatch(signInApi.util.invalidateTags(['Me']))
-          dispatch(signInApi.util.resetApiState())
-        },
-        query: () => {
-          return {
-            credentials: 'include',
-            method: 'POST',
-            url: '/api/v1/auth/logout',
-          }
-        },
-      }),
       me: build.query<MeResponse, void>({
         providesTags: ['Me'],
         query: () => {
@@ -44,7 +29,6 @@ const signInApi = baseApi.injectEndpoints({
         },
       }),
       signIn: build.mutation<LoginResponse, LoginArgs>({
-        // invalidatesTags: ['Me'],
         query: body => {
           return {
             body,
@@ -58,10 +42,4 @@ const signInApi = baseApi.injectEndpoints({
   },
 })
 
-export const {
-  useGoogleSignInMutation,
-  useLazyMeQuery,
-  useLogOutMutation,
-  useMeQuery,
-  useSignInMutation,
-} = signInApi
+export const { useGoogleSignInMutation, useLazyMeQuery, useMeQuery, useSignInMutation } = signInApi
