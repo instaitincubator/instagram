@@ -8,7 +8,7 @@ import {
 import Button from '@/shared/ui/Button/Button'
 
 export const ProfileSettingsForm = () => {
-  const { control } = useProfileSettingsForm()
+  const { control, handleSubmit } = useProfileSettingsForm()
   const array = [
     { label: 'blr', value: 'blr' },
     { label: 'blr1', value: 'blr1' },
@@ -17,17 +17,21 @@ export const ProfileSettingsForm = () => {
     { label: 'blr4', value: 'blr4' },
     { label: 'blr5', value: 'blr5' },
   ]
+  const handleSubmitHandler = (data: any) => {}
 
   return (
-    <form className="w-full flex flex-col gap-6 pt-[24px]">
+    <form
+      className="w-full flex flex-col gap-6 pt-[24px]"
+      onSubmit={handleSubmit(handleSubmitHandler)}
+    >
       <ControlledInput control={control} fullWidth label="userName" name="userName" />
       <ControlledInput control={control} fullWidth label="First Name" name="firstName" />
-      <ControlledInput control={control} fullWidth label="Last Name" name="secondName" />
+      <ControlledInput control={control} fullWidth label="Last Name" name="lastName" />
       <ControlledDatepicker
         control={control}
         fullWidth
         label="Date of birth"
-        name="datePicker"
+        name="dateOfBirth"
         startDate={new Date('2000/12/31')}
       />
       <div className="flex gap-[24px]">

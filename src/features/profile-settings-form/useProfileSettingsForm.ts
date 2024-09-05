@@ -6,13 +6,13 @@ import { z } from 'zod'
 
 export const useProfileSettingsForm = () => {
   const { t } = useTranslation()
-
   const schema = z.object({
+    aboutMe: z.string(),
     city: z.string(),
     country: z.string(),
-    datePicker: z.date(),
+    dateOfBirth: z.date(),
     firstName: z.string(),
-    secondName: z.string(),
+    lastName: z.string(),
     userName: z
       .string({ message: t.auth.field_required })
       .min(6, { message: t.auth.errors.lowLength })
@@ -22,10 +22,10 @@ export const useProfileSettingsForm = () => {
       }),
   })
 
-  const { control } = useForm({
+  const { control, getValues, handleSubmit } = useForm({
     mode: 'onSubmit',
     resolver: zodResolver(schema),
   })
 
-  return { control }
+  return { control, getValues, handleSubmit }
 }
