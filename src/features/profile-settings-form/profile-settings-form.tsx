@@ -23,8 +23,9 @@ export const ProfileSettingsForm = () => {
     // console.log(data);
   }
   return (
-    <form className="w-full flex flex-col gap-6 pt-[24px]"
-          onSubmit={handleSubmit(handleSubmitHandler)}
+    <form
+      className="w-full flex flex-col gap-6 pt-[24px]"
+      onSubmit={handleSubmit(handleSubmitHandler)}
     >
       <ControlledInput control={control} fullWidth label="userName" name="userName" />
       <ControlledInput control={control} fullWidth label="First Name" name="firstName" />
@@ -56,7 +57,7 @@ export const ProfileSettingsForm = () => {
         name="aboutMe"
         placeholder="text-area"
       />
-      <Button  type={'submit'}>Save Changes</Button>
+      <Button type={'submit'}>Save Changes</Button>
     </form>
   )
 }
