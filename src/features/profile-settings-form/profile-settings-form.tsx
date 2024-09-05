@@ -17,11 +17,8 @@ export const ProfileSettingsForm = () => {
     { label: 'blr4', value: 'blr4' },
     { label: 'blr5', value: 'blr5' },
   ]
-  const handleSubmitHandler = (data: any) => {
-    // debugger
-    console.log(JSON.stringify({ ...data, dateOfBirth: new Date(data.dateOfBirth).toISOString() }))
-    // console.log(data);
-  }
+  const handleSubmitHandler = (data: any) => {}
+
   return (
     <form
       className="w-full flex flex-col gap-6 pt-[24px]"
@@ -38,17 +35,13 @@ export const ProfileSettingsForm = () => {
         startDate={new Date('2000/12/31')}
       />
       <div className="flex gap-[24px]">
-        <ControlledInput control={control} fullWidth label="Select your country" name="country" />
-        <ControlledInput control={control} fullWidth label="Select your city" name="city" />
-
-        {/*Селект пока не возвращает дату, с этой задачей нам ещё предстоит справиться */}
-        {/*<ControlledSelect*/}
-        {/*  control={control}*/}
-        {/*  label="Select your country"*/}
-        {/*  name="country"*/}
-        {/*  options={array}*/}
-        {/*/>*/}
-        {/*<ControlledSelect control={control} label="Select your city" name="city" options={array} />*/}
+        <ControlledSelect
+          control={control}
+          label="Select your country"
+          name="country"
+          options={array}
+        />
+        <ControlledSelect control={control} label="Select your city" name="city" options={array} />
       </div>
       <ControlledTextarea
         control={control}
@@ -57,7 +50,7 @@ export const ProfileSettingsForm = () => {
         name="aboutMe"
         placeholder="text-area"
       />
-      <Button type={'submit'}>Save Changes</Button>
+      <Button>Save Changes</Button>
     </form>
   )
 }
