@@ -1,4 +1,4 @@
-import { getLayoutWithSidebar } from '@/app/layouts/LayoutWithSidebar/LayoutWithSidebar'
+import { getLayoutWithSidebar } from '@/app/layouts/layoutWithSidebar/LayoutWithSidebar'
 import { useMeQuery } from '@/services/auth/signInApi'
 import { useGetPostsQuery } from '@/services/profile/postsApi'
 import Button from '@/shared/ui/Button/Button'
