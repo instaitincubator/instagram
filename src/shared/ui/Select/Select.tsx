@@ -102,7 +102,7 @@ const Select: React.FC<SelectProps> = ({
       {isOpen && (
         <ul
           className={cn(
-            'absolute left-0 text-regular-16 text-light-100 bg-dark-500 border border-t-light-100 rounded-b-sm border-light-100 mt-[-1px] z-10',
+            'absolute max-h-[200px] overflow-y-auto left-0 text-regular-16 text-light-100 bg-dark-500 border border-t-light-100 rounded-b-sm border-light-100 mt-[-1px] z-10',
             className
           )}
           style={{ width: selectRef.current?.offsetWidth }}
