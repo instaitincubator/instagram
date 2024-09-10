@@ -6,7 +6,7 @@ import { useUploadAvatars } from '@/features/avatar/hooks/useUploadAvatars'
 import AvatarModal from '@/features/avatar/ui/avatar-modal'
 
 export const Avatar = () => {
- const [ava, setAva] = useState<StaticImageData | string>(avatarimg)
+  const [ava, setAva] = useState<StaticImageData | string>(avatarimg)
 
   const [open, isOpen] = useState(false)
   const handlerOpenModal = () => isOpen(true)

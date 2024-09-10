@@ -14,6 +14,7 @@ type AvatarModalProps = {
 }
 const AvatarModal = ({ onClose, onUploadSuccess }: AvatarModalProps) => {
   const [ava, setAva] = useState<StaticImageData | string>(avatarimg)
+  const [isUpload, setIsUpload] = useState(false)
   const [fileToUpload, setFileToUpload] = useState<File | null>(null)
   const { uploadAvatar } = useUploadAvatars()
 
@@ -24,6 +25,7 @@ const AvatarModal = ({ onClose, onUploadSuccess }: AvatarModalProps) => {
       if (file.size < 10485760) {
         setFileToUpload(file)
         convertFileToBase64(file, (file64: string) => setAva(file64))
+        setIsUpload(true)
       } else {
         console.error('Error: ', 'Error! Photo size must be less than 10 MB!')
       }
@@ -41,7 +43,7 @@ const AvatarModal = ({ onClose, onUploadSuccess }: AvatarModalProps) => {
           onUploadSuccess(ava)
           onClose()
         })
-        .catch((error) => {
+        .catch(error => {
           console.error('Upload error:', error)
         })
     } else {
@@ -50,31 +52,41 @@ const AvatarModal = ({ onClose, onUploadSuccess }: AvatarModalProps) => {
   }
 
   return (
-    <Modal onClose={onClose} title={'Add a Profile Photo'}>
-      <div className="">
-        <Image
-          alt="avatar"
-          fetchPriority={'high'}
-          height={222}
-          src={ava || avatarimg}
-          width={228}
-        />
-        <label>
-          <input onChange={uploadHandler} style={{ display: 'none' }} type="file" />
-          <Button as="span">Select from Computer</Button>
-          <button onClick={saveHandler}>Save</button>
-        </label>
-        <div className="w-48 h-48 rounded-full overflow-hidden flex items-center justify-center">
+    <Modal onClose={onClose} title={'Add a Profile Photo'} className={''}>
+      {/*display: flex;*/}
+      {/*flex-direction: column;*/}
+      {/*gap: 60px;*/}
+      {isUpload ? (
+        <div>
+          <div className="relative w-40 h-40 rounded-full overflow-hidden">
+            {/*<Image*/}
+            {/*  alt="avatar"*/}
+            {/*  className="w-full h-full object-cover"*/}
+            {/*  height={192}*/}
+            {/*  src={ava}*/}
+            {/*  width={192}*/}
+            {/*/>*/}
+            <img src={ava} className="w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-gray-800 bg-opacity-30 rounded-full"></div>
+          </div>
+          <Button onClick={saveHandler}>Save</Button>
+        </div>
+      ) : (
+        <div className="flex flex-col gap-y-14 p-32">
           <Image
             alt="avatar"
-            className="w-full h-full object-cover"
-            height={192}
-            src={ava}
-            width={192}
+            fetchPriority={'high'}
+            height={228}
+            src={ava || avatarimg}
+            width={222}
           />
-
+          <label>
+            <input onChange={uploadHandler} style={{ display: 'none' }} type="file" />
+            <Button as="span">Select from Computer</Button>
+            {/**/}
+          </label>
         </div>
-      </div>
+      )}
     </Modal>
   )
 }
