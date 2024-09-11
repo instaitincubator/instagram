@@ -1,31 +1,23 @@
 import { useEffect, useState } from 'react'
 
 import { useProfileSettingsForm } from '@/features/profile-settings-form/useProfileSettingsForm'
-import {
-  ControlledDatepicker,
-  ControlledInput,
-  ControlledSelect,
-  ControlledTextarea,
-} from '@/shared/ui'
+import { ControlledDatepicker, ControlledInput, ControlledTextarea } from '@/shared/ui'
 import Button from '@/shared/ui/Button/Button'
-import { City, Country, State } from 'country-state-city'
+import { ControlledCountrySelect } from '@/shared/ui/Controlls/ControlledSelect/ControlledCountrySelect'
+import { City, Country } from 'country-state-city'
 
 export const ProfileSettingsForm = () => {
-  const { control, defaultValues, errors, getFieldState, getValues, handleSubmit, watch } =
-    useProfileSettingsForm()
+  const { control, handleSubmit, reset, watch } = useProfileSettingsForm()
   const [countryValue, setCountryValue] = useState('')
-  const [cityValue, setCityValue] = useState('')
   const countries = Country.getAllCountries()
   const cities = City.getCitiesOfCountry(countryValue)
 
   const watchCountry = watch('country')
-  const watchCity = watch('city')
 
   useEffect(() => {
-    setCountryValue(allCountries[0].value)
-    if (watchCountry && countryValue && watchCountry.value != countryValue) {
-    }
-  }, [countries, watchCountry, cities, watchCity])
+    setCountryValue(watchCountry)
+    reset({ city: {} })
+  }, [watchCountry])
 
   const allCountries = countries.map(c => {
     return {
@@ -41,7 +33,7 @@ export const ProfileSettingsForm = () => {
   })
 
   const onSubmit = (data: any) => {
-    // console.log(data)
+    handleSubmit(data)
   }
 
   return (
@@ -57,18 +49,19 @@ export const ProfileSettingsForm = () => {
         startDate={new Date('2000/12/31')}
       />
       <div className="flex gap-[24px]">
-        <ControlledSelect
+        <ControlledCountrySelect
           control={control}
           label="Select your country"
           name="country"
           options={allCountries}
+          placeholder="country"
         />
-        <ControlledSelect
+        <ControlledCountrySelect
           control={control}
-          defaultValue=""
           label="Select your city"
           name="city"
           options={allCities!}
+          placeholder="city"
         />
       </div>
       <ControlledTextarea

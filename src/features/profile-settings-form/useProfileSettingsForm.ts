@@ -13,19 +13,11 @@ export const useProfileSettingsForm = () => {
       label: z.string(),
       value: z.string(),
     }),
-    country: z.object({
-      label: z.string(),
-      value: z.string(),
-    }),
+    country: z.string(),
     datePicker: z.date(),
     firstName: z.string(),
     secondName: z.string(),
-    userName: z.string({ message: t.auth.field_required }),
-    // .min(6, { message: t.auth.errors.lowLength })
-    // .max(30, { message: t.auth.errors.highLength30 })
-    // .regex(/^[0-9A-Za-z_-]+$/, {
-    //   message: t.auth.errors.userName_val,
-    // }),
+    userName: z.string(),
   })
 
   type schemaType = z.infer<typeof schema>
@@ -36,11 +28,12 @@ export const useProfileSettingsForm = () => {
     getFieldState,
     getValues,
     handleSubmit,
+    reset,
     watch,
   } = useForm<schemaType>({
     mode: 'onSubmit',
     resolver: zodResolver(schema),
   })
 
-  return { control, defaultValues, errors, getFieldState, getValues, handleSubmit, watch }
+  return { control, defaultValues, errors, getFieldState, getValues, handleSubmit, reset, watch }
 }

@@ -32,12 +32,12 @@ export const Tabs = ({
   return (
     <RadixTabs.Root defaultValue={defaultValue} onValueChange={onValueChange} value={value}>
       <RadixTabs.List className={classNames.list}>
-        {options.map(el => {
+        {options.map((el, index) => {
           return (
             <RadixTabs.Trigger
               className={classNames.trigger}
               disabled={el.disabled}
-              key={el.value}
+              key={index}
               value={el.value}
             >
               {el.label}
