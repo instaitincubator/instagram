@@ -36,11 +36,12 @@ export const useProfileSettingsForm = () => {
     getFieldState,
     getValues,
     handleSubmit,
+    setValue,
     watch,
   } = useForm<schemaType>({
     mode: 'onSubmit',
     resolver: zodResolver(schema),
   })
 
-  return { control, defaultValues, errors, getFieldState, getValues, handleSubmit, watch }
+  return { control, defaultValues, errors, getFieldState, getValues, handleSubmit, setValue, watch }
 }

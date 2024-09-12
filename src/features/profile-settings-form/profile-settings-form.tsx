@@ -8,24 +8,27 @@ import {
   ControlledTextarea,
 } from '@/shared/ui'
 import Button from '@/shared/ui/Button/Button'
-import { City, Country, State } from 'country-state-city'
+import { City, Country } from 'country-state-city'
 
 export const ProfileSettingsForm = () => {
-  const { control, defaultValues, errors, getFieldState, getValues, handleSubmit, watch } =
-    useProfileSettingsForm()
+  const { control, handleSubmit, setValue, watch } = useProfileSettingsForm()
   const [countryValue, setCountryValue] = useState('')
-  const [cityValue, setCityValue] = useState('')
   const countries = Country.getAllCountries()
   const cities = City.getCitiesOfCountry(countryValue)
 
   const watchCountry = watch('country')
-  const watchCity = watch('city')
+  const cityToSet =
+    cities && cities.length > 0
+      ? { label: cities[0].name, value: cities[0].name }
+      : { label: '', value: '' }
 
   useEffect(() => {
-    setCountryValue(allCountries[0].value)
-    if (watchCountry && countryValue && watchCountry.value != countryValue) {
+    setCountryValue(watchCountry?.value)
+
+    if (watchCountry) {
+      setValue('city', cityToSet)
     }
-  }, [countries, watchCountry, cities, watchCity])
+  }, [watchCountry, cityToSet])
 
   const allCountries = countries.map(c => {
     return {
@@ -65,7 +68,6 @@ export const ProfileSettingsForm = () => {
         />
         <ControlledSelect
           control={control}
-          defaultValue=""
           label="Select your city"
           name="city"
           options={allCities!}
