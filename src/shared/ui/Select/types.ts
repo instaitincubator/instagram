@@ -6,11 +6,17 @@ export interface Option {
   value: string
 }
 
+interface onChange {
+  (option: Option): void
+  (value: string): void
+}
+
 export interface SelectProps {
   className?: string
   disabled?: boolean
   label?: string
-  onChange: (option: Option) => void
+  onChange: onChange
   options: Option[]
+  placeholder?: string
   value?: Option | null
 }
