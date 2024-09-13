@@ -3,7 +3,7 @@ import { useMeQuery } from '@/services/auth/signInApi'
 import { useGetPostsQuery } from '@/services/profile/postsApi'
 import Button from '@/shared/ui/Button/Button'
 import Link from 'next/link'
-import { Avatar } from '@/features/avatar/avatar'
+import { useDeleteProfileAvatarMutation } from '@/services/profile/profileApi'
 
 const Profile = () => {
   const { data: me } = useMeQuery()
@@ -19,7 +19,7 @@ const Profile = () => {
   return (
     <div>
       <div>ava и статусы с кнопками</div>
-      <Avatar />
+
       <div>{JSON.stringify(data, null, 2)}</div>
       <Link href="/settings">
         <Button>settings</Button>

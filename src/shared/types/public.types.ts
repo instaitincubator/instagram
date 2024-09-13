@@ -38,3 +38,21 @@ export type PublicPostProps = {
 export type CountRegisteredUsersProps = {
   count: number | undefined
 }
+export type Profile = {
+  avatars: ProfileAvatars[]
+  city: string
+  country: string
+  createdAt: string
+  dateOfBirth: string
+  firstName: string
+  id: number
+  lastName: string
+  userName: string
+}
+export type ProfileAvatars = {
+  createdAt: string
+  fileSize: number
+  height: number
+  url: string
+  width: number
+}

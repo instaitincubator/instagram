@@ -9,11 +9,11 @@ import { StaticImageData } from 'next/image'
 import Image from 'next/image'
 
 type AvatarModalProps = {
+  avatar: string
   onClose: () => void
-  onUploadSuccess: (avatar: StaticImageData | string) => void
 }
-const AvatarModal = ({ onClose, onUploadSuccess }: AvatarModalProps) => {
-  const [ava, setAva] = useState<StaticImageData | string>(avatarimg)
+const AvatarModal = ({ avatar, onClose }: AvatarModalProps) => {
+  const [ava, setAva] = useState<StaticImageData | string>(avatar)
   const [isUpload, setIsUpload] = useState(false)
   const [fileToUpload, setFileToUpload] = useState<File | null>(null)
   const { uploadAvatar } = useUploadAvatars()
@@ -40,7 +40,6 @@ const AvatarModal = ({ onClose, onUploadSuccess }: AvatarModalProps) => {
       uploadAvatar(formData)
         .unwrap() // Unwrap the promise to handle result/error more easily
         .then(() => {
-          onUploadSuccess(ava)
           onClose()
         })
         .catch(error => {
@@ -52,39 +51,54 @@ const AvatarModal = ({ onClose, onUploadSuccess }: AvatarModalProps) => {
   }
 
   return (
-    <Modal onClose={onClose} title={'Add a Profile Photo'} className={''}>
+    <Modal className={''} onClose={onClose} title={'Add a Profile Photo'}>
       {/*display: flex;*/}
       {/*flex-direction: column;*/}
       {/*gap: 60px;*/}
       {isUpload ? (
-        <div>
-          <div className="relative w-40 h-40 rounded-full overflow-hidden">
-            {/*<Image*/}
-            {/*  alt="avatar"*/}
-            {/*  className="w-full h-full object-cover"*/}
-            {/*  height={192}*/}
-            {/*  src={ava}*/}
-            {/*  width={192}*/}
-            {/*/>*/}
-            <img src={ava} className="w-full h-full object-cover" />
-            <div className="absolute inset-0 bg-gray-800 bg-opacity-30 rounded-full"></div>
+        <div className={'overflow-hidden'}>
+          <div className="relative w-80 h-80 mx-20 mt-3">
+            {/* Фото (1 слой) */}
+            <Image
+              alt="avatar"
+              className="w-full h-full object-cover"
+              height={300}
+              src={ava}
+              width={300}
+            />
+
+            {/* Полупрозрачный черный слой с прозрачным центром (2 слой) */}
+            <div className="absolute inset-0 bg-black opacity-50"></div>
+
+            {/* Прозрачный круглый слой (3 слой) */}
+            <div
+              className="absolute inset-0 flex items-center justify-center pointer-events-none"
+              style={{
+                borderRadius: '50%', // Делаем круг
+                boxShadow: '0 0 0 1000px rgba(0, 0, 0, 0.5)', // Создаем тень вокруг круга
+              }}
+            ></div>
           </div>
-          <Button onClick={saveHandler}>Save</Button>
+
+          <Button className="relative z-10 mt-4" onClick={saveHandler}>
+            Save
+          </Button>
         </div>
       ) : (
-        <div className="flex flex-col gap-y-14 p-32">
-          <Image
-            alt="avatar"
-            fetchPriority={'high'}
-            height={228}
-            src={ava || avatarimg}
-            width={222}
-          />
-          <label>
-            <input onChange={uploadHandler} style={{ display: 'none' }} type="file" />
-            <Button as="span">Select from Computer</Button>
-            {/**/}
-          </label>
+        <div className="">
+          <div className={'flex flex-col gap-14 pt-14 px-32 pb-24'}>
+            <Image
+              alt="avatar"
+              fetchPriority={'high'}
+              height={228}
+              src={ava || avatarimg}
+              width={222}
+            />
+            <label>
+              <input onChange={uploadHandler} style={{ display: 'none' }} type="file" />
+              <Button as="span">Select from Computer</Button>
+            </label>
+          </div>
         </div>
       )}
     </Modal>
