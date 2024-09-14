@@ -1,11 +1,11 @@
 import React, { ChangeEvent, useState } from 'react'
+import AvatarEditor from 'react-avatar-editor'
 
 import { useUploadAvatars } from '@/features/avatar/hooks/useUploadAvatars'
 import { convertFileToBase64 } from '@/features/avatar/lib/convertFileToBase64'
-import avatarimg from '@/shared/assets/images/defaultAvatar.jpg'
+import DefaultAvatar from '@/features/avatar/ui/default-avatar'
 import Button from '@/shared/ui/Button/Button'
 import { Modal } from '@/shared/ui/Modal/Modal'
-import { StaticImageData } from 'next/image'
 import Image from 'next/image'
 
 type AvatarModalProps = {
@@ -13,7 +13,7 @@ type AvatarModalProps = {
   onClose: () => void
 }
 const AvatarModal = ({ avatar, onClose }: AvatarModalProps) => {
-  const [ava, setAva] = useState<StaticImageData | string>(avatar)
+  const [ava, setAva] = useState<null | string>(avatar)
   const [isUpload, setIsUpload] = useState(false)
   const [fileToUpload, setFileToUpload] = useState<File | null>(null)
   const { uploadAvatar } = useUploadAvatars()
@@ -21,7 +21,13 @@ const AvatarModal = ({ avatar, onClose }: AvatarModalProps) => {
   const uploadHandler = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length) {
       const file = e.target.files[0]
+      const validFormats = ['image/jpeg', 'image/png']
 
+      if (!validFormats.includes(file.type)) {
+        console.error('Error: Unsupported file format! Please upload a JPEG or PNG image.')
+
+        return
+      }
       if (file.size < 10485760) {
         setFileToUpload(file)
         convertFileToBase64(file, (file64: string) => setAva(file64))
@@ -38,7 +44,7 @@ const AvatarModal = ({ avatar, onClose }: AvatarModalProps) => {
       formData.append('file', fileToUpload)
       console.log(formData)
       uploadAvatar(formData)
-        .unwrap() // Unwrap the promise to handle result/error more easily
+        .unwrap()
         .then(() => {
           onClose()
         })
@@ -49,56 +55,52 @@ const AvatarModal = ({ avatar, onClose }: AvatarModalProps) => {
       console.error('No file to upload')
     }
   }
+  const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
+    event.preventDefault()
+  }
 
   return (
-    <Modal className={''} onClose={onClose} title={'Add a Profile Photo'}>
-      {/*display: flex;*/}
-      {/*flex-direction: column;*/}
-      {/*gap: 60px;*/}
+    <Modal className={'px-0'} onClose={onClose} title={'Add a Profile Photo'}>
       {isUpload ? (
-        <div className={'overflow-hidden'}>
-          <div className="relative w-80 h-80 mx-20 mt-3">
-            {/* Фото (1 слой) */}
-            <Image
-              alt="avatar"
-              className="w-full h-full object-cover"
-              height={300}
-              src={ava}
-              width={300}
-            />
-
-            {/* Полупрозрачный черный слой с прозрачным центром (2 слой) */}
-            <div className="absolute inset-0 bg-black opacity-50"></div>
-
-            {/* Прозрачный круглый слой (3 слой) */}
-            <div
-              className="absolute inset-0 flex items-center justify-center pointer-events-none"
-              style={{
-                borderRadius: '50%', // Делаем круг
-                boxShadow: '0 0 0 1000px rgba(0, 0, 0, 0.5)', // Создаем тень вокруг круга
-              }}
-            ></div>
-          </div>
-
-          <Button className="relative z-10 mt-4" onClick={saveHandler}>
+        <div className={'mt-3 mb-5'}>
+          <AvatarEditor
+            borderRadius={999}
+            className={'mb-9 mx-0 md:mx-1 min-w-[300px] min-h-[300px]  w-full'}
+            disableBoundaryChecks
+            image={fileToUpload}
+            onMouseDown={handleMouseMove}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseMove}
+          />
+          <Button className={'ml-auto'} onClick={saveHandler}>
             Save
           </Button>
         </div>
       ) : (
-        <div className="">
-          <div className={'flex flex-col gap-14 pt-14 px-32 pb-24'}>
+        // flex flex-col gap-4 pt-6 px-6 pb-6'
+        <div className={''}>
+          {ava ? (
             <Image
               alt="avatar"
+              className={'mb-9'}
               fetchPriority={'high'}
-              height={228}
-              src={ava || avatarimg}
-              width={222}
+              height={300}
+              src={ava}
+              width={300}
             />
-            <label>
-              <input onChange={uploadHandler} style={{ display: 'none' }} type="file" />
-              <Button as="span">Select from Computer</Button>
-            </label>
-          </div>
+          ) : (
+            <DefaultAvatar className={'mb-9'} />
+          )}
+
+          <label>
+            <input
+              accept={'image/*'}
+              onChange={uploadHandler}
+              style={{ display: 'none' }}
+              type="file"
+            />
+            <Button as="span">Select from Computer</Button>
+          </label>
         </div>
       )}
     </Modal>

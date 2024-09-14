@@ -3,7 +3,6 @@ import { useMeQuery } from '@/services/auth/signInApi'
 import { useGetPostsQuery } from '@/services/profile/postsApi'
 import Button from '@/shared/ui/Button/Button'
 import Link from 'next/link'
-import { useDeleteProfileAvatarMutation } from '@/services/profile/profileApi'
 
 const Profile = () => {
   const { data: me } = useMeQuery()

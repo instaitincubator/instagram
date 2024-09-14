@@ -7,7 +7,6 @@ const baseQuery = fetchBaseQuery({
   baseUrl: 'https://inctagram.work',
   prepareHeaders: headers => {
     const token = getToken()
-    console.log(token)
     if (token) {
       headers.set('Authorization', `Bearer ${token}`)
     }

@@ -51,7 +51,9 @@ export const Slider = ({ arrImages, height, openModal, width }: Props) => {
             <div className="flex gap-[8px] justify-center px-[8px] py-[3px] bg-dark-100 rounded-[4px]">
               {arrImages.map((el, i) => (
                 <div
-                  className={`w-[8px] h-[8px] z-20 ${i === imageIndex ? 'bg-accent-500' : 'bg-light-100'} rounded-full`}
+                  className={`w-[8px] h-[8px] z-20 ${
+                    i === imageIndex ? 'bg-accent-500' : 'bg-light-100'
+                  } rounded-full`}
                   key={i}
                   onClick={() => setImageIndex(i)}
                 ></div>

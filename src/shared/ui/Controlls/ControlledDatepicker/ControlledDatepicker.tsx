@@ -1,7 +1,7 @@
+import { forwardRef } from 'react'
 import { FieldValues, UseControllerProps, useController } from 'react-hook-form'
 
 import { Datepicker, DatepickerProps } from '@/shared/ui/Datepicker/Datepicker'
-import { forwardRef } from 'react'
 
 export type ControlledDatepickerProps<TFieldValues extends FieldValues> = Omit<
   DatepickerProps,
