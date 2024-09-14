@@ -42,7 +42,7 @@ const AvatarModal = ({ avatar, onClose }: AvatarModalProps) => {
       const formData = new FormData()
 
       formData.append('file', fileToUpload)
-      console.log(formData)
+
       uploadAvatar(formData)
         .unwrap()
         .then(() => {
@@ -77,7 +77,7 @@ const AvatarModal = ({ avatar, onClose }: AvatarModalProps) => {
           </Button>
         </div>
       ) : (
-        // flex flex-col gap-4 pt-6 px-6 pb-6'
+
         <div className={''}>
           {ava ? (
             <Image
