@@ -17,10 +17,10 @@ export const useProfileSettingsForm = () => {
       label: z.string(),
       value: z.string(),
     }),
-    datePicker: z.date(),
+    dateOfBirth: z.date(),
     firstName: z.string(),
-    secondName: z.string(),
-    userName: z.string({ message: t.auth.field_required }),
+    lastName: z.string(),
+    userName: z.string(),
     // .min(6, { message: t.auth.errors.lowLength })
     // .max(30, { message: t.auth.errors.highLength30 })
     // .regex(/^[0-9A-Za-z_-]+$/, {
@@ -36,6 +36,8 @@ export const useProfileSettingsForm = () => {
     getFieldState,
     getValues,
     handleSubmit,
+    register,
+    reset,
     setValue,
     watch,
   } = useForm<schemaType>({
@@ -43,5 +45,16 @@ export const useProfileSettingsForm = () => {
     resolver: zodResolver(schema),
   })
 
-  return { control, defaultValues, errors, getFieldState, getValues, handleSubmit, setValue, watch }
+  return {
+    control,
+    defaultValues,
+    errors,
+    getFieldState,
+    getValues,
+    handleSubmit,
+    register,
+    reset,
+    setValue,
+    watch,
+  }
 }

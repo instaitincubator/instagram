@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
 
 import { useProfileSettingsForm } from '@/features/profile-settings-form/useProfileSettingsForm'
+import { useGetProfileInfoQuery, usePutSettingsMutation } from '@/services/profile/profileAPi'
 import {
   ControlledDatepicker,
   ControlledInput,
@@ -10,53 +12,82 @@ import {
 import Button from '@/shared/ui/Button/Button'
 import { City, Country } from 'country-state-city'
 
-export const ProfileSettingsForm = () => {
-  const { control, handleSubmit, setValue, watch } = useProfileSettingsForm()
-  const [countryValue, setCountryValue] = useState('')
-  const countries = Country.getAllCountries()
-  const cities = City.getCitiesOfCountry(countryValue)
+type DataForm = {
+  aboutMe?: string
+  city?: Object
+  country?: Object
+  dateOfBirth?: Date
+  firstName: string
+  lastName: string
+  region?: string
+  userName: string
+}
 
+export const ProfileSettingsForm = () => {
+  const { control, defaultValues, handleSubmit, reset, setValue, watch } = useProfileSettingsForm()
+  const [setSettingsData] = usePutSettingsMutation()
+  const { data: profileInfo } = useGetProfileInfoQuery({})
+  const countries = Country.getAllCountries()
+  const [cities, setCities] = useState<{ label: string; value: string }[]>([])
   const watchCountry = watch('country')
-  const cityToSet =
-    cities && cities.length > 0
-      ? { label: cities[0].name, value: cities[0].name }
-      : { label: '', value: '' }
+  const watchCity = watch('city')
+
+  // useEffect(() => {
+  //   reset({
+  //     aboutMe: profileInfo?.aboutMe,
+  //     city: { label: profileInfo?.city },
+  //     country: { label: profileInfo?.country },
+  //     dateOfBirth: profileInfo?.dateOfBirth,
+  //     firstName: profileInfo?.firstName,
+  //     lastName: profileInfo?.lastName,
+  //     userName: profileInfo?.userName,
+  //   })
+  // }, [profileInfo, reset])
 
   useEffect(() => {
-    setCountryValue(watchCountry?.value)
-
     if (watchCountry) {
-      setValue('city', cityToSet)
-    }
-  }, [watchCountry, cityToSet])
+      const selectedCountry = watchCountry.value
 
-  const allCountries = countries.map(c => {
-    return {
-      label: c.name,
-      value: c.isoCode,
-    }
-  })
-  const allCities = cities?.map(c => {
-    return {
-      label: c.name,
-      value: c.name,
-    }
-  })
+      const citiesList = City.getCitiesOfCountry(selectedCountry)
+      const transformedCities = transformData(citiesList, 'name', 'name')
 
-  const onSubmit = (data: any) => {
-    // console.log(data)
+      console.log(transformedCities)
+
+      setCities(transformedCities)
+      setValue('city', transformedCities[0])
+    }
+  }, [watchCountry])
+
+  const transformData = (data: any, labelKey: string, valueKey: string) => {
+    return data.map((item: any) => ({
+      label: item[labelKey],
+      value: item[valueKey],
+    }))
+  }
+
+  const allCountries = transformData(countries, 'name', 'isoCode')
+
+  const onSubmit = (data: DataForm) => {
+    const transformedData = {
+      ...data,
+      city: watchCity.label,
+      country: watchCountry.label,
+      dateOfBirth: data.dateOfBirth?.toISOString(),
+    }
+
+    setSettingsData(transformedData)
   }
 
   return (
     <form className="w-full flex flex-col gap-6 pt-[24px]" onSubmit={handleSubmit(onSubmit)}>
       <ControlledInput control={control} fullWidth label="userName" name="userName" />
       <ControlledInput control={control} fullWidth label="First Name" name="firstName" />
-      <ControlledInput control={control} fullWidth label="Last Name" name="secondName" />
+      <ControlledInput control={control} fullWidth label="Last Name" name="lastName" />
       <ControlledDatepicker
         control={control}
         fullWidth
         label="Date of birth"
-        name="datePicker"
+        name="dateOfBirth"
         startDate={new Date('2000/12/31')}
       />
       <div className="flex gap-[24px]">
@@ -66,12 +97,7 @@ export const ProfileSettingsForm = () => {
           name="country"
           options={allCountries}
         />
-        <ControlledSelect
-          control={control}
-          label="Select your city"
-          name="city"
-          options={allCities!}
-        />
+        <ControlledSelect control={control} label="Select your city" name="city" options={cities} />
       </div>
       <ControlledTextarea
         control={control}
