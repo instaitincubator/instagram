@@ -6,6 +6,7 @@ import { useDeleteProfileAvatarMutation, useGetProfileQuery } from '@/services/p
 import { ProfileAvatars } from '@/shared/types/public.types'
 import Button from '@/shared/ui/Button/Button'
 import Image from 'next/image'
+import DeleteAvatar from '@/features/avatar/ui/delete-avatar'
 
 type AvatarProps = {
   avatar: ProfileAvatars
@@ -14,11 +15,17 @@ export const Avatar = () => {
   const [deleteAvatar] = useDeleteProfileAvatarMutation()
   const { data } = useGetProfileQuery()
   const [open, isOpen] = useState(false)
+  const [openDelete, isOpenDelete] = useState(false)
   const handlerOpenModal = () => isOpen(true)
   const handlerCloseModal = () => isOpen(false)
-  const handlerDelete = () => deleteAvatar()
+  const handlerCloseDeleteModal = () => isOpenDelete(false)
+  const handlerOpen = () => isOpenDelete(true)
   const ava = data?.avatars?.[0]?.url
-
+  const handlerDelete = () => {
+    deleteAvatar().then(() => {
+      isOpenDelete(false)
+    })
+  }
   return (
     <div>
       {data?.avatars.length > 0 ? (
@@ -38,7 +45,7 @@ export const Avatar = () => {
             className={
               'absolute top-2 right-6 bg-red-500 text-white  border-black rounded-full w-6 h-6 flex items-center justify-center cursor-pointer'
             }
-            onClick={handlerDelete}
+            onClick={handlerOpen}
           >
             ✖
           </button>
@@ -51,6 +58,9 @@ export const Avatar = () => {
       <Button onClick={handlerOpenModal} variant={'outline'}>
         Add a Profile Photo
       </Button>
+      {openDelete && (
+        <DeleteAvatar onClose={handlerCloseDeleteModal} onDeleteAvatar={handlerDelete} />
+      )}
       {open && <AvatarModal avatar={ava} onClose={handlerCloseModal} />}
     </div>
   )

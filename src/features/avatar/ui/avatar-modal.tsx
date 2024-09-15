@@ -77,7 +77,6 @@ const AvatarModal = ({ avatar, onClose }: AvatarModalProps) => {
           </Button>
         </div>
       ) : (
-
         <div className={''}>
           {ava ? (
             <Image
