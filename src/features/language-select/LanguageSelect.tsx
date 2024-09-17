@@ -10,8 +10,8 @@ import { useRouter } from 'next/router'
 export const LanguageSelect = () => {
   const router = useRouter()
 
-  const changeLangHandler = (option: Option) => {
-    const locale = option.value
+  const changeLangHandler = (value: Option | string) => {
+    const locale = value as string
     const currentPath = router.asPath
 
     router.replace(currentPath, currentPath, { locale })
