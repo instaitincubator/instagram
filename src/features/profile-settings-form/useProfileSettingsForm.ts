@@ -52,6 +52,7 @@ export const useProfileSettingsForm = (initialValues: DataForm) => {
     mode: 'onSubmit',
     resolver: zodResolver(schema),
   })
+
   return {
     control,
     defaultValues,

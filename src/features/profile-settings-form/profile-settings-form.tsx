@@ -24,8 +24,7 @@ export type DataForm = {
 
 export const ProfileSettingsForm = () => {
   const { data: profileInfo, isLoading } = useGetProfileInfoQuery({})
-  const { control, defaultValues, handleSubmit, reset, setValue, watch } =
-    useProfileSettingsForm(profileInfo)
+  const { control, handleSubmit, reset, setValue, watch } = useProfileSettingsForm(profileInfo)
   const [setSettingsData] = usePutSettingsMutation()
 
   const countries = Country.getAllCountries()
@@ -60,18 +59,6 @@ export const ProfileSettingsForm = () => {
       })
     }
   }, [profileInfo, countries])
-
-  // useEffect(() => {
-  //   reset({
-  //     aboutMe: profileInfo?.aboutMe || '',
-  //     city: { label: profileInfo?.city || '' },
-  //     country: { label: profileInfo?.country || '' },
-  //     dateOfBirth: profileInfo?.dateOfBirth || null,
-  //     firstName: profileInfo?.firstName || '',
-  //     lastName: profileInfo?.lastName || '',
-  //     userName: profileInfo?.userName || '',
-  //   })
-  // }, [profileInfo, reset])
 
   useEffect(() => {
     if (watchCountry) {
