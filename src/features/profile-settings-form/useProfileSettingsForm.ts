@@ -1,11 +1,14 @@
 import { useForm } from 'react-hook-form'
 
+import { DataForm } from '@/features/profile-settings-form/profile-settings-form'
 import { useTranslation } from '@/shared/hooks/useTranslation'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
-export const useProfileSettingsForm = () => {
+export const useProfileSettingsForm = (initialValues: DataForm) => {
   const { t } = useTranslation()
+
+  // console.log(initialValues)
 
   const schema = z.object({
     aboutMe: z.string(),
@@ -17,10 +20,10 @@ export const useProfileSettingsForm = () => {
       label: z.string(),
       value: z.string(),
     }),
-    datePicker: z.date(),
+    dateOfBirth: z.date(),
     firstName: z.string(),
-    secondName: z.string(),
-    userName: z.string({ message: t.auth.field_required }),
+    lastName: z.string(),
+    userName: z.string(),
     // .min(6, { message: t.auth.errors.lowLength })
     // .max(30, { message: t.auth.errors.highLength30 })
     // .regex(/^[0-9A-Za-z_-]+$/, {
@@ -36,12 +39,29 @@ export const useProfileSettingsForm = () => {
     getFieldState,
     getValues,
     handleSubmit,
+    register,
+    reset,
     setValue,
     watch,
   } = useForm<schemaType>({
+    defaultValues: {
+      aboutMe: initialValues?.aboutMe,
+      userName: initialValues?.userName,
+    },
+
     mode: 'onSubmit',
     resolver: zodResolver(schema),
   })
-
-  return { control, defaultValues, errors, getFieldState, getValues, handleSubmit, setValue, watch }
+  return {
+    control,
+    defaultValues,
+    errors,
+    getFieldState,
+    getValues,
+    handleSubmit,
+    register,
+    reset,
+    setValue,
+    watch,
+  }
 }

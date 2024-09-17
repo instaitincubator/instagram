@@ -7,7 +7,7 @@ type RootProps = {
   children?: ReactNode
   defaultValue?: string
   onValueChange?: (value: string) => void
-  options: Array<{ children?: ReactNode; disabled?: boolean; label: string; value: string }>
+  options: { children?: ReactNode; disabled?: boolean; label: string; value: string }[]
   padding?: CSSProperties['padding']
   value?: string
 } & ComponentPropsWithoutRef<'div'>
