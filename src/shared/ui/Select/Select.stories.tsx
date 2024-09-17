@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
 import Select from '@/shared/ui/Select/Select'
-import { fn } from '@storybook/test'
 
 const meta = {
   argTypes: {
@@ -12,7 +11,6 @@ const meta = {
     },
   },
   args: {
-    onChange: fn(),
     options: [
       {
         label: 'rus',
