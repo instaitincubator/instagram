@@ -1,14 +1,15 @@
-import { getLayoutWithSidebar } from '@/app/layouts/LayoutWithSidebar/LayoutWithSidebar'
-import { ProfileSettingsForm } from '@/features/profile-settings-form/profile-settings-form'
+import React, { useEffect } from 'react'
+
+import { useRouter } from 'next/router'
 
 const Settings = () => {
-  return (
-    <div className="flex pl-[24px] pr-[64px] w-full">
-      <div className="w-[200px]">avatar here</div>
-      <ProfileSettingsForm />
-    </div>
-  )
+  const router = useRouter()
+
+  useEffect(() => {
+    router.push('/settings/general-information')
+  }, [])
+
+  return <div></div>
 }
 
-Settings.getLayout = getLayoutWithSidebar
 export default Settings
