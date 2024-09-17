@@ -1,11 +1,14 @@
 import { useForm } from 'react-hook-form'
 
+import { DataForm } from '@/features/profile-settings-form/profile-settings-form'
 import { useTranslation } from '@/shared/hooks/useTranslation'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
-export const useProfileSettingsForm = () => {
+export const useProfileSettingsForm = (initialValues: DataForm) => {
   const { t } = useTranslation()
+
+  // console.log(initialValues)
 
   const schema = z.object({
     aboutMe: z.string(),
@@ -41,6 +44,10 @@ export const useProfileSettingsForm = () => {
     setValue,
     watch,
   } = useForm<schemaType>({
+    defaultValues: {
+      aboutMe: initialValues?.aboutMe,
+      userName: initialValues?.userName,
+    },
     mode: 'onSubmit',
     resolver: zodResolver(schema),
   })

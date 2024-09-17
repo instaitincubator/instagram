@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
 
 import { useProfileSettingsForm } from '@/features/profile-settings-form/useProfileSettingsForm'
 import { useGetProfileInfoQuery, usePutSettingsMutation } from '@/services/profile/profileAPi'
@@ -12,7 +11,7 @@ import {
 import Button from '@/shared/ui/Button/Button'
 import { City, Country } from 'country-state-city'
 
-type DataForm = {
+export type DataForm = {
   aboutMe?: string
   city?: Object
   country?: Object
@@ -24,23 +23,53 @@ type DataForm = {
 }
 
 export const ProfileSettingsForm = () => {
-  const { control, defaultValues, handleSubmit, reset, setValue, watch } = useProfileSettingsForm()
+  const { data: profileInfo, isLoading } = useGetProfileInfoQuery({})
+  const { control, defaultValues, handleSubmit, reset, setValue, watch } =
+    useProfileSettingsForm(profileInfo)
   const [setSettingsData] = usePutSettingsMutation()
-  const { data: profileInfo } = useGetProfileInfoQuery({})
+
   const countries = Country.getAllCountries()
+
   const [cities, setCities] = useState<{ label: string; value: string }[]>([])
   const watchCountry = watch('country')
   const watchCity = watch('city')
 
+  useEffect(() => {
+    if (profileInfo?.country && watchCountry) {
+      const selectCountry = countries.find(el => el.name === profileInfo.country)
+
+      if (selectCountry) {
+        const citiesList = City.getCitiesOfCountry(selectCountry.isoCode)
+
+        const transformedCities = transformData(citiesList, 'name', 'name')
+
+        if (transformedCities.length > 0) {
+          setCities(transformedCities)
+          setValue('city', transformedCities[0]) // Устанавливаем значение для города
+        }
+      }
+
+      reset({
+        aboutMe: profileInfo?.aboutMe,
+        city: { label: profileInfo?.city },
+        country: { label: profileInfo?.country },
+        dateOfBirth: profileInfo?.dateOfBirth,
+        firstName: profileInfo?.firstName,
+        lastName: profileInfo?.lastName,
+        userName: profileInfo?.userName,
+      })
+    }
+  }, [profileInfo, countries])
+
   // useEffect(() => {
   //   reset({
-  //     aboutMe: profileInfo?.aboutMe,
-  //     city: { label: profileInfo?.city },
-  //     country: { label: profileInfo?.country },
-  //     dateOfBirth: profileInfo?.dateOfBirth,
-  //     firstName: profileInfo?.firstName,
-  //     lastName: profileInfo?.lastName,
-  //     userName: profileInfo?.userName,
+  //     aboutMe: profileInfo?.aboutMe || '',
+  //     city: { label: profileInfo?.city || '' },
+  //     country: { label: profileInfo?.country || '' },
+  //     dateOfBirth: profileInfo?.dateOfBirth || null,
+  //     firstName: profileInfo?.firstName || '',
+  //     lastName: profileInfo?.lastName || '',
+  //     userName: profileInfo?.userName || '',
   //   })
   // }, [profileInfo, reset])
 
@@ -51,7 +80,7 @@ export const ProfileSettingsForm = () => {
       const citiesList = City.getCitiesOfCountry(selectedCountry)
       const transformedCities = transformData(citiesList, 'name', 'name')
 
-      console.log(transformedCities)
+      // console.log(transformedCities)
 
       setCities(transformedCities)
       setValue('city', transformedCities[0])
