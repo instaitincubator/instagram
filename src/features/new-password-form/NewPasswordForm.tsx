@@ -5,8 +5,8 @@ import {
   NewPasswordFormType,
   useNewPasswordForm,
 } from '@/features/new-password-form/useNewPasswordForm'
-import { useNewPasswordMutation } from '@/services/auth/newPasswordApi'
-import { useTerminateSessionsMutation } from '@/services/auth/terminateAllSessionsApi'
+import { useNewPasswordMutation } from '@/services/auth/forgotPasswordApi'
+import { useTerminateSessionsMutation } from '@/services/auth/logOutApi'
 import { useTranslation } from '@/shared/hooks/useTranslation'
 import Button from '@/shared/ui/Button/Button'
 import { Card } from '@/shared/ui/Card/Card'

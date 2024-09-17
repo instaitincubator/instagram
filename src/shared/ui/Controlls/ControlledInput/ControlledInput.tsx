@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, forwardRef } from 'react'
+import { ComponentPropsWithoutRef } from 'react'
 import { FieldValues, UseControllerProps, useController } from 'react-hook-form'
 
 import { Input } from '@/shared/ui/Input/Input'
@@ -21,23 +21,21 @@ export type ControlledTextFieldProps<TFieldValues extends FieldValues> = Omit<
 > &
   UseControllerProps<TFieldValues>
 
-export const ControlledInput = forwardRef(
-  <TFieldValues extends FieldValues>({
+export const ControlledInput = <TFieldValues extends FieldValues>({
+  control,
+  name,
+  rules,
+  shouldUnregister,
+  ...textFieldProps
+}: ControlledTextFieldProps<TFieldValues>) => {
+  const {
+    field: { onChange, value, ...rest },
+  } = useController({
     control,
     name,
     rules,
     shouldUnregister,
-    ...textFieldProps
-  }: ControlledTextFieldProps<TFieldValues>) => {
-    const {
-      field: { onChange, value, ...rest },
-    } = useController({
-      control,
-      name,
-      rules,
-      shouldUnregister,
-    })
+  })
 
-    return <Input onChangeText={onChange} value={value} {...textFieldProps} {...rest} />
-  }
-)
+  return <Input onChangeText={onChange} value={value} {...textFieldProps} {...rest} />
+}

@@ -1,8 +1,7 @@
-import React, { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react'
+import { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react'
 import DatePicker from 'react-datepicker'
 
 import { cn } from '@/shared/utils/cn'
-import { builders } from 'prettier/doc'
 
 import './Datepicker.css'
 import 'react-datepicker/dist/react-datepicker.css'

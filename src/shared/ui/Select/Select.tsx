@@ -53,10 +53,10 @@ const Select: React.FC<SelectProps> = ({
 
     return option.imageSrc
   }
-  const mappedOptions = options.map(option => (
+  const mappedOptions = options.map((option, index) => (
     <li
       className="flex p-[8px] px-[12px] hover:bg-dark-300 hover:text-accent-500 cursor-pointer truncate"
-      key={option.value}
+      key={index}
       onClick={() => handleSelect(option)}
     >
       <div className="flex gap-2">
@@ -102,7 +102,7 @@ const Select: React.FC<SelectProps> = ({
       {isOpen && (
         <ul
           className={cn(
-            'absolute left-0 text-regular-16 text-light-100 bg-dark-500 border border-t-light-100 rounded-b-sm border-light-100 mt-[-1px] z-10',
+            'absolute max-h-[200px] overflow-y-auto left-0 text-regular-16 text-light-100 bg-dark-500 border border-t-light-100 rounded-b-sm border-light-100 mt-[-1px] z-10',
             className
           )}
           style={{ width: selectRef.current?.offsetWidth }}
