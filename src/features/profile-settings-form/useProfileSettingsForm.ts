@@ -8,8 +8,6 @@ import { z } from 'zod'
 export const useProfileSettingsForm = (initialValues: DataForm) => {
   const { t } = useTranslation()
 
-  // console.log(initialValues)
-
   const schema = z.object({
     aboutMe: z.string(),
     city: z.object({
