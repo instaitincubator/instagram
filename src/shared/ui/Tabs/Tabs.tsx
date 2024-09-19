@@ -7,7 +7,7 @@ type RootProps = {
   children?: ReactNode
   defaultValue?: string
   onValueChange?: (value: string) => void
-  options: Array<{ children?: ReactNode; disabled?: boolean; label: string; value: string }>
+  options: { children?: ReactNode; disabled?: boolean; label: string; value: string }[]
   padding?: CSSProperties['padding']
   value?: string
 } & ComponentPropsWithoutRef<'div'>
@@ -32,12 +32,12 @@ export const Tabs = ({
   return (
     <RadixTabs.Root defaultValue={defaultValue} onValueChange={onValueChange} value={value}>
       <RadixTabs.List className={classNames.list}>
-        {options.map(el => {
+        {options.map((el, index) => {
           return (
             <RadixTabs.Trigger
               className={classNames.trigger}
               disabled={el.disabled}
-              key={el.value}
+              key={index}
               value={el.value}
             >
               {el.label}

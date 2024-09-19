@@ -1,7 +1,6 @@
 import { useState } from 'react'
 
-import { getLayoutWithSidebar } from '@/app/layouts/LayoutWithSidebar/LayoutWithSidebar'
-import Profile from '@/pages/profile'
+import { getLayoutWithSidebar } from '@/app/layouts/layoutWithSidebar/LayoutWithSidebar'
 import { Table } from '@/shared/ui/Table/TableRoot'
 import { Column, Sort } from '@/shared/ui/Table/types'
 

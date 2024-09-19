@@ -10,23 +10,21 @@ export type ControlledDatepickerProps<TFieldValues extends FieldValues> = Omit<
 > &
   UseControllerProps<TFieldValues>
 
-export const ControlledDatepicker = forwardRef(
-  <TFieldValues extends FieldValues>({
+export const ControlledDatepicker = <TFieldValues extends FieldValues>({
+  control,
+  name,
+  rules,
+  shouldUnregister,
+  ...DatepickerProps
+}: ControlledDatepickerProps<TFieldValues>) => {
+  const {
+    field: { onChange, value, ...rest },
+  } = useController({
     control,
     name,
     rules,
     shouldUnregister,
-    ...DatepickerProps
-  }: ControlledDatepickerProps<TFieldValues>) => {
-    const {
-      field: { onChange, value, ...rest },
-    } = useController({
-      control,
-      name,
-      rules,
-      shouldUnregister,
-    })
+  })
 
-    return <Datepicker onChange={onChange} {...DatepickerProps} {...rest} selected={value} />
-  }
-)
+  return <Datepicker onChange={onChange} {...DatepickerProps} {...rest} selected={value} />
+}
