@@ -1,10 +1,15 @@
+import React from 'react'
+
 import { getSettingsLayout } from '@/app/layouts/settingsLayout/SettingsLayout'
+import { Avatar } from '@/features/avatar/avatar'
 import { ProfileSettingsForm } from '@/features/profile-settings-form/profile-settings-form'
 
 const GeneralInformation = () => {
   return (
-    <div className="flex w-full">
-      <div className="w-[200px]">avatar here</div>
+    <div className="flex flex-col items-center md:flex-row md:self-start md:pl-[24px] md:items-start md:pr-[64px] md:w-full md:gap-10">
+      <div className="w-[200px]">
+        <Avatar />
+      </div>
       <ProfileSettingsForm />
     </div>
   )

@@ -67,10 +67,10 @@ const AvatarModal = ({ avatar, onClose }: AvatarModalProps) => {
             borderRadius={999}
             className={'mb-9 mx-0 md:mx-1 min-w-[300px] min-h-[300px]  w-full'}
             disableBoundaryChecks
-            image={fileToUpload}
-            onMouseDown={handleMouseMove}
-            onMouseMove={handleMouseMove}
-            onMouseUp={handleMouseMove}
+            image={fileToUpload as File}
+            // onMouseDown={handleMouseMove}
+            // onMouseMove={handleMouseMove}
+            // onMouseUp={handleMouseMove}
           />
           <Button className={'ml-auto'} onClick={saveHandler}>
             Save

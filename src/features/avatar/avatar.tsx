@@ -2,18 +2,21 @@ import { useState } from 'react'
 
 import AvatarModal from '@/features/avatar/ui/avatar-modal'
 import DefaultAvatar from '@/features/avatar/ui/default-avatar'
-import { useDeleteProfileAvatarMutation, useGetProfileQuery } from '@/services/profile/profileApi'
+import DeleteAvatar from '@/features/avatar/ui/delete-avatar'
+import {
+  useDeleteProfileAvatarMutation,
+  useGetProfileInfoQuery,
+} from '@/services/profile/profileAPi'
 import { ProfileAvatars } from '@/shared/types/public.types'
 import Button from '@/shared/ui/Button/Button'
 import Image from 'next/image'
-import DeleteAvatar from '@/features/avatar/ui/delete-avatar'
 
 type AvatarProps = {
   avatar: ProfileAvatars
 }
 export const Avatar = () => {
   const [deleteAvatar] = useDeleteProfileAvatarMutation()
-  const { data } = useGetProfileQuery()
+  const { data } = useGetProfileInfoQuery({})
   const [open, isOpen] = useState(false)
   const [openDelete, isOpenDelete] = useState(false)
   const handlerOpenModal = () => isOpen(true)
@@ -26,6 +29,7 @@ export const Avatar = () => {
       isOpenDelete(false)
     })
   }
+
   return (
     <div>
       {data?.avatars.length > 0 ? (

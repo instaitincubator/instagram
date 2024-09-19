@@ -1,7 +1,7 @@
 import { baseApi } from '@/services/inctagram-api'
-import { Images, Profile } from '@/shared/types/public.types'
+import { Profile } from '@/shared/types/public.types'
 
-export const profileApi = baseApi.injectEndpoints({
+const profileApi = baseApi.injectEndpoints({
   endpoints: build => {
     return {
       deleteProfileAvatar: build.mutation<void, void>({
@@ -13,11 +13,19 @@ export const profileApi = baseApi.injectEndpoints({
           }
         },
       }),
-      getProfile: build.query<Profile, void>({
-        providesTags: ['profile'],
+      getProfileInfo: build.query({
         query: () => {
           return {
             method: 'GET',
+            url: '/api/v1/users/profile',
+          }
+        },
+      }),
+      putSettings: build.mutation({
+        query: body => {
+          return {
+            body,
+            method: 'PUT',
             url: '/api/v1/users/profile',
           }
         },
@@ -35,8 +43,10 @@ export const profileApi = baseApi.injectEndpoints({
     }
   },
 })
+
 export const {
   useDeleteProfileAvatarMutation,
-  useGetProfileQuery,
+  useGetProfileInfoQuery,
+  usePutSettingsMutation,
   useUploadProfileAvatarMutation,
 } = profileApi
