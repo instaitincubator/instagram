@@ -25,7 +25,8 @@ const CustomLink = ({
   setActiveLink,
   title,
 }: LinkProps) => {
-  const isActive = href === activeLink
+  const isActive = href.split('/')[1] === activeLink.split('/')[1]
+
   const handleClick = () => {
     setActiveLink(href)
   }

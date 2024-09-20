@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import CustomLink from '@/features/SideBar/CustomLink'
 import { useLogOutMutation } from '@/services/auth/logOutApi'
+import { useMeQuery } from '@/services/auth/signInApi'
 import { useTranslation } from '@/shared/hooks/useTranslation'
 import Button from '@/shared/ui/Button/Button'
 import { useRouter } from 'next/router'
@@ -27,6 +28,7 @@ export const SideBar = () => {
   const [activeLink, setActiveLink] = useState('/')
   const [logOut, { isSuccess }] = useLogOutMutation()
   const { t } = useTranslation()
+  const { data: me } = useMeQuery()
 
   useEffect(() => {
     setActiveLink(router.pathname)
@@ -60,7 +62,7 @@ export const SideBar = () => {
           child1={<Profile />}
           child2={<ProfileFill />}
           className="order-5 sm:order-3"
-          href="/profile"
+          href={`/profile/${me?.userId}`}
           setActiveLink={setActiveLink}
           title={t.sidebar.myProfile}
         ></CustomLink>
