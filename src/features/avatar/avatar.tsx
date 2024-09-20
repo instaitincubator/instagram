@@ -3,10 +3,11 @@ import { useState } from 'react'
 import AvatarModal from '@/features/avatar/ui/avatar-modal'
 import DefaultAvatar from '@/features/avatar/ui/default-avatar'
 import DeleteAvatar from '@/features/avatar/ui/delete-avatar'
+import DeleteButton from '@/features/avatar/ui/delete-button.'
 import {
   useDeleteProfileAvatarMutation,
   useGetProfileInfoQuery,
-} from '@/services/profile/profileAPi'
+} from '@/services/profile/profileApi'
 import { ProfileAvatars } from '@/shared/types/public.types'
 import Button from '@/shared/ui/Button/Button'
 import Image from 'next/image'
@@ -47,11 +48,11 @@ export const Avatar = () => {
 
           <button
             className={
-              'absolute top-2 right-6 bg-red-500 text-white  border-black rounded-full w-6 h-6 flex items-center justify-center cursor-pointer'
+              'absolute border-4 top-2 right-6 bg-red-500 text-white  p-1 border-dark-700 rounded-full  border-dark-700 flex items-center justify-center cursor-pointer'
             }
             onClick={handlerOpen}
           >
-            ✖
+            <DeleteButton />
           </button>
         </div>
       ) : (

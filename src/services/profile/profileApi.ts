@@ -14,6 +14,7 @@ const profileApi = baseApi.injectEndpoints({
         },
       }),
       getProfileInfo: build.query({
+        providesTags: ['profile'],
         query: () => {
           return {
             method: 'GET',
@@ -22,6 +23,7 @@ const profileApi = baseApi.injectEndpoints({
         },
       }),
       putSettings: build.mutation({
+        invalidatesTags: ['profile'],
         query: body => {
           return {
             body,
@@ -30,7 +32,7 @@ const profileApi = baseApi.injectEndpoints({
           }
         },
       }),
-      uploadProfileAvatar: build.mutation<any, FormData>({
+      uploadProfileAvatar: build.mutation({
         invalidatesTags: ['profile'],
         query: formData => {
           return {

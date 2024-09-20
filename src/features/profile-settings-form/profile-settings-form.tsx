@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
 import { useProfileSettingsForm } from '@/features/profile-settings-form/useProfileSettingsForm'
-import { useGetProfileInfoQuery, usePutSettingsMutation } from '@/services/profile/profileAPi'
+import { useGetProfileInfoQuery, usePutSettingsMutation } from '@/services/profile/profileApi'
 import {
   ControlledDatepicker,
   ControlledInput,

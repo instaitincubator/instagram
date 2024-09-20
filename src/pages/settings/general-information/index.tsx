@@ -7,7 +7,7 @@ import { ProfileSettingsForm } from '@/features/profile-settings-form/profile-se
 const GeneralInformation = () => {
   return (
     <div className="flex flex-col items-center md:flex-row md:self-start md:pl-[24px] md:items-start md:pr-[64px] md:w-full md:gap-10">
-      <div className="w-[200px]">
+      <div className="w-[200px] pt-6">
         <Avatar />
       </div>
       <ProfileSettingsForm />
