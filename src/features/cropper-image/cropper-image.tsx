@@ -3,7 +3,6 @@ import AvatarEditor from 'react-avatar-editor'
 
 type Props = {
   image: string
-  // setFormData: (formData: FormData) => void
 } & ComponentPropsWithoutRef<typeof AvatarEditor>
 const CropperImage = forwardRef<ElementRef<typeof AvatarEditor>, Props>(
   ({ image, ...rest }, ref) => {

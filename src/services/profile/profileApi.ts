@@ -1,5 +1,4 @@
 import { baseApi } from '@/services/inctagram-api'
-import { Profile } from '@/shared/types/public.types'
 
 const profileApi = baseApi.injectEndpoints({
   endpoints: build => {

@@ -1,9 +1,9 @@
 import React, { ChangeEvent, useRef, useState } from 'react'
 import AvatarEditor from 'react-avatar-editor'
 
-import { useUploadAvatars } from '@/features/avatar/hooks/useUploadAvatars'
 import DefaultAvatar from '@/features/avatar/ui/default-avatar'
 import CropperImage from '@/features/cropper-image/cropper-image'
+import { useUploadAvatars } from '@/shared/hooks/useUploadAvatars'
 import Button from '@/shared/ui/Button/Button'
 import { Modal } from '@/shared/ui/Modal/Modal'
 import Image from 'next/image'
@@ -64,13 +64,6 @@ const AvatarModal = ({ avatar, onClose }: AvatarModalProps) => {
       {isUpload ? (
         <div className={'mt-3 mb-5'}>
           <CropperImage image={src || ''} ref={cropRef} />
-          {/*<AvatarEditor*/}
-          {/*  borderRadius={999}*/}
-          {/*  className={'mb-9 mx-0 md:mx-1 min-w-[300px] min-h-[300px]  w-full'}*/}
-          {/*  disableBoundaryChecks*/}
-          {/*  image={src || ''}*/}
-          {/*  ref={cropRef}*/}
-          {/*/>*/}
           <Button className={'ml-auto'} onClick={handleSave}>
             Save
           </Button>

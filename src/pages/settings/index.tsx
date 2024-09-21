@@ -9,7 +9,6 @@ const Settings = () => {
     router.push('/settings/general-information')
   }, [])
 
-  // flex pl-[24px] pr-[64px] w-full gap-10
   return <div></div>
 }
 
