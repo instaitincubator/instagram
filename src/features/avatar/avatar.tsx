@@ -13,7 +13,7 @@ import Image from 'next/image'
 
 export const Avatar = () => {
   const [deleteAvatar] = useDeleteProfileAvatarMutation()
-  const { data } = useGetProfileInfoQuery({})
+  const { data } = useGetProfileInfoQuery()
   const [open, isOpen] = useState(false)
   const [openDelete, isOpenDelete] = useState(false)
   const handlerOpenModal = () => isOpen(true)
@@ -29,7 +29,7 @@ export const Avatar = () => {
 
   return (
     <div>
-      {data?.avatars.length > 0 ? (
+      {data && data?.avatars.length > 0 ? (
         <div className="relative">
           <Image
             alt="avatar"
@@ -38,7 +38,7 @@ export const Avatar = () => {
             }
             fetchPriority={'high'}
             height={data?.avatars[0]?.height ?? 300}
-            src={ava}
+            src={ava!}
             width={data?.avatars[0]?.width ?? 300}
           />
           <button
@@ -62,7 +62,7 @@ export const Avatar = () => {
       {openDelete && (
         <DeleteAvatar onClose={handlerCloseDeleteModal} onDeleteAvatar={handlerDelete} />
       )}
-      {open && <AvatarModal avatar={ava} onClose={handlerCloseModal} />}
+      {open && <AvatarModal avatar={ava!} onClose={handlerCloseModal} />}
     </div>
   )
 }
