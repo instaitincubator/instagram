@@ -1,9 +1,9 @@
-import React, { ChangeEvent, useState } from 'react'
+import React, { ChangeEvent, useRef, useState } from 'react'
 import AvatarEditor from 'react-avatar-editor'
 
 import { useUploadAvatars } from '@/features/avatar/hooks/useUploadAvatars'
-import { convertFileToBase64 } from '@/features/avatar/lib/convertFileToBase64'
 import DefaultAvatar from '@/features/avatar/ui/default-avatar'
+import CropperImage from '@/features/cropper-image/cropper-image'
 import Button from '@/shared/ui/Button/Button'
 import { Modal } from '@/shared/ui/Modal/Modal'
 import Image from 'next/image'
@@ -13,78 +13,77 @@ type AvatarModalProps = {
   onClose: () => void
 }
 const AvatarModal = ({ avatar, onClose }: AvatarModalProps) => {
-  const [ava, setAva] = useState<null | string>(avatar)
   const [isUpload, setIsUpload] = useState(false)
-  const [fileToUpload, setFileToUpload] = useState<File | null>(null)
   const { uploadAvatar } = useUploadAvatars()
+  const [src, setSrc] = useState<null | string>(null)
 
-  const uploadHandler = (e: ChangeEvent<HTMLInputElement>) => {
+  const cropRef = useRef<AvatarEditor>(null)
+
+  const onImageUpload = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length) {
-      const file = e.target.files[0]
       const validFormats = ['image/jpeg', 'image/png']
 
-      if (!validFormats.includes(file.type)) {
+      if (!validFormats.includes(e.target.files[0].type)) {
         console.error('Error: Unsupported file format! Please upload a JPEG or PNG image.')
 
         return
       }
-      if (file.size < 10485760) {
-        setFileToUpload(file)
-        convertFileToBase64(file, (file64: string) => setAva(file64))
+      if (e.target.files[0].size < 10485760) {
+        setSrc(URL.createObjectURL(e.target.files[0]))
         setIsUpload(true)
       } else {
         console.error('Error: ', 'Error! Photo size must be less than 10 MB!')
       }
     }
   }
-  const saveHandler = () => {
-    if (fileToUpload) {
+  const handleSave = async () => {
+    if (cropRef.current) {
+      const dataUrl = cropRef.current.getImage().toDataURL()
+      const response = await fetch(dataUrl)
+      const blob = await response.blob()
+
+      const file = new File([blob], 'avatar.png', { type: blob.type }) // Create a File
+
       const formData = new FormData()
 
-      formData.append('file', fileToUpload)
+      formData.append('file', file) // Append the file to FormData
 
-      uploadAvatar(formData)
-        .unwrap()
-        .then(() => {
-          onClose()
-        })
-        .catch(error => {
-          console.error('Upload error:', error)
-        })
+      try {
+        await uploadAvatar(formData).unwrap()
+        onClose()
+      } catch (error) {
+        console.error('Upload error:', error)
+      }
     } else {
-      console.error('No file to upload')
+      console.error('No crop reference found')
     }
-  }
-  const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
-    event.preventDefault()
   }
 
   return (
     <Modal className={'px-0'} onClose={onClose} title={'Add a Profile Photo'}>
       {isUpload ? (
         <div className={'mt-3 mb-5'}>
-          <AvatarEditor
-            borderRadius={999}
-            className={'mb-9 mx-0 md:mx-1 min-w-[300px] min-h-[300px]  w-full'}
-            disableBoundaryChecks
-            image={fileToUpload as File}
-            // onMouseDown={handleMouseMove}
-            // onMouseMove={handleMouseMove}
-            // onMouseUp={handleMouseMove}
-          />
-          <Button className={'ml-auto'} onClick={saveHandler}>
+          <CropperImage image={src || ''} ref={cropRef} />
+          {/*<AvatarEditor*/}
+          {/*  borderRadius={999}*/}
+          {/*  className={'mb-9 mx-0 md:mx-1 min-w-[300px] min-h-[300px]  w-full'}*/}
+          {/*  disableBoundaryChecks*/}
+          {/*  image={src || ''}*/}
+          {/*  ref={cropRef}*/}
+          {/*/>*/}
+          <Button className={'ml-auto'} onClick={handleSave}>
             Save
           </Button>
         </div>
       ) : (
         <div className={''}>
-          {ava ? (
+          {avatar ? (
             <Image
               alt="avatar"
               className={'mb-9'}
               fetchPriority={'high'}
               height={300}
-              src={ava}
+              src={avatar}
               width={300}
             />
           ) : (
@@ -94,7 +93,7 @@ const AvatarModal = ({ avatar, onClose }: AvatarModalProps) => {
           <label>
             <input
               accept={'image/*'}
-              onChange={uploadHandler}
+              onChange={onImageUpload}
               style={{ display: 'none' }}
               type="file"
             />
