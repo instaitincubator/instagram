@@ -1,9 +1,28 @@
 import { baseApi } from '@/services/inctagram-api'
+import {
+  ProfileFollowers,
+  ProfileFollowing,
+  ProfileInfo,
+} from '@/shared/types/ApiTypes/ProfileApiTypes'
 
 const profileApi = baseApi.injectEndpoints({
   endpoints: build => {
     return {
-      getProfileInfo: build.query({
+      getFollowers: build.query<ProfileFollowers, string>({
+        query: (userName: string) => {
+          return {
+            url: `/api/v1/users/${userName}/followers`,
+          }
+        },
+      }),
+      getFollowing: build.query<ProfileFollowing, string>({
+        query: (userName: string) => {
+          return {
+            url: `/api/v1/users/${userName}/following`,
+          }
+        },
+      }),
+      getProfileInfo: build.query<ProfileInfo, void>({
         query: () => {
           return {
             method: 'GET',
@@ -24,4 +43,9 @@ const profileApi = baseApi.injectEndpoints({
   },
 })
 
-export const { useGetProfileInfoQuery, usePutSettingsMutation } = profileApi
+export const {
+  useGetFollowersQuery,
+  useGetFollowingQuery,
+  useGetProfileInfoQuery,
+  usePutSettingsMutation,
+} = profileApi
