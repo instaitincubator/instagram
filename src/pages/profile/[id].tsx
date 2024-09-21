@@ -7,7 +7,7 @@ import {
   useGetFollowersQuery,
   useGetFollowingQuery,
   useGetProfileInfoQuery,
-} from '@/services/profile/profileAPi'
+} from '@/services/profile/profileApi'
 import { GetProfilePostsParams } from '@/shared/types/ApiTypes/ProfileApiTypes'
 import Button from '@/shared/ui/Button/Button'
 import Link from 'next/link'
