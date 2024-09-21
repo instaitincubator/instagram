@@ -18,7 +18,6 @@ const Profile = () => {
   return (
     <div>
       <div>ava и статусы с кнопками</div>
-
       <div>{JSON.stringify(data, null, 2)}</div>
       <Link href="/settings">
         <Button>settings</Button>
