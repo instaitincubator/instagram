@@ -23,8 +23,20 @@ export type DataForm = {
 }
 
 export const ProfileSettingsForm = () => {
-  const { data: profileInfo, isLoading } = useGetProfileInfoQuery({})
-  const { control, handleSubmit, reset, setValue, watch } = useProfileSettingsForm(profileInfo)
+  const { data: profileInfo } = useGetProfileInfoQuery()
+  const defaultProfileInfo: DataForm = {
+    aboutMe: '',
+    city: undefined,
+    country: undefined,
+    dateOfBirth: undefined,
+    firstName: '',
+    lastName: '',
+    region: '',
+    userName: '',
+  }
+  const { control, handleSubmit, reset, setValue, watch } = useProfileSettingsForm(
+    profileInfo || defaultProfileInfo
+  )
   const [setSettingsData] = usePutSettingsMutation()
 
   const countries = Country.getAllCountries()
