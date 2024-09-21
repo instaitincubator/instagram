@@ -40,7 +40,7 @@
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^1.5.0",
-    "@it-incubator/eslint-config": "^1.0.2",
+    "@it-incubator/eslint-config": "^1.0.3",
     "@it-incubator/prettier-config": "^0.1.2",
     "@it-incubator/stylelint-config": "^2.0.0",
     "@storybook/addon-essentials": "^8.1.8",
@@ -56,13 +56,14 @@
     "@types/node": "^20",
     "@types/nprogress": "^0.2.3",
     "@types/react": "^18",
+    "@types/react-avatar-editor": "^13.0.3",
     "@types/react-dom": "^18",
     "eslint": "^8",
     "eslint-config-next": "14.2.3",
     "eslint-plugin-storybook": "^0.8.0",
     "postcss": "^8",
     "storybook": "^8.1.8",
-    "stylelint": "^16.6.1",
+    "stylelint": "^16.9.0",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   }
