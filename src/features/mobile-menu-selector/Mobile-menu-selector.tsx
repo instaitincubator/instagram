@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 
-import CustomLink from '@/features/SideBar/CustomLink'
 import { useLogOutMutation } from '@/services/auth/logOutApi'
 import { useTranslation } from '@/shared/hooks/useTranslation'
 import Button from '@/shared/ui/Button/Button'
+import CustomLink from '@/shared/ui/CustomLink'
 import { Menu } from '@/shared/ui/icons/menu'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 import { useRouter } from 'next/router'

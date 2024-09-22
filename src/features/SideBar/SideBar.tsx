@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 
-import CustomLink from '@/features/SideBar/CustomLink'
 import { useLogOutMutation } from '@/services/auth/logOutApi'
 import { useMeQuery } from '@/services/auth/signInApi'
 import { useTranslation } from '@/shared/hooks/useTranslation'
 import Button from '@/shared/ui/Button/Button'
+import CustomLink from '@/shared/ui/CustomLink'
 import { useRouter } from 'next/router'
 
 import {
@@ -44,8 +44,8 @@ export const SideBar = () => {
   }
 
   return (
-    <nav className="absolute bottom-0 sm:relative w-full sm:w-fit min-w-[360px] min-h-[60px] sm:flex sm:flex-col sm:min-w-[200px] sm:py-[73px] border-t sm:border-t-0  bg-dark-500 sm:bg-dark-700 ">
-      <div className="flex sm:flex-col justify-evenly h-[60px] sm:h-fit items-center sm:items-baseline w-full sm:pl-14 gap-[24px]">
+    <nav className="relative w-fit min-w-[200px] py-[73px] bg-dark-700">
+      <div className="flex flex-col justify-evenly h-fit pl-14 gap-[24px]">
         <CustomLink
           activeLink={activeLink}
           alt={t.sidebar.home}
