@@ -2,21 +2,24 @@ import React from 'react'
 
 import { cn } from '@/shared/utils/cn'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 interface LinkProps {
   activeLink: string
+  addPostModal?: () => void
   alt: string
   child1: React.ReactElement
   child2?: React.ReactElement
   children?: React.ReactElement
   className?: string
-  href: string
+  href?: string
   setActiveLink: (href: string) => void
   title?: string
 }
 
 const CustomLink = ({
   activeLink,
+  addPostModal,
   child1,
   child2,
   children,
@@ -25,10 +28,16 @@ const CustomLink = ({
   setActiveLink,
   title,
 }: LinkProps) => {
-  const isActive = href.split('/')[1] === activeLink.split('/')[1]
-
+  const isActive = href?.split('/')[1] === activeLink.split('/')[1]
+  const router = useRouter()
   const handleClick = () => {
-    setActiveLink(href)
+    if (!href) {
+      if (addPostModal) {
+        addPostModal()
+      }
+    } else {
+      setActiveLink(href)
+    }
   }
 
   return (
@@ -38,7 +47,7 @@ const CustomLink = ({
         isActive ? 'text-accent-700' : '',
         className
       )}
-      href={href}
+      href={href ? href : router.asPath}
       onClick={handleClick}
     >
       {isActive && child2 ? child2 : child1 || null}

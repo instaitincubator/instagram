@@ -1,15 +1,10 @@
 import { useForm } from 'react-hook-form'
 
 import { DataForm } from '@/features/profile-settings-form/profile-settings-form'
-import { useTranslation } from '@/shared/hooks/useTranslation'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
 export const useProfileSettingsForm = (initialValues: DataForm) => {
-  const { t } = useTranslation()
-
-  // console.log(initialValues)
-
   const schema = z.object({
     aboutMe: z.string(),
     city: z.object({
@@ -24,11 +19,6 @@ export const useProfileSettingsForm = (initialValues: DataForm) => {
     firstName: z.string(),
     lastName: z.string(),
     userName: z.string(),
-    // .min(6, { message: t.auth.errors.lowLength })
-    // .max(30, { message: t.auth.errors.highLength30 })
-    // .regex(/^[0-9A-Za-z_-]+$/, {
-    //   message: t.auth.errors.userName_val,
-    // }),
   })
 
   type schemaType = z.infer<typeof schema>

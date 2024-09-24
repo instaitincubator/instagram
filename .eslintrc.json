@@ -6,7 +6,8 @@
   ],
   "rules": {
     "react/jsx-curly-brace-presence": "off",
-    "import/no-named-as-default": 0
+    "import/no-named-as-default": 0,
+    "react-hooks/exhaustive-deps": "off"
   },
   "settings": {
     "import/resolver": {

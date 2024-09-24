@@ -12,7 +12,7 @@ export interface ProfileInfo {
   city: string
   country: string
   createdAt: string
-  dateOfBirth: string
+  dateOfBirth: Date
   firstName: string
   id: number
   lastName: string
