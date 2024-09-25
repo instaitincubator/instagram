@@ -25,6 +25,7 @@ const Profile = () => {
   const { data: following } = useGetFollowingQuery(profileInfo?.userName!)
 
   const profileName = `${profileInfo?.firstName} ${profileInfo?.lastName}`
+  const isProfileOwner = me?.userId === profileInfo?.id
 
   return (
     <div>
@@ -33,8 +34,8 @@ const Profile = () => {
         <div className="w-full pl-9 flex flex-col">
           <div className="flex justify-between w-full">
             <span className="text-h1">{profileName}</span>
-            {me && (
-              <Link href="/settings">
+            {isProfileOwner && (
+              <Link href="/profile/settings">
                 <Button variant="secondary">Profile Settings</Button>
               </Link>
             )}
