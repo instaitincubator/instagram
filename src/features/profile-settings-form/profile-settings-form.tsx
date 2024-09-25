@@ -23,7 +23,7 @@ export type DataForm = {
 }
 
 export const ProfileSettingsForm = ({ myProfileInfo }: any) => {
-  const { control, errors, handleSubmit, setValue, watch } = useProfileSettingsForm(myProfileInfo)
+  const { control, handleSubmit, setValue, watch } = useProfileSettingsForm(myProfileInfo)
 
   const [setSettingsData] = usePutSettingsMutation()
 
