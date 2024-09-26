@@ -23,7 +23,8 @@ export type DataForm = {
 }
 
 export const ProfileSettingsForm = ({ myProfileInfo }: any) => {
-  const { control, handleSubmit, setValue, watch } = useProfileSettingsForm(myProfileInfo)
+  const { control, getFieldState, handleSubmit, setValue, watch } =
+    useProfileSettingsForm(myProfileInfo)
 
   const [setSettingsData] = usePutSettingsMutation()
 
@@ -34,30 +35,19 @@ export const ProfileSettingsForm = ({ myProfileInfo }: any) => {
   const watchCity = watch('city')
 
   useEffect(() => {
-    if (myProfileInfo?.country != '') {
-      const selectCountry = countries.find(el => el.name === myProfileInfo.country)
+    const selectCountry = countries.find(el => el.name === watchCountry?.label)
 
-      if (selectCountry) {
-        const citiesList = City.getCitiesOfCountry(selectCountry.isoCode)
+    if (selectCountry) {
+      const citiesList = City.getCitiesOfCountry(selectCountry.isoCode)
+      const transformedCities = transformData(citiesList, 'name', 'name')
 
-        const transformedCities = transformData(citiesList, 'name', 'name')
+      setCities(transformedCities)
 
-        setCities(transformedCities)
+      if (getFieldState('country').isDirty) {
         setValue('city', transformedCities[0])
       }
-    }
-  }, [myProfileInfo, countries])
-
-  useEffect(() => {
-    if (watchCountry) {
-      const selectCountry = countries.find(el => el.name === watchCountry.label)
-
-      if (selectCountry) {
-        const citiesList = City.getCitiesOfCountry(selectCountry.isoCode)
-        const transformedCities = transformData(citiesList, 'name', 'name')
-
-        setCities(transformedCities)
-        setValue('city', transformedCities[0])
+      if (transformedCities.length === 0) {
+        setValue('city', { label: 'not found', value: '' })
       }
     }
   }, [watchCountry])
