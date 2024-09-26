@@ -2,6 +2,7 @@ import React, { ChangeEvent, useRef, useState } from 'react'
 import AvatarEditor from 'react-avatar-editor'
 
 import DefaultAvatar from '@/features/avatar/ui/default-avatar'
+import ErrorAlert from '@/features/avatar/ui/error-alert'
 import CropperImage from '@/features/cropper-image/cropper-image'
 import { useUploadAvatars } from '@/shared/hooks/useUploadAvatars'
 import Button from '@/shared/ui/Button/Button'
@@ -16,7 +17,7 @@ const AvatarModal = ({ avatar, onClose }: AvatarModalProps) => {
   const [isUpload, setIsUpload] = useState(false)
   const { uploadAvatar } = useUploadAvatars()
   const [src, setSrc] = useState<null | string>(null)
-
+  const [error, setError] = useState(false)
   const cropRef = useRef<AvatarEditor>(null)
 
   const onImageUpload = (e: ChangeEvent<HTMLInputElement>) => {
@@ -69,7 +70,8 @@ const AvatarModal = ({ avatar, onClose }: AvatarModalProps) => {
           </Button>
         </div>
       ) : (
-        <div className={''}>
+        <div className={'flex flex-col  items-center'}>
+          <ErrorAlert error={' Unsupported file format! Please upload a JPEG or PNG image'} />
           {avatar ? (
             <Image
               alt="avatar"
