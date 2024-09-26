@@ -1,10 +1,9 @@
 import { useForm } from 'react-hook-form'
 
-import { DataForm } from '@/features/profile-settings-form/profile-settings-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
-export const useProfileSettingsForm = (initialValues: DataForm) => {
+export const useProfileSettingsForm = (initialValues: any) => {
   const schema = z.object({
     aboutMe: z.string(),
     city: z.object({
@@ -22,7 +21,7 @@ export const useProfileSettingsForm = (initialValues: DataForm) => {
   })
 
   type schemaType = z.infer<typeof schema>
-
+  const formatDate = new Date(initialValues.dateOfBirth)
   const {
     control,
     formState: { defaultValues, errors },
@@ -35,8 +34,19 @@ export const useProfileSettingsForm = (initialValues: DataForm) => {
     watch,
   } = useForm<schemaType>({
     defaultValues: {
-      aboutMe: initialValues?.aboutMe,
-      userName: initialValues?.userName,
+      aboutMe: initialValues.aboutMe,
+      city: {
+        label: initialValues.city || '',
+        value: initialValues.city || '',
+      },
+      country: {
+        label: initialValues.country || '',
+        value: initialValues.country || '',
+      },
+      dateOfBirth: formatDate,
+      firstName: initialValues.firstName,
+      lastName: initialValues.lastName,
+      userName: initialValues.userName,
     },
 
     mode: 'onSubmit',
