@@ -127,11 +127,15 @@ export const ProfileSettingsForm = ({ myProfileInfo }: any) => {
           }}
           title="Success"
         >
-          <div className="flex gap-[60px] flex-col items-center min-w-[300px]">
-            <span>{modalMessage}</span>
-            <Button fullWidth onClick={() => setModalVisible(false)}>
-              Ok
-            </Button>
+          <div className="flex flex-col justify-center items-center min-w-[300px] min-h-[150px]">
+            <div className="flex-grow flex items-center justify-center">
+              <span>{modalMessage}</span>
+            </div>
+            <div className="w-full">
+              <Button fullWidth onClick={() => setModalVisible(false)}>
+                Ok
+              </Button>
+            </div>
           </div>
         </Modal>
       )}
