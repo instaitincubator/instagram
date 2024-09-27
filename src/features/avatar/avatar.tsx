@@ -30,7 +30,7 @@ export const Avatar = () => {
   return (
     <div>
       {data && data?.avatars.length > 0 ? (
-        <div className="relative">
+        <div className="relative flex justify-center">
           <Image
             alt="avatar"
             className={
@@ -56,7 +56,7 @@ export const Avatar = () => {
           className={'flex items-center justify-center w-48 h-48 overflow-hidden rounded-full mb-6'}
         />
       )}
-      <Button onClick={handlerOpenModal} variant={'outline'}>
+      <Button fullWidth onClick={handlerOpenModal} variant={'outline'}>
         Add a Profile Photo
       </Button>
       {openDelete && (
