@@ -24,7 +24,7 @@ export type DataForm = {
 }
 
 export const ProfileSettingsForm = ({ myProfileInfo }: any) => {
-  const { control, getFieldState, handleSubmit, setValue, watch } =
+  const { control, errors, getFieldState, handleSubmit, setValue, watch } =
     useProfileSettingsForm(myProfileInfo)
 
   const [setSettingsData] = usePutSettingsMutation()
@@ -84,12 +84,38 @@ export const ProfileSettingsForm = ({ myProfileInfo }: any) => {
     }
   }
 
+  const isSubmitDisabled =
+    !watch('userName') ||
+    !!errors.userName ||
+    !watch('firstName') ||
+    !!errors.firstName ||
+    !watch('lastName') ||
+    !!errors.lastName
+
   return (
     <>
       <form className="w-full flex flex-col gap-6 pt-[24px]" onSubmit={handleSubmit(onSubmit)}>
-        <ControlledInput control={control} fullWidth label="userName" name="userName" />
-        <ControlledInput control={control} fullWidth label="First Name" name="firstName" />
-        <ControlledInput control={control} fullWidth label="Last Name" name="lastName" />
+        <ControlledInput
+          control={control}
+          error={errors.userName?.message}
+          fullWidth
+          label="userName"
+          name="userName"
+        />
+        <ControlledInput
+          control={control}
+          error={errors.firstName?.message}
+          fullWidth
+          label="First Name"
+          name="firstName"
+        />
+        <ControlledInput
+          control={control}
+          error={errors.lastName?.message}
+          fullWidth
+          label="Last Name"
+          name="lastName"
+        />
         <ControlledDatepicker
           control={control}
           fullWidth
@@ -113,12 +139,13 @@ export const ProfileSettingsForm = ({ myProfileInfo }: any) => {
         </div>
         <ControlledTextarea
           control={control}
+          error={errors.aboutMe?.message}
           fullWidth
           label="About Me"
           name="aboutMe"
           placeholder="text-area"
         />
-        <Button>Save Changes</Button>
+        <Button disabled={isSubmitDisabled}>Save Changes</Button>
       </form>
       {modalVisible && (
         <Modal
