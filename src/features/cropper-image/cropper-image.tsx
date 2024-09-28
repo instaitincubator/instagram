@@ -1,18 +1,20 @@
 import React, { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react'
 import AvatarEditor from 'react-avatar-editor'
 
+import { clsx } from 'clsx'
+
 type Props = {
+  className?: string
   image: string
-} & ComponentPropsWithoutRef<typeof AvatarEditor>
+} & Omit<ComponentPropsWithoutRef<typeof AvatarEditor>, 'className'>
 const CropperImage = forwardRef<ElementRef<typeof AvatarEditor>, Props>(
-  ({ image, ...rest }, ref) => {
+  ({ className, image, ...rest }, ref) => {
     return (
       <AvatarEditor
         ref={ref}
         {...rest}
         borderRadius={999}
-        className={'mb-9 mx-0 md:mx-1 min-w-[300px] min-h-[300px]  w-full'}
-        disableBoundaryChecks
+        className={clsx(className, 'mb-9 mx-0 md:mx-1 min-w-[300px] min-h-[300px]  w-full')}
         image={image}
       />
     )

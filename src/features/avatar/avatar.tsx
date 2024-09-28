@@ -14,7 +14,7 @@ import Image from 'next/image'
 export const Avatar = () => {
   const [deleteAvatar] = useDeleteProfileAvatarMutation()
   const { data } = useGetProfileInfoQuery()
-  const [open, isOpen] = useState(true)
+  const [open, isOpen] = useState(false)
   const [openDelete, isOpenDelete] = useState(false)
   const handlerOpenModal = () => isOpen(true)
   const handlerCloseModal = () => isOpen(false)

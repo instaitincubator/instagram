@@ -1,22 +1,28 @@
-import React, { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react'
+import React, { ComponentPropsWithoutRef, ElementRef, forwardRef, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
+import { useAppSelector } from '@/app/store'
+import { errorActions } from '@/services/notification/error-notification'
 import { clsx } from 'clsx'
 
 type Props = {
   className?: string
-  error: string
 } & Omit<ComponentPropsWithoutRef<'div'>, 'className'>
 
-const ErrorAlert = forwardRef<ElementRef<'div'>, Props>(({ className, error, ...rest }, ref) => {
+const ErrorAlert = forwardRef<ElementRef<'div'>, Props>(({ className, ...rest }, ref) => {
+  const dispatch = useDispatch()
+  const notions = useAppSelector(state => state.errorNotions.message)
+  const error = useAppSelector(state => state.errorNotions.error)
+
   const classObj = clsx(
     className,
-    'flex justify-center bg-danger-900 gap-[7px] border border-danger-500 w-[420px] mb-6 px-[24px]'
+    'bg-danger-900 border py-[6px] w-[300px] border-danger-500 text-center md:w-[444px] mb-6 px-[24px]'
   )
 
   return (
     <div className={classObj} ref={ref} {...rest}>
-      <span className={'text-bold-14'}>Error!</span>
-      <p className={'flex w-[247px] text-center text-regular-14'}>{error}</p>
+      <span className="text-bold-14 pr-4px">Error! </span>
+      <span>{notions}</span>
     </div>
   )
 })
