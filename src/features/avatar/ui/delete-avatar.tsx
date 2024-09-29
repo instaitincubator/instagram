@@ -9,7 +9,11 @@ type PropsDelete = {
 }
 const DeleteAvatar = ({ onClose, onDeleteAvatar }: PropsDelete) => {
   return (
-    <Modal onClose={onClose} title={'Delete Photo'}>
+    <Modal
+      className={'bg-black bg-opacity-50  pt-[60px] md:backdrop-blur-0 md:justify-center'}
+      onClose={onClose}
+      title={'Delete Photo'}
+    >
       <div>
         <h2 className={'w-300 text-regular-16 pt-3.5 pb-[58px] md:w-[390px]'}>
           Are you sure you want to delete the photo?

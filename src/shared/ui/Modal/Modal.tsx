@@ -28,7 +28,7 @@ export const Modal: FC<PropsWithChildren<ModalProps>> = props => {
   return (
     <div
       className={cn(
-        'fixed bg-black bg-opacity-50 z-30 inset-0 flex flex-col items-center justify-start pt-[60px] md:backdrop-blur-0 md:justify-center text-light-100',
+        'fixed z-30 inset-0 flex flex-col items-center justify-center text-light-100',
         className
       )}
     >
