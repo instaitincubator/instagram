@@ -28,12 +28,12 @@ export const Modal: FC<PropsWithChildren<ModalProps>> = props => {
   return (
     <div
       className={cn(
-        'fixed backdrop-blur-sm z-30 inset-0 flex flex-col items-center justify-start pt-[60px] md:backdrop-blur-0 md:justify-center text-light-100',
+        'fixed bg-black bg-opacity-50 z-30 inset-0 flex flex-col items-center justify-start pt-[60px] md:backdrop-blur-0 md:justify-center text-light-100',
         className
       )}
     >
       <div
-        className="fixed inset-0 z-40 w-full h-full bg-dark-900 bg-opacity-20"
+        className="fixed  inset-0 z-40 w-full h-full bg-dark-900 bg-opacity-20"
         onClick={onClose}
       />
       <div className="bg-dark-300 z-50 overflow-auto border border-dark-100">
