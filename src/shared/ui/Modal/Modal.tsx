@@ -33,7 +33,7 @@ export const Modal: FC<PropsWithChildren<ModalProps>> = props => {
       )}
     >
       <div
-        className="fixed inset-0 z-40 w-full h-full bg-dark-900 bg-opacity-20"
+        className="fixed  inset-0 z-40 w-full h-full bg-dark-900 bg-opacity-20"
         onClick={onClose}
       />
       <div className="bg-dark-300 z-50 overflow-auto border border-dark-100">
