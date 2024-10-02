@@ -37,7 +37,7 @@ export const MobileMenuSelector = () => {
               activeLink={activeLink}
               alt={t.pages.profile.profileSettings}
               child1={<SettingsOutline />}
-              href={'/profileSettings'}
+              href={'/profile/settings'}
               setActiveLink={setActiveLink}
             >
               <span>{t.pages.profile.profileSettings}</span>
