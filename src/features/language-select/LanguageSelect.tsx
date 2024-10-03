@@ -22,7 +22,6 @@ export const LanguageSelect = () => {
       locale = value
     }
 
-    console.log(locale)
     try {
       await router.replace(currentPath, currentPath, { locale })
     } catch (e) {

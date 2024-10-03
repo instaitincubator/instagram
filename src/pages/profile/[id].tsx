@@ -8,6 +8,7 @@ import {
   useGetFollowingQuery,
   useGetProfileInfoQuery,
 } from '@/services/profile/profileApi'
+import { useTranslation } from '@/shared/hooks/useTranslation'
 import { GetProfilePostsParams } from '@/shared/types/ApiTypes/ProfileApiTypes'
 import Button from '@/shared/ui/Button/Button'
 import Link from 'next/link'
@@ -19,7 +20,7 @@ const Profile = () => {
   const params: GetProfilePostsParams = {
     userName: me?.userName!,
   }
-
+  const { t } = useTranslation()
   const { data: posts } = useGetPostsQuery(params)
   const { data: followers } = useGetFollowersQuery(profileInfo?.userName!)
   const { data: following } = useGetFollowingQuery(profileInfo?.userName!)
@@ -49,7 +50,7 @@ const Profile = () => {
             {isProfileOwner && (
               <Link className={'hidden md:block'} href="/profile/settings">
                 <Button className={'text-h3'} variant="secondary">
-                  Profile Settings
+                  {t.profile.profileSetting}
                 </Button>
               </Link>
             )}
@@ -57,15 +58,15 @@ const Profile = () => {
           <div className="flex gap-[33px]  md:gap-[100px] pb-6 pt-5">
             <div className="flex items-center flex-col ">
               <span className={'text-semibold-small md:text-bold-14'}>{following?.totalCount}</span>
-              <span className={'text-small md:text-regular-14'}>Following</span>
+              <span className={'text-small md:text-regular-14'}>{t.profile.following}</span>
             </div>
             <div className="flex  items-center flex-col">
               <span className={'text-semibold-small md:text-bold-14'}>{followers?.totalCount}</span>
-              <span className={'text-small md:text-regular-14'}>Followers</span>
+              <span className={'text-small md:text-regular-14'}>{t.profile.followers}</span>
             </div>
             <div className="flex  items-center flex-col ">
               <span className={'text-semibold-small md:text-bold-14'}>{posts?.totalCount}</span>
-              <span className={'text-small md:text-regular-14'}>Publications</span>
+              <span className={'text-small md:text-regular-14'}>{t.profile.publications}</span>
             </div>
           </div>
           <span className={'hidden md:block'}>{profileInfo?.aboutMe}</span>

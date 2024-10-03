@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
+import React, { ChangeEvent, useEffect, useRef, useState, useTransition } from 'react'
 import AvatarEditor from 'react-avatar-editor'
 
 import { useAppDispatch, useAppSelector } from '@/app/store'
@@ -6,6 +6,7 @@ import DefaultAvatar from '@/features/avatar/ui/default-avatar'
 import ErrorAlert from '@/features/avatar/ui/error-alert'
 import CropperImage from '@/features/cropper-image/cropper-image'
 import { errorActions } from '@/services/notification/error-notification'
+import { useTranslation } from '@/shared/hooks/useTranslation'
 import { useUploadAvatars } from '@/shared/hooks/useUploadAvatars'
 import Button from '@/shared/ui/Button/Button'
 import { Modal } from '@/shared/ui/Modal/Modal'
@@ -20,7 +21,7 @@ const AvatarModal = ({ avatar, onClose }: AvatarModalProps) => {
   const { uploadAvatar } = useUploadAvatars()
   const [src, setSrc] = useState<null | string>(null)
   const cropRef = useRef<AvatarEditor>(null)
-
+  const { t } = useTranslation()
   const error = useAppSelector(state => state.errorNotions.error)
   const dispatch = useAppDispatch()
 
@@ -83,7 +84,7 @@ const AvatarModal = ({ avatar, onClose }: AvatarModalProps) => {
         'px-0 bg-black bg-opacity-50 justify-start pt-[60px] md:backdrop-blur-0 md:justify-center'
       }
       onClose={onClose}
-      title={'Add a Profile Photo'}
+      title={t.generalInformation.addProfilePhoto}
     >
       {isUpload ? (
         <div className="mt-3">
@@ -91,7 +92,7 @@ const AvatarModal = ({ avatar, onClose }: AvatarModalProps) => {
             <CropperImage className={'m-full'} image={src || ''} ref={cropRef} />
           </div>
           <Button className={'mb-5 ml-auto'} onClick={handleSave}>
-            Save
+            {t.auth.save}
           </Button>
         </div>
       ) : (
@@ -119,7 +120,7 @@ const AvatarModal = ({ avatar, onClose }: AvatarModalProps) => {
               style={{ display: 'none' }}
               type="file"
             />
-            <Button as="span">Select from Computer</Button>
+            <Button as="span">{t.generalInformation.selectFrom}</Button>
           </label>
         </div>
       )}
