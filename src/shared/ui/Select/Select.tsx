@@ -67,7 +67,7 @@ const Select: React.FC<SelectProps> = ({
   ))
 
   return (
-    <div className="relative min-w-fit" onBlur={handleBlur} ref={selectRef} tabIndex={0}>
+    <div className="relative  flex-grow min-w-fit" onBlur={handleBlur} ref={selectRef} tabIndex={0}>
       {label && <div className="text-regular-14 text-light-900 mb-2">{label}</div>}
       <div
         className={cn(

@@ -9,11 +9,11 @@ const GeneralInformation = () => {
   const { data: profileInfo, isSuccess } = useGetProfileInfoQuery()
 
   return (
-    <div className="flex flex-col justify-center items-center md:flex-row md:self-start md:pl-[24px] md:items-start md:pr-[64px] md:w-full md:gap-10">
-      <div className="pt-6">
+    <div className="flex flex-col w-full justify-center pb-[15px] md:pb-0 items-stretch md:items-start  md:flex-row md:self-start md:pl-[24px]  md:pr-[64px] md:w-full md:gap-10">
+      <div className="pt-0 flex flex-col items-center md:pt-6">
         <Avatar />
       </div>
-      <div className="flex-1">
+      <div className="flex-1 pr-[15px] md:px-0">
         {isSuccess && <ProfileSettingsForm myProfileInfo={profileInfo} />}
       </div>
     </div>

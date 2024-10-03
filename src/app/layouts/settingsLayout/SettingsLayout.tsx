@@ -9,8 +9,8 @@ const SettingsLayout: NextPage<PropsWithChildren> = props => {
 
   return (
     <LayoutWithSidebar>
-      <div className="pr-[64px] pl-[24px]">
-        <div className="pb-6 pt-9">
+      <div className="pl-[14px] px-0 md:pr-[64px] md:pl-[24px]">
+        <div className="pb-6 overflow-x-auto scroll-hidden pt-6 md:pt-9">
           <ProfileSettingTabs />
         </div>
         <div>{children}</div>

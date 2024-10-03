@@ -123,7 +123,7 @@ export const ProfileSettingsForm = ({ myProfileInfo }: any) => {
           name="dateOfBirth"
           startDate={new Date('2000/12/31')}
         />
-        <div className="flex gap-[24px]">
+        <div className="flex flex-col md:flex-row gap-[24px]">
           <ControlledSelect
             control={control}
             label="Select your country"
