@@ -14,6 +14,7 @@ export const signInApi = baseApi.injectEndpoints({
         query: body => {
           return {
             body,
+            credentials: 'include',
             method: 'POST',
             url: '/api/v1/auth/google/login',
           }
