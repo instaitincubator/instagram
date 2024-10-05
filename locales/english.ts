@@ -110,6 +110,7 @@ Your rights to your content remain unaffected. We do not claim ownership of your
     firstName: 'First Name',
     lastName: 'Last Name',
     ok: 'OK',
+    saveChanges: 'Save Changes',
     userName: 'User Name',
   },
   profileTabs: {

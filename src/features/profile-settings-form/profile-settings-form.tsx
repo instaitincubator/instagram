@@ -148,7 +148,7 @@ export const ProfileSettingsForm = ({ myProfileInfo }: any) => {
           name="aboutMe"
           placeholder="text-area"
         />
-        <Button disabled={isSubmitDisabled}>Save Changes</Button>
+        <Button disabled={isSubmitDisabled}>{t.profileSettings.saveChanges}</Button>
       </form>
       {modalVisible && (
         <Modal

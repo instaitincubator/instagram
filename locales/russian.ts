@@ -113,6 +113,7 @@ export const russian = {
     firstName: 'Имя',
     lastName: 'Фамилия',
     ok: 'OK',
+    saveChanges: 'Сохранить изменения',
     userName: 'Имя пользователя',
   },
   profileTabs: {
