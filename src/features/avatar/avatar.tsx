@@ -32,7 +32,7 @@ export const Avatar = () => {
   return (
     <div className={'flex flex-col items-center'}>
       {data && data?.avatars.length > 0 ? (
-        <div className="relative">
+        <div className=" relative">
           <Image
             alt="avatar"
             className={
