@@ -69,7 +69,9 @@ export const english = {
   generalInformation: {
     addProfilePhoto: 'Add a Profile Photo',
     areYouSure: 'Are you sure you want to delete the photo?',
+    deletePhoto: 'Delete Photo',
     selectFrom: 'Select from Computer',
+    yes: 'Yes',
   },
   header: {
     login: 'Log In',
@@ -99,6 +101,22 @@ Your rights to your content remain unaffected. We do not claim ownership of your
     following: 'Following',
     profileSetting: 'Profile Settings',
     publications: 'Publications',
+  },
+  profileSettings: {
+    aboutMe: 'About Me',
+    city: 'Select your city',
+    country: 'Select your country',
+    dateOfBirth: 'Date of birth',
+    firstName: 'First Name',
+    lastName: 'Last Name',
+    ok: 'OK',
+    userName: 'User Name',
+  },
+  profileTabs: {
+    accountManagement: 'Account Management',
+    devices: 'Devices',
+    generalInformation: 'General information',
+    myPayments: 'My payment',
   },
   sidebar: {
     create: 'Create',

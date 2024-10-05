@@ -72,7 +72,9 @@ export const russian = {
   generalInformation: {
     addProfilePhoto: 'Добавить фото профиля',
     areYouSure: 'Вы уверны что хотите удалить фото профиля?',
+    deletePhoto: 'Удалить фото',
     selectFrom: 'Выбрать с устройства',
+    yes: 'Да',
   },
   header: {
     login: 'Авторизоваться',
@@ -102,6 +104,22 @@ export const russian = {
     following: 'Подписки',
     profileSetting: 'Настройки',
     publications: 'Подписки',
+  },
+  profileSettings: {
+    aboutMe: 'Обо мне',
+    city: 'Ваш город',
+    country: 'Ваша страна',
+    dateOfBirth: 'Дата Вашего рождения',
+    firstName: 'Имя',
+    lastName: 'Фамилия',
+    ok: 'OK',
+    userName: 'Имя пользователя',
+  },
+  profileTabs: {
+    accountManagement: 'Управление аккаунтом',
+    devices: 'Устройства',
+    generalInformation: 'Общая информация',
+    myPayments: 'Мои платежи',
   },
   sidebar: {
     create: 'Создать',

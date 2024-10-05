@@ -8,6 +8,7 @@ import {
   useDeleteProfileAvatarMutation,
   useGetProfileInfoQuery,
 } from '@/services/profile/profileApi'
+import { useTranslation } from '@/shared/hooks/useTranslation'
 import Button from '@/shared/ui/Button/Button'
 import Image from 'next/image'
 
@@ -20,6 +21,7 @@ export const Avatar = () => {
   const handlerCloseModal = () => isOpen(false)
   const handlerCloseDeleteModal = () => isOpenDelete(false)
   const handlerOpen = () => isOpenDelete(true)
+  const { t } = useTranslation()
   const ava = data?.avatars?.[0]?.url
   const handlerDelete = () => {
     deleteAvatar().then(() => {
@@ -28,7 +30,7 @@ export const Avatar = () => {
   }
 
   return (
-    <div>
+    <div className={'flex flex-col items-center'}>
       {data && data?.avatars.length > 0 ? (
         <div className="relative">
           <Image
@@ -57,7 +59,7 @@ export const Avatar = () => {
         />
       )}
       <Button onClick={handlerOpenModal} variant={'outline'}>
-        Add a Profile Photo
+        {t.generalInformation.addProfilePhoto}
       </Button>
       {openDelete && (
         <DeleteAvatar onClose={handlerCloseDeleteModal} onDeleteAvatar={handlerDelete} />

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 
 import { useProfileSettingsForm } from '@/features/profile-settings-form/useProfileSettingsForm'
 import { usePutSettingsMutation } from '@/services/profile/profileApi'
+import { useTranslation } from '@/shared/hooks/useTranslation'
 import {
   ControlledDatepicker,
   ControlledInput,
@@ -37,6 +38,8 @@ export const ProfileSettingsForm = ({ myProfileInfo }: any) => {
 
   const watchCountry = watch('country')
   const watchCity = watch('city')
+
+  const { t } = useTranslation()
 
   useEffect(() => {
     const selectCountry = countries.find(el => el.name === watchCountry?.label)
@@ -99,40 +102,40 @@ export const ProfileSettingsForm = ({ myProfileInfo }: any) => {
           control={control}
           error={errors.userName?.message}
           fullWidth
-          label="userName"
+          label={t.profileSettings.userName}
           name="userName"
         />
         <ControlledInput
           control={control}
           error={errors.firstName?.message}
           fullWidth
-          label="First Name"
+          label={t.profileSettings.firstName}
           name="firstName"
         />
         <ControlledInput
           control={control}
           error={errors.lastName?.message}
           fullWidth
-          label="Last Name"
+          label={t.profileSettings.lastName}
           name="lastName"
         />
         <ControlledDatepicker
           control={control}
           fullWidth
-          label="Date of birth"
+          label={t.profileSettings.dateOfBirth}
           name="dateOfBirth"
           startDate={new Date('2000/12/31')}
         />
         <div className="flex flex-col md:flex-row gap-[24px]">
           <ControlledSelect
             control={control}
-            label="Select your country"
+            label={t.profileSettings.country}
             name="country"
             options={allCountries}
           />
           <ControlledSelect
             control={control}
-            label="Select your city"
+            label={t.profileSettings.city}
             name="city"
             options={cities}
           />
@@ -141,7 +144,7 @@ export const ProfileSettingsForm = ({ myProfileInfo }: any) => {
           control={control}
           error={errors.aboutMe?.message}
           fullWidth
-          label="About Me"
+          label={t.profileSettings.aboutMe}
           name="aboutMe"
           placeholder="text-area"
         />
@@ -160,7 +163,7 @@ export const ProfileSettingsForm = ({ myProfileInfo }: any) => {
             </div>
             <div className="w-full">
               <Button fullWidth onClick={() => setModalVisible(false)}>
-                Ok
+                {t.profileSettings.ok}
               </Button>
             </div>
           </div>
