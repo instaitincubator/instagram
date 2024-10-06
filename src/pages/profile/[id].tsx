@@ -20,6 +20,7 @@ const Profile = () => {
   const params: GetProfilePostsParams = {
     userName: me?.userName!,
   }
+
   const { t } = useTranslation()
   const { data: posts } = useGetPostsQuery(params)
   const { data: followers } = useGetFollowersQuery(profileInfo?.userName!)
