@@ -6,6 +6,7 @@ export const signInApi = baseApi.injectEndpoints({
   endpoints: build => {
     return {
       googleSignIn: build.mutation({
+        invalidatesTags: ['Me'],
         async onQueryStarted(_, { queryFulfilled }) {
           const { data } = await queryFulfilled
 
