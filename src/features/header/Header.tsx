@@ -22,12 +22,12 @@ export const Header = ({ className, isLoading, ...rest }: HeaderProps) => {
     <header
       {...rest}
       className={cn(
-        'flex pr-16 w-full h-[60px] items-center justify-between bg-dark-700 text-light-100 min-w-[360px] border-b border-b-dark-300',
+        'flex  px-[16px] md:pl-0 w-full h-[60px] md:pr-16 items-center justify-between bg-dark-700 text-light-100 min-w-[360px] border-b border-b-dark-300',
         className
       )}
     >
       <span
-        className="pl-[5%] cursor-pointer"
+        className="pl-0 md:pl-[5%] cursor-pointer"
         onClick={() => router.push(`/profile/${me?.userId}`)}
       >
         Instagram

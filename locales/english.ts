@@ -49,6 +49,7 @@ export const english = {
     recoveryMessage:
       'The link has been sent by email. If you don’t receive an email send link again',
     registration: 'Registration',
+    save: 'Save',
     sendLink: 'Send Link',
     sendLinkAgain: 'Send Link again',
     signIn: 'Sign In',
@@ -64,6 +65,13 @@ export const english = {
       'Looks like the verification link has expired. Not to worry, we can send the link again',
     yes: 'Yes, merge',
     yesConfirm: 'Yes',
+  },
+  generalInformation: {
+    addProfilePhoto: 'Add a Profile Photo',
+    areYouSure: 'Are you sure you want to delete the photo?',
+    deletePhoto: 'Delete Photo',
+    selectFrom: 'Select from Computer',
+    yes: 'Yes',
   },
   header: {
     login: 'Log In',
@@ -87,6 +95,29 @@ You may not engage in any unlawful, misleading or deceptive conduct, or otherwis
 You may not use a domain name or URL in your username without our prior written consent. We do not claim ownership of your content, but you do give us a license to use it.
 Your rights to your content remain unaffected. We do not claim ownership of your content that you post on or through the Service, and you are free to share it with anyone at any time. However, we need to obtain certain legal permissions (referred to as a “license”) from you in order to provide the Service. When you post or upload content that is subject to intellectual property rights (such as photos or videos) to our Service or share such content on or in connection with our Service, you hereby grant us a non-exclusive, royalty-free, worldwide license with the right transferring and sublicensing to store, use, distribute, modify, run, copy, publicly perform or display, translate, and create derivative works from your content (subject to your privacy and application settings). The license terminates when your content is removed from our systems. You can delete content individually or all at once by deleting your account.`,
     },
+  },
+  profile: {
+    followers: 'Followers',
+    following: 'Following',
+    profileSetting: 'Profile Settings',
+    publications: 'Publications',
+  },
+  profileSettings: {
+    aboutMe: 'About Me',
+    city: 'Select your city',
+    country: 'Select your country',
+    dateOfBirth: 'Date of birth',
+    firstName: 'First Name',
+    lastName: 'Last Name',
+    ok: 'OK',
+    saveChanges: 'Save Changes',
+    userName: 'User Name',
+  },
+  profileTabs: {
+    accountManagement: 'Account Management',
+    devices: 'Devices',
+    generalInformation: 'General information',
+    myPayments: 'My payment',
   },
   sidebar: {
     create: 'Create',

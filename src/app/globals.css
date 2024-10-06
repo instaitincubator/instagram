@@ -8,7 +8,7 @@
     height: 8px;
   }
 
-  ::-webkit-scrollbar-thumb {
+    ::-webkit-scrollbar-thumb {
     background-color: #333;
     border-radius: 10px;
   }
@@ -20,5 +20,14 @@
 
   ::-webkit-scrollbar-track {
     background-color: transparent; /* Цвет трека (фона) */
+  }
+
+  .scroll-hidden::-webkit-scrollbar {
+    display: none; /* Скрыть ползунок прокрутки */
+  }
+
+  /* Для Firefox */
+  .scroll-hidden {
+    scrollbar-width: none; /* Скрыть ползунок в Firefox */
   }
 }
