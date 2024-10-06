@@ -103,7 +103,7 @@ export const russian = {
     followers: 'Подписчики',
     following: 'Подписки',
     profileSetting: 'Настройки',
-    publications: 'Подписки',
+    publications: 'Публикации',
   },
   profileSettings: {
     aboutMe: 'Обо мне',
