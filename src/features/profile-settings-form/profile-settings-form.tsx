@@ -69,7 +69,6 @@ export const ProfileSettingsForm = ({ myProfileInfo }: any) => {
   const allCountries = transformData(countries, 'name', 'isoCode')
 
   const onSubmit = async (data: DataForm) => {
-    debugger
     const transformedData = {
       ...data,
       city: watchCity?.label,
