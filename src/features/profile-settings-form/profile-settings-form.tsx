@@ -69,6 +69,7 @@ export const ProfileSettingsForm = ({ myProfileInfo }: any) => {
   const allCountries = transformData(countries, 'name', 'isoCode')
 
   const onSubmit = async (data: DataForm) => {
+    debugger
     const transformedData = {
       ...data,
       city: watchCity?.label,
@@ -121,10 +122,11 @@ export const ProfileSettingsForm = ({ myProfileInfo }: any) => {
         />
         <ControlledDatepicker
           control={control}
+          dateFormat={'d.MM.yyyy'}
           fullWidth
           label={t.profileSettings.dateOfBirth}
           name="dateOfBirth"
-          startDate={new Date('2000/12/31')}
+          // startDate={new Date('2000/12/31')}
         />
         <div className="flex flex-col md:flex-row gap-[24px]">
           <ControlledSelect
@@ -146,7 +148,7 @@ export const ProfileSettingsForm = ({ myProfileInfo }: any) => {
           fullWidth
           label={t.profileSettings.aboutMe}
           name="aboutMe"
-          placeholder="text-area"
+          placeholder="About me"
         />
         <Button disabled={isSubmitDisabled}>{t.profileSettings.saveChanges}</Button>
       </form>

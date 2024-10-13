@@ -21,7 +21,7 @@ export const useProfileSettingsForm = (initialValues: any) => {
       label: z.string(),
       value: z.string(),
     }),
-    dateOfBirth: z.date(),
+    dateOfBirth: z.date().optional(),
     firstName: z
       .string()
       .min(1, { message: 'Must be 1 or more characters long' })
