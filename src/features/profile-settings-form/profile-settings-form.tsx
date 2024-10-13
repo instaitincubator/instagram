@@ -125,7 +125,7 @@ export const ProfileSettingsForm = ({ myProfileInfo }: any) => {
           fullWidth
           label={t.profileSettings.dateOfBirth}
           name="dateOfBirth"
-          // startDate={new Date('2000/12/31')}
+          startDate={new Date('2000/12/31')}
         />
         <div className="flex flex-col md:flex-row gap-[24px]">
           <ControlledSelect
