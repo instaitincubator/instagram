@@ -9,7 +9,7 @@ export const useProfileSettingsForm = (initialValues: any) => {
       .string()
       .min(0, { message: 'Must be 0 or more characters long' })
       .max(200, { message: 'Must be 200 or fewer characters long' })
-      .regex(/^[0-9A-Za-zА-Яа-я!@#$%^&*()_+=\-`~{}[\]:;"'<>,.?/\\| ]*$/, {
+      .regex(/^[0-9A-Za-zА-Яа-я!@#$%^&*( )_+=\-`~{}[\]:;"'<>,.?/\\| \s]*$/, {
         message:
           'Only letters A-Z, a-z, А-Я, а-я, digits, and special characters _ - @ are allowed',
       }),

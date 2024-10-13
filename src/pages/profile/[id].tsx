@@ -69,7 +69,12 @@ const Profile = () => {
               <span className={'text-small md:text-regular-14'}>{t.profile.publications}</span>
             </div>
           </div>
-          <span className={'hidden md:block'}>{profileInfo?.aboutMe}</span>
+          <p
+            className={'hidden md:block'}
+            dangerouslySetInnerHTML={{
+              __html: (profileInfo?.aboutMe || '').replace(/\n\r?/g, '<br/>'),
+            }}
+          />
         </div>
       </div>
       <div className={'block md:hidden'}>
