@@ -121,6 +121,7 @@ export const ProfileSettingsForm = ({ myProfileInfo }: any) => {
         />
         <ControlledDatepicker
           control={control}
+          dateFormat={'d.MM.yyyy'}
           fullWidth
           label={t.profileSettings.dateOfBirth}
           name="dateOfBirth"
@@ -146,7 +147,7 @@ export const ProfileSettingsForm = ({ myProfileInfo }: any) => {
           fullWidth
           label={t.profileSettings.aboutMe}
           name="aboutMe"
-          placeholder="text-area"
+          placeholder="About me"
         />
         <Button disabled={isSubmitDisabled}>{t.profileSettings.saveChanges}</Button>
       </form>
