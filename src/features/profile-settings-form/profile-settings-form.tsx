@@ -121,7 +121,7 @@ export const ProfileSettingsForm = ({ myProfileInfo }: any) => {
         />
         <ControlledDatepicker
           control={control}
-          dateFormat={'d.MM.yyyy'}
+          dateFormat={'d/MM/yyyy'}
           fullWidth
           label={t.profileSettings.dateOfBirth}
           name="dateOfBirth"
