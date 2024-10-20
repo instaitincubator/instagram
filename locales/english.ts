@@ -29,6 +29,7 @@ export const english = {
     field_required: 'Field is required',
     forgotPassword: 'Forgot Password',
     iAgree: 'I agree to the',
+    incorrectPassword: 'invalid password or email',
     isAlreadyInSystem: 'is already in the system.',
     logOutConfirmationBody: 'Do you really want to log out of your account',
     logOutConfirmationHeader: 'Log Out',
