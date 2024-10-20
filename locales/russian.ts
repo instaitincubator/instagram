@@ -26,9 +26,10 @@ export const russian = {
       userNotExist: 'Пользователь с таким адресом электронной почты не существует',
     },
     field_required: 'Обязательное поле',
-
     forgotPassword: 'Забыли пароль?',
     iAgree: 'Я принимаю',
+
+    incorrectPassword: 'неверный пароль или адрес электронной почты',
     isAlreadyInSystem: 'уже находится в системе.',
     linkExpired: 'Срок действия ссылки истек',
     logOutConfirmationBody: 'Вы действительно хотите выйти из аккаунта',
