@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Controller } from 'react-hook-form'
 
 import { SignUpFormType, useSignUpForm } from '@/features/sign-up-form/useSignUpForm'
@@ -17,7 +17,7 @@ import Link from 'next/link'
 export const SignUpForm = () => {
   const { t } = useTranslation()
   const { control, errors, getValues, handleSubmit, reset } = useSignUpForm()
-  const [SignUp, { error, isSuccess }] = useSignUpMutation()
+  const [SignUp, { error, isLoading, isSuccess }] = useSignUpMutation()
   const [modal, setModal] = useState(true)
   let userNameError = ''
   let emailError = ''
@@ -134,7 +134,7 @@ export const SignUpForm = () => {
             </div>
           </div>
         </div>
-        <Button className="btn-primary mb-[20px]" fullWidth>
+        <Button className="btn-primary mb-[20px]" disabled={isLoading} fullWidth>
           {t.auth.signUp}
         </Button>
         <p className="text-light-100 select-none text-center mb-[6px]">

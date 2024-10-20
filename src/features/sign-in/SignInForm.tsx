@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Controller } from 'react-hook-form'
 
 import { SignInFormType, useSignInForm } from '@/features/sign-in/useSignInForm'
@@ -21,7 +21,7 @@ export const SignInForm = () => {
   const [signIn, { isSuccess }] = useSignInMutation()
   const [getMe] = useLazyMeQuery()
   const { refetch } = useMeQuery()
-
+  const [id, setId] = useState<null | number>(null)
   const onSubmit = (data: SignInFormType) => {
     signIn(data)
       .unwrap()
@@ -52,15 +52,17 @@ export const SignInForm = () => {
           return
         }
         refetch()
-
+        setId(userId)
         // void router.replace(`/profile/${userId}`)
       })
       .catch()
   }
 
-  if (isSuccess) {
-    void router.push('/')
-  }
+  useEffect(() => {
+    if (isSuccess && id !== null) {
+      router.push(`/profile/${id}`)
+    }
+  }, [isSuccess, id])
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

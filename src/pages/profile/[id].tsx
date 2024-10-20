@@ -25,7 +25,7 @@ const Profile = () => {
   const { data: followers } = useGetFollowersQuery(profileInfo?.userName!)
   const { data: following } = useGetFollowingQuery(profileInfo?.userName!)
 
-  const profileName = `${profileInfo?.firstName} ${profileInfo?.lastName}`
+  const profileName = profileInfo?.userName
   const isProfileOwner = me?.userId === profileInfo?.id
 
   return (
