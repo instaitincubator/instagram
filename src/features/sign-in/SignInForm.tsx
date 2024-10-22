@@ -110,9 +110,11 @@ export const SignInForm = () => {
             {t.auth.signIn}
           </Button>
           <span className="text-regular-16 pt-[18px] pb-[6px]">{t.auth.dontHaveAnAccount}</span>
-          <Button className="text-h3" variant="text">
-            {t.auth.signUp}
-          </Button>
+          <Link href="/sign-up">
+            <Button className="text-h3" variant="text">
+              {t.auth.signUp}
+            </Button>
+          </Link>
         </div>
       </Card>
     </form>
