@@ -12,6 +12,7 @@ import {
 import Button from '@/shared/ui/Button/Button'
 import { Modal } from '@/shared/ui/Modal/Modal'
 import { City, Country } from 'country-state-city'
+import { element } from 'prop-types'
 
 export type DataForm = {
   aboutMe?: string
@@ -35,7 +36,7 @@ export const ProfileSettingsForm = ({ myProfileInfo }: any) => {
   const [cities, setCities] = useState<{ label: string; value: string }[]>([])
   const [modalVisible, setModalVisible] = useState(false)
   const [modalMessage, setModalMessage] = useState('')
-
+  const [open, isOpen] = useState<boolean>(false)
   const watchCountry = watch('country')
   const watchCity = watch('city')
 
@@ -86,7 +87,12 @@ export const ProfileSettingsForm = ({ myProfileInfo }: any) => {
       setModalVisible(true)
     }
   }
-
+  const changeHandler = () => {
+    isOpen(prevState => !open)
+  }
+  const blurHandler = () => {
+    isOpen(false)
+  }
   const isSubmitDisabled =
     !watch('userName') ||
     !!errors.userName ||
@@ -125,7 +131,12 @@ export const ProfileSettingsForm = ({ myProfileInfo }: any) => {
           fullWidth
           label={t.profileSettings.dateOfBirth}
           name="dateOfBirth"
+          onBlur={blurHandler}
+          onInputClick={changeHandler}
+          open={open}
+          readOnly
           startDate={new Date('2000/12/31')}
+          toggleCalendarOnIconClick
         />
         <div className="flex flex-col md:flex-row gap-[24px]">
           <ControlledSelect
