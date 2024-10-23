@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Controller } from 'react-hook-form'
 
 import { SignInFormType, useSignInForm } from '@/features/sign-in/useSignInForm'
@@ -16,12 +16,11 @@ import { useRouter } from 'next/router'
 export const SignInForm = () => {
   const { t } = useTranslation()
   const router = useRouter()
-
   const { control, errors, handleSubmit } = useSignInForm()
-  const [signIn, { isSuccess }] = useSignInMutation()
+  const [signIn, { isError }] = useSignInMutation()
   const [getMe] = useLazyMeQuery()
   const { refetch } = useMeQuery()
-  const [id, setId] = useState<null | number>(null)
+
   const onSubmit = (data: SignInFormType) => {
     signIn(data)
       .unwrap()
@@ -52,17 +51,10 @@ export const SignInForm = () => {
           return
         }
         refetch()
-        setId(userId)
-        // void router.replace(`/profile/${userId}`)
+        void router.replace(`/profile/${userId}`)
       })
       .catch()
   }
-
-  useEffect(() => {
-    if (isSuccess && id !== null) {
-      router.push(`/profile/${id}`)
-    }
-  }, [isSuccess, id])
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -81,7 +73,7 @@ export const SignInForm = () => {
             render={({ field }) => (
               <Input
                 {...field}
-                error={errors.email?.message}
+                error={isError ? t.auth.incorrectPassword : errors.email?.message}
                 fullWidth
                 label={t.auth.email}
                 placeholder={t.auth.emailPlaceholder}
@@ -94,7 +86,7 @@ export const SignInForm = () => {
             render={({ field }) => (
               <Input
                 {...field}
-                error={errors.password?.message}
+                error={isError ? t.auth.incorrectPassword : errors.password?.message}
                 fullWidth
                 label={t.auth.password}
                 type="password"
