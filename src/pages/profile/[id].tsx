@@ -30,8 +30,8 @@ const Profile = () => {
 
   return (
     <div className="flex flex-col gap-[13px] flex-1 pt-[24px] px-[15px] md:pr-16 md:pl-6 md:pt-[35px] w-full">
-      <div className="flex flex-row">
-        <div className=" hidden md:block min-w-40">
+      <div className="flex">
+        <div className="hidden md:block min-w-40">
           <Avatar
             name={profileName}
             round
