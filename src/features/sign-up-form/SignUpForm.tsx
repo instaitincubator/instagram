@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Controller } from 'react-hook-form'
 
 import { SignUpFormType, useSignUpForm } from '@/features/sign-up-form/useSignUpForm'
@@ -11,7 +11,7 @@ import { Checkbox } from '@/shared/ui/Checkbox/Checkbox'
 import { Input } from '@/shared/ui/Input/Input'
 import { Modal } from '@/shared/ui/Modal/Modal'
 import { GithubAuth } from '@/shared/ui/githubAuth'
-import { GoogleButton } from '@/shared/ui/googleAuth'
+import { GoogleButton } from '@/shared/ui/googleAuth/googleAuth'
 import Link from 'next/link'
 
 export const SignUpForm = () => {
