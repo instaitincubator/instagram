@@ -6,7 +6,7 @@ import NProgress from 'nprogress'
 export const GoogleButton = () => {
   const login = () => {
     NProgress.start()
-    const CLIENT_ID = '617342613759-f3kbvgm8l310fn40vh6qna2pv8u2uccr.apps.googleusercontent.com'
+    const CLIENT_ID = '272583913867-t74i019ufdvmarh05jlv8bcu1ak0a6o6.apps.googleusercontent.com'
     const REDIRECT_URI = process.env.NEXT_PUBLIC_DOMAIN
     const SCOPE = 'email profile'
     const RESPONSE_TYPE = 'code'
