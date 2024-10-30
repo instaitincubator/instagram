@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Controller } from 'react-hook-form'
 
 import { SignUpFormType, useSignUpForm } from '@/features/sign-up-form/useSignUpForm'
@@ -13,19 +13,34 @@ import { Modal } from '@/shared/ui/Modal/Modal'
 import { GithubAuth } from '@/shared/ui/githubAuth'
 import { GoogleButton } from '@/shared/ui/googleAuth'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 export const SignUpForm = () => {
   const { t } = useTranslation()
-  const { control, errors, getValues, handleSubmit, reset } = useSignUpForm()
+  const { control, errors, getValues, handleSubmit, onFieldChange, reset } = useSignUpForm()
   const [SignUp, { error, isLoading, isSuccess }] = useSignUpMutation()
   const [modal, setModal] = useState(true)
+  const router = useRouter()
   let userNameError = ''
   let emailError = ''
 
   if (rtkErrorHandling(error!).field === 'userName') {
     userNameError = rtkErrorHandling(error!).message
-  } else if (rtkErrorHandling(error!).field === 'email') {
+    if (rtkErrorHandling(error!).error === 'BAD_REQUEST') {
+      userNameError =
+        router.locale === 'english'
+          ? rtkErrorHandling(error!).message
+          : 'Пользователь с таким именем уже существует'
+    }
+  }
+  if (rtkErrorHandling(error!).field === 'email') {
     emailError = rtkErrorHandling(error!).message
+    if (rtkErrorHandling(error!).error === 'BAD_REQUEST') {
+      emailError =
+        router.locale === 'english'
+          ? rtkErrorHandling(error!).message
+          : 'Пользователь с такой почтой уже существует'
+    }
   }
 
   const onCloseModal = () => {
@@ -63,11 +78,18 @@ export const SignUpForm = () => {
             name="userName"
             render={({ field }) => (
               <Input
+                {...field}
                 error={error ? userNameError : errors.userName?.message}
                 fullWidth
                 label={t.auth.userName}
+                onChange={e => {
+                  if (userNameError) {
+                    userNameError = ''
+                  }
+                  field.onChange(e)
+                  onFieldChange()
+                }}
                 placeholder={t.auth.userName}
-                {...field}
               />
             )}
           />
@@ -76,11 +98,18 @@ export const SignUpForm = () => {
             name="email"
             render={({ field }) => (
               <Input
+                {...field}
                 error={error ? emailError : errors.email?.message}
                 fullWidth
                 label={t.auth.email}
+                onChange={e => {
+                  if (userNameError) {
+                    userNameError = ''
+                  }
+                  field.onChange(e)
+                  onFieldChange()
+                }}
                 placeholder="Epam@epam.com"
-                {...field}
               />
             )}
           />
@@ -89,11 +118,15 @@ export const SignUpForm = () => {
             name="password"
             render={({ field }) => (
               <Input
+                {...field}
                 error={errors.password?.message}
                 fullWidth
                 label={t.auth.password}
+                onChange={e => {
+                  field.onChange(e)
+                  onFieldChange()
+                }}
                 type="password"
-                {...field}
               />
             )}
           />
@@ -102,11 +135,15 @@ export const SignUpForm = () => {
             name="confirmPassword"
             render={({ field }) => (
               <Input
+                {...field}
                 error={errors.confirmPassword?.message}
                 fullWidth
                 label={t.auth.passwordConfirmation}
+                onChange={e => {
+                  field.onChange(e)
+                  onFieldChange()
+                }}
                 type="password"
-                {...field}
               />
             )}
           />
@@ -119,6 +156,10 @@ export const SignUpForm = () => {
                   {...field}
                   className="mb-[22px] text-small ml-[15px]"
                   error={errors.checkboxPolicy?.message}
+                  onChange={e => {
+                    field.onChange(e)
+                    onFieldChange()
+                  }}
                 />
               )}
             />

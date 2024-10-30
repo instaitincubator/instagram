@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { useTranslation } from '@/shared/hooks/useTranslation'
@@ -70,13 +70,19 @@ export const useSignUpForm = () => {
     reset,
     trigger,
   } = useForm<SignUpFormType>({
-    mode: 'onSubmit',
+    mode: 'onBlur',
     resolver: zodResolver(schema),
   })
+  const hasInteracted = useRef(false)
 
   useEffect(() => {
-    trigger()
+    if (hasInteracted.current) {
+      trigger()
+    }
   }, [t, trigger])
+  const onFieldChange = () => {
+    hasInteracted.current = true
+  }
 
-  return { control, errors, getValues, handleSubmit, isDirty, isValid, reset }
+  return { control, errors, getValues, handleSubmit, isDirty, isValid, onFieldChange, reset }
 }

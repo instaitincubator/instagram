@@ -16,7 +16,7 @@ import { useRouter } from 'next/router'
 export const SignInForm = () => {
   const { t } = useTranslation()
   const router = useRouter()
-  const { control, errors, handleSubmit } = useSignInForm()
+  const { control, errors, handleSubmit, onFieldChange } = useSignInForm()
   const [signIn, { isError }] = useSignInMutation()
   const [getMe] = useLazyMeQuery()
   const { refetch } = useMeQuery()
@@ -76,6 +76,10 @@ export const SignInForm = () => {
                 error={isError ? t.auth.incorrectPassword : errors.email?.message}
                 fullWidth
                 label={t.auth.email}
+                onChange={e => {
+                  field.onChange(e)
+                  onFieldChange('email')
+                }}
                 placeholder={t.auth.emailPlaceholder}
               />
             )}
@@ -89,6 +93,10 @@ export const SignInForm = () => {
                 error={isError ? t.auth.incorrectPassword : errors.password?.message}
                 fullWidth
                 label={t.auth.password}
+                onChange={e => {
+                  field.onChange(e)
+                  onFieldChange('password')
+                }}
                 type="password"
               />
             )}

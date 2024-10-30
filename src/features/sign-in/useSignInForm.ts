@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { useTranslation } from '@/shared/hooks/useTranslation'
@@ -49,14 +49,22 @@ export const useSignInForm = () => {
     handleSubmit,
     trigger,
   } = useForm<SignInFormType>({
-    defaultValues: { email: '', password: '' },
-    mode: 'onSubmit',
+    defaultValues: { email: '' },
+    mode: 'onBlur',
     resolver: zodResolver(schema(t)),
   })
+  const hasInteracted = useRef(false)
 
   useEffect(() => {
-    trigger()
+    if (hasInteracted.current) {
+      trigger()
+    }
   }, [t, trigger])
 
-  return { control, errors, handleSubmit, isValid }
+  const onFieldChange = async (fieldName: keyof SignInFormType) => {
+    hasInteracted.current = true
+    await trigger(fieldName)
+  }
+
+  return { control, errors, handleSubmit, isValid, onFieldChange, trigger }
 }
