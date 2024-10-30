@@ -11,6 +11,7 @@ interface CustomErrorData {
 }
 
 interface ErrorMessage {
+  error?: string
   field: string
   message: string
 }
@@ -24,10 +25,10 @@ export const rtkErrorHandling = (error: FetchBaseQueryError | SerializedError): 
   if (error && 'data' in error && typeof error.data === 'object' && error.data !== null) {
     const errorData = error.data as CustomErrorData
 
-    if (errorData.messages[0].field === 'userName') {
-      errorMessage = errorData.messages[0]
-    } else if (errorData.messages[0].field === 'email') {
-      errorMessage = errorData.messages[0]
+    if (errorData.messages[0].field === 'userName' && errorData.error === 'BAD_REQUEST') {
+      errorMessage = { ...errorData.messages[0], error: errorData.error }
+    } else if (errorData.messages[0].field === 'email' && errorData.error === 'BAD_REQUEST') {
+      errorMessage = { ...errorData.messages[0], error: errorData.error }
     }
   }
 
