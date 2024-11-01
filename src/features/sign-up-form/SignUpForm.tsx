@@ -181,9 +181,11 @@ export const SignUpForm = () => {
         <p className="text-light-100 select-none text-center mb-[6px]">
           {t.auth.doYouHaveAnAccount}
         </p>
-        <Button as="a" fullWidth href="/sign-in" type="button" variant="text">
-          {t.auth.signIn}
-        </Button>
+        <Link href="/sign-in">
+          <Button as="a" fullWidth type="button" variant="text">
+            {t.auth.signIn}
+          </Button>
+        </Link>
       </Card>
       {isSuccess && modal && (
         <Modal className="w-[378px] m-auto" onClose={onCloseModal} title="Email sent">
