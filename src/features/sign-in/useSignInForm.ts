@@ -59,11 +59,8 @@ export const useSignInForm = () => {
 
   useEffect(() => {
     reset({ email: '', password: '' })
-    clearErrors(['email'])
-    if (hasInteracted.current) {
-      trigger()
-    }
-  }, [t, trigger])
+    clearErrors()
+  }, [t])
 
   const onFieldChange = async (fieldName: keyof SignInFormType) => {
     hasInteracted.current = true
