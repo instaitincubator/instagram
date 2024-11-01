@@ -55,7 +55,6 @@ export const SignUpForm = () => {
   }
 
   const onSubmit = (data: SignUpFormType) => {
-    debugger
     SignUp({
       baseUrl: process.env.NEXT_PUBLIC_DOMAIN,
       email: data.email,
