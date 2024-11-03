@@ -44,22 +44,23 @@ const schema = (t: LocaleType) =>
 export const useSignInForm = () => {
   const { t } = useTranslation()
   const {
+    clearErrors,
     control,
     formState: { errors, isValid },
     handleSubmit,
+    reset,
     trigger,
   } = useForm<SignInFormType>({
     defaultValues: { email: '' },
-    mode: 'onBlur',
+    mode: 'onSubmit',
     resolver: zodResolver(schema(t)),
   })
   const hasInteracted = useRef(false)
 
   useEffect(() => {
-    if (hasInteracted.current) {
-      trigger()
-    }
-  }, [t, trigger])
+    reset({ email: '', password: '' })
+    clearErrors()
+  }, [t])
 
   const onFieldChange = async (fieldName: keyof SignInFormType) => {
     hasInteracted.current = true

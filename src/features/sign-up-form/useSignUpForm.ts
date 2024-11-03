@@ -63,6 +63,7 @@ export const useSignUpForm = () => {
     )
 
   const {
+    clearErrors,
     control,
     formState: { errors, isDirty, isValid },
     getValues,
@@ -76,9 +77,8 @@ export const useSignUpForm = () => {
   const hasInteracted = useRef(false)
 
   useEffect(() => {
-    if (hasInteracted.current) {
-      trigger()
-    }
+    reset({ checkboxPolicy: false, confirmPassword: '', email: '', password: '', userName: '' })
+    clearErrors()
   }, [t, trigger])
   const onFieldChange = () => {
     hasInteracted.current = true
