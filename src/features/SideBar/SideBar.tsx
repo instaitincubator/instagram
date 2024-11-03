@@ -4,7 +4,7 @@ import { useLogOutMutation } from '@/services/auth/logOutApi'
 import { useMeQuery } from '@/services/auth/signInApi'
 import { useTranslation } from '@/shared/hooks/useTranslation'
 import Button from '@/shared/ui/Button/Button'
-import CustomLink from '@/shared/ui/CustomLink'
+import CustomLink from '@/shared/ui/Custom-link/CustomLink'
 import { useRouter } from 'next/router'
 
 import {

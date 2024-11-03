@@ -82,7 +82,14 @@ export const russian = {
   },
   pages: {
     profile: {
+      accountType: 'Тип учетной записи:',
+      business: 'Для бизнеса',
+      perDay: 'за 1 день',
+      perMonth: 'за 1 месяц',
+      perWeek: 'за 7 дней',
+      personal: 'Личный',
       profileSettings: 'Настройки профиля',
+      subscriptionCosts: 'Стоимость вашей подписки:',
     },
     terms: {
       welcome: `Добро пожаловать в Instagram!

@@ -79,7 +79,14 @@ export const english = {
   },
   pages: {
     profile: {
+      accountType: 'Account type:',
+      business: 'Business',
+      perDay: 'per 1 Day',
+      perMonth: 'per month',
+      perWeek: 'per 7 Day',
+      personal: 'Personal',
       profileSettings: 'Profile Settings',
+      subscriptionCosts: 'Your subscription costs:',
     },
     terms: {
       welcome: `Welcome to Instagram!
