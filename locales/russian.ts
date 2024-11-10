@@ -28,10 +28,10 @@ export const russian = {
     field_required: 'Обязательное поле',
     forgotPassword: 'Забыли пароль?',
     iAgree: 'Я принимаю',
-
     incorrectPassword: 'неверный пароль или адрес электронной почты',
     isAlreadyInSystem: 'уже находится в системе.',
     linkExpired: 'Срок действия ссылки истек',
+    logOut: 'Выйти',
     logOutConfirmationBody: 'Вы действительно хотите выйти из аккаунта',
     logOutConfirmationHeader: 'Выход из аккаунта',
     mergeAcc: 'Объединить аккаунты',
@@ -48,9 +48,9 @@ export const russian = {
     passwords_notMatch: 'Пароли не совпадают',
     privacyPolicy: 'Политику конфиденциальности',
     privacyPolicy1: 'Политика конфиденциальности',
-
     recoveryMessage:
       'Ссылка отправлена по электронной почте. Если вы не получили ссылку для отправки по электронной почте еще раз',
+
     registration: 'Регистрация',
     save: 'Сохранить',
     sendLink: 'Отправить ссылку',
@@ -67,6 +67,7 @@ export const russian = {
     verificationButton: 'Отправить ссылку повторно',
     verificationMessage:
       'Срок действия ссылки для подтверждения истек. Не волнуйтесь, мы можем отправить ссылку еще раз',
+    wantLogOut: 'Вы действительно хотите выйти из своей учетной записи',
     yes: 'Да, объединить',
     yesConfirm: 'Да',
   },
