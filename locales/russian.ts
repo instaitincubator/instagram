@@ -121,6 +121,7 @@ export const russian = {
     firstName: 'Имя',
     lastName: 'Фамилия',
     ok: 'OK',
+    or: 'или',
     saveChanges: 'Сохранить изменения',
     userName: 'Имя пользователя',
   },

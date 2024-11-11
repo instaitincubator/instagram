@@ -6,9 +6,13 @@ import { Provider } from 'react-redux'
 
 import { store } from '@/app/store'
 import { useLoader } from '@/shared/hooks/useLoader'
+import { Elements } from '@stripe/react-stripe-js'
+import { loadStripe } from '@stripe/stripe-js'
 
 import '@/app/globals.css'
 import 'nprogress/nprogress.css'
+
+import config from '../../config'
 
 export type NextPageWithLayout<P = {}, IP = P> = {
   getLayout?: (page: ReactElement) => ReactNode
@@ -21,6 +25,11 @@ type AppPropsWithLayout = {
 export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   useLoader()
   const getLayout = Component.getLayout ?? (page => page)
+  const stripePromise = loadStripe(config.stripeKey!)
 
-  return <Provider store={store}>{getLayout(<Component {...pageProps} />)}</Provider>
+  return (
+    <Provider store={store}>
+      <Elements stripe={stripePromise}>{getLayout(<Component {...pageProps} />)}</Elements>
+    </Provider>
+  )
 }

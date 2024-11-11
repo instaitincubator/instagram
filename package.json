@@ -20,6 +20,8 @@
     "@radix-ui/react-select": "^2.1.1",
     "@radix-ui/react-tabs": "^1.1.0",
     "@reduxjs/toolkit": "^2.2.5",
+    "@stripe/react-stripe-js": "^2.8.1",
+    "@stripe/stripe-js": "^4.9.0",
     "@svgr/webpack": "^8.1.0",
     "@types/react-google-recaptcha": "^2.1.9",
     "async-mutex": "^0.5.0",
