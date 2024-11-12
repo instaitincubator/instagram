@@ -5,7 +5,7 @@ import Image from 'next/image'
 
 import config from '../../../../config'
 
-const stripePromise = loadStripe(config.stripeKey!)
+const stripePromise = loadStripe(config.stripeTestKey!)
 
 export const StripeButton: React.FC = () => {
   const [amount] = useState<number>(1000) // 10$ в центах
@@ -28,7 +28,7 @@ export const StripeButton: React.FC = () => {
       const { error } = await stripe!.redirectToCheckout({ sessionId: session.id })
 
       if (error) {
-        setError(error.message)
+        setError(error.message!)
       }
     } else {
       setError(session.error)

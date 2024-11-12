@@ -3,7 +3,7 @@ import Stripe from 'stripe'
 
 import config from '../../../config'
 
-const stripe = new Stripe(config.stripeTestKey!)
+const stripe = new Stripe(config.stripeKey!)
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
