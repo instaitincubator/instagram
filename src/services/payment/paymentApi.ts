@@ -1,15 +1,12 @@
 import { baseApi } from '@/services/inctagram-api'
+import { createApi } from '@reduxjs/toolkit/query/react'
 
-interface PaymentIntentResponse {
-  clientSecret: string
-}
-
-const PaymentApi = baseApi.injectEndpoints({
+export const paymentSlice = baseApi.injectEndpoints({
   endpoints: build => {
     return {
-      createPaymentIntent: build.mutation<PaymentIntentResponse, { amount: number }>({
-        query: body => ({
-          body,
+      createPaymentIntent: build.mutation({
+        query: amount => ({
+          body: { amount },
           method: 'POST',
           url: 'create-payment-intent',
         }),
@@ -18,4 +15,4 @@ const PaymentApi = baseApi.injectEndpoints({
   },
 })
 
-export const { useCreatePaymentIntentMutation } = PaymentApi
+export const { useCreatePaymentIntentMutation } = paymentSlice
