@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 
 import { getSettingsLayout } from '@/app/layouts/settingsLayout/SettingsLayout'
+import { useCreateSubscriptionMutation } from '@/services/payments/PaymentsApi'
 import { useTranslation } from '@/shared/hooks/useTranslation'
 import { Card } from '@/shared/ui/Card/Card'
 import { StripeButton } from '@/shared/ui/Payment/Stripe'
@@ -10,7 +11,17 @@ import Image from 'next/image'
 const AccountManagement = () => {
   const { t } = useTranslation()
   const [status, setStatus] = useState('personal')
-  const [paymentMethod, setPaymentMethod] = useState('')
+  const [createSubscription] = useCreateSubscriptionMutation()
+  const handleSub = () => {
+    const subResponse = {
+      amount: 0,
+      baseUrl: 'localhost:3000',
+      paymentType: 'STRIPE',
+      typeSubscription: 'MONTHLY',
+    }
+
+    createSubscription(subResponse)
+  }
 
   return (
     <div>
@@ -33,11 +44,7 @@ const AccountManagement = () => {
           <div>
             <span>{t.pages.profile.subscriptionCosts}</span>
             <Card className="py-[14px] px-[20px] mt-[5px]">
-              <RadioGroup
-                className="flex flex-col gap-5"
-                defaultValue="day"
-                onValueChange={setPaymentMethod}
-              >
+              <RadioGroup className="flex flex-col gap-5" defaultValue="day">
                 <RadioGroupItem value="day">10$ {t.pages.profile.perDay}</RadioGroupItem>
                 <RadioGroupItem value="week">50$ {t.pages.profile.perWeek}</RadioGroupItem>
                 <RadioGroupItem value="month">100$ {t.pages.profile.perMonth}</RadioGroupItem>
@@ -49,6 +56,7 @@ const AccountManagement = () => {
               alt="paypal"
               className="hover:border hover:rounded-lg hover:border-dark-100 cursor-pointer"
               height={64}
+              onClick={handleSub}
               src="/paypalLogo.svg"
               width={96}
             />

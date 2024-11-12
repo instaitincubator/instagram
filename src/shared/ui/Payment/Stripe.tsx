@@ -13,7 +13,6 @@ export const StripeButton: React.FC = () => {
 
   const handleCheckout = async () => {
     const stripe = await stripePromise
-
     const response = await fetch('/api/create-checkout-session', {
       body: JSON.stringify({ amount }),
       headers: {

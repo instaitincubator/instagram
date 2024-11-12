@@ -11,7 +11,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     try {
       const session = await stripe.checkout.sessions.create({
-        cancel_url: `${req.headers.origin}/cancel`, // URL для отмены оплаты
+        cancel_url: `${req.headers.origin}/profile/settings/account-management/cancel`,
         line_items: [
           {
             price_data: {
@@ -26,7 +26,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         ],
         mode: 'payment',
         payment_method_types: ['card'],
-        success_url: `${req.headers.origin}/success`, // URL для успешной оплаты
+        success_url: `${req.headers.origin}/profile/settings/account-management/success`,
       })
 
       res.status(200).json({ id: session.id })
