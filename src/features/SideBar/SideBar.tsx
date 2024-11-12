@@ -1,10 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 
+import LogOutModal from '@/features/SideBar/modal/logOutModal'
 import { useLogOutMutation } from '@/services/auth/logOutApi'
 import { useMeQuery } from '@/services/auth/signInApi'
+import { useGetProfileInfoQuery } from '@/services/profile/profileApi'
 import { useTranslation } from '@/shared/hooks/useTranslation'
 import Button from '@/shared/ui/Button/Button'
+
 import CustomLink from '@/shared/ui/Custom-link/CustomLink'
+import { Modal } from '@/shared/ui/Modal/Modal'
 import { useRouter } from 'next/router'
 
 import {
@@ -29,6 +33,8 @@ export const SideBar = () => {
   const [logOut, { isSuccess }] = useLogOutMutation()
   const { t } = useTranslation()
   const { data: me } = useMeQuery()
+  const [openModal, setModal] = useState<boolean>(false)
+  const email = me?.email ?? ''
 
   useEffect(() => {
     setActiveLink(router.pathname)
@@ -36,15 +42,17 @@ export const SideBar = () => {
 
   const logOutHandler = () => {
     logOut()
-    void router.replace('/')
+    void router.push('/sign-in')
   }
 
   if (isSuccess) {
     void router.push('/sign-in')
   }
+  const closeModal = () => setModal(false)
 
   return (
     <nav className="relative w-fit min-w-[200px] py-[73px] bg-dark-700">
+      {openModal && <LogOutModal confirm={logOutHandler} email={email} onClose={closeModal} />}
       <div className="flex flex-col justify-evenly h-fit pl-14 gap-[24px]">
         <CustomLink
           activeLink={activeLink}
@@ -116,7 +124,7 @@ export const SideBar = () => {
       </div>
       <div className="hidden sm:flex items-center w-full pl-16 pt-[180px] text-light-100">
         <LogOut />
-        <Button as="a" className="pl-0" onClick={logOutHandler} variant="text">
+        <Button as="a" className="pl-0" onClick={() => setModal(true)} variant="text">
           <span className="text-light-100 text-medium-14">{t.sidebar.logOut}</span>
         </Button>
       </div>

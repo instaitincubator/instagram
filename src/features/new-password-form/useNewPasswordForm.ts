@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { useTranslation } from '@/shared/hooks/useTranslation'
@@ -53,15 +54,23 @@ export const useNewPasswordForm = () => {
     )
 
   const {
+    clearErrors,
     control,
     formState: { errors, validatingFields },
     getValues,
     handleSubmit,
     register,
+    reset,
+    trigger,
   } = useForm<NewPasswordFormType>({
     mode: 'onSubmit',
     resolver: zodResolver(schema),
   })
+
+  useEffect(() => {
+    reset({ confirm: '', newPassword: '', passwordConfirm: '' })
+    clearErrors()
+  }, [t, trigger])
 
   return { control, errors, getValues, handleSubmit, register, validatingFields }
 }

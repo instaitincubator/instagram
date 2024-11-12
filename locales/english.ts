@@ -31,6 +31,7 @@ export const english = {
     iAgree: 'I agree to the',
     incorrectPassword: 'invalid password or email',
     isAlreadyInSystem: 'is already in the system.',
+    logOut: 'Log Out',
     logOutConfirmationBody: 'Do you really want to log out of your account',
     logOutConfirmationHeader: 'Log Out',
     mergeAcc: 'Merge Accounts',
@@ -64,6 +65,7 @@ export const english = {
     verificationButton: 'Resend link',
     verificationMessage:
       'Looks like the verification link has expired. Not to worry, we can send the link again',
+    wantLogOut: 'Are you really want to log out of your account',
     yes: 'Yes, merge',
     yesConfirm: 'Yes',
   },
