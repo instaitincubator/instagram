@@ -1,12 +1,10 @@
 import React, { useState } from 'react'
 
 import { getSettingsLayout } from '@/app/layouts/settingsLayout/SettingsLayout'
-import { useCreatePaymentIntentMutation } from '@/services/payment/paymentApi'
 import { useTranslation } from '@/shared/hooks/useTranslation'
 import { Card } from '@/shared/ui/Card/Card'
 import { StripeButton } from '@/shared/ui/Payment/Stripe'
 import { RadioGroup, RadioGroupItem } from '@/shared/ui/Radio-group/RadioGroup'
-import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
 import Image from 'next/image'
 
 const AccountManagement = () => {

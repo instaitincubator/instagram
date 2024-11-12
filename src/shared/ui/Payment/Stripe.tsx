@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
 
-import { useCreatePaymentIntentMutation } from '@/services/payment/paymentApi'
-import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
 import Image from 'next/image'
 
 import config from '../../../../config'
+
 const stripePromise = loadStripe(config.stripeKey!)
 
 export const StripeButton: React.FC = () => {

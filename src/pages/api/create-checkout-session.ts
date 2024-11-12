@@ -3,7 +3,7 @@ import Stripe from 'stripe'
 
 import config from '../../../config'
 
-const stripe = new Stripe(config.stripeKey!)
+const stripe = new Stripe(config.stripeTestKey!)
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
@@ -30,7 +30,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       })
 
       res.status(200).json({ id: session.id })
-    } catch (error) {
+    } catch (error: any) {
       res.status(500).json({ error: error.message })
     }
   } else {

@@ -25,7 +25,7 @@ type AppPropsWithLayout = {
 export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   useLoader()
   const getLayout = Component.getLayout ?? (page => page)
-  const stripePromise = loadStripe(config.stripeKey!)
+  const stripePromise = loadStripe(config.stripeTestKey!)
 
   return (
     <Provider store={store}>
