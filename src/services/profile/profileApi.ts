@@ -3,6 +3,7 @@ import {
   ProfileFollowers,
   ProfileFollowing,
   ProfileInfo,
+  Session,
 } from '@/shared/types/ApiTypes/ProfileApiTypes'
 
 const profileApi = baseApi.injectEndpoints({
@@ -14,6 +15,14 @@ const profileApi = baseApi.injectEndpoints({
           return {
             method: 'DELETE',
             url: '/api/v1/users/profile/avatar',
+          }
+        },
+      }),
+      getDevices: build.query<Session, void>({
+        query: () => {
+          return {
+            method: 'GET',
+            url: '/api/v1/sessions',
           }
         },
       }),
@@ -66,6 +75,7 @@ const profileApi = baseApi.injectEndpoints({
 
 export const {
   useDeleteProfileAvatarMutation,
+  useGetDevicesQuery,
   useGetFollowersQuery,
   useGetFollowingQuery,
   useGetProfileInfoQuery,
