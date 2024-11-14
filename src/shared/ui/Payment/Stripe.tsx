@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { loadStripe } from '@stripe/stripe-js'
 import Image from 'next/image'
@@ -7,10 +7,17 @@ import config from '../../../../config'
 
 const stripePromise = loadStripe(config.stripeTestKey!)
 
-export const StripeButton: React.FC = () => {
-  const [amount] = useState<number>(1000) // 10$ в центах
+interface Props {
+  subAmount: number
+}
+
+export const StripeButton = (props: Props) => {
+  const [amount, setAmount] = useState<number>(10)
   const [error, setError] = useState<null | string>(null)
 
+  useEffect(() => {
+    setAmount(props.subAmount)
+  }, [props.subAmount])
   const handleCheckout = async () => {
     const stripe = await stripePromise
     const response = await fetch('/api/create-checkout-session', {
