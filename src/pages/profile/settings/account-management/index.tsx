@@ -12,18 +12,22 @@ const AccountManagement = () => {
   const { t } = useTranslation()
   const [status, setStatus] = useState('personal')
   const [subPrice, setSubPrice] = useState<number>(1000)
+  const [subTitle, setSubTitle] = useState<string>('1 day subscription')
 
   const { data: sub } = useGetSubscriptionQuery({})
   const handleSubChoice = (value: string) => {
     switch (value) {
       case 'month':
         setSubPrice(10000)
+        setSubTitle('month subscription')
         break
       case 'week':
         setSubPrice(5000)
+        setSubTitle('week subscription')
         break
       default:
         setSubPrice(1000)
+        setSubTitle('1 day subscription')
     }
   }
 
@@ -69,7 +73,7 @@ const AccountManagement = () => {
               width={96}
             />
             <span className="text-regular-14">{t.profileSettings.or}</span>
-            <StripeButton subAmount={subPrice} />
+            <StripeButton subAmount={subPrice} subTitle={subTitle} />
           </div>
         </div>
       )}

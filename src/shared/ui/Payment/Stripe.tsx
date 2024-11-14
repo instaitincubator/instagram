@@ -9,6 +9,7 @@ const stripePromise = loadStripe(config.stripeTestKey!)
 
 interface Props {
   subAmount: number
+  subTitle: string
 }
 
 export const StripeButton = (props: Props) => {
@@ -21,7 +22,7 @@ export const StripeButton = (props: Props) => {
   const handleCheckout = async () => {
     const stripe = await stripePromise
     const response = await fetch('/api/create-checkout-session', {
-      body: JSON.stringify({ amount }),
+      body: JSON.stringify({ amount, name: props.subTitle }),
       headers: {
         'Content-Type': 'application/json',
       },

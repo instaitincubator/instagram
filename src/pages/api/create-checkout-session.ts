@@ -7,7 +7,7 @@ const stripe = new Stripe(config.stripeKey!)
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
-    const { amount } = req.body // Сумма в центах
+    const { amount, name } = req.body // Сумма в центах
 
     try {
       const session = await stripe.checkout.sessions.create({
@@ -17,7 +17,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             price_data: {
               currency: 'usd',
               product_data: {
-                name: 'Your Product Name', // Замените на имя вашего продукта
+                name: name, // Замените на имя вашего продукта
               },
               unit_amount: amount,
             },
