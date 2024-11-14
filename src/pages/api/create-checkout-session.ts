@@ -11,13 +11,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     try {
       const session = await stripe.checkout.sessions.create({
-        cancel_url: `${req.headers.origin}/profile/settings/account-management/cancel`,
+        cancel_url: `${req.headers.origin}/profile/settings/account-management/error`,
         line_items: [
           {
             price_data: {
               currency: 'usd',
               product_data: {
-                name: name, // Замените на имя вашего продукта
+                name: name,
               },
               unit_amount: amount,
             },

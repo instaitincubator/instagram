@@ -106,6 +106,11 @@ You may not use a domain name or URL in your username without our prior written 
 Your rights to your content remain unaffected. We do not claim ownership of your content that you post on or through the Service, and you are free to share it with anyone at any time. However, we need to obtain certain legal permissions (referred to as a “license”) from you in order to provide the Service. When you post or upload content that is subject to intellectual property rights (such as photos or videos) to our Service or share such content on or in connection with our Service, you hereby grant us a non-exclusive, royalty-free, worldwide license with the right transferring and sublicensing to store, use, distribute, modify, run, copy, publicly perform or display, translate, and create derivative works from your content (subject to your privacy and application settings). The license terminates when your content is removed from our systems. You can delete content individually or all at once by deleting your account.`,
     },
   },
+  payment: {
+    backToPayment: 'Back to Payment',
+    payFailed: 'Transaction failed. Please, write to support',
+    paySuccess: 'Payment was successful!',
+  },
   profile: {
     followers: 'Followers',
     following: 'Following',

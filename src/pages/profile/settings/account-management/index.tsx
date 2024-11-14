@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 
 import { getSettingsLayout } from '@/app/layouts/settingsLayout/SettingsLayout'
+import { PayConfirmModal } from '@/pages/profile/settings/account-management/payConfirmModal/payConfirmModal'
 import { useGetSubscriptionQuery } from '@/services/payments/PaymentsApi'
 import { useTranslation } from '@/shared/hooks/useTranslation'
 import { Card } from '@/shared/ui/Card/Card'
@@ -8,13 +9,17 @@ import { StripeButton } from '@/shared/ui/Payment/Stripe'
 import { RadioGroup, RadioGroupItem } from '@/shared/ui/Radio-group/RadioGroup'
 import Image from 'next/image'
 
-const AccountManagement = () => {
+interface Props {
+  slug: string | string[]
+}
+
+const AccountManagement = ({ slug }: Props) => {
   const { t } = useTranslation()
   const [status, setStatus] = useState('personal')
   const [subPrice, setSubPrice] = useState<number>(1000)
   const [subTitle, setSubTitle] = useState<string>('1 day subscription')
-
   const { data: sub } = useGetSubscriptionQuery({})
+
   const handleSubChoice = (value: string) => {
     switch (value) {
       case 'month':
@@ -77,6 +82,7 @@ const AccountManagement = () => {
           </div>
         </div>
       )}
+      <PayConfirmModal slug={slug} />
     </div>
   )
 }
