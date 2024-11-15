@@ -5,7 +5,7 @@ export const russian = {
     backToSignIn: 'Назад к входу',
     backToSignUp: 'Назад к регистрации',
     confPassword: 'Код подтверждения',
-    confirmMessage: 'Ваше сообщение было подтверждено',
+    confirmMessage: 'Ваша почта было подтверждено',
     congratulations: 'Поздравляем!',
     couldWeMerge: 'Можем ли мы объединить эти аккаунты?',
     createNewPassword: 'Создать новый пароль',
