@@ -17,7 +17,10 @@ const EmailConfirmed = () => {
   useEffect(() => {
     if (router.query.code) {
       confirmCode({ confirmationCode: router.query.code })
-      setLoading(false)
+        .unwrap()
+        .finally(() => {
+          setLoading(false)
+        })
     }
   }, [confirmCode, router.query.code])
   if (loading) {
