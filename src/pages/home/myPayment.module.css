@@ -1,0 +1,49 @@
+
+.table {
+  position: relative;
+  top: 20px;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.userTableRow {
+  position: relative;
+  top: 10px;
+}
+
+.thead .th {
+  font-weight: 500;
+  text-align: left;
+}
+
+.thead {
+  background-color: #171717;
+}
+
+.tr,
+.userTableRow {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+}
+
+.tbody :nth-child(even) {
+  background-color:white;
+}
+
+.td {
+  position: relative;
+  left: 20px;
+}
+
+.paginationBar {
+  position: relative;
+  top: 40px;
+  right: 40px;
+  display: flex;
+}
+
+.userTableRow {
+  padding: 8px;
+  border: 1px solid #171717; /* Add borders to all table headers and cells */
+}
