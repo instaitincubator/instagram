@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 import { getSettingsLayout } from '@/app/layouts/settingsLayout/SettingsLayout'
-import { PayConfirmModal } from '@/pages/profile/settings/account-management/payConfirmModal/payConfirmModal'
+import PayConfirmModal from '@/pages/profile/settings/account-management/payConfirmModal/payConfirmModal'
 import { useGetSubscriptionQuery } from '@/services/payments/PaymentsApi'
 import { useTranslation } from '@/shared/hooks/useTranslation'
 import { Card } from '@/shared/ui/Card/Card'
