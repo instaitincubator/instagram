@@ -9,7 +9,7 @@ interface Props {
   slug: string | string[]
 }
 
-export const PayConfirmModal = ({ slug }: Props) => {
+const PayConfirmModal = ({ slug }: Props) => {
   const [payConfirmation, setPayConfirmation] = useState('')
   const { t } = useTranslation()
 
@@ -38,3 +38,5 @@ export const PayConfirmModal = ({ slug }: Props) => {
     )
   )
 }
+
+export default PayConfirmModal
