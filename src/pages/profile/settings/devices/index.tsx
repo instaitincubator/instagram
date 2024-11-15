@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 import { getSettingsLayout } from '@/app/layouts/settingsLayout/SettingsLayout'
 import {
@@ -6,7 +6,6 @@ import {
   useGetDevicesQuery,
   useTerminateAllSessionsMutation,
 } from '@/services/profile/profileApi'
-import { Device } from '@/shared/types/ApiTypes/ProfileApiTypes'
 import Button from '@/shared/ui/Button/Button'
 import DeviceCard from '@/shared/ui/DeviceCard/DeviceCard'
 

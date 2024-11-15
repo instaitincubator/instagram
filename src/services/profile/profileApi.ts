@@ -10,6 +10,7 @@ const profileApi = baseApi.injectEndpoints({
   endpoints: build => {
     return {
       deleteDevice: build.mutation<void, number>({
+        invalidatesTags: ['sessions'],
         query: (deviceId: number) => {
           return {
             method: 'DELETE',
@@ -27,6 +28,7 @@ const profileApi = baseApi.injectEndpoints({
         },
       }),
       getDevices: build.query<Session, void>({
+        providesTags: ['sessions'],
         query: () => {
           return {
             method: 'GET',
@@ -68,6 +70,7 @@ const profileApi = baseApi.injectEndpoints({
         },
       }),
       terminateAllSessions: build.mutation<void, void>({
+        invalidatesTags: ['sessions'],
         query: () => {
           return {
             method: 'DELETE',
