@@ -1,13 +1,11 @@
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import LogOutModal from '@/features/SideBar/modal/logOutModal'
 import { useLogOutMutation } from '@/services/auth/logOutApi'
 import { useMeQuery } from '@/services/auth/signInApi'
-import { useGetProfileInfoQuery } from '@/services/profile/profileApi'
 import { useTranslation } from '@/shared/hooks/useTranslation'
 import Button from '@/shared/ui/Button/Button'
-import CustomLink from '@/shared/ui/CustomLink'
-import { Modal } from '@/shared/ui/Modal/Modal'
+import CustomLink from '@/shared/ui/Custom-link/CustomLink'
 import { useRouter } from 'next/router'
 
 import {
@@ -25,7 +23,6 @@ import {
   SearchFill,
   Trending,
 } from '../../../public'
-// import { LogOutModal } from './modal/logOut'
 
 export const SideBar = () => {
   const router = useRouter()

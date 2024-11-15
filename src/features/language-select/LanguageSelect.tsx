@@ -6,9 +6,6 @@ import { Option } from '@/shared/ui/Select/types'
 import { cn } from '@/shared/utils/cn'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import { types } from 'sass'
-
-import String = types.String
 
 export const LanguageSelect = () => {
   const router = useRouter()
@@ -22,11 +19,7 @@ export const LanguageSelect = () => {
       locale = value
     }
 
-    try {
-      await router.replace(currentPath, currentPath, { locale })
-    } catch (e) {
-      console.log(e)
-    }
+    await router.replace(currentPath, currentPath, { locale })
   }
   const isMobile = useIsMobile(480)
 
