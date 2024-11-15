@@ -19,7 +19,7 @@ export interface ProfileInfo {
   region: string
   userName: string
 }
-interface Device {
+export interface Device {
   browserName: string
   browserVersion: string
   deviceId: number

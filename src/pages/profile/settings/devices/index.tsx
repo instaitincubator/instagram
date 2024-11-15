@@ -1,50 +1,66 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { getSettingsLayout } from '@/app/layouts/settingsLayout/SettingsLayout'
-import { useGetDevicesQuery } from '@/services/profile/profileApi'
+import {
+  useDeleteDeviceMutation,
+  useGetDevicesQuery,
+  useTerminateAllSessionsMutation,
+} from '@/services/profile/profileApi'
+import { Device } from '@/shared/types/ApiTypes/ProfileApiTypes'
 import Button from '@/shared/ui/Button/Button'
-import Image from 'next/image'
-
-import { LogOut } from '../../../../../public'
+import DeviceCard from '@/shared/ui/DeviceCard/DeviceCard'
 
 const Devices = () => {
   const { data: devices } = useGetDevicesQuery()
+  const [deleteDevice] = useDeleteDeviceMutation()
+  const [terminateAllSessions] = useTerminateAllSessionsMutation()
+  // const [otherDevices, setOtherDevices] = useState<Array<Device>>([])
 
   if (!devices) {
     return null
   }
+  const currentDevice = devices.current
+
+  // useEffect(() => {
+  const otherDevices = devices.others.filter(device => device.deviceId !== currentDevice.deviceId)
+  // }, [])
+  const deleteDeviceHandler = (deviceId: number) => {
+    deleteDevice(deviceId)
+  }
+  const terminateAllSessionsHandler = () => {
+    terminateAllSessions()
+  }
+  const OtherDevicesList = otherDevices?.map(device => {
+    return (
+      <DeviceCard
+        deleteDeviceHandler={deleteDeviceHandler}
+        device={device}
+        isOther
+        key={device.deviceId}
+      />
+    )
+  })
 
   return (
     <div className="flex flex-col w-full">
       <h3 className="text-h3 mb-[6px]">Current device</h3>
-      <div className=" bg-dark-500 text-regular-16 border rounded-sm p-6 w-[280px] border-dark-100 text-light-900 w-full min-h-[120px] flex justify-between">
-        <div className="flex  items-start gap-x-[12px]">
-          <Image
-            alt={devices.current.browserName}
-            height={36}
-            src={`/${devices.current.browserName.toLowerCase()}.svg`}
-            width={36}
-          />
-          <div>
-            <div className="text-bold-16 text-light-100 mb-[12px]">
-              {devices.current.browserName}
-            </div>
-            <div className="text-regular-14 text-light-100 mb-[5px] ">{devices.current.ip}</div>
-            <div className="text-medium-14 text-accent-100 mb-[5px] ">{devices.current.ip}</div>
-          </div>
-        </div>
-        <div>
-          <Button className="text-medium14 text-light-100 mt-auto gap-x-[12px]" variant="text">
-            <LogOut />
-            Log Out
-          </Button>
-        </div>
-      </div>
+      <DeviceCard device={currentDevice} isOther={false} />
       <div>
-        <Button className="ml-auto mt-4" variant="outline">
+        <Button
+          className="ml-auto mt-4 disabled:opacity-50 disabled:pointer-events-none"
+          disabled={!otherDevices.length}
+          onClick={terminateAllSessionsHandler}
+          variant="outline"
+        >
           Terminate all other session
         </Button>
       </div>
+      {!!otherDevices.length && (
+        <div>
+          <h3 className="text-h3 mb-[6px]">Current device</h3>
+          {OtherDevicesList}
+        </div>
+      )}
     </div>
   )
 }

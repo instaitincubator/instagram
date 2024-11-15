@@ -9,10 +9,10 @@ import {
 const profileApi = baseApi.injectEndpoints({
   endpoints: build => {
     return {
-      deleteDevice: build.query<void, string>({
-        query: (deviceId: string) => {
+      deleteDevice: build.mutation<void, number>({
+        query: (deviceId: number) => {
           return {
-            method: 'POST',
+            method: 'DELETE',
             url: `/api/v1/sessions/${deviceId}`,
           }
         },
@@ -67,10 +67,10 @@ const profileApi = baseApi.injectEndpoints({
           }
         },
       }),
-      terminateAllSessions: build.query<void, void>({
+      terminateAllSessions: build.mutation<void, void>({
         query: () => {
           return {
-            method: 'POST',
+            method: 'DELETE',
             url: `/api/v1/sessions/terminate-all`,
           }
         },
@@ -90,13 +90,13 @@ const profileApi = baseApi.injectEndpoints({
 })
 
 export const {
-  useDeleteDeviceQuery,
+  useDeleteDeviceMutation,
   useDeleteProfileAvatarMutation,
   useGetDevicesQuery,
   useGetFollowersQuery,
   useGetFollowingQuery,
   useGetProfileInfoQuery,
   usePutSettingsMutation,
-  useTerminateAllSessionsQuery,
+  useTerminateAllSessionsMutation,
   useUploadProfileAvatarMutation,
 } = profileApi
