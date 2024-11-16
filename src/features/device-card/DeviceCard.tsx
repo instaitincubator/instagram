@@ -29,7 +29,7 @@ const DeviceCard = ({ deleteDeviceHandler, device, isOther }: Props) => {
   }
 
   return (
-    <div className=" bg-dark-500 text-regular-16 border rounded-sm p-6 border-dark-100 text-light-900 w-full min-h-[120px] flex justify-between">
+    <div className="flex justify-between bg-dark-500 text-regular-16 border rounded-sm p-6 border-dark-100 text-light-900 w-full min-h-[120px] ">
       <div className="flex  items-start gap-x-[12px]">
         <Image alt={device.browserName} height={36} src={`/${browserIcon}.svg`} width={36} />
         <div>
