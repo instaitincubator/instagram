@@ -9,7 +9,6 @@ import { LogOut } from '../../../../public'
 type Props = {
   deleteDeviceHandler?: (id: number) => void
   device: Device
-
   isOther: boolean
 }
 enum BrowserList {
