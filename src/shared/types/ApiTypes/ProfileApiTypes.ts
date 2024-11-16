@@ -19,6 +19,21 @@ export interface ProfileInfo {
   region: string
   userName: string
 }
+export interface Device {
+  browserName: string
+  browserVersion: string
+  deviceId: number
+  deviceName: string
+  deviceType: string
+  ip: string
+  lastActive: string
+  osName: string
+  osVersion: string
+}
+export interface Session {
+  current: Device
+  others: Array<Device>
+}
 
 export type Items = {
   avatars: Avatars[]

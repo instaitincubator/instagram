@@ -24,16 +24,8 @@ const logOutApi = baseApi.injectEndpoints({
           }
         },
       }),
-      terminateSessions: build.mutation({
-        query: () => {
-          return {
-            method: 'DELETE',
-            url: '/api/v1/sessions/terminate-all',
-          }
-        },
-      }),
     }
   },
 })
 
-export const { useLogOutMutation, useTerminateSessionsMutation } = logOutApi
+export const { useLogOutMutation } = logOutApi
