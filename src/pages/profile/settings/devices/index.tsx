@@ -1,22 +1,28 @@
 import React from 'react'
 
 import { getSettingsLayout } from '@/app/layouts/settingsLayout/SettingsLayout'
+import DeviceCard from '@/features/device-card/DeviceCard'
 import {
   useDeleteDeviceMutation,
   useGetDevicesQuery,
   useTerminateAllSessionsMutation,
 } from '@/services/profile/profileApi'
+import { useTranslation } from '@/shared/hooks/useTranslation'
 import Button from '@/shared/ui/Button/Button'
-import DeviceCard from '@/shared/ui/DeviceCard/DeviceCard'
 
 const Devices = () => {
-  const { data: devices } = useGetDevicesQuery()
+  const { data: devices } = useGetDevicesQuery(undefined, {
+    pollingInterval: 10000,
+    skipPollingIfUnfocused: true,
+  })
   const [deleteDevice] = useDeleteDeviceMutation()
   const [terminateAllSessions] = useTerminateAllSessionsMutation()
+  const { t } = useTranslation()
 
   if (!devices) {
     return null
   }
+
   const currentDevice = devices.current
 
   const otherDevices = devices.others.filter(device => device.deviceId !== currentDevice.deviceId)
@@ -39,7 +45,7 @@ const Devices = () => {
 
   return (
     <div className="flex flex-col w-full pr-[15px]">
-      <h3 className="text-h3 mb-[6px]">Current device</h3>
+      <h3 className="text-h3 mb-[6px]">{t.devices.current}</h3>
       <DeviceCard device={currentDevice} isOther={false} />
       <div>
         <Button
@@ -48,12 +54,12 @@ const Devices = () => {
           onClick={terminateAllSessionsHandler}
           variant="outline"
         >
-          Terminate all other session
+          {t.devices.terminate}
         </Button>
       </div>
       {!!otherDevices.length && (
         <div>
-          <h3 className="text-h3 mb-[6px]">Current device</h3>
+          <h3 className="text-h3 mb-[6px]">{t.devices.others}</h3>
           {OtherDevicesList}
         </div>
       )}

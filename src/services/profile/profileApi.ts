@@ -27,7 +27,7 @@ const profileApi = baseApi.injectEndpoints({
           }
         },
       }),
-      getDevices: build.query<Session, void>({
+      getDevices: build.query<Session, unknown>({
         providesTags: ['sessions'],
         query: () => {
           return {

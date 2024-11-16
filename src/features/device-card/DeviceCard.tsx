@@ -1,31 +1,23 @@
 import React from 'react'
 
+import { useTranslation } from '@/shared/hooks/useTranslation'
 import { Device } from '@/shared/types/ApiTypes/ProfileApiTypes'
+import { BrowserList } from '@/shared/types/public.enums'
 import Button from '@/shared/ui/Button/Button'
 import Image from 'next/image'
 
-import { LogOut } from '../../../../public'
+import { LogOut } from '../../../public'
 
 type Props = {
   deleteDeviceHandler?: (id: number) => void
   device: Device
   isOther: boolean
 }
-enum BrowserList {
-  Brave = 'brave',
-  Chrome = 'chrome',
-  Edge = 'edge',
-  Explorer = 'explorer',
-  Firefox = 'firefox',
-  Opera = 'opera',
-  Safari = 'safari',
-  Uc = 'uc',
-  Yandex = 'yandex',
-}
+
 const DeviceCard = ({ deleteDeviceHandler, device, isOther }: Props) => {
   const browserName = device.browserName
   const date = new Date(device.lastActive)
-
+  const { t } = useTranslation()
   let browserIcon = ''
 
   if (browserName in BrowserList) {
@@ -37,7 +29,7 @@ const DeviceCard = ({ deleteDeviceHandler, device, isOther }: Props) => {
   }
 
   return (
-    <div className=" bg-dark-500 text-regular-16 border rounded-sm p-6 w-[280px] border-dark-100 text-light-900 w-full min-h-[120px] flex justify-between">
+    <div className=" bg-dark-500 text-regular-16 border rounded-sm p-6 border-dark-100 text-light-900 w-full min-h-[120px] flex justify-between">
       <div className="flex  items-start gap-x-[12px]">
         <Image alt={device.browserName} height={36} src={`/${browserIcon}.svg`} width={36} />
         <div>
@@ -62,7 +54,7 @@ const DeviceCard = ({ deleteDeviceHandler, device, isOther }: Props) => {
             variant="text"
           >
             <LogOut />
-            Log Out
+            {t.auth.logOut}
           </Button>
         )}
       </div>

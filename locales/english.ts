@@ -69,6 +69,11 @@ export const english = {
     yes: 'Yes, merge',
     yesConfirm: 'Yes',
   },
+  devices: {
+    current: 'Current device',
+    others: 'Active sessions',
+    terminate: 'Terminate all other session',
+  },
   generalInformation: {
     addProfilePhoto: 'Add a Profile Photo',
     areYouSure: 'Are you sure you want to delete the photo?',
