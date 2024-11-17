@@ -6,7 +6,7 @@ import {
   useNewPasswordForm,
 } from '@/features/new-password-form/useNewPasswordForm'
 import { useNewPasswordMutation } from '@/services/auth/forgotPasswordApi'
-import { useTerminateSessionsMutation } from '@/services/auth/logOutApi'
+import { useTerminateAllSessionsMutation } from '@/services/profile/profileApi'
 import { useTranslation } from '@/shared/hooks/useTranslation'
 import Button from '@/shared/ui/Button/Button'
 import { Card } from '@/shared/ui/Card/Card'
@@ -21,7 +21,7 @@ export const NewPasswordForm = ({ code }: Props) => {
   const { control, errors, handleSubmit } = useNewPasswordForm()
   const router = useRouter()
   const [newPasswordRequest, { error, isError, isSuccess }] = useNewPasswordMutation()
-  const [TerminateSessions] = useTerminateSessionsMutation()
+  const [TerminateSessions] = useTerminateAllSessionsMutation()
   const { t } = useTranslation()
 
   const onSubmit = ({ newPassword }: NewPasswordFormType) => {
@@ -37,7 +37,7 @@ export const NewPasswordForm = ({ code }: Props) => {
       }
     } else if (isSuccess) {
       router.push('/sign-in').then()
-      TerminateSessions({})
+      TerminateSessions()
     }
   }, [isError, isSuccess, error, router, TerminateSessions])
 
