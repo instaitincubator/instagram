@@ -3,17 +3,36 @@ import {
   ProfileFollowers,
   ProfileFollowing,
   ProfileInfo,
+  Session,
 } from '@/shared/types/ApiTypes/ProfileApiTypes'
 
 const profileApi = baseApi.injectEndpoints({
   endpoints: build => {
     return {
+      deleteDevice: build.mutation<void, number>({
+        invalidatesTags: ['sessions'],
+        query: (deviceId: number) => {
+          return {
+            method: 'DELETE',
+            url: `/api/v1/sessions/${deviceId}`,
+          }
+        },
+      }),
       deleteProfileAvatar: build.mutation<void, void>({
         invalidatesTags: ['profile'],
         query: () => {
           return {
             method: 'DELETE',
             url: '/api/v1/users/profile/avatar',
+          }
+        },
+      }),
+      getDevices: build.query<Session, unknown>({
+        providesTags: ['sessions'],
+        query: () => {
+          return {
+            method: 'GET',
+            url: '/api/v1/sessions',
           }
         },
       }),
@@ -50,6 +69,15 @@ const profileApi = baseApi.injectEndpoints({
           }
         },
       }),
+      terminateAllSessions: build.mutation<void, void>({
+        invalidatesTags: ['sessions'],
+        query: () => {
+          return {
+            method: 'DELETE',
+            url: `/api/v1/sessions/terminate-all`,
+          }
+        },
+      }),
       uploadProfileAvatar: build.mutation<any, any>({
         invalidatesTags: ['profile'],
         query: formData => {
@@ -65,10 +93,13 @@ const profileApi = baseApi.injectEndpoints({
 })
 
 export const {
+  useDeleteDeviceMutation,
   useDeleteProfileAvatarMutation,
+  useGetDevicesQuery,
   useGetFollowersQuery,
   useGetFollowingQuery,
   useGetProfileInfoQuery,
   usePutSettingsMutation,
+  useTerminateAllSessionsMutation,
   useUploadProfileAvatarMutation,
 } = profileApi

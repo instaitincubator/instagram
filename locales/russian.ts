@@ -71,6 +71,11 @@ export const russian = {
     yes: 'Да, объединить',
     yesConfirm: 'Да',
   },
+  devices: {
+    current: 'Текущее устройство',
+    others: 'Активные сессии',
+    terminate: 'Завершить все сессии',
+  },
   generalInformation: {
     addProfilePhoto: 'Добавить фото профиля',
     areYouSure: 'Вы уверны что хотите удалить фото профиля?',
