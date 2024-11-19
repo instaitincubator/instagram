@@ -112,6 +112,10 @@ Your rights to your content remain unaffected. We do not claim ownership of your
     },
   },
   payment: {
+    AutoRenewal: 'Auto-Renewal',
+    CurrentSubscription: 'Current Subscription',
+    ExpireAt: 'Expire at',
+    NextPayment: 'Next payment',
     backToPayment: 'Back to Payment',
     payFailed: 'Transaction failed. Please, write to support',
     paySuccess: 'Payment was successful!',

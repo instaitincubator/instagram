@@ -1,16 +1,24 @@
 import { baseApi } from '@/services/inctagram-api'
-
-export type SubscriptionResponse = {
-  amount: number
-  baseUrl: string
-  paymentType: string
-  typeSubscription: string
-}
+import {
+  Payments,
+  SubscriptionRequest,
+  SubscriptionResponse,
+  getCurrentSubscriptionResponse,
+} from '@/shared/types/ApiTypes/SubscriptionApiTypes'
 
 const paymentsApi = baseApi.injectEndpoints({
   endpoints: build => {
     return {
-      createSubscription: build.mutation<string, SubscriptionResponse>({
+      cancelAutoRenewal: build.mutation<void, void>({
+        invalidatesTags: ['currentSub'],
+        query: () => {
+          return {
+            method: 'POST',
+            url: '/api/v1/subscriptions/canceled-auto-renewal',
+          }
+        },
+      }),
+      createSubscription: build.mutation<SubscriptionResponse, SubscriptionRequest>({
         query: body => {
           return {
             body,
@@ -19,7 +27,15 @@ const paymentsApi = baseApi.injectEndpoints({
           }
         },
       }),
-      getSubscription: build.query({
+      getCurrentSubscription: build.query<getCurrentSubscriptionResponse, void>({
+        providesTags: ['currentSub'],
+        query: () => {
+          return {
+            url: '/api/v1/subscriptions/current-payment-subscriptions',
+          }
+        },
+      }),
+      getPayments: build.query<Payments, void>({
         query: () => {
           return {
             url: '/api/v1/subscriptions/my-payments',
@@ -30,4 +46,9 @@ const paymentsApi = baseApi.injectEndpoints({
   },
 })
 
-export const { useCreateSubscriptionMutation, useGetSubscriptionQuery } = paymentsApi
+export const {
+  useCancelAutoRenewalMutation,
+  useCreateSubscriptionMutation,
+  useGetCurrentSubscriptionQuery,
+  useGetPaymentsQuery,
+} = paymentsApi
