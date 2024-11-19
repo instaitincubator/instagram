@@ -16,7 +16,7 @@ const LogOutModal = ({ confirm, email, onClose }: PropsType) => {
     <Modal onClose={onClose} title={t.auth.logOut}>
       <div>
         <h2 className={'w-[300px] text-regular-16 pt-3.5 pb-[58px] leading-6 md:w-[390px]'}>
-          {t.auth.wantLogOut} <span className="text-bold-16">"{email}"</span>?
+          {t.auth.wantLogOut} <span className="text-bold-16">{`"${email}"`}</span>?
         </h2>
         <div className="flex gap-6 mb-5 justify-center md:justify-end">
           <Button onClick={confirm} variant={'outline'}>
