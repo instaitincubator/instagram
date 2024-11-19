@@ -67,25 +67,22 @@ export const Home = () => {
   ]
 
   return (
-    <div className="w-full overflow-x-auto">
-      <Table.TableRoot>
+    <div>
+        <Table.TableRoot>
         <Table.TableHeader columns={columns} onSort={setSort} sort={sort} />
         <Table.TableBody>
-          {currentTableData.map((item, index) => (
-            <Table.TableRow>
-
-              <Table.TableCell>{item.DateOfPayment}</Table.TableCell>
-              <Table.TableCell>{item.EndDateSubscription}</Table.TableCell>
-              <Table.TableCell>{item.Price} </Table.TableCell>
-
-              <Table.TableCell>{item.SubscriptionType}</Table.TableCell>
-              <Table.TableCell>{item.PaymentType}</Table.TableCell>
-            </Table.TableRow>
-
-          ))}
-
+          <Table.TableRow>
+            <Table.TableCell>дата</Table.TableCell>
+            <Table.TableCell>конец даты</Table.TableCell>
+            <Table.TableCell>цена</Table.TableCell>
+            <Table.TableCell>чот там</Table.TableCell>
+            <Table.TableCell>тип оплаты</Table.TableCell>
+          </Table.TableRow>
         </Table.TableBody>
       </Table.TableRoot>
+
+
+
 
       <Pagination  className={s.paginationBar} currentPage={currentPage} onChange={handlePageChange} pageSize={0} totalCount={totalPages}/>
     </div>

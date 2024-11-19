@@ -2,7 +2,6 @@ import KeyboardArrowRight from '/public/chevronRightIcon.svg';
 import KeyboardArrowLeft from '/public/chevronLeftIcon.svg';
 
 
-import clsx from 'clsx'
 // import s from '@/shared/ui/pagination/pagination.css'
 import s from './pagination.module.css'
 import { usePagination } from '@/shared/hooks/usePagination';
@@ -60,50 +59,54 @@ export const Pagination = ({
   const lastPage = paginationRange[paginationRange.length - 1]
 
   return (
-    <ul className={clsx(s.paginationContainer, { [className]: className })}>
-      <li
-        className={clsx(s.paginationItem, {
-          disabled: currentPage === 1,
-        })}
-        onClick={onPrevious}
-      >
-       <KeyboardArrowLeft/>
-
-      </li>
-        
-      {paginationRange.map((pageNumber: number) => {
-        if (pageNumber.toString() === DOTS) {
-          return (
-            <li className={`${s.paginationItem} ${s.dots}`} key={pageNumber}>
-              &#8230;
-            </li>
-          )
-        }
-
+    <ul className={`flex items-center justify-center space-x-2 ${className}`}>
+    {/* Previous Button */}
+    <li
+      className={`text-gray-500 cursor-pointer ${
+        currentPage === 1 ? "opacity-50 pointer-events-none" : ""
+      }`}
+      onClick={onPrevious}
+    >
+      <KeyboardArrowLeft />
+    </li>
+  
+    {/* Pagination Items */}
+    {paginationRange.map((pageNumber, index) => {
+      if (pageNumber.toString() === DOTS) {
         return (
-          <li
-            className={clsx(`${s.paginationItem} `, {
-              selected: pageNumber === currentPage,
-            })}
-            key={pageNumber}
-            onClick={() => onChange(pageNumber)}
-          >
-            {pageNumber}
+          <li className="text-gray-500" key={index}>
+            &#8230;
           </li>
-        )
-      })}
-
-      <li
-        className={clsx(s.paginationItem, {
-          disabled: currentPage === lastPage,
-        })}
-        onClick={onNext}
-      >
-       <KeyboardArrowRight/>
-
-      </li>
-      
-    </ul>
+        );
+      }
+  
+      return (
+        <li
+          className={`cursor-pointer ${
+            pageNumber === currentPage
+              ? "text-blue-500 font-bold"
+              : "text-gray-500 hover:text-gray-700"
+          }`}
+          key={index}
+          onClick={() => onChange(pageNumber)}
+        >
+          {pageNumber}
+        </li>
+      );
+    })}
+  
+    {/* Next Button */}
+    <li
+      className={`text-gray-500 cursor-pointer ${
+        currentPage === lastPage ? "opacity-50 pointer-events-none" : ""
+      }`}
+      onClick={onNext}
+    >
+      <KeyboardArrowRight />
+    </li>
+  </ul>
+  
+  
   )
 }
 
