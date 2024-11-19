@@ -84,7 +84,14 @@ export const Home = () => {
 
 
 
-      <Pagination  className={s.paginationBar} currentPage={currentPage} onChange={handlePageChange} pageSize={0} totalCount={totalPages}/>
+      <Pagination
+  className="relative top-10 right-10 flex"
+  currentPage={currentPage}
+  onChange={handlePageChange}
+  pageSize={0}
+  totalCount={totalPages}
+/>
+
     </div>
   )
 }

@@ -3,7 +3,6 @@ import KeyboardArrowLeft from '/public/chevronLeftIcon.svg';
 
 
 // import s from '@/shared/ui/pagination/pagination.css'
-import s from './pagination.module.css'
 import { usePagination } from '@/shared/hooks/usePagination';
 
 type PaginationConditionals =
