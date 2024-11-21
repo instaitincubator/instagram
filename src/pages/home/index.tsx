@@ -3,7 +3,6 @@ import { getLayoutWithSidebar } from '@/app/layouts/layoutWithSidebar/LayoutWith
 import { Table } from '@/shared/ui/Table/TableRoot'
 import { Column, Sort } from '@/shared/ui/Table/types'
 import React, {  useState } from 'react'
-// import { Pagination } from '@/shared/ui/pagination'
 
 
 
