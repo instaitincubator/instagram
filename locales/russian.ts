@@ -115,6 +115,10 @@ export const russian = {
     },
   },
   payment: {
+    AutoRenewal: 'автоматическое продление',
+    CurrentSubscription: 'Текущая подписка',
+    ExpireAt: 'Истекает',
+    NextPayment: 'Следующая оплата',
     backToPayment: 'Вернуться к оплате',
     payFailed: 'Транзакция завершилась неудачей. Пожалуйста, напишите в службу поддержки',
     paySuccess: 'Оплата прошла успешно!',
