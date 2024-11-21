@@ -182,7 +182,7 @@ export const SignUpForm = () => {
           {t.auth.doYouHaveAnAccount}
         </p>
         <Link href="/sign-in">
-          <Button as="span" fullWidth variant="text">
+          <Button fullWidth variant="text">
             {t.auth.signIn}
           </Button>
         </Link>
