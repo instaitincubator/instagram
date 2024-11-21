@@ -60,7 +60,7 @@ export const SignUpForm = () => {
       email: data.email,
       password: data.password.trim(),
       userName: data.userName,
-    })
+    }).then(() => setModal(true))
   }
 
   return (
@@ -182,14 +182,14 @@ export const SignUpForm = () => {
           {t.auth.doYouHaveAnAccount}
         </p>
         <Link href="/sign-in">
-          <Button as="a" fullWidth type="button" variant="text">
+          <Button fullWidth variant="text">
             {t.auth.signIn}
           </Button>
         </Link>
       </Card>
       {isSuccess && modal && (
         <Modal className="w-[378px] m-auto" onClose={onCloseModal} title="Email sent">
-          <span>{`We have sent a link to confirm your email to ` + ` ` + getValues().email}</span>
+          <span>{`${t.auth.confirmEmail} ` + ` ` + getValues().email}</span>
           <Button onClick={onCloseModal} type="button">
             OK
           </Button>
