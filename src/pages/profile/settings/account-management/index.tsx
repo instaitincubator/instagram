@@ -24,11 +24,11 @@ const AccountManagement = () => {
 
   const handleSubChoice = (value: string) => {
     switch (value) {
-      case 'MONTHLY':
+      case SubscriptionType.MONTHLY:
         setSubPrice(SubscriptionAmount.AMOUNT_10000)
         setSubType(SubscriptionType.MONTHLY)
         break
-      case 'WEEKLY':
+      case SubscriptionType.WEEKLY:
         setSubPrice(SubscriptionAmount.AMOUNT_5000)
         setSubType(SubscriptionType.WEEKLY)
         break
@@ -91,9 +91,15 @@ const AccountManagement = () => {
                 defaultValue="DAY"
                 onValueChange={handleSubChoice}
               >
-                <RadioGroupItem value="DAY">10$ {t.pages.profile.perDay}</RadioGroupItem>
-                <RadioGroupItem value="WEEKLY ">50$ {t.pages.profile.perWeek}</RadioGroupItem>
-                <RadioGroupItem value="MONTHLY">100$ {t.pages.profile.perMonth}</RadioGroupItem>
+                <RadioGroupItem value={SubscriptionType.DAY}>
+                  10$ {t.pages.profile.perDay}
+                </RadioGroupItem>
+                <RadioGroupItem value={SubscriptionType.WEEKLY}>
+                  50$ {t.pages.profile.perWeek}
+                </RadioGroupItem>
+                <RadioGroupItem value={SubscriptionType.MONTHLY}>
+                  100$ {t.pages.profile.perMonth}
+                </RadioGroupItem>
               </RadioGroup>
             </Card>
           </div>
