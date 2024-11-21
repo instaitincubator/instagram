@@ -1,83 +1,58 @@
-import { useMemo } from 'react'
+// hooks/usePagination.ts
+import { useMemo } from 'react';
 
-// import { DOTS } from '@/shared/const'
+export const DOTS = '...';
 
-const range = (start: number, end: number) => {
-  const length = end - start + 1
-
-  return Array.from({ length }, (_, idx) => idx + start)
-}
-
-type Props = {
-  currentPage: number
-  pageSize: number
-  siblings?: number
-  totalCount: number
-}
-
-type PaginationRange = number[]
-const DOTS = '...'
+type UsePaginationProps = {
+  currentPage: number;
+  totalCount: number;
+  pageSize: number;
+  siblings?: number;
+};
 
 export const usePagination = ({
   currentPage,
-  pageSize = 12,
-  siblings = 1,
-  //oject ira proerty-enrov voronq parametrer en
   totalCount,
-}: Props) => {
-  const paginationRange = useMemo(() => {
-    const totalPageCount = Math.ceil(totalCount / pageSize)
-    const totalPageNumbers = siblings + 5
+  pageSize,
+  siblings = 1,
+}: UsePaginationProps) => {
+  return useMemo(() => {
+    const totalPageCount = Math.ceil(totalCount / pageSize);
+    const totalPageNumbers = siblings + 5;
 
     if (totalPageNumbers >= totalPageCount) {
-      return range(1, totalPageCount)
-    }
-    //12...212
-    const leftSiblingIndex = Math.max(currentPage - siblings, 1)
-    const rightSiblingIndex = Math.min(currentPage + siblings, totalPageCount)
-
-    const shouldShowLeftDots = leftSiblingIndex > 2
-    const shouldShowRightDots = rightSiblingIndex < totalPageCount - 2
-
-    const firstPageIndex = 1
-    const lastPageIndex = totalPageCount
-
-    /*
-                        Case 2: No left dots to show, but rights dots to be shown
-                    */
-    if (!shouldShowLeftDots && shouldShowRightDots) {
-      const leftItemCount = 3 + 2 * siblings
-      //leftItemCount -5 hata
-      const leftRange = range(1, leftItemCount)
-
-      //1-ic minchev verchin tivy caxic
-      //vor value-ery lcven copy exac nor array-um amenagam vor sxmes
-      return [...leftRange, DOTS, totalPageCount]
-      //veradarcnuma zangvac  yndhanur  total page - count-i cax range dots-ov
+      return Array.from({ length: totalPageCount }, (_, i) => i + 1);
     }
 
-    /*
-                        Case 3: No right dots to show, but left dots to be shown
-                    */
-    if (shouldShowLeftDots && !shouldShowRightDots) {
-      const rightItemCount = 3 + 2 * siblings
-      // yndhanur
-      const rightRange = range(totalPageCount - rightItemCount + 1, totalPageCount)
+    const leftSiblingIndex = Math.max(currentPage - siblings, 1);
+    const rightSiblingIndex = Math.min(currentPage + siblings, totalPageCount);
 
-      return [firstPageIndex, DOTS, ...rightRange]
+    const showLeftDots = leftSiblingIndex > 2;
+    const showRightDots = rightSiblingIndex < totalPageCount - 2;
+
+    const firstPageIndex = 1;
+    const lastPageIndex = totalPageCount;
+
+    const paginationRange = [];
+
+    if (!showLeftDots && showRightDots) {
+      for (let i = 1; i < 3 + 2 * siblings; i++) {
+        paginationRange.push(i);
+      }
+      paginationRange.push(DOTS, lastPageIndex);
+    } else if (showLeftDots && !showRightDots) {
+      paginationRange.push(firstPageIndex, DOTS);
+      for (let i = totalPageCount - (3 + 2 * siblings) + 1; i <= totalPageCount; i++) {
+        paginationRange.push(i);
+      }
+    } else {
+      paginationRange.push(firstPageIndex, DOTS);
+      for (let i = leftSiblingIndex; i <= rightSiblingIndex; i++) {
+        paginationRange.push(i);
+      }
+      paginationRange.push(DOTS, lastPageIndex);
     }
 
-    /*
-                        Case 4: Both left and right dots to be shown
-                    */
-    if (shouldShowLeftDots && shouldShowRightDots) {
-      const middleRange = range(leftSiblingIndex, rightSiblingIndex)
-
-      return [firstPageIndex, DOTS, ...middleRange, DOTS, lastPageIndex]
-    }
-    //depensice
-    // return [1, 2, 3] as PaginationRange
-  }, [siblings, pageSize, totalCount, currentPage]) as PaginationRange
-
-  return paginationRange
-}
+    return paginationRange;
+  }, [currentPage, totalCount, pageSize, siblings]);
+};
