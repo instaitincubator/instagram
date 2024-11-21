@@ -5,6 +5,7 @@ export const english = {
     backToSignIn: 'Back to Sign In',
     backToSignUp: 'Back to Sign Up',
     confPassword: 'confPassword',
+    confirmEmail: 'We have sent a link to confirm your email to',
     confirmMessage: 'Your email has been confirmed',
     congratulations: 'Congratulations!',
     couldWeMerge: 'Could we merge this accounts ?',
