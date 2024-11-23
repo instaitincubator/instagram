@@ -10,6 +10,7 @@ export const signInApi = baseApi.injectEndpoints({
         async onQueryStarted(_, { queryFulfilled }) {
           const { data } = await queryFulfilled
 
+          document.cookie = 'isLoggedIn=true'
           setToken(data.accessToken)
         },
         query: body => {

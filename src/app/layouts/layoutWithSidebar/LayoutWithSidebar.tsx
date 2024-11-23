@@ -29,5 +29,5 @@ export const LayoutWithSidebar: NextPage<PropsWithChildren> = props => {
 const WrappedLayoutWithSidebar = withAuth(LayoutWithSidebar)
 
 export const getLayoutWithSidebar = (page: ReactElement) => {
-  return <WrappedLayoutWithSidebar>{page}</WrappedLayoutWithSidebar>
+  return <LayoutWithSidebar>{page}</LayoutWithSidebar>
 }

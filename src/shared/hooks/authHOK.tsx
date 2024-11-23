@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 
 const withAuth = <P extends object>(WrappedComponent: ComponentType<P>): ComponentType<P> => {
   return (props: P): ReactElement | null => {
-    const { isError, isFetching, isLoading } = useMeQuery()
+    const { isError, isFetching, isLoading, isUninitialized } = useMeQuery()
     const router = useRouter()
 
     useEffect(() => {

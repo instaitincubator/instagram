@@ -10,6 +10,7 @@ const logOutApi = baseApi.injectEndpoints({
           try {
             await queryFulfilled
             deleteToken()
+            document.cookie = 'isLoggedIn=false'
             dispatch(signInApi.util.invalidateTags(['Me']))
             dispatch(signInApi.util.resetApiState())
           } catch {
