@@ -30,7 +30,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-  ],
+, "src/shared/ui/pagination/useGlobalPagination.jsx"  ],
   "exclude": [
     "node_modules"
   ]
