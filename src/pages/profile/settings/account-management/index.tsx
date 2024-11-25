@@ -40,7 +40,7 @@ const AccountManagement = () => {
 
   return (
     <div>
-      {currentSub && (
+      {!!currentSub?.data.length && (
         <div className="pb-[42px]">
           <span className="text-h3">{t.payment.CurrentSubscription}</span>
           <Card className="py-[14px] px-[20px] mt-[5px]">
