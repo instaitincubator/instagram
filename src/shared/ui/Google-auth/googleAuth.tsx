@@ -10,8 +10,9 @@ export const GoogleButton = () => {
     const REDIRECT_URI = process.env.NEXT_PUBLIC_DOMAIN
     const SCOPE = 'email profile'
     const RESPONSE_TYPE = 'code'
+    const PROMPT = 'select_account'
 
-    const URL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}`
+    const URL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}&prompt=${PROMPT}`
 
     window.location.assign(URL)
   }
