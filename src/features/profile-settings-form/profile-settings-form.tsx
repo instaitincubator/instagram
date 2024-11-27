@@ -34,7 +34,7 @@ export const ProfileSettingsForm = ({ myProfileInfo }: any) => {
 
   const [cities, setCities] = useState<{ label: string; value: string }[]>([])
   const [modalVisible, setModalVisible] = useState(false)
-  const [modalMessage, setModalMessage] = useState('')
+  const [modalMessage, setModalMessage] = useState<string>('')
 
   const watchCountry = watch('country')
   const watchCity = watch('city')
