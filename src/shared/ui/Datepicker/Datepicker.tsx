@@ -8,7 +8,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 
 export type DatepickerProps = {
   disabled?: boolean
-  error?: boolean
+  error?: string
   fullWidth?: boolean
   label?: string
 } & ComponentPropsWithoutRef<typeof DatePicker>
@@ -37,6 +37,7 @@ export const Datepicker = ({
         showIcon
         {...restProps}
       />
+      {error && <span className="text-regular-14 text-danger-500">{error}</span>}
     </div>
   )
 }
