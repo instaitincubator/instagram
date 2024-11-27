@@ -27,7 +27,7 @@ export function useGlobalPagination<T>({ data, pageSize }: UsePaginationProps<T>
     }
   };
 
-  return {
+  return { 
     currentPage,
     totalPages,
     currentData,

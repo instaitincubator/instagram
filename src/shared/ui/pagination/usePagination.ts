@@ -1,12 +1,25 @@
 import { useMemo } from 'react'
 
+//1. { length },  is element for  current element bring provessed  in the arrayu
 
 
 const range = (start: number, end: number) => {
   const length = end - start + 1
+  //skzbic minchev verch  i guimarin ara plus 1 vor arag gna et -i mer length - a data-i
 
   return Array.from({ length }, (_, idx) => idx + start)
 }
+
+
+
+console.log(range(1,14),'plaioi');
+
+//veradarcnum enq nor array
+
+
+
+
+
 
 type Props = {
   currentPage: number
@@ -45,7 +58,6 @@ export const usePagination = ({
   
     if (!shouldShowLeftDots && shouldShowRightDots) {
       const leftItemCount = 3 + 2 * siblings
-      //leftItemCount -5 hata
       const leftRange = range(1, leftItemCount)
 
       return [...leftRange, DOTS, totalPageCount]
