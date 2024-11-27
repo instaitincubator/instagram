@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Controller } from 'react-hook-form'
+  import React, { useState } from 'react'
+  import { Controller } from 'react-hook-form'
 
 import { SignUpFormType, useSignUpForm } from '@/features/sign-up-form/useSignUpForm'
 import { useSignUpMutation } from '@/services/auth/signUpApi'
@@ -63,10 +63,10 @@ export const SignUpForm = () => {
     }).then(() => setModal(true))
   }
 
-  return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <Card className="w-[378px] mx-auto my-auto p-[24px]">
-        <h1 className="text-light-100 text-h1 text-center mb-[13px]">{t.auth.signUp}</h1>
+    return (
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Card className="w-[378px] mx-auto my-auto p-[24px]">
+          <h1 className="text-light-100 text-h1 text-center mb-[13px]">{t.auth.signUp}</h1>
 
         <div className="flex justify-evenly mb-[24px]">
           <GoogleButton />
