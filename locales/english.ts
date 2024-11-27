@@ -149,7 +149,7 @@ Your rights to your content remain unaffected. We do not claim ownership of your
     or: 'or',
     saveChanges: 'Save Changes',
     success: 'Success',
-    userName: 'UserName',
+    userName: 'Username',
 
     userNameSymbols: 'Only letters, numbers, _ and - are allowed',
   },
