@@ -16,7 +16,6 @@ export default function Home() {
   const { data, error, isLoading } = useGetTotalUsersCountQuery()
   const { data: posts, error: errorPost, isLoading: isLoadingPost } = useGetAllPublicPostsQuery({})
 
-  console.log(isSuccess, me)
   useEffect(() => {
     if (code !== undefined && code !== '') {
       googleSignIn({ code: code })
