@@ -1,31 +1,19 @@
-import { PropsWithChildren, ReactElement, useEffect } from 'react'
+import { PropsWithChildren, ReactElement } from 'react'
 
 import { Layout } from '@/app/layouts/mainLayout/Layout'
 import { MobileSideBar } from '@/features/SideBar/MobileSidebar'
 import { SideBar } from '@/features/SideBar/SideBar'
 import { NextPage } from 'next'
 import { useMeQuery } from '@/services/auth/signInApi'
-import { useRouter } from 'next/router'
 
 export const PublicLayoutWithSidebar: NextPage<PropsWithChildren> = props => {
 	const { children } = props
-	const { isError, isFetching, isLoading, isSuccess } = useMeQuery()
-	// const router = useRouter()
+	const { isFetching, isLoading, isSuccess } = useMeQuery()
 
-	//   useEffect(() => {
-	// 	 if (!isError) {
-	// 		return
-	// 	 }
-	// 	 void router.push('/sign-in')
-	//   }, [isError])
+	if (isLoading || isFetching) {
+		return <div>Loading</div>
+	}
 
-	//   if (isLoading || isFetching) {
-	// 	 return <div>Loading</div>
-	//   }
-
-	//   if (isError) {
-	// 	 return null
-	//   }
 	return (
 		<Layout>
 			<div className="sm:flex sm:flex-1 w-full h-headerHeight overflow-y-auto">

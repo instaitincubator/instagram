@@ -1,4 +1,3 @@
-import { getLayoutWithSidebar } from '@/app/layouts/layoutWithSidebar/LayoutWithSidebar'
 import { useGetPostsQuery } from '@/services/profile/postsApi'
 import {
 	useGetFollowersQuery,

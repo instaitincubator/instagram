@@ -13,8 +13,7 @@ import { useState } from 'react'
 
 const Profile = () => {
 	const { data: me } = useMeQuery()
-	const [profileInfo, setProfileInfo] = useState<ProfileInfo | undefined>()
-	const { data: profile } = useGetProfileInfoQuery()
+	const { data: profileInfo } = useGetProfileInfoQuery()
 
 	const params: GetProfilePostsParams = {
 		userName: me?.userName!,
