@@ -10,10 +10,6 @@ export const PublicLayoutWithSidebar: NextPage<PropsWithChildren> = props => {
 	const { children } = props
 	const { isFetching, isLoading, isSuccess } = useMeQuery()
 
-	if (isLoading || isFetching) {
-		return <div>Loading</div>
-	}
-
 	return (
 		<Layout>
 			<div className="sm:flex sm:flex-1 w-full h-headerHeight overflow-y-auto">
