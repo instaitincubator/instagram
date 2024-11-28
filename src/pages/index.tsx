@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useLayoutEffect } from 'react'
 
 import { getLayout } from '@/app/layouts/mainLayout/Layout'
 import CountRegisteredUsers from '@/entities/CountRegisteredUsers/CountRegisteredUsers'
@@ -17,13 +17,13 @@ export default function Home() {
   const { data: posts, error: errorPost, isLoading: isLoadingPost } = useGetAllPublicPostsQuery({})
 
   useEffect(() => {
-    if (code !== undefined && code !== '') {
+    if (code) {
       googleSignIn({ code: code })
     }
   }, [router, googleSignIn, code, me])
 
-  useEffect(() => {
-    if (isSuccess || me) {
+  useLayoutEffect(() => {
+    if (isSuccess && me) {
       const userId = me?.userId
 
       router.push(`/profile/${userId}`)
@@ -39,7 +39,7 @@ export default function Home() {
 
   return (
     <div className="py-6 w-full max-w-[972px] mx-auto">
-      {!me?.userId && (
+      {!me && (
         <>
           <CountRegisteredUsers count={data?.totalCount} />
           <PublicPosts posts={posts?.items} />
