@@ -6,7 +6,7 @@ export const russian = {
     backToSignUp: 'Назад к регистрации',
     confPassword: 'Код подтверждения',
     confirmEmail: 'Мы отправили ссылку для подтверждения вашей электронной почты по адресу',
-    confirmMessage: 'Ваша почта было подтверждено',
+    confirmMessage: 'Ваша почта было подтверждена',
     congratulations: 'Поздравляем!',
     couldWeMerge: 'Можем ли мы объединить эти аккаунты?',
     createNewPassword: 'Создать новый пароль',
@@ -16,6 +16,7 @@ export const russian = {
     email_val: 'Почта должна соответсвовать формату example@example.com',
     emailConfirmation: 'Мы отправили ссылку для подтверждения электронной почты на',
     emailPlaceholder: 'Epam@epam.com',
+    emailSent: 'Письмо отправлено',
     errors: {
       emailRequired: 'Требуется электронная почта',
       highLength20: 'Максимальное количество символов 20',

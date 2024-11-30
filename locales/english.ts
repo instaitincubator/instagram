@@ -16,6 +16,7 @@ export const english = {
     email_val: 'The email must match the format example@example.com',
     emailConfirmation: 'We have sent a link to confirm your email to',
     emailPlaceholder: 'Epam@epam.com',
+    emailSent: 'Email sent',
     errors: {
       emailRequired: 'Email is required',
 

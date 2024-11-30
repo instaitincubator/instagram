@@ -188,7 +188,7 @@ export const SignUpForm = () => {
         </Link>
       </Card>
       {isSuccess && modal && (
-        <Modal className="w-[378px] m-auto" onClose={onCloseModal} title="Email sent">
+        <Modal className="w-[378px] m-auto" onClose={onCloseModal} title={t.auth.emailSent}>
           <span>{`${t.auth.confirmEmail} ` + ` ` + getValues().email}</span>
           <Button onClick={onCloseModal} type="button">
             OK
