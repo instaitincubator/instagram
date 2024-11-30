@@ -18,6 +18,12 @@ export const Header = ({ className, isLoading, ...rest }: HeaderProps) => {
   const { data: me } = useMeQuery()
   const { t } = useTranslation()
 
+  const homePageRedirect = () => {
+    const path = me?.userId ? '/home' : '/'
+
+    router.push(path)
+  }
+
   return (
     <header
       {...rest}
@@ -26,10 +32,7 @@ export const Header = ({ className, isLoading, ...rest }: HeaderProps) => {
         className
       )}
     >
-      <span
-        className="pl-0 md:pl-[5%] cursor-pointer"
-        onClick={() => router.push(`/profile/${me?.userId}`)}
-      >
+      <span className="pl-0 md:pl-[5%] cursor-pointer" onClick={homePageRedirect}>
         Instagram
       </span>
       <div className="flex items-center gap-4">
