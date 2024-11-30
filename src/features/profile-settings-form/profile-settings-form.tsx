@@ -28,7 +28,7 @@ export const ProfileSettingsForm = ({ myProfileInfo }: any) => {
   const { control, errors, getFieldState, handleSubmit, setValue, watch } =
     useProfileSettingsForm(myProfileInfo)
 
-  const [setSettingsData] = usePutSettingsMutation()
+  const [setSettingsData, { isSuccess }] = usePutSettingsMutation()
 
   const countries = Country.getAllCountries()
 
@@ -79,10 +79,10 @@ export const ProfileSettingsForm = ({ myProfileInfo }: any) => {
 
     try {
       await setSettingsData(transformedData).unwrap()
-      setModalMessage('Данные успешно изменены.')
+      setModalMessage(t.profileSettings.confirmChanges)
       setModalVisible(true)
     } catch (error) {
-      setModalMessage('Не удалось сохранить данные.')
+      setModalMessage(t.profileSettings.denyChanges)
       setModalVisible(true)
     }
   }
@@ -122,6 +122,7 @@ export const ProfileSettingsForm = ({ myProfileInfo }: any) => {
         <ControlledDatepicker
           control={control}
           dateFormat={'d/MM/yyyy'}
+          error={errors.dateOfBirth?.message}
           fullWidth
           label={t.profileSettings.dateOfBirth}
           name="dateOfBirth"
@@ -156,7 +157,7 @@ export const ProfileSettingsForm = ({ myProfileInfo }: any) => {
           onClose={() => {
             setModalVisible(false)
           }}
-          title="Success"
+          title={isSuccess ? t.profileSettings.success : t.profileSettings.error}
         >
           <div className="flex flex-col justify-center items-center min-w-[300px] min-h-[150px]">
             <div className="flex-grow flex items-center justify-center">
