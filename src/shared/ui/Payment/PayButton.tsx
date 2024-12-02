@@ -14,7 +14,7 @@ interface Props {
 }
 
 export const PayButton = ({ paymentType, subAmount, subType }: Props) => {
-  const [amount, setAmount] = useState<number>(SubscriptionAmount.AMOUNT_1000)
+  const [amount, setAmount] = useState<SubscriptionAmount>(SubscriptionAmount.AMOUNT_1000)
   const [createSub] = useCreateSubscriptionMutation()
   const router = useRouter()
 

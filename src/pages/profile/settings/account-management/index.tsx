@@ -23,36 +23,35 @@ const AccountManagement = () => {
   const [cancelRenewal, { isLoading }] = useCancelAutoRenewalMutation()
 
   const handleSubChoice = (value: string) => {
-    switch (value) {
-      case 'MONTHLY':
-        setSubPrice(SubscriptionAmount.AMOUNT_10000)
-        setSubType(SubscriptionType.MONTHLY)
-        break
-      case 'WEEKLY':
-        setSubPrice(SubscriptionAmount.AMOUNT_5000)
-        setSubType(SubscriptionType.WEEKLY)
-        break
-      default:
-        setSubPrice(SubscriptionAmount.AMOUNT_1000)
-        setSubType(SubscriptionType.DAY)
+    if (value === SubscriptionType.MONTHLY) {
+      setSubPrice(SubscriptionAmount.AMOUNT_10000)
+      setSubType(SubscriptionType.MONTHLY)
+    } else if (value === SubscriptionType.WEEKLY) {
+      setSubPrice(SubscriptionAmount.AMOUNT_5000)
+      setSubType(SubscriptionType.WEEKLY)
+    } else if (value === SubscriptionType.DAY) {
+      setSubPrice(SubscriptionAmount.AMOUNT_1000)
+      setSubType(SubscriptionType.DAY)
     }
   }
 
   return (
     <div>
-      {currentSub && (
+      {currentSub?.data.length != 0 && (
         <div className="pb-[42px]">
           <span className="text-h3">{t.payment.CurrentSubscription}</span>
           <Card className="py-[14px] px-[20px] mt-[5px]">
             <div className="flex gap-12">
               <div className="flex flex-col gap-3">
                 <span className="opacity-50 text-regular-14">{t.payment.ExpireAt}</span>
-                <span>{formatDate(currentSub.data[currentSub.data.length - 1].dateOfPayment)}</span>
+                <span>
+                  {formatDate(currentSub?.data[currentSub.data.length - 1]?.dateOfPayment!)}
+                </span>
               </div>
               <div className="flex flex-col gap-3 text-regular-14">
                 <span className="opacity-50">{t.payment.NextPayment}</span>
                 <span>
-                  {formatDate(currentSub.data[currentSub.data.length - 1].endDateOfSubscription)}
+                  {formatDate(currentSub?.data[currentSub.data.length - 1]?.endDateOfSubscription!)}
                 </span>
               </div>
             </div>
@@ -60,9 +59,9 @@ const AccountManagement = () => {
           <div className="flex mt-[15px]">
             <Checkbox
               className="ml-[15px] mb-[3px]"
-              disabled={!currentSub.hasAutoRenewal || isLoading}
+              disabled={!currentSub?.hasAutoRenewal || isLoading}
               onChange={() => cancelRenewal()}
-              value={currentSub.hasAutoRenewal}
+              value={currentSub?.hasAutoRenewal}
             />
             <span className="pl-5 text-regular-14">{t.payment.AutoRenewal}</span>
           </div>
@@ -91,9 +90,15 @@ const AccountManagement = () => {
                 defaultValue="DAY"
                 onValueChange={handleSubChoice}
               >
-                <RadioGroupItem value="DAY">10$ {t.pages.profile.perDay}</RadioGroupItem>
-                <RadioGroupItem value="WEEKLY ">50$ {t.pages.profile.perWeek}</RadioGroupItem>
-                <RadioGroupItem value="MONTHLY">100$ {t.pages.profile.perMonth}</RadioGroupItem>
+                <RadioGroupItem value={SubscriptionType.DAY}>
+                  10$ {t.pages.profile.perDay}
+                </RadioGroupItem>
+                <RadioGroupItem value={SubscriptionType.WEEKLY}>
+                  50$ {t.pages.profile.perWeek}
+                </RadioGroupItem>
+                <RadioGroupItem value={SubscriptionType.MONTHLY}>
+                  100$ {t.pages.profile.perMonth}
+                </RadioGroupItem>
               </RadioGroup>
             </Card>
           </div>
