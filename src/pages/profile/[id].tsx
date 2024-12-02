@@ -1,8 +1,10 @@
 import { useState } from 'react'
 
 import { getLayoutWithSidebar } from '@/app/layouts/layoutWithSidebar/LayoutWithSidebar'
+import { wrapper } from '@/app/store'
 import { UserInfo } from '@/features/UserInfo/UserInfo'
 import { useMeQuery } from '@/services/auth/signInApi'
+import { baseApi } from '@/services/inctagram-api'
 import { useGetPostsQuery } from '@/services/profile/postsApi'
 import {
   useGetFollowersQuery,
