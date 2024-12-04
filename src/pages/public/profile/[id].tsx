@@ -1,22 +1,24 @@
-import { useEffect, useState } from 'react'
+import { FC, useEffect, useLayoutEffect, useMemo, useState } from "react";
 
 import { getPublicLayoutWithSidebar } from '@/app/layouts/PublicLayoutWithSidebar/PublicLayoutWithSidebar'
 import { UserInfo } from '@/features/UserInfo/UserInfo'
-import { useLazyGetPublicUserQuery } from '@/features/public/api/publicProfileCounts'
+import { useGetPublicUserQuery, useLazyGetPublicUserQuery } from "@/features/public/api/publicProfileCounts";
+import profile from "@/pages/profile";
 import { useGetPostsQuery } from '@/services/profile/postsApi'
 import {
 	useGetFollowersQuery,
 	useGetFollowingQuery,
 } from '@/services/profile/profileApi'
 import { useTranslation } from '@/shared/hooks/useTranslation'
-import { GetProfilePostsParams, ProfileInfo } from '@/shared/types/ApiTypes/ProfileApiTypes'
+import { GetProfilePostsParams, ProfileInfo, ProfileInfoPublic } from "@/shared/types/ApiTypes/ProfileApiTypes";
 import { useRouter } from 'next/router'
 
 const Profile = () => {
 	const router = useRouter()
-	const [profileInfo, setProfileInfo] = useState<ProfileInfo | undefined>()
+	const [profileInfo, setProfileInfo] = useState<ProfileInfoPublic | undefined>()
 
 	const [getProfileInfo] = useLazyGetPublicUserQuery()
+
 
 	useEffect(() => {
 		if (router.query.id) {
@@ -26,8 +28,11 @@ const Profile = () => {
 	const params: GetProfilePostsParams = {
 		userName: profileInfo?.userName!,
 	}
+
+	console.log(profileInfo);
 	const { t } = useTranslation()
 	const { data: posts } = useGetPostsQuery(params)
+
 	const { data: followers } = useGetFollowersQuery(profileInfo?.userName!)
 	const { data: following } = useGetFollowingQuery(profileInfo?.userName!)
 

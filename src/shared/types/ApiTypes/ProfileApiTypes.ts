@@ -5,6 +5,27 @@ export type Avatars = {
   url: string
   width: number
 }
+export interface ProfileInfoPublic {
+  aboutMe: string
+  avatars: Avatar[]
+  id: number
+  userMetadata: UserMetadata
+  userName: string
+}
+
+export interface Avatar {
+  createdAt: string
+  fileSize: number
+  height: number
+  url: string
+  width: number
+}
+
+export interface UserMetadata {
+  followers: number
+  following: number
+  publications: number
+}
 
 export interface ProfileInfo {
   aboutMe: string
