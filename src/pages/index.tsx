@@ -3,18 +3,42 @@ import React, { useEffect, useLayoutEffect } from 'react'
 import { getLayout } from '@/app/layouts/mainLayout/Layout'
 import CountRegisteredUsers from '@/entities/CountRegisteredUsers/CountRegisteredUsers'
 import PublicPosts from '@/features/public/PublicPosts'
-import { useGetAllPublicPostsQuery } from '@/features/public/api/allPublicPost'
-import { useGetTotalUsersCountQuery } from '@/features/public/api/publicProfileCounts'
+import {
+  GetTotalUsersResponse,
+  useGetTotalUsersCountQuery,
+} from '@/features/public/api/publicProfileCounts'
 import { useGoogleSignInMutation, useMeQuery } from '@/services/auth/signInApi'
+import { AllPublicPosts } from '@/shared/types/public.types'
 import { useRouter } from 'next/router'
 
-export default function Home() {
+export async function getStaticProps() {
+  const totalUsers = await fetch('https://inctagram.work/api/v1/public-user')
+  const totalUsersData = await totalUsers.json()
+  const posts = await fetch(
+    'https://inctagram.work/api/v1/public-posts/all?pageSize=4&sortDirection=desc'
+  )
+  const postsData = await posts.json()
+
+  return {
+    props: {
+      postsData,
+      totalUsersData,
+    },
+    revalidate: 60,
+  }
+}
+
+type Props = {
+  postsData: AllPublicPosts
+  totalUsersData: GetTotalUsersResponse
+}
+export default function Home(props: Props) {
+  const { postsData, totalUsersData } = props
+
   const router = useRouter()
   const { code } = router.query
   const [googleSignIn, { isLoading: isSignInLoading, isSuccess }] = useGoogleSignInMutation()
   const { data: me, isLoading: isMeLoading } = useMeQuery()
-  const { data, error, isLoading } = useGetTotalUsersCountQuery()
-  const { data: posts, error: errorPost, isLoading: isLoadingPost } = useGetAllPublicPostsQuery({})
 
   useEffect(() => {
     if (code) {
@@ -30,19 +54,16 @@ export default function Home() {
     }
   }, [isSuccess, me, router])
 
-  if (isLoading || isLoadingPost || isSignInLoading || isMeLoading) {
+  if (isSignInLoading || isMeLoading) {
     return <div>Loading...</div>
-  }
-  if (error || errorPost) {
-    return <div>Error...</div>
   }
 
   return (
     <div className="py-6 w-full max-w-[972px] mx-auto">
       {!me && (
         <>
-          <CountRegisteredUsers count={data?.totalCount} />
-          <PublicPosts posts={posts?.items} />
+          <CountRegisteredUsers count={totalUsersData?.totalCount} />
+          <PublicPosts posts={postsData?.items} />
         </>
       )}
     </div>
