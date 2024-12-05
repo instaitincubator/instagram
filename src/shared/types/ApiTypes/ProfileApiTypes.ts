@@ -7,18 +7,10 @@ export type Avatars = {
 }
 export interface ProfileInfoPublic {
   aboutMe: string
-  avatars: Avatar[]
+  avatars: Avatars[]
   id: number
   userMetadata: UserMetadata
   userName: string
-}
-
-export interface Avatar {
-  createdAt: string
-  fileSize: number
-  height: number
-  url: string
-  width: number
 }
 
 export interface UserMetadata {

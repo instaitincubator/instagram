@@ -1,4 +1,5 @@
 import type {
+  Avatars,
   ProfileFollowers,
   ProfileFollowing,
   ProfileInfo,
@@ -11,15 +12,31 @@ import { useTranslation } from '@/shared/hooks/useTranslation'
 import Button from '@/shared/ui/Button/Button'
 import Link from 'next/link'
 
-type Props = {
-  followers?: ProfileFollowers
-  following?: ProfileFollowing
-  isProfileOwner: boolean
-  posts?: ProfilePosts
-  profile?: ProfileInfo
+export type ProfileInfoProps = {
+  aboutMe: string
+  avatars: Avatars[]
+  userName: string
 }
 
-export const UserInfo = ({ followers, following, isProfileOwner, posts, profile }: Props) => {
+type Props = {
+  followers?: ProfileFollowers
+  followersForPublic?: number
+  following?: ProfileFollowing
+  followingForPublic?: number
+  isProfileOwner: boolean
+  posts?: ProfilePosts
+  profile?: Partial<ProfileInfo>
+}
+
+export const UserInfo = ({
+  followers,
+  followersForPublic,
+  following,
+  followingForPublic,
+  isProfileOwner,
+  posts,
+  profile,
+}: Props) => {
   const { t } = useTranslation()
   const profileName = profile?.userName
 
@@ -46,11 +63,15 @@ export const UserInfo = ({ followers, following, isProfileOwner, posts, profile 
         </div>
         <div className="flex gap-[33px]  md:gap-[100px] pb-6 pt-5">
           <div className="flex items-center flex-col ">
-            <span className={'text-semibold-small md:text-bold-14'}>{following?.totalCount}</span>
+            <span className={'text-semibold-small md:text-bold-14'}>
+              {following?.totalCount ?? followingForPublic}
+            </span>
             <span className={'text-small md:text-regular-14'}>{t.profile.following}</span>
           </div>
           <div className="flex  items-center flex-col">
-            <span className={'text-semibold-small md:text-bold-14'}>{followers?.totalCount}</span>
+            <span className={'text-semibold-small md:text-bold-14'}>
+              {followers?.totalCount ?? followersForPublic}
+            </span>
             <span className={'text-small md:text-regular-14'}>{t.profile.followers}</span>
           </div>
           <div className="flex  items-center flex-col ">
