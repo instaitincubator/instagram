@@ -28,9 +28,6 @@ const Profile = () => {
     userId: Array.isArray(router.query.id) ? router.query.id[0] : router.query.id || '',
   };
 
-  console.log(params.userId);
-
-  // console.log(profileInfo);
   const { t } = useTranslation();
   const { data: posts } = useGetPublicPostQuery(params);
   const isProfileOwner = false;
@@ -38,7 +35,6 @@ const Profile = () => {
   let followers;
   let following;
 
-  console.log(posts?.items);
   if (profileInfo) {
     profileData = {
       aboutMe: profileInfo?.aboutMe,

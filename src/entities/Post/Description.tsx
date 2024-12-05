@@ -7,7 +7,7 @@ type Props = {
 export const Description = ({ description }: Props) => {
   return (
     <div>
-      <p className="break-words">{description}</p>
+      <p>{description}</p>
     </div>
   )
 }

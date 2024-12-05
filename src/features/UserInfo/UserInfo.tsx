@@ -38,8 +38,6 @@ export const UserInfo = ({
   const profileName = profile?.userName
   const images = postsForPublic?.items
 
-  console.log(images + 'images')
-
   return (
     <div className="flex">
       <div className="hidden md:block min-w-40">

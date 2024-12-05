@@ -4,7 +4,7 @@ import Image from 'next/image'
 
 type Props = {
   avatar?: string | undefined
-  userId?: number
+  userId: number
   userName: string
 }
 
