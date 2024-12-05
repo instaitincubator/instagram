@@ -4,6 +4,7 @@ import type {
   ProfileFollowing,
   ProfileInfo,
   ProfilePosts,
+  ProfilePublicPosts,
 } from '@/shared/types/ApiTypes/ProfileApiTypes'
 
 import Avatar from 'react-avatar'
@@ -12,12 +13,6 @@ import { useTranslation } from '@/shared/hooks/useTranslation'
 import Button from '@/shared/ui/Button/Button'
 import Link from 'next/link'
 
-export type ProfileInfoProps = {
-  aboutMe: string
-  avatars: Avatars[]
-  userName: string
-}
-
 type Props = {
   followers?: ProfileFollowers
   followersForPublic?: number
@@ -25,6 +20,7 @@ type Props = {
   followingForPublic?: number
   isProfileOwner: boolean
   posts?: ProfilePosts
+  postsForPublic?: ProfilePublicPosts
   profile?: Partial<ProfileInfo>
 }
 
@@ -35,10 +31,14 @@ export const UserInfo = ({
   followingForPublic,
   isProfileOwner,
   posts,
+  postsForPublic,
   profile,
 }: Props) => {
   const { t } = useTranslation()
   const profileName = profile?.userName
+  const images = postsForPublic?.items
+
+  console.log(images + 'images')
 
   return (
     <div className="flex">
@@ -75,7 +75,9 @@ export const UserInfo = ({
             <span className={'text-small md:text-regular-14'}>{t.profile.followers}</span>
           </div>
           <div className="flex  items-center flex-col ">
-            <span className={'text-semibold-small md:text-bold-14'}>{posts?.totalCount}</span>
+            <span className={'text-semibold-small md:text-bold-14'}>
+              {posts?.totalCount ?? postsForPublic?.totalCount}
+            </span>
             <span className={'text-small md:text-regular-14'}>{t.profile.publications}</span>
           </div>
         </div>
@@ -85,6 +87,13 @@ export const UserInfo = ({
             __html: (profile?.aboutMe || '').replace(/\n\r?/g, '<br/>'),
           }}
         />
+        <div className={'py-6 w-full max-w-auto mx-auto'}>
+          <div className="flex py-[36px] justify-between mx-auto flex-wrap flex-grow">
+            {images?.map(el => (
+              <img alt={el.description} className={'relative'} key={el.id} src={el.images[0].url} />
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   )
