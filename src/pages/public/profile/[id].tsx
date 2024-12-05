@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react'
 
 import { getPublicLayoutWithSidebar } from '@/app/layouts/PublicLayoutWithSidebar/PublicLayoutWithSidebar'
 import { UserInfo } from '@/features/UserInfo/UserInfo'
-import { useLazyGetPublicUserQuery } from '@/features/public/api/publicProfileCounts'
 import { useGetPostsQuery } from '@/services/profile/postsApi'
 import {
 	useGetFollowersQuery,
 	useGetFollowingQuery,
 } from '@/services/profile/profileApi'
+import { useLazyGetPublicUserQuery } from '@/services/public/publicProfileCounts'
 import { useTranslation } from '@/shared/hooks/useTranslation'
 import { GetProfilePostsParams, ProfileInfo } from '@/shared/types/ApiTypes/ProfileApiTypes'
 import { useRouter } from 'next/router'

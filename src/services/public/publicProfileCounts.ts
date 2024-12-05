@@ -1,11 +1,6 @@
 import { baseApi } from '@/services/inctagram-api';
 import { ProfileInfo } from '@/shared/types/ApiTypes/ProfileApiTypes';
-export interface GetTotalUsersResponse {
-	lastUserId: number
-	totalCount: number
-}
-
-
+import { GetTotalUsersResponse } from '@/shared/types/public.types'
 export const publicProfileCountsApi = baseApi.injectEndpoints({
 	endpoints: builder => ({
 		getPublicUser: builder.query<ProfileInfo, number>({
@@ -17,4 +12,4 @@ export const publicProfileCountsApi = baseApi.injectEndpoints({
 	}),
 })
 
-export const { useGetPublicUserQuery, useGetTotalUsersCountQuery, useLazyGetPublicUserQuery } = publicProfileCountsApi
+export const { useGetTotalUsersCountQuery, useLazyGetPublicUserQuery } = publicProfileCountsApi

@@ -16,7 +16,7 @@ export const TimePublish = ({ createdAt }: Props) => {
 
   return (
     <div>
-      <p>{formattedDate}</p>
+      <p className="text-small text-light-900">{formattedDate}</p>
     </div>
   )
 }

@@ -63,3 +63,8 @@ export type AllPublicPosts = {
   totalCount: number
   totalUsers: number
 }
+
+export interface GetTotalUsersResponse {
+  lastUserId: number
+  totalCount: number
+}

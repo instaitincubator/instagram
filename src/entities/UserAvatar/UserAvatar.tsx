@@ -10,7 +10,7 @@ type Props = {
 
 const UserAvatar = ({ avatar, userId, userName }: Props) => {
   return (
-    <a className="flex gap-[12px] items-center py-3" href={`/public/profile/${userId}`}>
+    <a className="flex gap-[12px] items-center py-3" href={`public/profile/${userId}`}>
       <Image
         alt="avatar"
         className="rounded-full"

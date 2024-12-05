@@ -3,12 +3,8 @@ import React, { useEffect, useLayoutEffect } from 'react'
 import { getLayout } from '@/app/layouts/mainLayout/Layout'
 import CountRegisteredUsers from '@/entities/CountRegisteredUsers/CountRegisteredUsers'
 import PublicPosts from '@/features/public/PublicPosts'
-import {
-  GetTotalUsersResponse,
-  useGetTotalUsersCountQuery,
-} from '@/features/public/api/publicProfileCounts'
 import { useGoogleSignInMutation, useMeQuery } from '@/services/auth/signInApi'
-import { AllPublicPosts } from '@/shared/types/public.types'
+import { AllPublicPosts, GetTotalUsersResponse } from '@/shared/types/public.types'
 import { useRouter } from 'next/router'
 
 export async function getStaticProps() {

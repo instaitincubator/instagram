@@ -3,14 +3,15 @@ import React, { useState } from 'react'
 import {PostCard} from '@/entities/Post/PostCard';
 import PostModal from '@/entities/Post/PostModal';
 import {Post, PublicPostProps} from '@/shared/types/public.types';
+import { useRouter } from 'next/router'
 
 const PublicPosts = ({ posts }: PublicPostProps) => {
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [selectedPost, setSelectedPost] = useState<Post | null>(null)
-
+  const router = useRouter()
   const openModal = (post: Post) => {
-    setSelectedPost(post)
-    setModalIsOpen(true)
+
+    router.push(`/?postId=${post.id}`)
   }
 
   const closeModal = () => {
@@ -19,7 +20,7 @@ const PublicPosts = ({ posts }: PublicPostProps) => {
   }
 
   return (
-    <div className="flex py-[36px] justify-between mx-auto flex-wrap flex-grow">
+    <div className="flex py-[36px] justify-between mx-auto flex-wrap flex-grow gap-y-[12px]">
       {posts?.map(post => (
           <PostCard key={post.id} openModal={() => openModal(post)} post={post} />
       ))}

@@ -14,7 +14,7 @@ const PostModal = ({ onClose, post }: PostModalProps) => {
           <Slider arrImages={post.images} height={560} width={490} />
         </div>
         <div className="px-[24px] py-[8px]">
-          <UserAvatar avatar={post.avatarOwner} userName={post.userName} />
+          <UserAvatar avatar={post.avatarOwner} userId={post.ownerId} userName={post.userName} />
           <TimePublish createdAt={post.createdAt} />
           Comments
         </div>
