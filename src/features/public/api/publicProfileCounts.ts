@@ -7,14 +7,14 @@ export interface GetTotalUsersResponse {
 
 
 export const publicProfileCountsApi = baseApi.injectEndpoints({
-	endpoints: builder => ({
-		getPublicUser: builder.query<ProfileInfo, number>({
-			query: (profileId) => ({ url: `/api/v1/public-user/profile/${profileId}` })
-		}),
-		getTotalUsersCount: builder.query<GetTotalUsersResponse, void>({
-			query: () => ({ url: '/api/v1/public-user' }),
-		})
-	}),
-})
+  endpoints: builder => ({
+    getPublicUser: builder.query<ProfileInfo, number>({
+      query: (profileId) => ({ url: `/api/v1/public-user/profile/${profileId}` })
+    }),
+    getTotalUsersCount: builder.query<GetTotalUsersResponse, void>({
+      query: () => ({ url: "/api/v1/public-user" })
+    })
+  })
+});
 
-export const { useGetPublicUserQuery, useGetTotalUsersCountQuery, useLazyGetPublicUserQuery } = publicProfileCountsApi
+export const { useGetTotalUsersCountQuery, useLazyGetPublicUserQuery } = publicProfileCountsApi;
