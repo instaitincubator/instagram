@@ -1,35 +1,30 @@
-import { useEffect, useState } from "react";
-
 import { getPublicLayoutWithSidebar } from "@/app/layouts/PublicLayoutWithSidebar/PublicLayoutWithSidebar";
 import { UserInfo } from "@/features/UserInfo/UserInfo";
-import {  useLazyGetPublicUserQuery } from "@/features/public/api/publicProfileCounts";
-import { useGetPostsQuery, useGetPublicPostQuery } from "@/services/profile/postsApi";
-import { useTranslation } from "@/shared/hooks/useTranslation";
 import {
-  GetProfilePostsParams,
-  GetPublicProfilePostsParams,
-  ProfileInfoPublic
+  ProfileInfoPublic, ProfilePublicPosts
 } from "@/shared/types/ApiTypes/ProfileApiTypes";
-import { useRouter } from "next/router";
+import { GetServerSideProps } from "next";
 
-const Profile = () => {
-  const router = useRouter();
-  const [profileInfo, setProfileInfo] = useState<ProfileInfoPublic | undefined>();
+type ProfileProps = {
+  posts: ProfilePublicPosts
+  profileInfo: ProfileInfoPublic;
+}
+export const getServerSideProps: GetServerSideProps<ProfileProps> = (async (context) => {
+  const { id } = context.query;
+  const resProfile = await fetch(`https://inctagram.work/api/v1/public-user/profile/${id}`);
+  const profileInfo: ProfileInfoPublic = await resProfile.json();
+  const postsRes = await fetch(`https://inctagram.work/api/v1/public-posts/user/${id}`);
+  const posts: ProfilePublicPosts = await postsRes.json();
 
-  const [getProfileInfo] = useLazyGetPublicUserQuery();
-
-
-  useEffect(() => {
-    if (router.query.id) {
-      getProfileInfo(Number(router.query.id)).then(res => setProfileInfo(res.data));
+  return {
+    props: {
+      posts,
+      profileInfo: profileInfo
     }
-  }, [router.query]);
-  const params: GetPublicProfilePostsParams = {
-    userId: Array.isArray(router.query.id) ? router.query.id[0] : router.query.id || '',
   };
+});
+const Profile = ({ posts, profileInfo }: ProfileProps) => {
 
-  const { t } = useTranslation();
-  const { data: posts } = useGetPublicPostQuery(params);
   const isProfileOwner = false;
   let profileData;
   let followers;
