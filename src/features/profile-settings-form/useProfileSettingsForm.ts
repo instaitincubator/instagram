@@ -1,18 +1,20 @@
+import { useEffect, useRef } from 'react'
 import { useForm } from 'react-hook-form'
 
+import { useTranslation } from '@/shared/hooks/useTranslation'
+import { Profile } from '@/shared/types/public.types'
+import { isOlderThan13 } from '@/shared/utils/isOlderThen'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
-export const useProfileSettingsForm = (initialValues: any) => {
+export const useProfileSettingsForm = (initialValues: { aboutMe: string } & Profile) => {
+  type schemaType = z.infer<typeof schema>
+  const { t } = useTranslation()
+  const aboutMeRegex = /^[0-9A-Za-zА-Яа-я!@#$%^&*( )_+=\-`~{}[\]:;"'<>,.?/\\| \s]*$/
   const schema = z.object({
-    aboutMe: z
-      .string()
-      .min(0, { message: 'Must be 0 or more characters long' })
-      .max(200, { message: 'Must be 200 or fewer characters long' })
-      .regex(/^[0-9A-Za-zА-Яа-я!@#$%^&*( )_+=\-`~{}[\]:;"'<>,.?/\\| \s]*$/, {
-        message:
-          'Only letters A-Z, a-z, А-Я, а-я, digits, and special characters _ - @ are allowed',
-      }),
+    aboutMe: z.string().max(200, { message: t.profileSettings.fewerThan200 }).regex(aboutMeRegex, {
+      message: t.profileSettings.aboutMeSymbols,
+    }),
     city: z.object({
       label: z.string(),
       value: z.string(),
@@ -21,27 +23,32 @@ export const useProfileSettingsForm = (initialValues: any) => {
       label: z.string(),
       value: z.string(),
     }),
-    dateOfBirth: z.date().optional(),
+    dateOfBirth: z
+      .date()
+      .optional()
+      .refine(date => isOlderThan13(date!), {
+        message: t.profileSettings.less13,
+      }),
     firstName: z
       .string()
-      .min(1, { message: 'Must be 1 or more characters long' })
-      .max(50, { message: 'Must be 50 or fewer characters long' })
-      .regex(/^[A-Za-zА-Яа-я]+$/, { message: 'Only letters A-Z, a-z, А-Я, а-я are allowed' }),
+      .min(1, { message: t.profileSettings.moreThan1 })
+      .max(50, { message: t.profileSettings.fewerThan50 })
+      .regex(/^[A-Za-zА-Яа-я]+$/, { message: t.profileSettings.nameSymbols }),
     lastName: z
       .string()
-      .min(1, { message: 'Must be 1 or more characters long' })
-      .max(50, { message: 'Must be 50 or fewer characters long' })
-      .regex(/^[A-Za-zА-Яа-я]+$/, { message: 'Only letters A-Z, a-z, А-Я, а-я are allowed' }),
+      .min(1, { message: t.profileSettings.moreThan1 })
+      .max(50, { message: t.profileSettings.fewerThan50 })
+      .regex(/^[A-Za-zА-Яа-я]+$/, { message: t.profileSettings.nameSymbols }),
     userName: z
       .string()
-      .min(6, { message: 'Must be 6 or more characters long' })
-      .max(30, { message: 'Must be 30 or fewer characters long' })
-      .regex(/^[0-9A-Za-z_-]+$/, { message: 'Only alphanumeric characters, _, and - are allowed' }),
+      .min(6, { message: t.profileSettings.moreThan6 })
+      .max(30, { message: t.profileSettings.fewerThan30 })
+      .regex(/^[0-9A-Za-z_-]+$/, { message: t.profileSettings.userNameSymbols }),
   })
 
-  type schemaType = z.infer<typeof schema>
-  const formatDate = new Date(initialValues.dateOfBirth)
+  const formatDate = new Date(initialValues.dateOfBirth!)
   const {
+    clearErrors,
     control,
     formState: { defaultValues, errors },
     getFieldState,
@@ -50,6 +57,7 @@ export const useProfileSettingsForm = (initialValues: any) => {
     register,
     reset,
     setValue,
+    trigger,
     watch,
   } = useForm<schemaType>({
     defaultValues: {
@@ -71,6 +79,14 @@ export const useProfileSettingsForm = (initialValues: any) => {
     mode: 'onBlur',
     resolver: zodResolver(schema),
   })
+  const hasInteracted = useRef(false)
+
+  useEffect(() => {
+    clearErrors()
+  }, [t, trigger])
+  const onFieldChange = () => {
+    hasInteracted.current = true
+  }
 
   return {
     control,
@@ -79,6 +95,7 @@ export const useProfileSettingsForm = (initialValues: any) => {
     getFieldState,
     getValues,
     handleSubmit,
+    onFieldChange,
     register,
     reset,
     setValue,

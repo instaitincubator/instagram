@@ -4,12 +4,13 @@ import Image from 'next/image'
 
 type Props = {
   avatar?: string | undefined
+  userId: number
   userName: string
 }
 
-const UserAvatar = ({ avatar, userName }: Props) => {
+const UserAvatar = ({ avatar, userId, userName }: Props) => {
   return (
-    <div className="flex gap-[12px] items-center py-3">
+    <a className="flex gap-[12px] items-center py-3" href={`/public/profile/${userId}`}>
       <Image
         alt="avatar"
         className="rounded-full"
@@ -18,7 +19,7 @@ const UserAvatar = ({ avatar, userName }: Props) => {
         width={36}
       />
       <p>{userName}</p>
-    </div>
+    </a>
   )
 }
 
