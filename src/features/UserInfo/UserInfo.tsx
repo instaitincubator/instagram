@@ -36,10 +36,9 @@ export const UserInfo = ({
 }: Props) => {
   const { t } = useTranslation()
   const profileName = profile?.userName
-  const images = postsForPublic?.items
 
   return (
-    <div className="flex">
+    <div className="flex ">
       <div className="hidden md:block min-w-40">
         <Avatar name={profileName} round size="160px" src={profile?.avatars?.[0]?.url || ''} />
       </div>
@@ -85,13 +84,6 @@ export const UserInfo = ({
             __html: (profile?.aboutMe || '').replace(/\n\r?/g, '<br/>'),
           }}
         />
-        <div className={'py-6 w-full max-w-auto mx-auto'}>
-          <div className="flex py-[36px] justify-between mx-auto flex-wrap flex-grow">
-            {images?.map(el => (
-              <img alt={el.description} className={'relative'} key={el.id} src={el.images[0].url} />
-            ))}
-          </div>
-        </div>
       </div>
     </div>
   )
