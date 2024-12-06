@@ -4,6 +4,8 @@ import { getLayout } from '@/app/layouts/mainLayout/Layout'
 import CountRegisteredUsers from '@/entities/CountRegisteredUsers/CountRegisteredUsers'
 import PublicPosts from '@/features/public/PublicPosts'
 import { useGoogleSignInMutation, useMeQuery } from '@/services/auth/signInApi'
+import { useGetAllPublicPostsQuery } from '@/services/public/allPublicPost'
+import { useGetTotalUsersCountQuery } from '@/services/public/publicProfileCounts'
 import { AllPublicPosts, GetTotalUsersResponse } from '@/shared/types/public.types'
 import { useRouter } from 'next/router'
 
@@ -29,7 +31,7 @@ type Props = {
   totalUsersData: GetTotalUsersResponse
 }
 export default function Home(props: Props) {
-  const { postsData, totalUsersData } = props
+  const { postsData: posts, totalUsersData: data } = props
 
   const router = useRouter()
   const { code } = router.query
@@ -53,10 +55,6 @@ export default function Home(props: Props) {
   if (isSignInLoading || isMeLoading) {
     return <div>Loading...</div>
   }
-export default function Home() {
-  const { data: me } = useMeQuery()
-  const { data } = useGetTotalUsersCountQuery()
-  const { data: posts } = useGetAllPublicPostsQuery({})
 
   return (
     <div className="py-6 w-full max-w-[972px] mx-auto">

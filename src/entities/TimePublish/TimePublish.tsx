@@ -15,7 +15,7 @@ export const TimePublish = ({ createdAt }: Props) => {
   })
 
   return (
-    <div>
+    <div className="mb-[3px]">
       <p className="text-small text-light-900">{formattedDate}</p>
     </div>
   )
