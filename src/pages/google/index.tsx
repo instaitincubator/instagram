@@ -15,13 +15,13 @@ export const Google = () => {
     if (code) {
       googleSignIn({ code: code })
     }
-  }, [code])
+  }, [router, googleSignIn, code, me])
 
   useLayoutEffect(() => {
     if (isSuccess && me) {
       const userId = me?.userId
 
-      router.push(`/profile/${userId}`)
+      void router.push(`/profile/${userId}`)
     }
   }, [isSuccess, me, router])
 
