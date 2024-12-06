@@ -1,5 +1,5 @@
 import { baseApi } from '@/services/inctagram-api';
-import { ProfileInfo, ProfileInfoPublic } from "@/shared/types/ApiTypes/ProfileApiTypes";
+import { ProfileInfo } from '@/shared/types/ApiTypes/ProfileApiTypes';
 export interface GetTotalUsersResponse {
 	lastUserId: number
 	totalCount: number
