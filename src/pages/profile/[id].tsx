@@ -12,6 +12,7 @@ import { useTranslation } from '@/shared/hooks/useTranslation'
 import { GetProfilePostsParams } from '@/shared/types/ApiTypes/ProfileApiTypes'
 import Button from '@/shared/ui/Button/Button'
 import Link from 'next/link'
+import React from 'react'
 
 const Profile = () => {
   const { data: me } = useMeQuery()

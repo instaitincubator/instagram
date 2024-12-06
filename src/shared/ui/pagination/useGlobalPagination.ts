@@ -9,7 +9,6 @@ export function useGlobalPagination<T>({ data, pageSize }: UsePaginationProps<T>
   const [currentPage, setCurrentPage] = useState(1);
 
   const totalPages = Math.ceil(data.length / pageSize);
-
   const currentData = useMemo(() => {
     const firstPageIndex = (currentPage - 1) * pageSize;
     const lastPageIndex = firstPageIndex + pageSize;
