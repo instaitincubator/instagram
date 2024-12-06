@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect } from 'react'
 
-import { getLayoutWithSidebar } from '@/app/layouts/layoutWithSidebar/LayoutWithSidebar'
+import { getLayout } from '@/app/layouts/mainLayout/Layout'
 import { useGoogleSignInMutation, useMeQuery } from '@/services/auth/signInApi'
 import { useRouter } from 'next/router'
 
@@ -27,5 +27,5 @@ export const Google = () => {
 
   return <div>google code: {router.query.code}</div>
 }
-Google.getLayout = getLayoutWithSidebar
+Google.getLayout = getLayout
 export default Google
