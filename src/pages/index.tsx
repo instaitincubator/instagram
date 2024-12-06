@@ -53,13 +53,17 @@ export default function Home(props: Props) {
   if (isSignInLoading || isMeLoading) {
     return <div>Loading...</div>
   }
+export default function Home() {
+  const { data: me } = useMeQuery()
+  const { data } = useGetTotalUsersCountQuery()
+  const { data: posts } = useGetAllPublicPostsQuery({})
 
   return (
     <div className="py-6 w-full max-w-[972px] mx-auto">
       {!me && (
         <>
-          <CountRegisteredUsers count={totalUsersData?.totalCount} />
-          <PublicPosts posts={postsData?.items} />
+          <CountRegisteredUsers count={data?.totalCount} />
+          <PublicPosts posts={posts?.items} />
         </>
       )}
     </div>
