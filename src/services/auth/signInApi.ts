@@ -12,14 +12,14 @@ export const signInApi = baseApi.injectEndpoints({
 
           setToken(data.accessToken)
         },
-        query: body => {
-          const args = {
-            code: body,
+        query: args => {
+          const body = {
+            code: args.code,
             redirectUrl: process.env.NEXT_PUBLIC_GOOGLE_REDIREC_DOMAIN,
           }
 
           return {
-            args,
+            body,
             credentials: 'include',
             method: 'POST',
             url: '/api/v1/auth/google/login',
