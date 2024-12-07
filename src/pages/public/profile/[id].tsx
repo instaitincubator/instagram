@@ -44,7 +44,7 @@ const Profile = ({ posts, profileInfo }: ProfileProps) => {
   }
 
   return (
-    <div className={'m-auto'}>
+    <div className={'mt-o mx-auto'}>
       <div className="flex  items-baseline  flex-col gap-[13px] flex-1 pt-[24px] px-[15px]  md:pr-16 mb:pb-[59px] md:pl-6 md:pt-[35px] w-full">
         <UserInfo
           followersForPublic={followers}
@@ -57,10 +57,10 @@ const Profile = ({ posts, profileInfo }: ProfileProps) => {
           <span className={"block md:hidden"}>{profileInfo?.aboutMe}</span>
         </div>
         <div className={''}>
-          <div className=" grid grid-cols-4 gap-[12px] pt-[29px]  mb:pt-[59px] justify-items-center ">
+          <div className=" grid grid-cols-3 md:grid-cols-4 gap-[3px] md:gap-[12px] pt-[29px]  mb:pt-[59px] justify-items-center ">
             {posts?.items?.map(el => (
               <div className={'flex justify-center'} key={el.id}>
-                <img alt={el.description} className={'w-[234px] h-[224px] object-cover'} src={el.images[0].url} />{' '}
+                <img alt={el.description} className={'w-[157px] h-[108px] md:w-[234px] md:h-[224px] object-cover'} src={el.images[0].url} />{' '}
               </div>
             ))}
           </div>
