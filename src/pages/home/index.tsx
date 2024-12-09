@@ -1,15 +1,22 @@
 import React from 'react'
 
-import { getLayoutWithSidebar } from '@/app/layouts/layoutWithSidebar/LayoutWithSidebar'
-import { Pagination } from '@/shared/ui/pagination/Pagination'
+import { getPublicLayoutWithSidebar } from '@/app/layouts/PublicLayoutWithSidebar/PublicLayoutWithSidebar'
+import PostModal from '@/entities/Post/PostModal'
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 
-export const Home = () => {
+export const getServerSideProps = (async ({ query }) => {
+  const res = await fetch(`https://inctagram.work/api/v1/public-posts/${query?.id}`)
+  const post: any = await res.json()
+
+  return { props: { post } }
+}) satisfies GetServerSideProps<{ post: any }>
+
+export default function Home({ post }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
     <div>
-      <Pagination currentPage={1} pageSize={10} siblings={1} totalCount={150} />
+      <PostModal onClose={() => {}} post={post} />
     </div>
   )
 }
 
-Home.getLayout = getLayoutWithSidebar
-export default Home
+Home.getLayout = getPublicLayoutWithSidebar
