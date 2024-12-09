@@ -53,3 +53,15 @@ export type ProfileAvatars = {
   url: string
   width: number
 }
+
+export type AllPublicPosts = {
+  items: Post[]
+  pageSize: number
+  totalCount: number
+  totalUsers: number
+}
+
+export interface GetTotalUsersResponse {
+  lastUserId: number
+  totalCount: number
+}

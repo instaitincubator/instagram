@@ -5,7 +5,13 @@ const nextConfig = {
     locales: ['english', 'russian'],
   },
   images: {
-    domains: ['staging-it-incubator.s3.eu-central-1.amazonaws.com'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'staging-it-incubator.s3.eu-central-1.amazonaws.com',
+        pathname: '**',
+      },
+    ],
   },
   reactStrictMode: true,
   webpack(config){
@@ -16,4 +22,5 @@ const nextConfig = {
     return config
   }
 }
+// domains: ['staging-it-incubator.s3.eu-central-1.amazonaws.com'],
 export default nextConfig;
