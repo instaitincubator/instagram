@@ -5,11 +5,8 @@ import Image from 'next/image'
 import { Pagination } from 'swiper/modules'
 import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react'
 
-// eslint-disable-next-line import/extensions
 import 'swiper/css'
-// eslint-disable-next-line import/extensions
 import 'swiper/css/pagination'
-// eslint-disable-next-line import/extensions
 import 'swiper/css/navigation'
 type Props = {
   arrImages: Images[]

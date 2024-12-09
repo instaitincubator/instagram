@@ -126,8 +126,10 @@ export const russian = {
   profile: {
     followers: 'Подписчики',
     following: 'Подписки',
+    hide: 'скрыть',
     profileSetting: 'Настройки',
     publications: 'Публикации',
+    showMore: 'Показать больше',
   },
   profileSettings: {
     aboutMe: 'Обо мне',

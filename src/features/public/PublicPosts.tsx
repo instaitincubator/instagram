@@ -11,7 +11,7 @@ const PublicPosts = ({ posts }: PublicPostProps) => {
   const router = useRouter()
   const openModal = (post: Post) => {
 
-    router.push(`/?postId=${post.id}`)
+    void router.push(`/?postId=${post.id}`)
   }
 
   const closeModal = () => {
