@@ -28,10 +28,7 @@ export type PostCardProps = {
   openModal: (post: Post) => void
   post: Post
 }
-export type PostModalProps = {
-  onClose: () => void
-  post: Post
-}
+
 export type PublicPostProps = {
   posts: Post[]
 }
