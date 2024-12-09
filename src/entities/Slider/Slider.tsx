@@ -70,7 +70,7 @@ export const Slider = ({ arrImages, height, openModal, width }: Props) => {
           alt={'SlideImage'}
           height={height}
           onClick={openModal}
-          src={arrImages[imageIndex].url}
+          src={arrImages[imageIndex]?.url}
           width={width}
         ></Image>
       )}
