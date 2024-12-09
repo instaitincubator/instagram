@@ -6,8 +6,10 @@ import { Pagination } from 'swiper/modules'
 import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react'
 
 import 'swiper/css'
-import 'swiper/css/pagination'
 import 'swiper/css/navigation'
+import 'swiper/css/pagination'
+
+import { noImage } from '../../../public'
 type Props = {
   arrImages: Images[]
   height: number
@@ -70,7 +72,7 @@ export const Slider = ({ arrImages, height, openModal, width }: Props) => {
           alt={'SlideImage'}
           height={height}
           onClick={openModal}
-          src={arrImages[imageIndex]?.url}
+          src={arrImages.length ? arrImages[imageIndex].url : noImage}
           width={width}
         ></Image>
       )}
