@@ -95,6 +95,7 @@ export const ProfileSettingsForm = ({ myProfileInfo }: any) => {
     !watch('lastName') ||
     !!errors.lastName
 
+  //<span className="text-red-500 font-bold ml-1">*</span>
   return (
     <>
       <form className="w-full flex flex-col gap-6 pt-[24px]" onSubmit={handleSubmit(onSubmit)}>
@@ -104,6 +105,7 @@ export const ProfileSettingsForm = ({ myProfileInfo }: any) => {
           fullWidth
           label={t.profileSettings.userName}
           name="userName"
+          requiredElem
         />
         <ControlledInput
           control={control}
@@ -111,6 +113,7 @@ export const ProfileSettingsForm = ({ myProfileInfo }: any) => {
           fullWidth
           label={t.profileSettings.firstName}
           name="firstName"
+          requiredElem
         />
         <ControlledInput
           control={control}
@@ -118,6 +121,7 @@ export const ProfileSettingsForm = ({ myProfileInfo }: any) => {
           fullWidth
           label={t.profileSettings.lastName}
           name="lastName"
+          requiredElem
         />
         <ControlledDatepicker
           control={control}

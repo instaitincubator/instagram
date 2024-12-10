@@ -12,6 +12,7 @@ type InputProps = {
   label?: string
   onChangeText?: (value: string) => void
   placeholder?: string
+  requiredElem?: boolean
   type?: string
 } & ComponentPropsWithoutRef<'input'>
 
@@ -37,5 +38,13 @@ export const ControlledInput = <TFieldValues extends FieldValues>({
     shouldUnregister,
   })
 
-  return <Input onChangeText={onChange} value={value} {...textFieldProps} {...rest} />
+  return (
+    <Input
+      onChangeText={onChange}
+      requiredElem={textFieldProps.requiredElem}
+      value={value}
+      {...textFieldProps}
+      {...rest}
+    />
+  )
 }
