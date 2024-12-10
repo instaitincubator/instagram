@@ -12,9 +12,13 @@ export const useProfileSettingsForm = (initialValues: { aboutMe: string } & Prof
   const { t } = useTranslation()
   const aboutMeRegex = /^[0-9A-Za-zА-Яа-я!@#$%^&*( )_+=\-`~{}[\]:;"'<>,.?/\\| \s]*$/
   const schema = z.object({
-    aboutMe: z.string().max(200, { message: t.profileSettings.fewerThan200 }).regex(aboutMeRegex, {
-      message: t.profileSettings.aboutMeSymbols,
-    }),
+    aboutMe: z
+      .string()
+      .max(200, { message: t.profileSettings.fewerThan200 })
+      .regex(aboutMeRegex, {
+        message: t.profileSettings.aboutMeSymbols,
+      })
+      .nullable(),
     city: z.object({
       label: z.string(),
       value: z.string(),
