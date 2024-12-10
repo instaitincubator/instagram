@@ -1,6 +1,5 @@
 import React from 'react'
 
-import button from '@/shared/ui/Button/Button'
 import Button from '@/shared/ui/Button/Button'
 import Image from 'next/image'
 
@@ -29,9 +28,9 @@ const UserAvatar = ({ avatar, isShowedText, toggleShowedText, userId, userName }
         <p>{userName}</p>
       </a>
       {isShowedText && (
-        <button className="cursor-pointer" onClick={toggleShowedText}>
+        <Button className="cursor-pointer" onClick={toggleShowedText}>
           <Block />
-        </button>
+        </Button>
       )}
     </div>
   )
