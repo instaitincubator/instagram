@@ -14,7 +14,7 @@ import { Modal } from '@/shared/ui/Modal/Modal'
 import { City, Country } from 'country-state-city'
 
 export type DataForm = {
-  aboutMe?: string
+  aboutMe?: null | string
   city?: Object
   country?: Object
   dateOfBirth?: Date
