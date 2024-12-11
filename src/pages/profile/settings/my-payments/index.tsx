@@ -1,8 +1,8 @@
 import React from 'react'
 
 import { getSettingsLayout } from '@/app/layouts/settingsLayout/SettingsLayout'
-import { useTableConfig } from '@/pages/profile/settings/my-payments/useTableConfig'
 import { useGetPaymentsQuery } from '@/services/payments/PaymentsApi'
+import { useTableConfig } from '@/shared/hooks/useTableConfig'
 import { Table } from '@/shared/ui/Table/TableRoot'
 
 const MyPayments = () => {
