@@ -1,127 +1,86 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import KeyboardArrowRight from '/public/chevronRightIcon.svg';
-import KeyboardArrowLeft from '/public/chevronLeftIcon.svg';
-import clsx from 'clsx';
-import React, { useMemo, useState } from 'react';
-import { usePagination } from './usePagination';
+import React from 'react';
 
-type PaginationProps<T> = {
-    className?: string;
-    data: T[];
+import { DOTS, usePagination } from '@/shared/ui/pagination/usePagination';
+
+import { ChevronLeftIcon, ChevronRightIcon } from '../../../../public';
+
+export type usePaginationProps = {
+    currentPage: number | string;
     pageSize: number;
-    siblings?: number;
-    onDataChange?: (currentData: T[]) => void;
+    siblingCount: number;
+    totalCount: number;
 };
 
-export function Pagination<T>({
-    className = '',
-    data,
+interface PaginationProps {
+    currentPage: number | string;
+    onPageChange: (page: number | string) => void;
+    pageSize: number;
+    siblingCount: number;
+    totalCount: number;
+}
+
+const Pagination: React.FC<PaginationProps> = ({
+    currentPage,
+    onPageChange,
     pageSize,
-    siblings = 1,
-    onDataChange,
-}: PaginationProps<T>) {
-    const [currentPage, setCurrentPage] = useState(1);
-
-    const totalPages = Math.ceil(data.length / pageSize);
-
-    const [visibleData, setVisibleData] = useState<T[]>([]);
-
-    const currentData = useMemo(() => {
-        const firstPageIndex = (currentPage - 1) * pageSize;
-        console.log(firstPageIndex);
-
-        const lastPageIndex = firstPageIndex + pageSize;
-        console.log(lastPageIndex);
-
-        const slicedData = data.slice(firstPageIndex, lastPageIndex);
-
-        if (onDataChange) {
-            onDataChange(slicedData);
-        }
-
-        setVisibleData(slicedData);
-        return slicedData;
-    }, [currentPage, pageSize, data]);
-
-    const { paginationRange } = usePagination({
-        data,
-        pageSize,
-        siblings,
+    siblingCount,
+    totalCount,
+}) => {
+    const paginationRange = usePagination({
         currentPage,
+        pageSize,
+        siblingCount,
+        totalCount,
     });
-
-
-    if (!paginationRange || paginationRange.length < 2) {
-        return null;
-    }
-
-    const onNext = () => {
-        if (currentPage < totalPages) {
-            setCurrentPage(prev => prev + 1);
-        }
-    };
-
-    const onPrevious = () => {
-        if (currentPage > 1) {
-            setCurrentPage(prev => prev - 1);
-        }
-    };
-
-    const DOTS = '...';
+    const lastPage =
+        paginationRange && paginationRange.length > 0
+            ? paginationRange[paginationRange.length - 1]
+            : 0;
 
     return (
-        <ul className={clsx('flex list-none', className)}>
+        <ul className="flex items-center gap-2 list-none">
             <li
-                className={clsx(
-                    'relative flex justify-center items-center min-w-[32px] h-[32px] mx-[4px] px-3 text-[13px] rounded-full',
-                    currentPage === 1
-                        ? 'pointer-events-none cursor-default text-gray-400'
-                        : 'hover:cursor-pointer',
-                )}
-                onClick={onPrevious}
+                className={`flex justify-center items-center w-8 h-8 cursor-pointer ${currentPage === 1 ? 'opacity-50 pointer-events-none' : ''}`}
+                onClick={() =>
+                    +currentPage > 1 && onPageChange(+currentPage - 1)
+                }
             >
-                <KeyboardArrowLeft />
+                <ChevronLeftIcon className="w-4 h-4" />
             </li>
 
-            {paginationRange.map((page, index) => {
-                if (page === DOTS) {
+            {paginationRange?.map((pageNumber, index) => {
+                if (pageNumber === DOTS) {
                     return (
                         <li
-                            key={`dots-${index}`}
-                            className="relative flex justify-center items-center min-w-[32px] h-[32px] mx-[4px] px-3 text-[13px] rounded-full hover:cursor-default"
+                            className="flex justify-center items-center w-6 h-6 text-gray-500 cursor-default"
+                            key={index}
                         >
-                            &#8230;
+                            {DOTS}
                         </li>
                     );
                 }
 
                 return (
                     <li
-                        key={`page-${page}`}
-                        className={clsx(
-                            'relative flex justify-center items-center min-w-[32px] h-[32px] mx-[4px] px-3 text-[13px] rounded-full',
-                            page === currentPage
-                                ? 'bg-gray-100 text-[#020617]'
-                                : 'hover:cursor-pointer hover:bg-gray-200',
-                        )}
-                        onClick={() => setCurrentPage(Number(page))}
+                        className={`flex justify-center items-center w-6 h-6 text-sm leading-6 rounded transition-colors duration-200 
+                            ${pageNumber === currentPage ? 'text-dark-900  bg-gray-100' : 'text-light-100 hover:bg-none cursor-pointer'}`}
+                        key={index}
+                        onClick={() => onPageChange(pageNumber)}
                     >
-                        {page}
+                        {pageNumber}
                     </li>
                 );
             })}
-
             <li
-                className={clsx(
-                    'relative flex justify-center items-center min-w-[32px] h-[32px] mx-[4px] px-3 text-[13px] rounded-full',
-                    currentPage === totalPages
-                        ? 'pointer-events-none cursor-default text-gray-400'
-                        : 'hover:cursor-pointer',
-                )}
-                onClick={onNext}
+                className={`flex justify-center items-center w-8 h-8 cursor-pointer ${currentPage === paginationRange?.length ? 'opacity-50 pointer-events-none' : ''}`}
+                onClick={() =>
+                    currentPage < lastPage && onPageChange(+currentPage + 1)
+                }
             >
-                <KeyboardArrowRight />
+                <ChevronRightIcon className="w-4 h-4" />
             </li>
         </ul>
     );
-}
+};
+
+export default Pagination;

@@ -1,52 +1,26 @@
-import { getLayoutWithSidebar } from '@/app/layouts/layoutWithSidebar/LayoutWithSidebar';
-import { Pagination } from '@/shared/ui/pagination/Pagination';
-// import React from 'react';
 import React, { useState } from 'react';
 
-// const data = Array.from({ length: 100 }, (_, i) => ({
-//   id: i + 1,
-//   name: `Item 2222${i + 1}`,
-// }));
-
-
-
-
-const data =Array.from({length:100} ,(_,i)=>({
-  
-  id:i+2,
-  name:`itemT  ${i +1}`
-
-}))
-
+import { getLayoutWithSidebar } from '@/app/layouts/layoutWithSidebar/LayoutWithSidebar';
+import Pagination from '@/shared/ui/pagination/Pagination';
 
 export const Home = () => {
-  const pageSize = 10;
+    const [currentPage, setCurrentPage] = useState<number | string>(1);
+    const totalCount = 100; // общее количество элементов
+    const pageSize = 10; // количество элементов на странице
 
-  const [visibleData, setVisibleData] = useState(data.slice(0,pageSize))
+    const handlePageChange = (page: number | string) => {
+        setCurrentPage(page);
+    };
 
-
-
-  return (  
-    
-      <div>
-        {visibleData.map((item) => (
-          <div key={item.id}>{item.name}</div>
-        ))}
-
-          
-      
-  
-
-<Pagination
-        className="relative top-10 -right-10 flex"
-        data={data}
-        pageSize={pageSize}
-        onDataChange={(currentData) => setVisibleData(currentData)}
-
-      />
-
-    </div>
-  );
+    return (
+        <Pagination
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
+            pageSize={pageSize}
+            siblingCount={1}
+            totalCount={totalCount}
+        />
+    );
 };
 
 Home.getLayout = getLayoutWithSidebar;
