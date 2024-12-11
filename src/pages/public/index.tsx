@@ -3,8 +3,8 @@ import React from "react";
 import { getLayout } from "@/app/layouts/mainLayout/Layout";
 import CountRegisteredUsers from "@/entities/CountRegisteredUsers/CountRegisteredUsers";
 import PublicPosts from "@/features/public/PublicPosts";
-import { useGetAllPublicPostsQuery } from "@/features/public/api/allPublicPost";
-import { useGetTotalUsersCountQuery } from "@/features/public/api/publicProfileCounts";
+import { useGetAllPublicPostsQuery } from "@/services/public/allPublicPost";
+import { useGetTotalUsersCountQuery } from "@/services/public/publicProfileCounts";
 
 
 const Public = () => {

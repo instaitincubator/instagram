@@ -124,8 +124,10 @@ Your rights to your content remain unaffected. We do not claim ownership of your
   profile: {
     followers: 'Followers',
     following: 'Following',
+    hide: 'Hide',
     profileSetting: 'Profile Settings',
     publications: 'Publications',
+    showMore: 'Show more',
   },
   profileSettings: {
     aboutMe: 'About Me',
