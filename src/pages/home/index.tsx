@@ -5,7 +5,7 @@ import Pagination from '@/shared/ui/pagination/Pagination';
 
 export const Home = () => {
     const [currentPage, setCurrentPage] = useState<number | string>(1);
-    const totalCount = 100; // общее количество всех элементов
+    const totalCount = 100; // общее количество элементов
     const pageSize = 10; // количество элементов на странице
 
     const handlePageChange = (page: number | string) => {
