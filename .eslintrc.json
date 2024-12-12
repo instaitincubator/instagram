@@ -7,7 +7,19 @@
   "rules": {
     "react/jsx-curly-brace-presence": "off",
     "import/no-named-as-default": 0,
-    "react-hooks/exhaustive-deps": "off"
+    "react-hooks/exhaustive-deps": "off",
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never",
+        "json": "never",
+        "css": "never"
+      }
+    ]
   },
   "settings": {
     "import/resolver": {
