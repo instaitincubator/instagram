@@ -35,7 +35,7 @@ const paymentsApi = baseApi.injectEndpoints({
           }
         },
       }),
-      getPayments: build.query<Payments, void>({
+      getPayments: build.query<Payments[], void>({
         query: () => {
           return {
             url: '/api/v1/subscriptions/my-payments',
