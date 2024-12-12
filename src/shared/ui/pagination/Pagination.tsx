@@ -4,13 +4,6 @@ import { DOTS, usePagination } from '@/shared/ui/pagination/usePagination';
 
 import { ChevronLeftIcon, ChevronRightIcon } from '../../../../public';
 
-export type usePaginationProps = {
-    currentPage: number | string;
-    pageSize: number;
-    siblingCount: number;
-    totalCount: number;
-};
-
 interface PaginationProps {
     currentPage: number | string;
     onPageChange: (page: number | string) => void;
@@ -32,6 +25,7 @@ const Pagination: React.FC<PaginationProps> = ({
         siblingCount,
         totalCount,
     });
+
     const lastPage =
         paginationRange && paginationRange.length > 0
             ? paginationRange[paginationRange.length - 1]
@@ -63,7 +57,7 @@ const Pagination: React.FC<PaginationProps> = ({
                 return (
                     <li
                         className={`flex justify-center items-center w-6 h-6 text-sm leading-6 rounded transition-colors duration-200 
-                            ${pageNumber === currentPage ? 'text-dark-900  bg-gray-100' : 'text-light-100 hover:bg-none cursor-pointer'}`}
+                            ${pageNumber === currentPage ? 'text-dark-900  bg-gray-100 w-[25px] h-[25px] text-regular-14' : 'text-light-100 hover:bg-none cursor-pointer'}`}
                         key={index}
                         onClick={() => onPageChange(pageNumber)}
                     >
@@ -72,7 +66,7 @@ const Pagination: React.FC<PaginationProps> = ({
                 );
             })}
             <li
-                className={`flex justify-center items-center w-8 h-8 cursor-pointer ${currentPage === paginationRange?.length ? 'opacity-50 pointer-events-none' : ''}`}
+                className={`flex justify-center items-center w-8 h-8 cursor-pointer ${currentPage === lastPage ? 'opacity-50 pointer-events-none' : ''}}`}
                 onClick={() =>
                     currentPage < lastPage && onPageChange(+currentPage + 1)
                 }

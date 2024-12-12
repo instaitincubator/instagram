@@ -1,7 +1,11 @@
 import { useMemo } from 'react';
 
-import { usePaginationProps } from '@/shared/ui/pagination/Pagination';
-
+export type usePaginationProps = {
+    currentPage: number | string;
+    pageSize: number;
+    siblingCount: number;
+    totalCount: number;
+};
 const pagesRange = (start: number, end: number) => {
     const length = end - start + 1;
 
