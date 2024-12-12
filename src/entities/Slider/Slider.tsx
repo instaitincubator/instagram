@@ -30,7 +30,7 @@ export const Slider = ({ arrImages, height, openModal, width }: Props) => {
   }
 
   return (
-    <div className="relative cursor-pointer" style={{ width: width }}>
+    <div className="relative cursor-pointer" style={{ width: '100%' }}>
       {arrImages.length > 1 ? (
         <>
           <Swiper loop modules={[Pagination]} pagination ref={swiperRef}>
@@ -73,6 +73,7 @@ export const Slider = ({ arrImages, height, openModal, width }: Props) => {
           height={height}
           onClick={openModal}
           src={arrImages.length ? arrImages[imageIndex].url : noImage}
+          style={{ width: '100%' }}
           width={width}
         ></Image>
       )}
