@@ -37,9 +37,6 @@ const getPostsApi = baseApi.injectEndpoints({
         query: arg => {
           const params = new URLSearchParams()
 
-          // if (arg.pag !== undefined) {
-          //   params.append('pageNumber', arg.pageNumber.toString())
-          // }
           if (arg.pageSize !== undefined) {
             params.append('pageSize', arg.pageSize.toString())
           }
@@ -59,4 +56,4 @@ const getPostsApi = baseApi.injectEndpoints({
   },
 })
 
-export const { useGetPostsQuery, useGetPublicPostQuery } = getPostsApi
+export const { useGetPostsQuery } = getPostsApi
