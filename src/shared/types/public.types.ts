@@ -29,9 +29,6 @@ export type PostCardProps = {
   post: Post
 }
 
-export type PublicPostProps = {
-  posts: Post[]
-}
 export type CountRegisteredUsersProps = {
   count: number | undefined
 }

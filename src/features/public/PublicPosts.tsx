@@ -2,10 +2,14 @@ import React, { useState } from 'react'
 
 import {PostCard} from '@/entities/Post/PostCard';
 import PostModal from '@/entities/Post/PostModal';
-import {Post, PublicPostProps} from '@/shared/types/public.types';
+import {Post} from '@/shared/types/public.types';
 import { useRouter } from 'next/router'
 
-const PublicPosts = ({ posts }: PublicPostProps) => {
+interface Props {
+  posts: Post[]
+}
+const PublicPosts = ({ posts }: Props) => {
+
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [selectedPost, setSelectedPost] = useState<Post | null>(null)
   const router = useRouter()
@@ -27,7 +31,10 @@ const PublicPosts = ({ posts }: PublicPostProps) => {
           <PostCard key={post.id} openModal={() => openModal(post)} post={post} />
         ))}
         {modalIsOpen && selectedPost && (
-          <PostModal onClose={closeModal} post={selectedPost} />
+          <div>
+            <span>sdfsdf</span>
+            <PostModal onClose={closeModal} post={selectedPost} />
+          </div>
         )}
       </div>
 
