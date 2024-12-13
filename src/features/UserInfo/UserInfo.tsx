@@ -1,8 +1,10 @@
 import type {
+  Avatars,
   ProfileFollowers,
   ProfileFollowing,
   ProfileInfo,
   ProfilePosts,
+  ProfilePublicPosts,
 } from '@/shared/types/ApiTypes/ProfileApiTypes'
 
 import Avatar from 'react-avatar'
@@ -13,18 +15,30 @@ import Link from 'next/link'
 
 type Props = {
   followers?: ProfileFollowers
+  followersForPublic?: number
   following?: ProfileFollowing
+  followingForPublic?: number
   isProfileOwner: boolean
   posts?: ProfilePosts
-  profile?: ProfileInfo
+  postsForPublic?: ProfilePublicPosts
+  profile?: Partial<ProfileInfo>
 }
 
-export const UserInfo = ({ followers, following, isProfileOwner, posts, profile }: Props) => {
+export const UserInfo = ({
+  followers,
+  followersForPublic,
+  following,
+  followingForPublic,
+  isProfileOwner,
+  posts,
+  postsForPublic,
+  profile,
+}: Props) => {
   const { t } = useTranslation()
   const profileName = profile?.userName
 
   return (
-    <div className="flex">
+    <div className="flex ">
       <div className="hidden md:block min-w-40">
         <Avatar name={profileName} round size="160px" src={profile?.avatars?.[0]?.url || ''} />
       </div>
@@ -46,15 +60,21 @@ export const UserInfo = ({ followers, following, isProfileOwner, posts, profile 
         </div>
         <div className="flex gap-[33px]  md:gap-[100px] pb-6 pt-5">
           <div className="flex items-center flex-col ">
-            <span className={'text-semibold-small md:text-bold-14'}>{following?.totalCount}</span>
+            <span className={'text-semibold-small md:text-bold-14'}>
+              {following?.totalCount ?? followingForPublic}
+            </span>
             <span className={'text-small md:text-regular-14'}>{t.profile.following}</span>
           </div>
           <div className="flex  items-center flex-col">
-            <span className={'text-semibold-small md:text-bold-14'}>{followers?.totalCount}</span>
+            <span className={'text-semibold-small md:text-bold-14'}>
+              {followers?.totalCount ?? followersForPublic}
+            </span>
             <span className={'text-small md:text-regular-14'}>{t.profile.followers}</span>
           </div>
           <div className="flex  items-center flex-col ">
-            <span className={'text-semibold-small md:text-bold-14'}>{posts?.totalCount}</span>
+            <span className={'text-semibold-small md:text-bold-14'}>
+              {posts?.totalCount ?? postsForPublic?.totalCount}
+            </span>
             <span className={'text-small md:text-regular-14'}>{t.profile.publications}</span>
           </div>
         </div>

@@ -20,14 +20,17 @@ const PublicPosts = ({ posts }: PublicPostProps) => {
   }
 
   return (
-    <div className="flex py-[36px] justify-between mx-auto flex-wrap flex-grow gap-y-[12px]">
-      {posts?.map(post => (
+      <div
+        className="grid grid-cols-posts py-[36px] justify-between mx-auto flex-wrap flex-grow gap-[12px]"
+      >
+        {posts?.map(post => (
           <PostCard key={post.id} openModal={() => openModal(post)} post={post} />
-      ))}
-      {modalIsOpen && selectedPost && (
+        ))}
+        {modalIsOpen && selectedPost && (
           <PostModal onClose={closeModal} post={selectedPost} />
-      )}
-    </div>
+        )}
+      </div>
+
   )
 }
 
