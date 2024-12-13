@@ -1,5 +1,3 @@
-import React from "react";
-
 import { getPublicLayoutWithSidebar } from "@/app/layouts/PublicLayoutWithSidebar/PublicLayoutWithSidebar";
 import { UserInfo } from "@/features/UserInfo/UserInfo";
 import {

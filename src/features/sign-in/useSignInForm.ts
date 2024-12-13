@@ -18,7 +18,8 @@ const schema = (t: LocaleType) =>
       email: z
         .string()
         .min(1, { message: t.auth.field_required })
-        .email({ message: `${t.auth.email_val}` }),
+        .email({ message: `${t.auth.email_val}` })
+        .transform(value => value.toLowerCase()),
       password: z
         .string()
         .min(6, {

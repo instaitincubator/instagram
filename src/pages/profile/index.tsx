@@ -1,21 +1,13 @@
 import React, { useLayoutEffect, useState } from 'react'
 
 import { getLayoutWithSidebar } from '@/app/layouts/layoutWithSidebar/LayoutWithSidebar'
-import { UserInfo } from '@/features/UserInfo/UserInfo'
 import { useGoogleSignInMutation, useMeQuery } from '@/services/auth/signInApi'
-import { useGetPostsQuery } from '@/services/profile/postsApi'
-import {
-  useGetFollowersQuery,
-  useGetFollowingQuery,
-  useGetProfileInfoQuery,
-} from '@/services/profile/profileApi'
-import { useTranslation } from '@/shared/hooks/useTranslation'
-import { GetProfilePostsParams, ProfileInfo } from '@/shared/types/ApiTypes/ProfileApiTypes'
+import { useGetProfileInfoQuery } from '@/services/profile/profileApi'
+import { GetProfilePostsParams } from '@/shared/types/ApiTypes/ProfileApiTypes'
 import { useRouter } from 'next/router'
 
 const Profile = () => {
   const { data: me, isLoading: isMeLoading } = useMeQuery()
-  const { data: profileInfo } = useGetProfileInfoQuery()
   const [googleSignIn, { isLoading: isSignInLoading, isSuccess }] = useGoogleSignInMutation()
   const router = useRouter()
 

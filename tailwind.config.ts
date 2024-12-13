@@ -156,6 +156,9 @@ const config: Config = {
         success: colors.success,
         warning: colors.warning,
       },
+      gridTemplateColumns: {
+        posts: 'repeat(auto-fill, minmax(200px, 1fr))',
+      },
       height: {
         headerHeight: 'calc(100vh - 60px)',
       },

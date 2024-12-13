@@ -28,10 +28,7 @@ export type PostCardProps = {
   openModal: (post: Post) => void
   post: Post
 }
-export type PostModalProps = {
-  onClose: () => void
-  post: Post
-}
+
 export type PublicPostProps = {
   posts: Post[]
 }
@@ -62,4 +59,9 @@ export type AllPublicPosts = {
   pageSize: number
   totalCount: number
   totalUsers: number
+}
+
+export interface GetTotalUsersResponse {
+  lastUserId: number
+  totalCount: number
 }
