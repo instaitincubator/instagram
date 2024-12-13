@@ -1,52 +1,49 @@
-import { useMemo } from 'react'
+import { PaginationParams } from '@/shared/types/utilTypes'
+
+const pagesRange = (start: number, end: number) => {
+  const length = end - start + 1
+
+  return Array.from({ length }, (_, idx) => idx + start)
+}
 
 export const DOTS = '...'
 
-interface Props {
-  currentPage: number
-  pageSize: number
-  siblings?: number
-  totalCount: number
-}
+export const usePagination = (props: Omit<PaginationParams, 'onPageChange'>) => {
+  const { currentPage = 1, pageSize = 10, siblingCount = 2, totalCount = 100 } = props
 
-export const usePagination = ({ currentPage, pageSize, siblings = 1, totalCount }: Props) => {
-  return useMemo(() => {
-    const totalPageCount = Math.ceil(totalCount / pageSize)
-    const totalPageNumbers = siblings + 5
+  const totalPageCount = Math.ceil(totalCount / pageSize)
+  const totalPageNumbers = siblingCount + 5
 
-    if (totalPageNumbers >= totalPageCount) {
-      return Array.from({ length: totalPageCount }, (_, i) => i + 1)
-    }
+  if (totalPageNumbers >= totalPageCount) {
+    return pagesRange(1, totalPageCount)
+  }
 
-    const leftSiblingIndex = Math.max(currentPage - siblings, 1)
-    const rightSiblingIndex = Math.min(currentPage + siblings, totalPageCount)
+  const leftSiblingIndex = Math.max(+currentPage - siblingCount, 1)
+  const rightSiblingIndex = Math.min(+currentPage + siblingCount, totalPageCount)
 
-    const showLeftDots = leftSiblingIndex > 2
-    const showRightDots = rightSiblingIndex < totalPageCount - 2
+  const shouldShowLeftDots = leftSiblingIndex > 2
+  const shouldShowRightDots = rightSiblingIndex < totalPageCount - 2
 
-    const firstPageIndex = 1
-    const lastPageIndex = totalPageCount
+  const firstPageIndex = 1
+  const lastPageIndex = totalPageCount
 
-    const paginationRange = []
+  if (!shouldShowLeftDots && shouldShowRightDots) {
+    const leftItemCount = 3 + 2 * siblingCount
+    const leftRange = pagesRange(1, leftItemCount)
 
-    if (!showLeftDots && showRightDots) {
-      for (let i = 1; i < 3 + 2 * siblings; i++) {
-        paginationRange.push(i)
-      }
-      paginationRange.push(DOTS, lastPageIndex)
-    } else if (showLeftDots && !showRightDots) {
-      paginationRange.push(firstPageIndex, DOTS)
-      for (let i = totalPageCount - (3 + 2 * siblings) + 1; i <= totalPageCount; i++) {
-        paginationRange.push(i)
-      }
-    } else {
-      paginationRange.push(firstPageIndex, DOTS)
-      for (let i = leftSiblingIndex; i <= rightSiblingIndex; i++) {
-        paginationRange.push(i)
-      }
-      paginationRange.push(DOTS, lastPageIndex)
-    }
+    return [...leftRange, DOTS, lastPageIndex]
+  }
 
-    return paginationRange
-  }, [currentPage, totalCount, pageSize, siblings])
+  if (shouldShowLeftDots && !shouldShowRightDots) {
+    const rightItemCount = 3 + 2 * siblingCount
+    const rightRange = pagesRange(totalPageCount - rightItemCount + 1, totalPageCount)
+
+    return [firstPageIndex, DOTS, ...rightRange]
+  }
+
+  if (shouldShowLeftDots && shouldShowRightDots) {
+    const middleRange = pagesRange(leftSiblingIndex, rightSiblingIndex)
+
+    return [firstPageIndex, DOTS, ...middleRange, DOTS, lastPageIndex]
+  }
 }
