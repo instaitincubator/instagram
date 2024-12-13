@@ -1,27 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react'
 
-import { getLayoutWithSidebar } from '@/app/layouts/layoutWithSidebar/LayoutWithSidebar';
-import Pagination from '@/shared/ui/pagination/Pagination';
+import { getPublicLayoutWithSidebar } from '@/app/layouts/PublicLayoutWithSidebar/PublicLayoutWithSidebar'
 
-export const Home = () => {
-    const [currentPage, setCurrentPage] = useState<number | string>(1);
-    const totalCount = 100; // общее количество элементов
-    const pageSize = 10; // количество элементов на странице
+export default function Home() {
+  return <div>home </div>
+}
 
-    const handlePageChange = (page: number | string) => {
-        setCurrentPage(page);
-    };
-
-    return (
-        <Pagination
-            currentPage={currentPage}
-            onPageChange={handlePageChange}
-            pageSize={pageSize}
-            siblingCount={1}
-            totalCount={totalCount}
-        />
-    );
-};
-
-Home.getLayout = getLayoutWithSidebar;
-export default Home;
+Home.getLayout = getPublicLayoutWithSidebar
