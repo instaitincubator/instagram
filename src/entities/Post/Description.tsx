@@ -4,14 +4,14 @@ import { useTranslation } from '@/shared/hooks/useTranslation'
 import { motion } from 'framer-motion'
 
 type Props = {
-  description: string
+  description?: string
   isShowedText: boolean
   toggleShowedText: () => void
 }
 
 export const Description = ({ description, isShowedText, toggleShowedText }: Props) => {
   const descriptionRef = useRef<HTMLParagraphElement>(null)
-  const [isClampedText, setIsClampedText] = useState(false)
+  const [isClampedText, setIsClampedText] = useState(true)
   const { t } = useTranslation()
 
   useEffect(() => {
@@ -21,25 +21,30 @@ export const Description = ({ description, isShowedText, toggleShowedText }: Pro
   }, [descriptionRef.current])
 
   return (
-    <div className="relative max-h-[192px] overflow-auto">
+    <div className={`relative max-h-[192px] ${isShowedText ? 'overflow-auto' : 'overflow-hidden'}`}>
       <motion.p
-        animate={{ display: isShowedText ? 'inline' : '-webkit-box' }}
-        className={`break-words line-clamp-3 ${isShowedText ? 'inline' : ''}`}
-        initial={{ display: isShowedText ? '-webkit-box' : 'inline' }}
+        animate={{
+          maxHeight: isShowedText ? '192px' : '72px',
+        }}
+        className={`break-words ${isShowedText ? 'line-clamp-none' : 'line-clamp-none'} max-h-[${isShowedText ? '192px' : '72px'}]`}
+        initial={{
+          maxHeight: '72px',
+        }}
         ref={descriptionRef}
-        transition={{ duration: 5 }}
+        transition={{ duration: 0.2 }}
       >
         {description}&nbsp;
+        {isShowedText && (
+          <button
+            className="bg-dark-700 text-regular-16 text-accent-500 "
+            onClick={toggleShowedText}
+            type="button"
+          >
+            {t.profile.hide}
+          </button>
+        )}
       </motion.p>
-      {isShowedText && (
-        <button
-          className="bg-dark-700 text-regular-16 text-accent-500 mar"
-          onClick={toggleShowedText}
-          type="button"
-        >
-          {t.profile.hide}
-        </button>
-      )}
+
       {isClampedText && !isShowedText && (
         <button
           className="absolute block right-0 bottom-0 bg-dark-700 before:content-['...'] before:text-light-100 before:no-underline before:mr-[7px] text-regular-16 before:no-underline text-accent-500 "

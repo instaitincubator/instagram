@@ -28,9 +28,9 @@ const UserAvatar = ({ avatar, isShowedText, toggleShowedText, userId, userName }
         <p>{userName}</p>
       </a>
       {isShowedText && (
-        <Button className="cursor-pointer" onClick={toggleShowedText}>
+        <button className="cursor-pointer" onClick={toggleShowedText}>
           <Block />
-        </Button>
+        </button>
       )}
     </div>
   )

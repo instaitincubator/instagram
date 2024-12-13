@@ -30,9 +30,11 @@ export default function Home(props: Props) {
   const { postsData: posts, totalUsersData: data } = props
 
   return (
-    <div className="py-6 w-full max-w-[972px] mx-auto">
-      <CountRegisteredUsers count={data?.totalCount} />
-      <PublicPosts posts={posts?.items} />
+    <div className="px-[16px] md:px-16 w-full">
+      <div className="py-6 w-full max-w-[976px] mx-auto">
+        <CountRegisteredUsers count={data?.totalCount} />
+        <PublicPosts posts={posts?.items} />
+      </div>
     </div>
   )
 }
