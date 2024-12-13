@@ -5,6 +5,19 @@ export type Avatars = {
   url: string
   width: number
 }
+export interface ProfileInfoPublic {
+  aboutMe: string
+  avatars: Avatars[]
+  id: number
+  userMetadata: UserMetadata
+  userName: string
+}
+
+export interface UserMetadata {
+  followers: number
+  following: number
+  publications: number
+}
 
 export interface ProfileInfo {
   aboutMe: string
@@ -93,17 +106,44 @@ export type PostsItems = {
   updatedAt: string
   userName: string
 }
+export type PostsPublicItems = {
+  avatarOwner: string
+  avatarWhoLikes: any[]
+  createdAt: string
+  description: string
+  id: number
+  images: Images[]
+  isLiked: boolean
+  likesCount: number
+  location: string
+  owner: Owner
+  ownerId: number
+  updatedAt: string
+  userName: string
+}
 
 export type ProfilePosts = {
   items: PostsItems[]
   pageSize: number
   totalCount: number
 }
-
+export type ProfilePublicPosts = {
+  items: PostsPublicItems[]
+  pageSize: number
+  totalCount: number
+  totalUsers: number
+}
 export interface GetProfilePostsParams {
   pageNumber?: number
   pageSize?: number
   sortBy?: 'asc' | 'desc'
   sortDirection?: 'asc' | 'desc'
   userName: string
+}
+export interface GetPublicProfilePostsParams {
+  endCursorPostId?: number
+  pageSize?: number
+  sortBy?: 'asc' | 'desc'
+  sortDirection?: 'asc' | 'desc'
+  userId: string
 }
