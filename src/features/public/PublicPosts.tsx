@@ -21,7 +21,6 @@ const PublicPosts = ({ posts }: PublicPostProps) => {
 
   return (
       <div
-        // className="flex py-[36px] justify-between mx-auto flex-wrap flex-grow gap-x-[12px]"
         className="grid grid-cols-posts py-[36px] justify-between mx-auto flex-wrap flex-grow gap-[12px]"
       >
         {posts?.map(post => (
