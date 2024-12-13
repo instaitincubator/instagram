@@ -16,7 +16,7 @@ export const PostCard = ({ openModal, post }: PostCardProps) => {
   return (
     <div className="max-h-[390px] h-[390px] grow flex-shrink-0 relative" key={post.id}>
       <Slider arrImages={post.images} height={234} openModal={() => openModal(post)} width={234} />
-      <motion.div className={`absolute bottom-0 bg-dark-700 `}>
+      <motion.div className={`absolute bottom-0 bg-dark-700 min-h-[150px] w-full`}>
         <UserAvatar
           avatar={post.avatarOwner}
           isShowedText={isShowedText}

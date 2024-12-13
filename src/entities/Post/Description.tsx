@@ -33,10 +33,13 @@ export const Description = ({ description, isShowedText, toggleShowedText }: Pro
         ref={descriptionRef}
         transition={{ duration: 0.2 }}
       >
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis consequuntur doloribus
+        expedita fugit ipsa laboriosam libero numquam omnis pariatur quo quos sapiente similique
+        suscipit, temporibus vel velit voluptatibus. Quis, sapiente!
         {description}&nbsp;
         {isShowedText && (
           <button
-            className="bg-dark-700 text-regular-16 text-accent-500 mar"
+            className="bg-dark-700 text-regular-16 text-accent-500 "
             onClick={toggleShowedText}
             type="button"
           >
