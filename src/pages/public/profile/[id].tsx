@@ -1,29 +1,60 @@
+import React, { useEffect, useState } from "react";
+
 import { getPublicLayoutWithSidebar } from "@/app/layouts/PublicLayoutWithSidebar/PublicLayoutWithSidebar";
+import PostModal from "@/entities/Post/PostModal";
 import { UserInfo } from "@/features/UserInfo/UserInfo";
 import {
   ProfileInfoPublic, ProfilePublicPosts
 } from "@/shared/types/ApiTypes/ProfileApiTypes";
 import { GetServerSideProps } from "next";
+import Image from "next/image";
+import { useRouter } from "next/router";
 
-type ProfileProps = {
-  posts: ProfilePublicPosts
+interface Props {
+  posts: ProfilePublicPosts;
   profileInfo: ProfileInfoPublic;
+  selectedPost: any;
 }
-export const getServerSideProps: GetServerSideProps<ProfileProps> = (async (context) => {
-  const { id } = context.query;
+
+export const getServerSideProps: GetServerSideProps<Props> = (async (context) => {
+  const { id, postId } = context.query;
   const resProfile = await fetch(`https://inctagram.work/api/v1/public-user/profile/${id}`);
   const profileInfo: ProfileInfoPublic = await resProfile.json();
   const postsRes = await fetch(`https://inctagram.work/api/v1/public-posts/user/${id}`);
   const posts: ProfilePublicPosts = await postsRes.json();
+  const postRes = await fetch(`https://inctagram.work/api/v1/public-posts/${postId}`);
+  const selectedPost: any = await postRes.json();
 
   return {
     props: {
       posts,
-      profileInfo: profileInfo
+      profileInfo,
+      selectedPost
     }
   };
 });
-const Profile = ({ posts, profileInfo }: ProfileProps) => {
+
+const Profile = ({ posts, profileInfo, selectedPost }: Props) => {
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (router.query.postId) {
+      setModalIsOpen(true);
+    }
+  }, [router.query.postId]);
+  const closeModal = () => {
+    setModalIsOpen(false);
+    const updatedQuery = { ...router.query };
+
+    delete updatedQuery.postId;
+    void router.replace({
+        pathname: router.pathname,
+        query: updatedQuery
+      },
+      undefined,
+      { shallow: true });
+  };
 
   const isProfileOwner = false;
   let profileData;
@@ -42,8 +73,9 @@ const Profile = ({ posts, profileInfo }: ProfileProps) => {
   }
 
   return (
-    <div className={'mt-o mx-auto'}>
-      <div className="flex  items-baseline  flex-col gap-[13px] flex-1 pt-[24px] px-[15px]  md:pr-16 mb:pb-[59px] md:pl-6 md:pt-[35px] w-full">
+    <div className={"mt-o mx-auto"}>
+      <div
+        className="flex  items-baseline  flex-col gap-[13px] flex-1 pt-[24px] px-[15px]  md:pr-16 mb:pb-[59px] md:pl-6 md:pt-[35px] w-full">
         <UserInfo
           followersForPublic={followers}
           followingForPublic={following}
@@ -54,17 +86,28 @@ const Profile = ({ posts, profileInfo }: ProfileProps) => {
         <div className={"block md:hidden"}>
           <span className={"block md:hidden"}>{profileInfo?.aboutMe}</span>
         </div>
-        <div className={''}>
-          <div className=" grid grid-cols-3 md:grid-cols-4 gap-[3px] md:gap-[12px] pt-[29px]  mb:pt-[59px] justify-items-center ">
-            {posts?.items?.map(el => (
-              <div className={'flex justify-center'} key={el.id}>
-                <img alt={el.description} className={'w-[157px] h-[108px] md:w-[234px] md:h-[224px] object-cover'} src={el.images[0].url} />{' '}
+        <div
+          className=" grid grid-cols-3 md:grid-cols-4 gap-[3px] md:gap-[12px] pt-[29px]  mb:pt-[59px] justify-items-center ">
+          {posts?.items?.map(el => {
+            const onPostOpen = () => {
+              void router.push(`/public/profile/${el.ownerId}?postId=${el.id}  `);
+            };
+
+            return (
+              <div className={"flex justify-center"} key={el.id}>
+                <Image alt={el.description} className="md:w-[234px] md:h-[224px] object-cover"
+                       height={108}
+                       onClick={onPostOpen}
+                       src={el.images[0].url}
+                       width={157} />
               </div>
-            ))}
-          </div>
+            );
+          })}
         </div>
       </div>
-
+      {modalIsOpen && selectedPost && (
+        <PostModal onClose={closeModal} post={selectedPost} />
+      )}
     </div>
   );
 };

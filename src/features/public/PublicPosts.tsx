@@ -1,44 +1,30 @@
-import React, { useState } from 'react'
+import React from "react";
 
-import {PostCard} from '@/entities/Post/PostCard';
-import PostModal from '@/entities/Post/PostModal';
-import {Post} from '@/shared/types/public.types';
-import { useRouter } from 'next/router'
+import { PostCard } from "@/entities/Post/PostCard";
+import { Post } from "@/shared/types/public.types";
+import { useRouter } from "next/router";
 
 interface Props {
-  posts: Post[]
+  posts: Post[];
 }
+
 const PublicPosts = ({ posts }: Props) => {
 
-  const [modalIsOpen, setModalIsOpen] = useState(false)
-  const [selectedPost, setSelectedPost] = useState<Post | null>(null)
-  const router = useRouter()
+  const router = useRouter();
   const openModal = (post: Post) => {
-
-    void router.push(`/?postId=${post.id}`)
-  }
-
-  const closeModal = () => {
-    setSelectedPost(null)
-    setModalIsOpen(false)
-  }
+    void router.push(`/public/profile/${post.ownerId}/?postId=${post.id}`);
+  };
 
   return (
-      <div
-        className="grid grid-cols-posts py-[36px] justify-between mx-auto flex-wrap flex-grow gap-[12px]"
-      >
-        {posts?.map(post => (
-          <PostCard key={post.id} openModal={() => openModal(post)} post={post} />
-        ))}
-        {modalIsOpen && selectedPost && (
-          <div>
-            <span>sdfsdf</span>
-            <PostModal onClose={closeModal} post={selectedPost} />
-          </div>
-        )}
-      </div>
+    <div
+      className="grid grid-cols-posts py-[36px] justify-between mx-auto flex-wrap flex-grow gap-[12px]"
+    >
+      {posts?.map(post => (
+        <PostCard key={post.id} openModal={() => openModal(post)} post={post} />
+      ))}
+    </div>
 
-  )
-}
+  );
+};
 
-export default PublicPosts
+export default PublicPosts;
