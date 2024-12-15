@@ -1,18 +1,19 @@
-export {default as Block} from "./Block.svg"
-export {default as Bookmark} from "./Bookmark.svg"
-export {default as Home} from "./Home.svg"
-export {default as HomeFill} from "./HomeFill.svg"
-export {default as LogOut} from "./LogOut.svg"
-export {default as Message} from "./Message.svg"
-export {default as MessageFill} from "./MessageFill.svg"
-export {default as Plus} from "./Plus.svg"
-export {default as PlusFill} from "./PlusFill.svg"
-export {default as Profile} from "./Profile.svg"
-export {default as ProfileFill} from "./ProfileFill.svg"
-export {default as Search} from "./Search.svg"
-export {default as SearchFill} from "./SearchFill.svg"
-export {default as Settings} from "./Settings.svg"
-export {default as SettingsOutline} from "./SettingsOutline.svg"
-export {default as Trending} from "./Trending.svg"
-export {default as chrome} from "./chrome.svg"
-export {default as noImage} from "./noImage.png"
+export { default as Bookmark } from "./Bookmark.svg";
+export { default as Home } from "./Home.svg";
+export { default as HomeFill } from "./HomeFill.svg";
+export { default as LogOut } from "./LogOut.svg";
+export { default as Message } from "./Message.svg";
+export { default as MessageFill } from "./MessageFill.svg";
+export { default as Plus } from "./Plus.svg";
+export { default as PlusFill } from "./PlusFill.svg";
+export { default as Profile } from "./Profile.svg";
+export { default as ProfileFill } from "./ProfileFill.svg";
+export { default as Search } from "./Search.svg";
+export { default as SearchFill } from "./SearchFill.svg";
+export { default as Settings } from "./Settings.svg";
+export { default as SettingsOutline } from "./SettingsOutline.svg";
+export { default as Trending } from "./Trending.svg";
+export { default as ChevronLeftIcon } from "./chevronLeftIcon.svg";
+export { default as ChevronRightIcon } from "./chevronRightIcon.svg";
+export { default as chrome } from "./chrome.svg";
+export { default as noImage } from "./noImage.png";
