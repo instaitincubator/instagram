@@ -10,6 +10,7 @@ import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 
 import { noImage } from '../../../public'
+
 type Props = {
   arrImages: Images[]
   height: number
