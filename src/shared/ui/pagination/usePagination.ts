@@ -55,7 +55,7 @@ export function usePagination<T>({
       return [...leftRange, DOTS, lastPageIndex];
     }
 
- 
+    
     if (shouldShowLeftDots && !shouldShowRightDots) {
       const rightRange = range(totalPages - (2 * siblings + 2), totalPages);
       return [firstPageIndex, DOTS, ...rightRange];
