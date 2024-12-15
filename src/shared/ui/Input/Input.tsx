@@ -22,6 +22,7 @@ export type Props = {
   onBlur?: () => void
   onChangeText?: (value: string) => void
   placeholder?: string
+  requiredElem?: boolean
   type?: string
 } & ComponentPropsWithRef<'input'>
 
@@ -37,6 +38,7 @@ export const Input = forwardRef<ElementRef<'input'>, Props>(
       onChange,
       onChangeText,
       placeholder,
+      requiredElem,
       type,
       ...rest
     },
@@ -56,7 +58,12 @@ export const Input = forwardRef<ElementRef<'input'>, Props>(
 
     return (
       <div className={cn(fullWidth ? 'w-full' : 'w-[240px]')}>
-        {label && <span className="text-regular-14 text-light-900">{label}</span>}
+        {label && (
+          <span className="text-regular-14 text-light-900">
+            {label}
+            {requiredElem && <span className="text-red-500 font-bold ml-0.5 text-lg">*</span>}
+          </span>
+        )}
         <div className="relative flex w-full">
           <input
             className={cn(

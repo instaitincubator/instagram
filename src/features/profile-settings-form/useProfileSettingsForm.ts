@@ -10,19 +10,27 @@ import { z } from 'zod'
 export const useProfileSettingsForm = (initialValues: { aboutMe: string } & Profile) => {
   type schemaType = z.infer<typeof schema>
   const { t } = useTranslation()
-  const aboutMeRegex = /^[0-9A-Za-zА-Яа-я!@#$%^&*( )_+=\-`~{}[\]:;"'<>,.?/\\| \s]*$/
+  const aboutMeRegex = /^[0-9A-Za-zА-Яа-я!@#$%^&*( )_+=\-`~{}[\]:;"'<>,.?/\\|\s]*$/
   const schema = z.object({
-    aboutMe: z.string().max(200, { message: t.profileSettings.fewerThan200 }).regex(aboutMeRegex, {
-      message: t.profileSettings.aboutMeSymbols,
-    }),
-    city: z.object({
-      label: z.string(),
-      value: z.string(),
-    }),
-    country: z.object({
-      label: z.string(),
-      value: z.string(),
-    }),
+    aboutMe: z
+      .string()
+      .max(200, { message: t.profileSettings.fewerThan200 })
+      .regex(aboutMeRegex, {
+        message: t.profileSettings.aboutMeSymbols,
+      })
+      .optional(),
+    city: z
+      .object({
+        label: z.string(),
+        value: z.string(),
+      })
+      .optional(),
+    country: z
+      .object({
+        label: z.string(),
+        value: z.string(),
+      })
+      .optional(),
     dateOfBirth: z
       .date()
       .optional()
@@ -61,7 +69,7 @@ export const useProfileSettingsForm = (initialValues: { aboutMe: string } & Prof
     watch,
   } = useForm<schemaType>({
     defaultValues: {
-      aboutMe: initialValues.aboutMe,
+      aboutMe: initialValues.aboutMe || '',
       city: {
         label: initialValues.city || '',
         value: initialValues.city || '',

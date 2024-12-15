@@ -29,6 +29,7 @@
     "cookies-next": "^4.2.1",
     "country-state-city": "^3.2.1",
     "date-fns": "^3.6.0",
+    "motion": "^11.13.1",
     "next": "14.2.3",
     "nprogress": "^0.2.0",
     "prop-types": "^15.8.1",
@@ -47,7 +48,6 @@
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^1.5.0",
-    "@eslint/js": "^9.15.0",
     "@it-incubator/eslint-config": "^1.0.3",
     "@it-incubator/prettier-config": "^0.1.2",
     "@it-incubator/stylelint-config": "^2.0.0",
@@ -67,20 +67,13 @@
     "@types/react-avatar-editor": "^13.0.3",
     "@types/react-dom": "^18",
     "@types/stripe": "^8.0.417",
-    "eslint": "^8.57.1",
+    "eslint": "^8",
     "eslint-config-next": "14.2.3",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-prettier": "^5.2.1",
-    "eslint-plugin-react": "^7.37.2",
     "eslint-plugin-storybook": "^0.8.0",
-    "globals": "^15.12.0",
     "postcss": "^8",
-    "prettier": "^3.4.1",
     "storybook": "^8.1.8",
     "stylelint": "^16.9.0",
-    "stylelint-config-tailwindcss": "^0.0.7",
     "tailwindcss": "^3.4.1",
-    "typescript": "^5",
-    "typescript-eslint": "^8.16.0"
+    "typescript": "^5"
   }
 }
