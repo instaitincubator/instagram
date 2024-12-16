@@ -1,3 +1,4 @@
+export { default as Block } from "./Block.svg";
 export { default as Bookmark } from "./Bookmark.svg";
 export { default as Home } from "./Home.svg";
 export { default as HomeFill } from "./HomeFill.svg";
@@ -16,3 +17,5 @@ export { default as Trending } from "./Trending.svg";
 export { default as ChevronLeftIcon } from "./chevronLeftIcon.svg";
 export { default as ChevronRightIcon } from "./chevronRightIcon.svg";
 export { default as chrome } from "./chrome.svg";
+export { default as noImage } from "./noImage.png";
+

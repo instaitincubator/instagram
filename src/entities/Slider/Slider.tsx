@@ -10,6 +10,7 @@ import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 
 import { noImage } from '../../../public'
+
 type Props = {
   arrImages: Images[]
   height: number
@@ -18,8 +19,6 @@ type Props = {
 }
 
 export const Slider = ({ arrImages, height, openModal, width }: Props) => {
-  const [imageIndex, setImageIndex] = React.useState(0)
-
   const swiperRef = useRef<SwiperRef>(null)
 
   const rightHandleClick = () => {
@@ -72,7 +71,7 @@ export const Slider = ({ arrImages, height, openModal, width }: Props) => {
           alt={'SlideImage'}
           height={height}
           onClick={openModal}
-          src={arrImages.length ? arrImages[imageIndex].url : noImage}
+          src={arrImages.length ? arrImages[0].url : noImage}
           style={{ width: '100%' }}
           width={width}
         ></Image>

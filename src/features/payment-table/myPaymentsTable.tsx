@@ -1,15 +1,8 @@
 import React from 'react'
 
+import { Payment } from '@/shared/types/public.types'
 import { Table } from '@/shared/ui/Table/TableRoot'
 import { Column, Sort } from '@/shared/ui/Table/types'
-
-export interface Payment {
-  dateOfPayment: string
-  endDateOfSubscription: string
-  paymentType: string
-  price: number
-  subscriptionType: string
-}
 
 type MyPayments = {
   columns: Column[]

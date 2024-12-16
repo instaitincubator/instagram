@@ -8,15 +8,9 @@ import { useGetTotalUsersCountQuery } from "@/services/public/publicProfileCount
 
 
 const Public = () => {
-  const { data, error, isLoading } = useGetTotalUsersCountQuery();
-  const { data: posts, error: errorPost, isLoading: isLoadingPost } = useGetAllPublicPostsQuery({});
+  const { data } = useGetTotalUsersCountQuery();
+  const { data: posts } = useGetAllPublicPostsQuery({});
 
-  if (isLoading || isLoadingPost) {
-    return <div>Loading...</div>;
-  }
-  if (error || errorPost) {
-    return <div>Error...</div>;
-  }
 
   return <div className="py-6 w-full max-w-[972px] mx-auto">
     <CountRegisteredUsers count={data?.totalCount} />

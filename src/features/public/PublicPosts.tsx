@@ -1,37 +1,30 @@
-import React, { useState } from 'react'
+import React from "react";
 
-import {PostCard} from '@/entities/Post/PostCard';
-import PostModal from '@/entities/Post/PostModal';
-import {Post, PublicPostProps} from '@/shared/types/public.types';
-import { useRouter } from 'next/router'
+import { PostCard } from "@/entities/Post/PostCard";
+import { PostsPublicItems } from "@/shared/types/ApiTypes/ProfileApiTypes";
+import { useRouter } from "next/router";
 
-const PublicPosts = ({ posts }: PublicPostProps) => {
-  const [modalIsOpen, setModalIsOpen] = useState(false)
-  const [selectedPost, setSelectedPost] = useState<Post | null>(null)
-  const router = useRouter()
-  const openModal = (post: Post) => {
-
-    void router.push(`/?postId=${post.id}`)
-  }
-
-  const closeModal = () => {
-    setSelectedPost(null)
-    setModalIsOpen(false)
-  }
-
-  return (
-      <div
-        className="grid grid-cols-posts py-[36px] justify-between mx-auto flex-wrap flex-grow gap-[12px]"
-      >
-        {posts?.map(post => (
-          <PostCard key={post.id} openModal={() => openModal(post)} post={post} />
-        ))}
-        {modalIsOpen && selectedPost && (
-          <PostModal onClose={closeModal} post={selectedPost} />
-        )}
-      </div>
-
-  )
+interface Props {
+  posts: PostsPublicItems[];
 }
 
-export default PublicPosts
+const PublicPosts = ({ posts }: Props) => {
+
+  const router = useRouter();
+  const openModal = (post: PostsPublicItems) => {
+    void router.push(`/public/profile/${post.ownerId}/?postId=${post.id}`);
+  };
+
+  return (
+    <div
+      className="grid grid-cols-posts py-[36px] justify-between mx-auto flex-wrap flex-grow gap-[12px]"
+    >
+      {posts?.map(post => (
+        <PostCard key={post.id} openModal={() => openModal(post)} post={post} />
+      ))}
+    </div>
+
+  );
+};
+
+export default PublicPosts;
