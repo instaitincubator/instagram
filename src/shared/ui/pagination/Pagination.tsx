@@ -1,64 +1,67 @@
-import { useMemo } from 'react'
+import React from 'react'
 
-const createRange = (start: number, end: number) => {
-  const length = end - start + 1
+import { PaginationParams } from '@/shared/types/utilTypes'
+import { DOTS, usePagination } from '@/shared/ui/pagination/usePagination'
 
-  return Array.from({ length }, (_, idx) => idx + start)
-}
+import { ChevronLeftIcon, ChevronRightIcon } from '../../../../public'
 
-const DOTS = '...'
-
-type UsePaginationProps = {
-  currentPage: number
-  pageSize: number
-  siblings?: number
-  totalCount: number
-}
-
-type PaginationRange = (number | string)[]
-
-export const Pagination = ({
+const Pagination: React.FC<PaginationParams> = ({
   currentPage,
-  pageSize = 12,
-  siblings = 1,
+  onPageChange,
+  pageSize,
+  siblingCount,
   totalCount,
-}: UsePaginationProps): PaginationRange => {
-  return useMemo(() => {
-    const totalPageCount = Math.ceil(totalCount / pageSize)
+}) => {
+  const paginationRange = usePagination({
+    currentPage,
+    pageSize,
+    siblingCount,
+    totalCount,
+  })
 
-    const totalPageNumbers = siblings * 2 + 5
+  const lastPage =
+    paginationRange && paginationRange.length > 0 ? paginationRange[paginationRange.length - 1] : 0
 
-    if (totalPageNumbers >= totalPageCount) {
-      return createRange(1, totalPageCount)
-    }
+  return (
+    <ul className="flex items-center gap-2 list-none">
+      <li
+        className={`flex justify-center items-center w-8 h-8 cursor-pointer ${currentPage === 1 ? 'opacity-50 pointer-events-none' : ''}`}
+        onClick={() => +currentPage > 1 && onPageChange(+currentPage - 1)}
+      >
+        <ChevronLeftIcon className="w-4 h-4" />
+      </li>
 
-    const leftSiblingIndex = Math.max(currentPage - siblings, 1)
-    const rightSiblingIndex = Math.min(currentPage + siblings, totalPageCount)
+      {paginationRange?.map((pageNumber, index) => {
+        if (pageNumber === DOTS) {
+          return (
+            <li
+              className="flex justify-center items-center w-6 h-6 text-gray-500 cursor-default"
+              key={index}
+            >
+              {DOTS}
+            </li>
+          )
+        }
 
-    const hasLeftDots = leftSiblingIndex > 2
-    const hasRightDots = rightSiblingIndex < totalPageCount - 2
-
-    const firstPageIndex = 1
-    const lastPageIndex = totalPageCount
-
-    if (!hasLeftDots && hasRightDots) {
-      const visiblePages = createRange(1, siblings * 2 + 3)
-
-      return [...visiblePages, DOTS, lastPageIndex]
-    }
-
-    if (hasLeftDots && !hasRightDots) {
-      const visiblePages = createRange(totalPageCount - siblings * 2 - 2, totalPageCount)
-
-      return [firstPageIndex, DOTS, ...visiblePages]
-    }
-
-    if (hasLeftDots && hasRightDots) {
-      const middlePages = createRange(leftSiblingIndex, rightSiblingIndex)
-
-      return [firstPageIndex, DOTS, ...middlePages, DOTS, lastPageIndex]
-    }
-
-    return []
-  }, [currentPage, pageSize, siblings, totalCount])
+        return (
+          <li
+            className={`flex justify-center items-center w-6 h-6 text-sm leading-6 rounded transition-colors duration-200 
+                            ${pageNumber === currentPage ? 'text-dark-900  bg-gray-100 w-[25px] h-[25px] text-regular-14' : 'text-light-100 hover:bg-none cursor-pointer'}`}
+            key={index}
+            onClick={() => onPageChange(pageNumber)}
+          >
+            {pageNumber}
+          </li>
+        )
+      })}
+      <li
+        className={`flex justify-center items-center w-8 h-8 cursor-pointer ${currentPage === lastPage ? 'opacity-50 pointer-events-none' : ''}}`}
+        onClick={() => currentPage < lastPage && onPageChange(+currentPage + 1)}
+      >
+        <ChevronRightIcon className="w-4 h-4" />
+      </li>
+    </ul>
+  )
 }
+
+export default Pagination

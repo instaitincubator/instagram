@@ -18,3 +18,4 @@ export { default as ChevronLeftIcon } from "./chevronLeftIcon.svg";
 export { default as ChevronRightIcon } from "./chevronRightIcon.svg";
 export { default as chrome } from "./chrome.svg";
 export { default as noImage } from "./noImage.png";
+

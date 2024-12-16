@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 import { getLayoutWithSidebar } from '@/app/layouts/layoutWithSidebar/LayoutWithSidebar'
 import { UserInfo } from '@/features/UserInfo/UserInfo'
 import { useMeQuery } from '@/services/auth/signInApi'
@@ -9,8 +7,7 @@ import {
   useGetFollowingQuery,
   useGetProfileInfoQuery,
 } from '@/services/profile/profileApi'
-import { useTranslation } from '@/shared/hooks/useTranslation'
-import { GetProfilePostsParams, ProfileInfo } from '@/shared/types/ApiTypes/ProfileApiTypes'
+import { GetProfilePostsParams } from '@/shared/types/ApiTypes/ProfileApiTypes'
 
 const Profile = () => {
   const { data: me } = useMeQuery()
@@ -19,7 +16,6 @@ const Profile = () => {
   const params: GetProfilePostsParams = {
     userName: me?.userName!,
   }
-  const { t } = useTranslation()
   const { data: posts } = useGetPostsQuery(params)
   const { data: followers } = useGetFollowersQuery(profileInfo?.userName!)
   const { data: following } = useGetFollowingQuery(profileInfo?.userName!)
