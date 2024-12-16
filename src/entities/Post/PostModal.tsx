@@ -7,7 +7,7 @@ import UserAvatar from '@/entities/UserAvatar/UserAvatar'
 import { PostsPublicItems } from '@/shared/types/ApiTypes/ProfileApiTypes'
 import { Modal } from '@/shared/ui/Modal/Modal'
 
-type Props = {
+interface Props {
   onClose: () => void
   post: PostsPublicItems
 }
