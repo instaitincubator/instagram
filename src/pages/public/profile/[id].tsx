@@ -52,12 +52,6 @@ const Profile = ({ posts, profileInfo, selectedPost }: Props) => {
 
     delete updatedQuery.postId;
     void router.push('/')
-    // void router.replace({
-    //     pathname: router.pathname,
-    //     query: updatedQuery
-    //   },
-    //   undefined,
-    //   { shallow: true });
   };
 
   const isProfileOwner = false;
