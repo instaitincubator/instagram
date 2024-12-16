@@ -36,7 +36,7 @@ export const getServerSideProps: GetServerSideProps<Props> = (async (context) =>
           profileInfo,
           selectedPost
         }
-      };
+      }
     }
   )
 ;
