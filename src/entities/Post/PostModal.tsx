@@ -3,15 +3,15 @@ import React from 'react'
 import { Slider } from '@/entities/Slider/Slider'
 import { TimePublish } from '@/entities/TimePublish/TimePublish'
 import UserAvatar from '@/entities/UserAvatar/UserAvatar'
-import { Post } from '@/shared/types/public.types'
+import { PostsPublicItems } from '@/shared/types/ApiTypes/ProfileApiTypes'
 import { Modal } from '@/shared/ui/Modal/Modal'
 
-export type PostModalProps = {
+type Props = {
   onClose: () => void
-  post: Post
+  post: PostsPublicItems
 }
 
-const PostModal = ({ onClose, post }: PostModalProps) => {
+const PostModal = ({ onClose, post }: Props) => {
   return (
     <Modal onClose={onClose} withOutHeader>
       <div className="flex">

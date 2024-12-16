@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { getSettingsLayout } from '@/app/layouts/settingsLayout/SettingsLayout'
-import { MyPaymentsTable } from '@/pages/profile/settings/my-payments/myPaymentsTable'
+import { MyPaymentsTable } from '@/features/payment-table/myPaymentsTable'
 import { useGetPaymentsQuery } from '@/services/payments/PaymentsApi'
 import { useTableConfig } from '@/shared/hooks/useTableConfig'
 

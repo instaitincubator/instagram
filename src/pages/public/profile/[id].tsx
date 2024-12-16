@@ -4,16 +4,19 @@ import { getPublicLayoutWithSidebar } from "@/app/layouts/PublicLayoutWithSideba
 import PostModal from "@/entities/Post/PostModal";
 import { UserInfo } from "@/features/UserInfo/UserInfo";
 import {
+  PostsPublicItems,
   ProfileInfoPublic, ProfilePublicPosts
 } from "@/shared/types/ApiTypes/ProfileApiTypes";
 import { GetServerSideProps } from "next";
 import Image from "next/image";
 import { useRouter } from "next/router";
 
-interface Props {
+import { noImage } from "../../../../public";
+
+type Props = {
   posts: ProfilePublicPosts;
   profileInfo: ProfileInfoPublic;
-  selectedPost: any;
+  selectedPost: PostsPublicItems;
 }
 
 export const getServerSideProps: GetServerSideProps<Props> = (async (context) => {
@@ -23,7 +26,7 @@ export const getServerSideProps: GetServerSideProps<Props> = (async (context) =>
   const postsRes = await fetch(`https://inctagram.work/api/v1/public-posts/user/${id}`);
   const posts: ProfilePublicPosts = await postsRes.json();
   const postRes = await fetch(`https://inctagram.work/api/v1/public-posts/${postId}`);
-  const selectedPost: any = await postRes.json();
+  const selectedPost = await postRes.json();
 
   return {
     props: {
@@ -98,7 +101,7 @@ const Profile = ({ posts, profileInfo, selectedPost }: Props) => {
                 <Image alt={el.description} className="md:w-[234px] md:h-[224px] object-cover"
                        height={108}
                        onClick={onPostOpen}
-                       src={el.images[0].url}
+                       src={el.images.length ? el.images[0].url : noImage}
                        width={157} />
               </div>
             );
@@ -114,3 +117,4 @@ const Profile = ({ posts, profileInfo, selectedPost }: Props) => {
 
 Profile.getLayout = getPublicLayoutWithSidebar;
 export default Profile;
+

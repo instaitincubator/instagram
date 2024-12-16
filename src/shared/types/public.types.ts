@@ -1,16 +1,5 @@
-export type Post = {
-  avatarOwner: string | undefined
-  createdAt: string
-  description: string | undefined
-  id: number
-  images: Images[]
-  likesCount: number
-  location: string | undefined
-  owner: Owner
-  ownerId: number
-  updatedAt: string
-  userName: string
-}
+import { PostsPublicItems } from '@/shared/types/ApiTypes/ProfileApiTypes'
+
 export type Images = {
   createdAt: string
   fileSize: number
@@ -19,14 +8,10 @@ export type Images = {
   url: string
   width: number
 }
-export type Owner = {
-  firstname: string
-  lastname: string
-}
 
 export type PostCardProps = {
-  openModal: (post: Post) => void
-  post: Post
+  openModal: (post: PostsPublicItems) => void
+  post: PostsPublicItems
 }
 
 export type CountRegisteredUsersProps = {
@@ -52,7 +37,7 @@ export type ProfileAvatars = {
 }
 
 export type AllPublicPosts = {
-  items: Post[]
+  items: PostsPublicItems[]
   pageSize: number
   totalCount: number
   totalUsers: number
@@ -61,4 +46,11 @@ export type AllPublicPosts = {
 export interface GetTotalUsersResponse {
   lastUserId: number
   totalCount: number
+}
+export interface Payment {
+  dateOfPayment: string
+  endDateOfSubscription: string
+  paymentType: string
+  price: number
+  subscriptionType: string
 }

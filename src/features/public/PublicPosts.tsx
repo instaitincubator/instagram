@@ -1,17 +1,17 @@
 import React from "react";
 
 import { PostCard } from "@/entities/Post/PostCard";
-import { Post } from "@/shared/types/public.types";
+import { PostsPublicItems } from "@/shared/types/ApiTypes/ProfileApiTypes";
 import { useRouter } from "next/router";
 
 interface Props {
-  posts: Post[];
+  posts: PostsPublicItems[];
 }
 
 const PublicPosts = ({ posts }: Props) => {
 
   const router = useRouter();
-  const openModal = (post: Post) => {
+  const openModal = (post: PostsPublicItems) => {
     void router.push(`/public/profile/${post.ownerId}/?postId=${post.id}`);
   };
 
