@@ -14,7 +14,7 @@ export const usePagination = (props: Omit<PaginationParams, 'onPageChange'>) => 
   const { currentPage = 1, pageSize = 10, siblingCount = 2, totalCount = 10 } = props
 
   return useMemo(() => {
-    const totalPageCount = Math.ceil(totalCount / pageSize)
+    const totalPageCount = Math.ceil(totalCount / Number(pageSize))
     const totalPageNumbers = siblingCount + 5
 
     if (totalPageNumbers >= totalPageCount) {
