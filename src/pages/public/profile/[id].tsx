@@ -1,12 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import { getPublicLayoutWithSidebar } from "@/app/layouts/PublicLayoutWithSidebar/PublicLayoutWithSidebar";
 import PostModal from "@/entities/Post/PostModal";
 import { UserInfo } from "@/features/UserInfo/UserInfo";
-import {
-  PostsPublicItems,
-  ProfileInfoPublic, ProfilePublicPosts
-} from "@/shared/types/ApiTypes/ProfileApiTypes";
+import { PostsPublicItems, ProfileInfoPublic, ProfilePublicPosts } from "@/shared/types/ApiTypes/ProfileApiTypes";
 import { GetServerSideProps } from "next";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -16,47 +13,45 @@ import { noImage } from "../../../../public";
 type Props = {
   posts: ProfilePublicPosts;
   profileInfo: ProfileInfoPublic;
-  selectedPost: PostsPublicItems;
+  selectedPost: PostsPublicItems | null
 }
 
 export const getServerSideProps: GetServerSideProps<Props> = (async (context) => {
-  const { id, postId } = context.query;
-  const resProfile = await fetch(`https://inctagram.work/api/v1/public-user/profile/${id}`);
-  const profileInfo: ProfileInfoPublic = await resProfile.json();
-  const postsRes = await fetch(`https://inctagram.work/api/v1/public-posts/user/${id}`);
-  const posts: ProfilePublicPosts = await postsRes.json();
-  const postRes = await fetch(`https://inctagram.work/api/v1/public-posts/${postId}`);
-  const selectedPost = await postRes.json();
+      const { id, postId } = context.query;
+      const resProfile = await fetch(`https://inctagram.work/api/v1/public-user/profile/${id}`);
+      const profileInfo: ProfileInfoPublic = await resProfile.json();
+      const postsRes = await fetch(`https://inctagram.work/api/v1/public-posts/user/${id}`);
+      const posts: ProfilePublicPosts = await postsRes.json();
+      let selectedPost = null;
 
-  return {
-    props: {
-      posts,
-      profileInfo,
-      selectedPost
+      if (postId) {
+        const postRes = await fetch(`https://inctagram.work/api/v1/public-posts/${postId}`);
+
+        selectedPost = await postRes.json();
+      }
+
+      return {
+        props: {
+          posts,
+          profileInfo,
+          selectedPost
+        }
+      }
     }
-  };
-});
+  )
+;
 
 const Profile = ({ posts, profileInfo, selectedPost }: Props) => {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
   const router = useRouter();
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(true);
 
-  useEffect(() => {
-    if (router.query.postId) {
-      setModalIsOpen(true);
-    }
-  }, [router.query.postId]);
+
   const closeModal = () => {
-    setModalIsOpen(false);
+    setIsModalVisible(false)
     const updatedQuery = { ...router.query };
 
     delete updatedQuery.postId;
-    void router.replace({
-        pathname: router.pathname,
-        query: updatedQuery
-      },
-      undefined,
-      { shallow: true });
+    void router.push('/')
   };
 
   const isProfileOwner = false;
@@ -92,7 +87,9 @@ const Profile = ({ posts, profileInfo, selectedPost }: Props) => {
         <div
           className=" grid grid-cols-3 md:grid-cols-4 gap-[3px] md:gap-[12px] pt-[29px]  mb:pt-[59px] justify-items-center ">
           {posts?.items?.map(el => {
+
             const onPostOpen = () => {
+              setIsModalVisible(true)
               void router.push(`/public/profile/${el.ownerId}?postId=${el.id}  `);
             };
 
@@ -108,7 +105,7 @@ const Profile = ({ posts, profileInfo, selectedPost }: Props) => {
           })}
         </div>
       </div>
-      {modalIsOpen && selectedPost && (
+      {isModalVisible && selectedPost && (
         <PostModal onClose={closeModal} post={selectedPost} />
       )}
     </div>

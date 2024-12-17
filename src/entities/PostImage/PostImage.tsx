@@ -18,7 +18,7 @@ type Props = {
   width: number
 }
 
-export const Slider = ({ arrImages, height, openModal, width }: Props) => {
+export const PostImage = ({ arrImages, height, openModal, width }: Props) => {
   const swiperRef = useRef<SwiperRef>(null)
 
   const rightHandleClick = () => {
@@ -42,7 +42,7 @@ export const Slider = ({ arrImages, height, openModal, width }: Props) => {
                     onClick={openModal}
                     src={image.url}
                     width={width}
-                  ></Image>
+                  />
                 </SwiperSlide>
               )
             })}
@@ -72,9 +72,8 @@ export const Slider = ({ arrImages, height, openModal, width }: Props) => {
           height={height}
           onClick={openModal}
           src={arrImages.length ? arrImages[0].url : noImage}
-          style={{ width: '100%' }}
           width={width}
-        ></Image>
+        />
       )}
     </div>
   )
