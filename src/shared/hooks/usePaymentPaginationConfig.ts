@@ -7,11 +7,11 @@ interface PaymentConfig {
 }
 export const usePaymentPaginationConfig = ({ payments }: PaymentConfig) => {
   const [currentPage, setCurrentPage] = useState<number | string>(1)
-  const [pageSize, setPageSize] = useState<number>(5) // Добавляем состояние для pageSize
+  const [pageSize, setPageSize] = useState<number | string>(5)
 
   const numericCurrentPage = typeof currentPage === 'number' ? currentPage : Number(currentPage)
-  const indexOfLastPayment = numericCurrentPage * pageSize
-  const indexOfFirstPayment = indexOfLastPayment - pageSize
+  const indexOfLastPayment = numericCurrentPage * Number(pageSize)
+  const indexOfFirstPayment = indexOfLastPayment - Number(pageSize)
 
   const currentPayments = payments?.slice(indexOfFirstPayment, indexOfLastPayment)
   const totalCount = payments?.length

@@ -30,7 +30,7 @@ const MyPayments = () => {
       <Pagination
         currentPage={currentPage}
         onPageChange={setCurrentPage}
-        onPageSizeChange={setPageSize}
+        onPageSizeChange={value => setPageSize(value)}
         pageSize={pageSize}
         siblingCount={1}
         totalCount={totalCount}

@@ -9,10 +9,6 @@ export interface Option {
 interface onChange {
   (option: Option): void
 }
-// interface onChange {
-//   (option: Option): void
-//   (value: string): void
-// }
 
 export interface SelectProps {
   className?: string
