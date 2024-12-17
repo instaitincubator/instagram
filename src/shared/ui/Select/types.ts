@@ -2,14 +2,17 @@ import { JSX } from 'react'
 
 export interface Option {
   imageSrc?: JSX.Element | string
-  label?: string
-  value: string
+  label?: number | string
+  value: number | string
 }
 
 interface onChange {
   (option: Option): void
-  (value: string): void
 }
+// interface onChange {
+//   (option: Option): void
+//   (value: string): void
+// }
 
 export interface SelectProps {
   className?: string
