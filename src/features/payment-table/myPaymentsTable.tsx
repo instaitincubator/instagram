@@ -4,14 +4,16 @@ import { Payment } from '@/shared/types/public.types'
 import { Table } from '@/shared/ui/Table/TableRoot'
 import { Column, Sort } from '@/shared/ui/Table/types'
 
-type MyPayments = {
+interface Props {
   columns: Column[]
+  currentPage: number | string
   formatPrice: (price: number) => string
+  pageSize: number | string
   payments: Payment[] | undefined
   setSort: (sort: Sort) => void
   sort: Sort
 }
-export const MyPaymentsTable = ({ columns, formatPrice, payments, setSort, sort }: MyPayments) => {
+export const MyPaymentsTable = ({ columns, formatPrice, payments, setSort, sort }: Props) => {
   return (
     <div className="w-full overflow-x-auto">
       <Table.TableRoot>

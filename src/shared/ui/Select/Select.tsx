@@ -48,7 +48,14 @@ const Select: React.FC<SelectProps> = ({
 
   const renderOptionImage = (option: Option) => {
     if (option.imageSrc && typeof option.imageSrc === 'string') {
-      return <Image alt={option.label!} height={24} src={option.imageSrc} width={24} />
+      return (
+        <Image
+          alt={typeof option.label === 'string' ? option.label : String(option.label)}
+          height={24}
+          src={option.imageSrc}
+          width={24}
+        />
+      )
     }
 
     return option.imageSrc
