@@ -12,7 +12,7 @@ const PublicPosts = ({ posts }: Props) => {
 
   const router = useRouter();
   const openModal = (post: PostsPublicItems) => {
-    void router.push(`/public/profile/${post.ownerId}/?postId=${post.id}`);
+    void router.push(`/public-profile/profile/${post.ownerId}/?postId=${post.id}`);
   };
 
   return (

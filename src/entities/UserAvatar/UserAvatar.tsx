@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { Owner } from '@/shared/types/ApiTypes/ProfileApiTypes'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -10,13 +11,13 @@ interface Props {
   isShowedText?: boolean
   toggleShowedText?: () => void
   userId?: number
-  userName: string
+  userName: Owner | string
 }
 
 const UserAvatar = ({ avatar, isShowedText, toggleShowedText, userId, userName }: Props) => {
   return (
     <div className="flex gap-[12px] items-center justify-between py-3">
-      <Link className="flex gap-[12px] items-center" href={`/public/profile/${userId}`}>
+      <Link className="flex gap-[12px] items-center" href={`/public-profile/profile/${userId}`}>
         <Image
           alt="avatar"
           className="rounded-full"
@@ -24,7 +25,11 @@ const UserAvatar = ({ avatar, isShowedText, toggleShowedText, userId, userName }
           src={avatar ? avatar : '/avatar.png'}
           width={36}
         />
-        <p>{userName}</p>
+        {typeof userName === 'string' ? (
+          <p>{userName}</p>
+        ) : (
+          <p>{`${userName.firstName} ${userName.lastName}`}</p>
+        )}
       </Link>
       {isShowedText && (
         <button className="cursor-pointer" onClick={toggleShowedText} type="button">
