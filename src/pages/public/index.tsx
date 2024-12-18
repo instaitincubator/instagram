@@ -6,17 +6,21 @@ import PublicPosts from "@/features/public/PublicPosts";
 import { useGetAllPublicPostsQuery } from "@/services/public/allPublicPost";
 import { useGetTotalUsersCountQuery } from "@/services/public/publicProfileCounts";
 
-
 const Public = () => {
   const { data } = useGetTotalUsersCountQuery();
   const { data: posts } = useGetAllPublicPostsQuery({});
 
+  return (
+    <div className="py-6 w-full max-w-[972px] mx-auto">
+      <CountRegisteredUsers count={data?.totalCount} />
+      <PublicPosts posts={posts?.items} />
 
-  return <div className="py-6 w-full max-w-[972px] mx-auto">
-    <CountRegisteredUsers count={data?.totalCount} />
-    <PublicPosts posts={posts?.items} />
-  </div>;
+    </div>
 
+
+
+
+  );
 };
 
 Public.getLayout = getLayout;

@@ -16,6 +16,7 @@ import { formatDate } from '@/shared/utils/formatDate'
 
 const AccountManagement = () => {
   const { t } = useTranslation()
+
   const [subPrice, setSubPrice] = useState<SubscriptionAmount>(SubscriptionAmount.AMOUNT_1000)
   const [subType, setSubType] = useState<SubscriptionType>(SubscriptionType.DAY)
   const { data: currentSub } = useGetCurrentSubscriptionQuery()
