@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { getSettingsLayout } from '@/app/layouts/settingsLayout/SettingsLayout'
 import PayConfirmModal from '@/pages/profile/settings/account-management/payConfirmModal/payConfirmModal'
@@ -16,11 +16,18 @@ import { formatDate } from '@/shared/utils/formatDate'
 
 const AccountManagement = () => {
   const { t } = useTranslation()
+
   const [subPrice, setSubPrice] = useState<SubscriptionAmount>(SubscriptionAmount.AMOUNT_1000)
   const [subType, setSubType] = useState<SubscriptionType>(SubscriptionType.DAY)
   const { data: currentSub } = useGetCurrentSubscriptionQuery()
   const [status, setStatus] = useState(currentSub ? 'personal' : 'business')
   const [cancelRenewal, { isLoading }] = useCancelAutoRenewalMutation()
+
+  useEffect(() => {
+    if (currentSub) {
+      setStatus('business')
+    }
+  }, [currentSub])
 
   const handleSubChoice = (value: string) => {
     switch (value) {
@@ -75,6 +82,7 @@ const AccountManagement = () => {
             className="flex flex-col gap-5"
             defaultValue={status}
             onValueChange={setStatus}
+            value={status}
           >
             <RadioGroupItem value="personal">{t.pages.profile.personal}</RadioGroupItem>
             <RadioGroupItem value="business">{t.pages.profile.business}</RadioGroupItem>
