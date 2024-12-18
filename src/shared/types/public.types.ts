@@ -14,6 +14,31 @@ export type PostCardProps = {
   post: PostsPublicItems
 }
 
+export interface From {
+  avatars: ProfileAvatars[]
+  id: number
+  username: string
+}
+
+export interface SingleComment {
+  answerCount: number
+  content: string
+  createdAt: string
+  from: From
+  id: number
+  isLiked: boolean
+  likeCount: number
+  postId: number
+}
+
+export interface CommentForPost {
+  items: SingleComment[]
+  page: number
+  pageSize: number
+  pagesCount: number
+  totalCount: number
+}
+
 export type CountRegisteredUsersProps = {
   count: number | undefined
 }
@@ -47,6 +72,7 @@ export interface GetTotalUsersResponse {
   lastUserId: number
   totalCount: number
 }
+
 export interface Payment {
   dateOfPayment: string
   endDateOfSubscription: string
