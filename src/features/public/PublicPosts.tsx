@@ -17,7 +17,7 @@ const PublicPosts = ({ posts }: Props) => {
 
   return (
     <div
-      className="grid grid-cols-posts py-[36px] justify-between mx-auto flex-wrap flex-grow gap-[12px]"
+      className="md:grid md:grid-cols-posts py-[36px] flex justify-center items-center flex-col md:justify-between mx-auto flex-wrap flex-grow gap-[12px]"
     >
       {posts?.map(post => (
         <PostCard key={post.id} openModal={() => openModal(post)} post={post} />
