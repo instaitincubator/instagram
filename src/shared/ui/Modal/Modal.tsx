@@ -7,14 +7,23 @@ export interface ModalProps {
   className?: string
   contentClassName?: string
   headerClassName?: string
+  modalClassName?: string
   onClose?: () => void
   title?: ReactNode | string
   withOutHeader?: boolean
 }
 
 export const Modal: FC<PropsWithChildren<ModalProps>> = props => {
-  const { children, className, contentClassName, headerClassName, onClose, title, withOutHeader } =
-    props
+  const {
+    children,
+    className,
+    contentClassName,
+    headerClassName,
+    modalClassName,
+    onClose,
+    title,
+    withOutHeader,
+  } = props
 
   useEffect(() => {
     const handleClose = (event: KeyboardEvent): void => {
@@ -29,12 +38,17 @@ export const Modal: FC<PropsWithChildren<ModalProps>> = props => {
   }, [onClose])
 
   return (
-    <div className="fixed z-30 inset-0 flex flex-col items-center justify-center text-light-100">
+    <div
+      className={cn(
+        'fixed z-30 inset-0 flex flex-col items-center justify-center text-light-100',
+        className
+      )}
+    >
       <div
         className="fixed inset-0 z-40 w-full h-full bg-dark-900 bg-opacity-20"
         onClick={onClose}
       />
-      <div className={cn('bg-dark-300 z-50 overflow-auto border border-dark-100', className)}>
+      <div className={cn('bg-dark-300 z-50 overflow-auto border border-dark-100', modalClassName)}>
         {!withOutHeader ? (
           <header
             className={cn(
