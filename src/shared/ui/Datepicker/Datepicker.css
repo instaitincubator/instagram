@@ -20,9 +20,29 @@
   border: 2px solid #333;
 }
 
+.react-datepicker__triangle {
+  z-index: -1;
+}
+
+.react-datepicker-popper[data-placement^='bottom'] .react-datepicker__triangle {
+  color: #333;
+  fill: #333;
+  stroke: #333;
+}
+
+.react-datepicker-popper[data-placement^='top'] .react-datepicker__triangle {
+  color: #333;
+  fill: #333;
+  stroke: #333;
+}
+
+.react-datepicker-popper {
+  stroke: #333;
+}
+
 .react-datepicker__header {
   background-color: #171717;
-  border: 2px;
+  border-bottom: 2px solid #333;
 }
 
 .react-datepicker__day-name {
