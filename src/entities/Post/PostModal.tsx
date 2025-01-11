@@ -32,8 +32,8 @@ const PostModal = ({ comments, onClose, post }: Props) => {
       onClose={onClose}
       title={title}
     >
-      <div className="flex w-full">
-        <div className="flex-1">
+      <div className="flex w-full" key={post.id}>
+        <div className="max-w-[490px] grow flex-shrink-0 relative">
           <PostImage arrImages={post.images} height={560} width={490} />
         </div>
         <div className="flex flex-1 flex-col justify-between max-h-[474px]">
