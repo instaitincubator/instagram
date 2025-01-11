@@ -28,17 +28,21 @@ const PostModal = ({ comments, onClose, post }: Props) => {
     <Modal
       contentClassName="p-0 items-start justify-between"
       headerClassName="h-[60px]"
-      modalClassName="w-[50%] min-w-[950px]"
+      modalClassName="lg:w-[50%] lg:min-w-[950px] w-[90%] min-w-[490px]"
       onClose={onClose}
       title={title}
     >
-      <div className="flex w-full" key={post.id}>
-        <div className="max-w-[490px] grow flex-shrink-0 relative">
+      <div className="lg:flex w-full" key={post.id}>
+        <div className="max-w-[490px] flex-shrink-0 m-auto">
           <PostImage arrImages={post.images} height={560} width={490} />
         </div>
         <div className="flex flex-1 flex-col justify-between max-h-[474px]">
           <div className="flex flex-col gap-6 pl-6 py-6 overflow-y-auto">
-            {comments?.items.map(comment => <Comment comment={comment} key={comment.id} />)}
+            {comments?.items.length > 0 ? (
+              comments?.items.map(comment => <Comment comment={comment} key={comment.id} />)
+            ) : (
+              <span>no comments</span>
+            )}
           </div>
           <div className="h-fit">
             <div className="w-full h-[1px] bg-dark-100" />
