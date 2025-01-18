@@ -47,6 +47,7 @@ export const MobileSideBar = () => {
           alt={t.sidebar.create}
           child1={<Plus />}
           child2={<PlusFill />}
+          href="/create-post"
           setActiveLink={setActiveLink}
           title={t.sidebar.create}
         />

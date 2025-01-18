@@ -49,6 +49,7 @@ const colors = {
 
 const config: Config = {
   content: [
+    './node_modules/react-photo-editor/dist/*.js',
     './src/entities/**/*.{js,jsx,ts,tsx}',
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
