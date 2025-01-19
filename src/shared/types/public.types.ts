@@ -1,16 +1,5 @@
-export type Post = {
-  avatarOwner: string | undefined
-  createdAt: string
-  description: string | undefined
-  id: number
-  images: Images[]
-  likesCount: number
-  location: string | undefined
-  owner: Owner
-  ownerId: number
-  updatedAt: string
-  userName: string
-}
+import { PostsPublicItems } from '@/shared/types/ApiTypes/ProfileApiTypes'
+
 export type Images = {
   createdAt: string
   fileSize: number
@@ -19,19 +8,37 @@ export type Images = {
   url: string
   width: number
 }
-export type Owner = {
-  firstname: string
-  lastname: string
-}
 
 export type PostCardProps = {
-  openModal: (post: Post) => void
-  post: Post
+  openModal: (post: PostsPublicItems) => void
+  post: PostsPublicItems
 }
 
-export type PublicPostProps = {
-  posts: Post[]
+export interface From {
+  avatars: ProfileAvatars[]
+  id: number
+  username: string
 }
+
+export interface SingleComment {
+  answerCount: number
+  content: string
+  createdAt: string
+  from: From
+  id: number
+  isLiked: boolean
+  likeCount: number
+  postId: number
+}
+
+export interface CommentForPost {
+  items: SingleComment[]
+  page: number
+  pageSize: number
+  pagesCount: number
+  totalCount: number
+}
+
 export type CountRegisteredUsersProps = {
   count: number | undefined
 }
@@ -55,7 +62,7 @@ export type ProfileAvatars = {
 }
 
 export type AllPublicPosts = {
-  items: Post[]
+  items: PostsPublicItems[]
   pageSize: number
   totalCount: number
   totalUsers: number
@@ -64,4 +71,12 @@ export type AllPublicPosts = {
 export interface GetTotalUsersResponse {
   lastUserId: number
   totalCount: number
+}
+
+export interface Payment {
+  dateOfPayment: string
+  endDateOfSubscription: string
+  paymentType: string
+  price: number
+  subscriptionType: string
 }

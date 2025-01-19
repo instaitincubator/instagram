@@ -10,6 +10,7 @@ import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 
 import { noImage } from '../../../public'
+
 type Props = {
   arrImages: Images[]
   height: number
@@ -17,9 +18,7 @@ type Props = {
   width: number
 }
 
-export const Slider = ({ arrImages, height, openModal, width }: Props) => {
-  const [imageIndex, setImageIndex] = React.useState(0)
-
+export const PostImage = ({ arrImages, height, openModal, width }: Props) => {
   const swiperRef = useRef<SwiperRef>(null)
 
   const rightHandleClick = () => {
@@ -30,7 +29,7 @@ export const Slider = ({ arrImages, height, openModal, width }: Props) => {
   }
 
   return (
-    <div className="relative cursor-pointer" style={{ width: '100%' }}>
+    <div className="relative cursor-pointer">
       {arrImages.length > 1 ? (
         <>
           <Swiper loop modules={[Pagination]} pagination ref={swiperRef}>
@@ -43,7 +42,7 @@ export const Slider = ({ arrImages, height, openModal, width }: Props) => {
                     onClick={openModal}
                     src={image.url}
                     width={width}
-                  ></Image>
+                  />
                 </SwiperSlide>
               )
             })}
@@ -72,10 +71,9 @@ export const Slider = ({ arrImages, height, openModal, width }: Props) => {
           alt={'SlideImage'}
           height={height}
           onClick={openModal}
-          src={arrImages.length ? arrImages[imageIndex].url : noImage}
-          style={{ width: '100%' }}
+          src={arrImages.length ? arrImages[0].url : noImage}
           width={width}
-        ></Image>
+        />
       )}
     </div>
   )

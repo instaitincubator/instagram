@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 import { Description } from '@/entities/Post/Description'
-import { Slider } from '@/entities/Slider/Slider'
+import { PostImage } from '@/entities/PostImage/PostImage'
 import { TimePublish } from '@/entities/TimePublish/TimePublish'
 import UserAvatar from '@/entities/UserAvatar/UserAvatar'
 import { PostCardProps } from '@/shared/types/public.types'
@@ -15,7 +15,12 @@ export const PostCard = ({ openModal, post }: PostCardProps) => {
 
   return (
     <div className="max-h-[390px] h-[390px] grow flex-shrink-0 relative" key={post.id}>
-      <Slider arrImages={post.images} height={234} openModal={() => openModal(post)} width={234} />
+      <PostImage
+        arrImages={post.images}
+        height={234}
+        openModal={() => openModal(post)}
+        width={234}
+      />
       <motion.div className={`absolute bottom-0 bg-dark-700 min-h-[150px] w-full`}>
         <UserAvatar
           avatar={post.avatarOwner}

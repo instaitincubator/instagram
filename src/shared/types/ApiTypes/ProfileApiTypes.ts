@@ -108,7 +108,7 @@ export type PostsItems = {
 }
 export type PostsPublicItems = {
   avatarOwner: string
-  avatarWhoLikes: any[]
+  avatarWhoLikes: string[]
   createdAt: string
   description: string
   id: number

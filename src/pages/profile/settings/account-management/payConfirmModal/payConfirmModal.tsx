@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 import { useTranslation } from '@/shared/hooks/useTranslation'
 import Button from '@/shared/ui/Button/Button'
@@ -9,7 +9,7 @@ import { useRouter } from 'next/router'
 const PayConfirmModal = () => {
   const { t } = useTranslation()
   const router = useRouter()
-  const payConfirmation = router.query.success ? 'Success' : 'Error'
+  const payConfirmation = router.query.success === 'true' ? 'Success' : 'Error'
 
   return (
     router.query.success && (
@@ -18,7 +18,7 @@ const PayConfirmModal = () => {
         title={payConfirmation}
       >
         <div className="pb-[50px] w-[300px]">
-          {router.query.success ? t.payment.paySuccess : t.payment.payFailed}
+          {router.query.success === 'true' ? t.payment.paySuccess : t.payment.payFailed}
         </div>
         <Link className="w-full" href={'/profile/settings/account-management'}>
           <Button fullWidth onClick={() => router.push('/profile/settings/account-management')}>
