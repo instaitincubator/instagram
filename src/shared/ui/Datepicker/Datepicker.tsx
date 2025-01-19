@@ -3,8 +3,8 @@ import DatePicker from 'react-datepicker'
 
 import { cn } from '@/shared/utils/cn'
 
-import './Datepicker.css'
 import 'react-datepicker/dist/react-datepicker.css'
+import './Datepicker.css'
 
 export type DatepickerProps = {
   disabled?: boolean

@@ -29,7 +29,7 @@ export const PostImage = ({ arrImages, height, openModal, width }: Props) => {
   }
 
   return (
-    <div className="relative cursor-pointer" style={{ width: '100%' }}>
+    <div className="relative cursor-pointer">
       {arrImages.length > 1 ? (
         <>
           <Swiper loop modules={[Pagination]} pagination ref={swiperRef}>
