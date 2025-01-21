@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { ChangeEvent, useState } from 'react'
 
 import { getLayoutWithSidebar } from '@/app/layouts/layoutWithSidebar/LayoutWithSidebar'
 import { usePhotoEditor } from 'react-photo-editor'
+import DefaultAvatar from "@/features/avatar/ui/default-avatar";
 
 const CreatePost = () => {
   const [file, setFile] = useState<File | undefined>()
@@ -10,6 +11,16 @@ const CreatePost = () => {
   const setFileData = (e: React.ChangeEvent<HTMLInputElement> | null) => {
     if (e?.target?.files && e.target.files.length > 0) {
       setFile(e.target.files[0])
+    }
+  }
+  const [images, setImages] = useState<string[]>([])
+  const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files
+
+    if (files) {
+      const imageArray = Array.from(files).map(file => URL.createObjectURL(file))
+
+      setImages(imageArray)
     }
   }
 
@@ -34,19 +45,36 @@ const CreatePost = () => {
         <h3 className={'text-h3 text-accent-500 m-[6px]'}>Next</h3>
       </div>
       <div className="mx-[54px] my-[19px]">
-        {imageSrc && (
+        {imageSrc ? (
           <canvas
             className={'max-w-[90%] max-h-[50%] ml-auto mr-auto flex flex-wrap gap-[20px]'}
             ref={canvasRef}
           />
+        ) : (
+         <DefaultAvatar/>
         )}
       </div>
       <div className="">
+        <h1 className={'text-medium-14 mb-[17px]'}> My Gallery</h1>
         <input multiple={false} onChange={e => setFileData(e)} type="file" />
+        <div>
+          <input accept="image/*" multiple onChange={handleImageChange} type="file" />
+          <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+            {' '}
+            {images.map((image, index) => (
+              <img
+                alt={`img-${index}`}
+                key={index}
+                src={image}
+                style={{ height: '100px', margin: '10px', width: '100px' }}
+              />
+            ))}{' '}
+          </div>
+        </div>
       </div>
     </div>
   )
 }
 
-CreatePost.getLayout = getLayoutWithSidebar;
+CreatePost.getLayout = getLayoutWithSidebar
 export default CreatePost
