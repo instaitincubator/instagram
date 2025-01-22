@@ -1,12 +1,16 @@
-import React, { ChangeEvent, useState } from 'react'
+import React, { ChangeEvent, useRef, useState } from "react";
+import { usePhotoEditor } from 'react-photo-editor'
 
 import { getLayoutWithSidebar } from '@/app/layouts/layoutWithSidebar/LayoutWithSidebar'
-import { usePhotoEditor } from 'react-photo-editor'
-import DefaultAvatar from "@/features/avatar/ui/default-avatar";
-
+import DefaultAvatar from '@/features/avatar/ui/default-avatar'
+import { Swiper, SwiperRef, SwiperSlide } from "swiper/react";
+import { Pagination } from "swiper/modules";
+import 'swiper/css'
+import 'swiper/css/navigation'
+import 'swiper/css/pagination'
 const CreatePost = () => {
   const [file, setFile] = useState<File | undefined>()
-
+  const swiperRef = useRef<SwiperRef>(null)
   const { applyFilter, canvasRef, imageSrc } = usePhotoEditor({ file })
   const setFileData = (e: React.ChangeEvent<HTMLInputElement> | null) => {
     if (e?.target?.files && e.target.files.length > 0) {
@@ -19,7 +23,7 @@ const CreatePost = () => {
 
     if (files) {
       const imageArray = Array.from(files).map(file => URL.createObjectURL(file))
-
+      console.log(imageArray);
       setImages(imageArray)
     }
   }
@@ -45,18 +49,34 @@ const CreatePost = () => {
         <h3 className={'text-h3 text-accent-500 m-[6px]'}>Next</h3>
       </div>
       <div className="mx-[54px] my-[19px]">
-        {imageSrc ? (
-          <canvas
-            className={'max-w-[90%] max-h-[50%] ml-auto mr-auto flex flex-wrap gap-[20px]'}
-            ref={canvasRef}
-          />
+        {/*{imageSrc ? (*/}
+        {/*  <canvas*/}
+        {/*    className={'max-w-[90%] max-h-[50%] ml-auto mr-auto flex flex-wrap gap-[20px]'}*/}
+        {/*    ref={canvasRef}*/}
+        {/*  />*/}
+        {/*) : (*/}
+        {/*  <DefaultAvatar />*/}
+        {/*)}*/}
+        {images.length > 1 ? (
+          <>
+            <Swiper loop modules={[Pagination]} pagination ref={swiperRef}>
+              {images.map((image, i) => {
+                return (
+                  <SwiperSlide key={image}>
+                    {/*<Image src={image[i]} width={'50'} height={'50'}/>*/}
+                    <img alt={image} src={image} />
+                  </SwiperSlide>
+                )
+              })}
+            </Swiper>
+          </>
         ) : (
-         <DefaultAvatar/>
+          ''
         )}
       </div>
       <div className="">
         <h1 className={'text-medium-14 mb-[17px]'}> My Gallery</h1>
-        <input multiple={false} onChange={e => setFileData(e)} type="file" />
+        {/*<input multiple={false} onChange={e => setFileData(e)} type="file" />*/}
         <div>
           <input accept="image/*" multiple onChange={handleImageChange} type="file" />
           <div style={{ display: 'flex', flexWrap: 'wrap' }}>

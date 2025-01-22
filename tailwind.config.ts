@@ -49,6 +49,7 @@ const colors = {
 
 const config: Config = {
   content: [
+    'react-slideshow-image/dist/styles.css',
     './node_modules/react-photo-editor/dist/*.js',
     './src/entities/**/*.{js,jsx,ts,tsx}',
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
