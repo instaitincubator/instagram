@@ -56,6 +56,7 @@ const config: Config = {
     './src/shared/**/*.{js,ts,jsx,tsx,mdx}',
     './src/features/**/*.{js,ts,jsx,tsx,mdx}',
   ],
+  darkMode: ['class'],
   plugins: [
     plugin(function ({ addUtilities }) {
       const newUtilities = {
@@ -139,6 +140,7 @@ const config: Config = {
         },
       })
     }),
+    require('tailwindcss-animate'),
   ],
   theme: {
     extend: {
@@ -148,13 +150,18 @@ const config: Config = {
       borderColor: {
         ...colors,
       },
+      borderRadius: {
+        lg: 'var(--radius)',
+        md: 'calc(var(--radius) - 2px)',
+        sm: 'calc(var(--radius) - 4px)',
+      },
       colors: {
-        accent: colors.accent,
-        danger: colors.danger,
-        dark: colors.dark,
-        light: colors.light,
-        success: colors.success,
-        warning: colors.warning,
+        accent: 'colors.accent',
+        danger: 'colors.danger',
+        dark: 'colors.dark',
+        light: 'colors.light',
+        success: 'colors.success',
+        warning: 'colors.warning',
       },
       gridTemplateColumns: {
         posts: 'repeat(auto-fill, minmax(200px, 1fr))',

@@ -1,0 +1,31 @@
+import { SingleNotification } from '@/app/layouts/mainLayout/SingleNotification'
+import { Notification } from '@/shared/ui/icons/notification'
+import { Popover, Separator } from 'radix-ui'
+
+import { useGetNotificationQuery } from './NotificationApi'
+
+export const NotificationComponent = () => {
+  const { data: notification } = useGetNotificationQuery({})
+
+  return (
+    <Popover.Root>
+      <Popover.Trigger className="hidden sm:flex">
+        <Notification />
+      </Popover.Trigger>
+      <Popover.Portal>
+        <Popover.Content
+          align="end"
+          className="bg-dark-500 border-[1px] min-w-[300px] max-w-[355px] border-dark-300 rounded py-4 pl-4 pr-1"
+          sideOffset={5}
+        >
+          <span className="text-bold-14 text-light-100">уведомления</span>
+          <Separator.Root className="my-2 mr-6 bg-dark-100 h-[1px]" />
+          <div className="max-h-[400px] overflow-auto pr-4">
+            <SingleNotification />
+          </div>
+          <Popover.Arrow className="fill-[#333] ml-1" />
+        </Popover.Content>
+      </Popover.Portal>
+    </Popover.Root>
+  )
+}
