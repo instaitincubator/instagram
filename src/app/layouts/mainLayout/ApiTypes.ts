@@ -10,3 +10,17 @@ type GetNotificationItems = {
   isRead: boolean
   message: string
 }
+export type MarkAsUpdatedRequest = {
+  id: number[]
+}
+
+export type Messages = {
+  field: string
+  message: string
+}
+
+export type ErrorResponse = {
+  error: string
+  messages: Messages[]
+  statusCode: number
+}

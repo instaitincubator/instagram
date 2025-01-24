@@ -1,11 +1,31 @@
+import { useEffect } from 'react'
+
 import { SingleNotification } from '@/app/layouts/mainLayout/SingleNotification'
 import { Notification } from '@/shared/ui/icons/notification'
+import { getToken } from '@/shared/utils/storage'
 import { Popover, Separator } from 'radix-ui'
+import { io } from 'socket.io-client'
 
 import { useGetNotificationQuery } from './NotificationApi'
 
 export const NotificationComponent = () => {
   const { data: notification } = useGetNotificationQuery({})
+
+  useEffect(() => {
+    const socket = io('https://inctagram.work', {
+      query: {
+        accessToken: getToken(),
+      },
+    })
+
+    socket.on('notifications', notification => {
+      console.log('Received notification:', notification)
+    })
+
+    return () => {
+      socket.disconnect()
+    }
+  }, [])
 
   return (
     <Popover.Root>
@@ -15,7 +35,7 @@ export const NotificationComponent = () => {
       <Popover.Portal>
         <Popover.Content
           align="end"
-          className="bg-dark-500 border-[1px] min-w-[300px] max-w-[355px] border-dark-300 rounded py-4 pl-4 pr-1"
+          className="bg-dark-500 border-[1px] min-w-[300px] max-w-[355px] border-dark-300 rounded py-4 pl-4 pr-1 z-20"
           sideOffset={5}
         >
           <span className="text-bold-14 text-light-100">уведомления</span>
