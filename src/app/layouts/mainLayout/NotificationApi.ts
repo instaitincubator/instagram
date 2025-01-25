@@ -2,6 +2,7 @@ import {
   ErrorResponse,
   GetNotificationResponse,
   MarkAsUpdatedRequest,
+  getNotificationParams,
 } from '@/app/layouts/mainLayout/ApiTypes'
 import { baseApi } from '@/services/inctagram-api'
 
@@ -15,10 +16,11 @@ const notificationApi = baseApi.injectEndpoints({
           }
         },
       }),
-      getNotification: build.query<GetNotificationResponse, any>({
-        query: () => {
+      getNotification: build.query<GetNotificationResponse, getNotificationParams>({
+        query: params => {
           return {
-            url: '/api/v1/notifications',
+            params,
+            url: `/api/v1/notifications`,
           }
         },
       }),

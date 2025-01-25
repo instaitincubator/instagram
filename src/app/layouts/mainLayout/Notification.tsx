@@ -6,10 +6,14 @@ import { getToken } from '@/shared/utils/storage'
 import { Popover, Separator } from 'radix-ui'
 import { io } from 'socket.io-client'
 
-import { useGetNotificationQuery } from './NotificationApi'
-
 export const NotificationComponent = () => {
-  const { data: notification } = useGetNotificationQuery({})
+  // const defaultParams = {
+  //   pageSize: 10,
+  //   sortBy: 'notifyAt',
+  //   sortDirection: 'desc',
+  // } as getNotificationParams
+  //
+  // const { data: notification } = useGetNotificationQuery(defaultParams)
 
   useEffect(() => {
     const socket = io('https://inctagram.work', {

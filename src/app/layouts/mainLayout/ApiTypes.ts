@@ -24,3 +24,11 @@ export type ErrorResponse = {
   messages: Messages[]
   statusCode: number
 }
+
+export type getNotificationParams = {
+  cursor?: number
+  isRead?: boolean
+  pageSize?: number
+  sortBy?: 'notifyAt'
+  sortDirection?: 'asc' | 'desc'
+}

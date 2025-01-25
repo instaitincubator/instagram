@@ -1,9 +1,18 @@
+import { useState } from 'react'
+
+import { getNotificationParams } from '@/app/layouts/mainLayout/ApiTypes'
 import { useGetNotificationQuery } from '@/app/layouts/mainLayout/NotificationApi'
 import { formatDate } from '@/shared/utils/formatDate'
 import { Separator } from 'radix-ui'
 
 export const SingleNotification = () => {
-  const { data: notification } = useGetNotificationQuery({})
+  const defaultParams = {
+    pageSize: 10,
+    sortBy: 'notifyAt',
+    sortDirection: 'desc',
+  } as getNotificationParams
+  const [params, setParams] = useState<getNotificationParams>(defaultParams)
+  const { data: notification } = useGetNotificationQuery(params)
 
   return notification?.items.map((item, index) => {
     const isLastItem = index !== notification.items.length - 1
