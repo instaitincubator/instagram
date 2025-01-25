@@ -6,9 +6,25 @@ import {
   ProfilePublicPosts,
 } from '@/shared/types/ApiTypes/ProfileApiTypes'
 
+type uploadType = {
+  uploadId: string
+}
+type createPost = {
+  childrenMetadata: uploadType[]
+  description: string
+}
 const getPostsApi = baseApi.injectEndpoints({
   endpoints: build => {
     return {
+      getCreatePost: build.mutation<any, createPost>({
+        query: data => {
+          return {
+            body: data,
+            method: 'POST',
+            url: '/api/v1/posts',
+          }
+        },
+      }),
       getPosts: build.query<ProfilePosts, GetProfilePostsParams>({
         providesTags: ['Posts'],
         query: arg => {
@@ -52,8 +68,17 @@ const getPostsApi = baseApi.injectEndpoints({
           }
         },
       }),
+      getUploadImage: build.mutation({
+        query: formData => {
+          return {
+            body: formData,
+            method: 'POST',
+            url: '/api/v1/posts/image',
+          }
+        },
+      }),
     }
   },
 })
 
-export const { useGetPostsQuery } = getPostsApi
+export const { useGetPostsQuery, useGetUploadImageMutation, useGetCreatePostMutation } = getPostsApi

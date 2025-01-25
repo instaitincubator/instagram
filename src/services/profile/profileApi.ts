@@ -78,7 +78,7 @@ const profileApi = baseApi.injectEndpoints({
           }
         },
       }),
-      uploadProfileAvatar: build.mutation<any, any>({
+      uploadProfileAvatar: build.mutation({
         invalidatesTags: ['profile'],
         query: formData => {
           return {
