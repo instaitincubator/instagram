@@ -115,7 +115,7 @@ const AvatarModal = ({ avatar, onClose }: AvatarModalProps) => {
 
           <label className={'w-full md:w-[300px]'}>
             <input
-              accept={'image/*'}
+              accept={'image/png, image/jpeg'}
               onChange={onImageUpload}
               style={{ display: 'none' }}
               type="file"
