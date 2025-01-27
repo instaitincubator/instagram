@@ -1,17 +1,14 @@
 export type GetNotificationResponse = {
-  items: GetNotificationItems[]
+  items: NotificationItem[]
   notReadCount: number
   pageSize: number
   totalCount: number
 }
-type GetNotificationItems = {
+export type NotificationItem = {
   createdAt: string
   id: number
   isRead: boolean
   message: string
-}
-export type MarkAsUpdatedRequest = {
-  id: number[]
 }
 
 export type Messages = {
@@ -24,7 +21,9 @@ export type ErrorResponse = {
   messages: Messages[]
   statusCode: number
 }
-
+export type MarkAsReadRequest = {
+  ids: number[]
+}
 export type getNotificationParams = {
   cursor?: number
   isRead?: boolean

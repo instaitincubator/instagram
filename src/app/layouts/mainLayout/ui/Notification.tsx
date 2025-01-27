@@ -1,20 +1,12 @@
 import { useEffect } from 'react'
 
-import { SingleNotification } from '@/app/layouts/mainLayout/SingleNotification'
-import { Notification } from '@/shared/ui/icons/notification'
+import NotificationTrigger from '@/app/layouts/mainLayout/ui/NotificationTrigger'
+import { SingleNotification } from '@/app/layouts/mainLayout/ui/SingleNotification'
 import { getToken } from '@/shared/utils/storage'
 import { Popover, Separator } from 'radix-ui'
 import { io } from 'socket.io-client'
 
 export const NotificationComponent = () => {
-  // const defaultParams = {
-  //   pageSize: 10,
-  //   sortBy: 'notifyAt',
-  //   sortDirection: 'desc',
-  // } as getNotificationParams
-  //
-  // const { data: notification } = useGetNotificationQuery(defaultParams)
-
   useEffect(() => {
     const socket = io('https://inctagram.work', {
       query: {
@@ -33,8 +25,8 @@ export const NotificationComponent = () => {
 
   return (
     <Popover.Root>
-      <Popover.Trigger className="hidden sm:flex">
-        <Notification />
+      <Popover.Trigger className="hidden sm:flex ">
+        <NotificationTrigger />
       </Popover.Trigger>
       <Popover.Portal>
         <Popover.Content
@@ -43,8 +35,8 @@ export const NotificationComponent = () => {
           sideOffset={5}
         >
           <span className="text-bold-14 text-light-100">уведомления</span>
-          <Separator.Root className="my-2 mr-6 bg-dark-100 h-[1px]" />
-          <div className="max-h-[400px] overflow-auto pr-4">
+          <Separator.Root className="my-2 mr-4 bg-dark-100 h-[1px]" />
+          <div className="max-h-[400px] overflow-auto pr-2">
             <SingleNotification />
           </div>
           <Popover.Arrow className="fill-[#333] ml-1" />

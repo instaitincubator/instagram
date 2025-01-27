@@ -1,6 +1,6 @@
 import { ComponentProps } from 'react'
 
-import { NotificationComponent } from '@/app/layouts/mainLayout/Notification'
+import { NotificationComponent } from '@/app/layouts/mainLayout/ui/Notification'
 import { LanguageSelect } from '@/features/language-select/LanguageSelect'
 import { MobileMenuSelector } from '@/features/mobile-menu-selector/Mobile-menu-selector'
 import { useMeQuery } from '@/services/auth/signInApi'

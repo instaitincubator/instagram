@@ -1,22 +1,24 @@
 import {
-  ErrorResponse,
   GetNotificationResponse,
-  MarkAsUpdatedRequest,
+  MarkAsReadRequest,
   getNotificationParams,
-} from '@/app/layouts/mainLayout/ApiTypes'
+} from '@/app/layouts/mainLayout/types/ApiTypes'
 import { baseApi } from '@/services/inctagram-api'
 
 const notificationApi = baseApi.injectEndpoints({
   endpoints: build => {
     return {
-      deleteNotification: build.mutation<ErrorResponse, number>({
+      deleteNotification: build.mutation<void, number>({
+        invalidatesTags: ['Notifications'],
         query: id => {
           return {
+            method: 'DELETE',
             url: `/api/v1/notifications/${id}`,
           }
         },
       }),
       getNotification: build.query<GetNotificationResponse, getNotificationParams>({
+        providesTags: ['Notifications'],
         query: params => {
           return {
             params,
@@ -24,7 +26,8 @@ const notificationApi = baseApi.injectEndpoints({
           }
         },
       }),
-      markAsUpdated: build.mutation<ErrorResponse, MarkAsUpdatedRequest>({
+      markAsRead: build.mutation<void, MarkAsReadRequest>({
+        invalidatesTags: ['Notifications'],
         query: body => {
           return {
             body,
@@ -37,5 +40,5 @@ const notificationApi = baseApi.injectEndpoints({
   },
 })
 
-export const { useDeleteNotificationMutation, useGetNotificationQuery, useMarkAsUpdatedMutation } =
+export const { useDeleteNotificationMutation, useGetNotificationQuery, useMarkAsReadMutation } =
   notificationApi
