@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import NotificationTrigger from '@/app/layouts/mainLayout/ui/NotificationTrigger'
 import { SingleNotification } from '@/app/layouts/mainLayout/ui/SingleNotification'
@@ -7,6 +7,8 @@ import { Popover, Separator } from 'radix-ui'
 import { io } from 'socket.io-client'
 
 export const NotificationComponent = () => {
+  const [paymentAlert, setPaymentAlert] = useState()
+
   useEffect(() => {
     const socket = io('https://inctagram.work', {
       query: {
@@ -15,7 +17,7 @@ export const NotificationComponent = () => {
     })
 
     socket.on('notifications', notification => {
-      console.log('Received notification:', notification)
+      setPaymentAlert(notification)
     })
 
     return () => {
