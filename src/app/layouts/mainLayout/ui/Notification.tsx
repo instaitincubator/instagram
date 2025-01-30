@@ -2,12 +2,15 @@ import { useEffect, useState } from 'react'
 
 import NotificationTrigger from '@/app/layouts/mainLayout/ui/NotificationTrigger'
 import { SingleNotification } from '@/app/layouts/mainLayout/ui/SingleNotification'
+import { useAppDispatch } from '@/app/store'
+import { paymentsNotificationsActions } from '@/services/payments-notifications/payments-notifications'
 import { getToken } from '@/shared/utils/storage'
 import { Popover, Separator } from 'radix-ui'
 import { io } from 'socket.io-client'
 
 export const NotificationComponent = () => {
   const [paymentAlert, setPaymentAlert] = useState()
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     const socket = io('https://inctagram.work', {
@@ -18,12 +21,14 @@ export const NotificationComponent = () => {
 
     socket.on('notifications', notification => {
       setPaymentAlert(notification)
+      dispatch(paymentsNotificationsActions.addNotification(notification))
     })
 
     return () => {
       socket.disconnect()
     }
   }, [])
+  console.log(paymentAlert)
 
   return (
     <Popover.Root>
