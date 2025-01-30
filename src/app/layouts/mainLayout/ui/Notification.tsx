@@ -9,7 +9,6 @@ import { Popover, Separator } from 'radix-ui'
 import { io } from 'socket.io-client'
 
 export const NotificationComponent = () => {
-  const [paymentAlert, setPaymentAlert] = useState()
   const dispatch = useAppDispatch()
 
   useEffect(() => {
@@ -20,7 +19,6 @@ export const NotificationComponent = () => {
     })
 
     socket.on('notifications', notification => {
-      setPaymentAlert(notification)
       dispatch(paymentsNotificationsActions.addNotification(notification))
     })
 
@@ -28,7 +26,6 @@ export const NotificationComponent = () => {
       socket.disconnect()
     }
   }, [])
-  console.log(paymentAlert)
 
   return (
     <Popover.Root>

@@ -1,22 +1,13 @@
+import { PaymentNotyfication } from '@/app/layouts/mainLayout/types/ApiTypes'
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
-
-type Notyfication = {
-  clientId: string
-  createdAt: string
-  eventType: number
-  id: number
-  isRead: boolean
-  message: string
-  notifyAt: string
-}
 
 const paymentsNotifications = createSlice({
   initialState: {
-    notifications: [] as Notyfication[],
+    notifications: [] as PaymentNotyfication[],
   },
   name: 'paymentsNotifications',
   reducers: {
-    addNotification: (state, action: PayloadAction<Notyfication>): void => {
+    addNotification: (state, action: PayloadAction<PaymentNotyfication>): void => {
       state.notifications.push(action.payload)
     },
     deleteNotification: (state, action: PayloadAction<number>): void => {
