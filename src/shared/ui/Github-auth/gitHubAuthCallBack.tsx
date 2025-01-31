@@ -11,4 +11,6 @@ export const GithubAuthCallback = () => {
     setToken(accessToken as string)
     void router.push(`/profile/${me.userId}`)
   }
+
+  return <></>
 }

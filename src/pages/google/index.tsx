@@ -24,6 +24,8 @@ export const Google = () => {
       void router.push(`/profile/${userId}`)
     }
   }, [isSuccess, me, router])
+
+  return <></>
 }
 Google.getLayout = getLayout
 export default Google
