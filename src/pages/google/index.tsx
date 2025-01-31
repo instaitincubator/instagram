@@ -25,7 +25,7 @@ export const Google = () => {
     }
   }, [isSuccess, me, router])
 
-  return <div>google code: {router.query.code}</div>
+  return <></>
 }
 Google.getLayout = getLayout
 export default Google
