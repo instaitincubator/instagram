@@ -6,7 +6,6 @@ import {
   useMarkAsReadMutation,
 } from '@/app/layouts/mainLayout/api/NotificationApi'
 import { getNotificationParams } from '@/app/layouts/mainLayout/types/ApiTypes'
-import { useAppSelector } from '@/app/store'
 import { PaymentNoticeItem } from '@/shared/ui/PaymentNoticeItem/PaymentNoticeItem'
 
 export const SingleNotification = () => {
@@ -15,7 +14,6 @@ export const SingleNotification = () => {
     sortBy: 'notifyAt',
     sortDirection: 'desc',
   } as getNotificationParams
-  const paymentsNotions = useAppSelector(state => state.paymentsNotions.notifications)
   const [params, setParams] = useState<getNotificationParams>(defaultParams)
   const { data: notification } = useGetNotificationQuery(params)
   const [markAsRead] = useMarkAsReadMutation()

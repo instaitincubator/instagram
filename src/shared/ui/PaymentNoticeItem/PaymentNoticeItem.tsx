@@ -24,7 +24,7 @@ export const PaymentNoticeItem = (props: Props) => {
       {!notion.isRead && <span className="text-bold-14 text-light-100 ">Новое уведомление!</span>}
       <span className="text-regular-14 text-light-100 pr-[30px]">{notion.message}</span>
       <span className="text-regular-14 text-light-100">{formatDate(notion.createdAt)}</span>
-      {isLastItem && <Separator.Root className="my-2 bg-light-100 h-[1px] w-full" />}
+      {isLastItem && <Separator.Root className="my-2 bg-dark-100 h-[1px] w-full" />}
       {readHandler && (
         <button
           className="text-regular-14 text-light-100 hover:text-accent-700 transition-colors"

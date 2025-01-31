@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { CloseIcon } from '@/shared/ui/icons/closeIcon'
+import { cn } from '@/shared/utils/cn'
 import { formatDate } from '@/shared/utils/formatDate'
 import { Separator } from 'radix-ui'
 
@@ -11,18 +12,20 @@ type Props = {
 }
 export const AlertItem = (props: Props) => {
   const { alertVariant, children, closeHandler } = props
+  const [themeClassName, setThemeClassName] = useState('border-accent-700 backdrop-blur bg-dark-50')
 
   const baseClassName = 'backdrop-blur text-light-100 px-3 py-2 rounded-[8px]'
 
-  const themeClassName =
-    alertVariant === 'error'
-      ? 'border-danger-700 bg-danger-50'
-      : alertVariant === 'info'
-        ? 'border-warning-700 bg-warning-50'
-        : 'border-accent-700 backdrop-blur bg-dark-50'
+  if (alertVariant === 'error') {
+    setThemeClassName('border-danger-700 bg-danger-50')
+  } else if (alertVariant === 'info') {
+    setThemeClassName('border-warning-700 bg-warning-50')
+  } else {
+    setThemeClassName('border-accent-700 backdrop-blur bg-dark-50')
+  }
 
   return (
-    <div className={baseClassName + themeClassName}>
+    <div className={cn(baseClassName, themeClassName)}>
       <div className="flex flex-col w-full relative ">
         {children}
 
