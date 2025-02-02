@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 type ImagesType = {
   createdAt: string
@@ -21,7 +21,6 @@ const createImageSlice = createSlice({
   name: 'createPost',
   reducers: {
     setImage: (state, action: PayloadAction<ImagesType>): void => {
-
       state.images.push(action.payload)
     },
   },

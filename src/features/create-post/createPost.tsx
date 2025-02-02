@@ -1,18 +1,20 @@
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
 
+import { useAppDispatch, useAppSelector } from '@/app/store'
 import DefaultAvatar from '@/features/avatar/ui/default-avatar'
+import { imageActions } from '@/services/create-post/postSlice'
 import { useGetCreatePostMutation, useGetUploadImageMutation } from '@/services/profile/postsApi'
 import Button from '@/shared/ui/Button/Button'
 import ExitButton from '@/shared/ui/exit-button/exit-button'
 import Image from 'next/image'
-import { Pagination } from 'swiper/modules'
-import { Swiper, SwiperSlide } from 'swiper/react'
+import { Navigation, Pagination } from 'swiper/modules'
+import { Swiper, SwiperSlide, useSwiper } from 'swiper/react'
 
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
-import { useAppDispatch, useAppSelector } from '@/app/store'
-import { imageActions } from '@/services/create-post/postSlice'
+
+import s from './style/style.css'
 
 const CreatePost = () => {
   const [uploadImage] = useGetUploadImageMutation()
@@ -22,48 +24,54 @@ const CreatePost = () => {
   const [images, setImages] = useState<string[]>([])
   const imagesFrom = useAppSelector(state => state.imageSlice.images)
   const dispatch = useAppDispatch()
+  const swiper = useSwiper()
+  const [tempImage, setTemp] = useState([])
 
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files
 
-    console.log(files)
     if (files) {
-      const imageArray = Array.from(files).map(file => URL.createObjectURL(file))
+      if (files.length <= 10) {
+        const imageArray = Array.from(files)
+          .filter(file => file.size <= 21200000)
+          .map(file => URL.createObjectURL(file))
 
-      console.log(imageArray)
-      setImages(imageArray)
+        setImages(imageArray)
+      } else {
+        console.log('Превышено максимальное количество файлов (10)')
+      }
     } else {
       console.log('error')
     }
   }
 
-  const saveImage = () => {
-    images.map(async el => {
-      const response = await fetch(el)
+  const saveImage = async () => {
+    for (let i = 0; i < images.length; i++) {
+      const response = await fetch(images[i])
       const blob = await response.blob()
-      const file = new File([blob], 'avatar.png', { type: blob.type })
+      const file = new File([blob], `avatar${i}.png`, { type: blob.type })
 
       const formData = new FormData()
 
       formData.append('file', file)
-      // Append the file to FormData
       try {
-        await uploadImage(formData).then(res => {
-          console.log(res.data.images[0])
-          dispatch(imageActions.setImage(res.data.images[0]))
-        })
+        await uploadImage(formData).then(res => dispatch(imageActions.setImage(res.data)))
       } catch (error) {
         console.log(error)
       }
-    })
+    }
   }
   const handleSlideChange = (swiper: any) => {
+    console.log(swiper.activeIndex)
     setCurrentSlide(swiper.activeIndex)
   }
 
   const goToSlide = (index: number) => {
     if (swiperRef.current && swiperRef.current.swiper) {
-      swiperRef.current.swiper.slideTo(index)
+      // swiper.slideTo(index)
+      //
+      //
+      console.log(index)
     }
   }
 
@@ -86,6 +94,7 @@ const CreatePost = () => {
         {images.length >= 1 ? (
           <>
             <Swiper
+              className={s.customWrapper}
               loop
               modules={[Pagination]}
               onSlideChange={handleSlideChange}
@@ -95,7 +104,7 @@ const CreatePost = () => {
               {images.map((image, i) => {
                 return (
                   <SwiperSlide key={image} ref={swiperRef} virtualIndex={i}>
-                    <Image alt={'fifif'} height={252} src={image} width={252} />
+                    <Image alt={`image-${i}`} height={252} src={image} width={252} />
                   </SwiperSlide>
                 )
               })}
