@@ -2,12 +2,14 @@ import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
 
 import { useAppDispatch, useAppSelector } from '@/app/store'
 import DefaultAvatar from '@/features/avatar/ui/default-avatar'
+import DeleteButton from '@/features/avatar/ui/delete-button'
+import EditButton from '@/features/create-post/ul/edit-button/EditButton'
 import { imageActions } from '@/services/create-post/postSlice'
 import { useGetCreatePostMutation, useGetUploadImageMutation } from '@/services/profile/postsApi'
 import Button from '@/shared/ui/Button/Button'
 import ExitButton from '@/shared/ui/exit-button/exit-button'
 import Image from 'next/image'
-import { Navigation, Pagination } from 'swiper/modules'
+import { Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide, useSwiper } from 'swiper/react'
 
 import 'swiper/css'
@@ -26,7 +28,7 @@ const CreatePost = () => {
   const dispatch = useAppDispatch()
   const swiper = useSwiper()
   const [tempImage, setTemp] = useState([])
-
+  const [editButton, setEdit] = useState(false)
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files
 
@@ -78,6 +80,9 @@ const CreatePost = () => {
   useEffect(() => {
     console.log(imagesFrom)
   }, [imagesFrom])
+  const removeImage = (index: number) => {
+    setImages(images.filter((el, i) => i !== index))
+  }
 
   return (
     <div className={'mx-[15px] mt-[17px]'}>
@@ -94,7 +99,7 @@ const CreatePost = () => {
         {images.length >= 1 ? (
           <>
             <Swiper
-              className={s.customWrapper}
+              // className={s.customWrapper}
               loop
               modules={[Pagination]}
               onSlideChange={handleSlideChange}
@@ -115,19 +120,35 @@ const CreatePost = () => {
         )}
       </div>
       <div className="">
-        <h1 className={'text-medium-14 mb-[17px]'}> My Gallery</h1>
+        <div className="flex justify-between">
+          <h1 className={'text-medium-14 mb-[17px]'}> My Gallery</h1>
+          <EditButton isActive={editButton} onClick={() => setEdit(!editButton )} />
+        </div>
         <div>
           <div className={'grid grid-cols-3 gap-[3px] '}>
             {images.map((image, index) => (
-              <img
-                alt={`img-${index}`}
-                className={`h-[108px] w-[108px] object-contain overflow-hidden ${
-                  currentSlide === index ? 'brightness-50' : 'brightness-100'
-                }`}
-                key={index}
-                onClick={() => goToSlide(index)}
-                src={image}
-              />
+              <div className={'relative'} key={index}>
+                <img
+                  alt={`img-${index}`}
+                  className={` h-[108px] w-[108px] object-contain overflow-hidden ${
+                    currentSlide === index ? 'brightness-50' : 'brightness-100'
+                  }`}
+                  key={index}
+                  onClick={() => goToSlide(index)}
+                  src={image}
+                />
+
+                {editButton && (
+                  <button
+                    className={
+                      'bg-danger-500 absolute bottom-[80px] left-[100px] p-[4px] rounded-[50%]'
+                    }
+                    onClick={() => removeImage(index)}
+                  >
+                    <DeleteButton />
+                  </button>
+                )}
+              </div>
             ))}
           </div>
           <label>
