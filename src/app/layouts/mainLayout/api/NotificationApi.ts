@@ -40,5 +40,9 @@ const notificationApi = baseApi.injectEndpoints({
   },
 })
 
-export const { useDeleteNotificationMutation, useGetNotificationQuery, useMarkAsReadMutation } =
-  notificationApi
+export const {
+  useDeleteNotificationMutation,
+  useGetNotificationQuery,
+  useLazyGetNotificationQuery,
+  useMarkAsReadMutation,
+} = notificationApi

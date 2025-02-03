@@ -31,3 +31,9 @@ export type getNotificationParams = {
   sortBy?: 'notifyAt'
   sortDirection?: 'asc' | 'desc'
 }
+
+export type PaymentNotyfication = {
+  clientId?: string
+  eventType?: number
+  notifyAt?: string
+} & NotificationItem
