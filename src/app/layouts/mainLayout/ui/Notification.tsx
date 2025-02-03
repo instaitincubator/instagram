@@ -10,6 +10,7 @@ import { io } from 'socket.io-client'
 
 export const NotificationComponent = () => {
   const dispatch = useAppDispatch()
+  const [timeoutId, setTimeoutId] = useState<ReturnType<typeof setTimeout>>()
 
   useEffect(() => {
     const socket = io('https://inctagram.work', {
@@ -21,13 +22,16 @@ export const NotificationComponent = () => {
     socket.on('notifications', notification => {
       dispatch(paymentsNotificationsActions.addNotification(notification))
 
-      setTimeout(() => {
-        dispatch(paymentsNotificationsActions.deleteNotification(notification.id))
-      }, 10000)
+      setTimeoutId((_: unknown) =>
+        setTimeout(() => {
+          dispatch(paymentsNotificationsActions.deleteNotification(notification.id))
+        }, 10000)
+      )
     })
 
     return () => {
       socket.disconnect()
+      clearTimeout(timeoutId)
     }
   }, [])
 
