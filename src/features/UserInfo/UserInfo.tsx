@@ -9,8 +9,10 @@ import type {
 
 import Avatar from 'react-avatar'
 
+import { useMeQuery } from '@/services/auth/signInApi'
 import { useTranslation } from '@/shared/hooks/useTranslation'
 import Button from '@/shared/ui/Button/Button'
+import { cn } from '@/shared/utils/cn'
 import Link from 'next/link'
 
 type Props = {
@@ -36,9 +38,10 @@ export const UserInfo = ({
 }: Props) => {
   const { t } = useTranslation()
   const profileName = profile?.userName
+  const me = useMeQuery()
 
   return (
-    <div className="flex ">
+    <div className="flex w-full">
       <div className="hidden md:block min-w-40">
         <Avatar name={profileName} round size="160px" src={profile?.avatars?.[0]?.url || ''} />
       </div>
@@ -51,8 +54,8 @@ export const UserInfo = ({
         <div className="flex justify-between w-full">
           <span className="hidden text-h1 md:block">{profileName}</span>
           {isProfileOwner && (
-            <Link className={'hidden md:block'} href="/profile/settings">
-              <Button className={'text-h3'} variant="secondary">
+            <Link className="hidden md:block" href="/public-profile/settings">
+              <Button className="text-h3" variant="secondary">
                 {t.profile.profileSetting}
               </Button>
             </Link>
@@ -60,26 +63,26 @@ export const UserInfo = ({
         </div>
         <div className="flex gap-[33px]  md:gap-[100px] pb-6 pt-5">
           <div className="flex items-center flex-col ">
-            <span className={'text-semibold-small md:text-bold-14'}>
+            <span className="text-semibold-small md:text-bold-14">
               {following?.totalCount ?? followingForPublic}
             </span>
-            <span className={'text-small md:text-regular-14'}>{t.profile.following}</span>
+            <span className="text-small md:text-regular-14">{t.profile.following}</span>
           </div>
           <div className="flex  items-center flex-col">
-            <span className={'text-semibold-small md:text-bold-14'}>
+            <span className="text-semibold-small md:text-bold-14">
               {followers?.totalCount ?? followersForPublic}
             </span>
-            <span className={'text-small md:text-regular-14'}>{t.profile.followers}</span>
+            <span className="text-small md:text-regular-14">{t.profile.followers}</span>
           </div>
           <div className="flex  items-center flex-col ">
-            <span className={'text-semibold-small md:text-bold-14'}>
+            <span className="text-semibold-small md:text-bold-14">
               {posts?.totalCount ?? postsForPublic?.totalCount}
             </span>
-            <span className={'text-small md:text-regular-14'}>{t.profile.publications}</span>
+            <span className="text-small md:text-regular-14">{t.profile.publications}</span>
           </div>
         </div>
         <p
-          className={'hidden md:block'}
+          className={cn('hidden md:block ', { 'max-w-[750px]': !me?.data?.userId })}
           dangerouslySetInnerHTML={{
             __html: (profile?.aboutMe || '').replace(/\n\r?/g, '<br/>'),
           }}

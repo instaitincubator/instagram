@@ -13,7 +13,7 @@ export const ProfileSettingTabs = () => {
 
   const router = useRouter()
   const changeMenu = (value: string) => {
-    router.push(`/profile/settings/${value}`)
+    router.push(`/public-profile/settings/${value}`)
   }
 
   return (

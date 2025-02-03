@@ -24,7 +24,7 @@ export const PayButton = ({ paymentType, subAmount, subType }: Props) => {
   const handleCheckout = async () => {
     const res = await createSub({
       amount,
-      baseUrl: `${config.domain}/profile/settings/account-management`,
+      baseUrl: `${config.domain}/public-profile/settings/account-management`,
       paymentType,
       typeSubscription: subType,
     })

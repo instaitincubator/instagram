@@ -9,7 +9,7 @@ export const GithubAuthCallback = () => {
 
   if (accessToken && me?.userId) {
     setToken(accessToken as string)
-    void router.push(`/profile/${me.userId}`)
+    void router.push(`/public-profile/profile/${me.userId}`)
   }
 
   return <></>
