@@ -1,11 +1,11 @@
 import { ComponentProps } from 'react'
 
+import { NotificationComponent } from '@/app/layouts/mainLayout/ui/Notification'
 import { LanguageSelect } from '@/features/language-select/LanguageSelect'
 import { MobileMenuSelector } from '@/features/mobile-menu-selector/Mobile-menu-selector'
 import { useMeQuery } from '@/services/auth/signInApi'
 import { useTranslation } from '@/shared/hooks/useTranslation'
 import Button from '@/shared/ui/Button/Button'
-import { Notification } from '@/shared/ui/icons/notification'
 import { cn } from '@/shared/utils/cn'
 import { useRouter } from 'next/router'
 
@@ -21,7 +21,7 @@ export const Header = ({ className, isLoading, ...rest }: HeaderProps) => {
   const homePageRedirect = () => {
     const path = me?.userId ? '/home' : '/'
 
-    router.push(path)
+    void router.push(path)
   }
 
   return (
@@ -36,11 +36,7 @@ export const Header = ({ className, isLoading, ...rest }: HeaderProps) => {
         Instagram
       </span>
       <div className="flex items-center gap-4">
-        {me?.userId && (
-          <div className="hidden  sm:flex">
-            <Notification />
-          </div>
-        )}
+        {me?.userId && <NotificationComponent />}
         <LanguageSelect />
         <div className="sm:hidden">
           <MobileMenuSelector />
