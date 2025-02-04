@@ -30,7 +30,7 @@ const TabsWithHook = (props: Omit<ComponentProps<typeof Tabs>, 'onValueChange' |
   const [value, setValue] = useState<string>(defaultOptions[0].value)
 
   return <Tabs {...props} onValueChange={setValue} value={value} />
-}
+} 
 
 export const Default = {
   render: () => <TabsWithHook options={defaultOptions} />,
