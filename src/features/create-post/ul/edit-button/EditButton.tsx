@@ -1,16 +1,16 @@
-import Button from "@/shared/ui/Button/Button";
+import Button from '@/shared/ui/Button/Button'
 
 type ButtonType = {
-  isActive?: boolean,
+  isActive?: boolean
   onClick?: () => void
 }
 const EditButton = ({ isActive, onClick }: ButtonType) => {
   return (
     <Button
-      onClick={onClick}
       className={
         'bg-inherit flex justify-end hover:bg-inherit p-0 focus:bg-inherit active:bg-inherit'
       }
+      onClick={onClick}
     >
       {isActive ? (
         <svg
@@ -62,7 +62,7 @@ const EditButton = ({ isActive, onClick }: ButtonType) => {
         </svg>
       )}
     </Button>
-  );
-};
+  )
+}
 
-export default EditButton;
+export default EditButton

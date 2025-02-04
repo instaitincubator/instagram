@@ -30,4 +30,8 @@
   .scroll-hidden {
     scrollbar-width: none; /* Скрыть ползунок в Firefox */
   }
+
+  .custom-wrapper .swiper-wrapper {
+    @apply flex items-center;
+  }
 }

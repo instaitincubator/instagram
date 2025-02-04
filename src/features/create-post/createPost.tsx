@@ -9,26 +9,23 @@ import { useGetCreatePostMutation, useGetUploadImageMutation } from '@/services/
 import Button from '@/shared/ui/Button/Button'
 import ExitButton from '@/shared/ui/exit-button/exit-button'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 import { Pagination } from 'swiper/modules'
-import { Swiper, SwiperSlide, useSwiper } from 'swiper/react'
+import { Swiper, SwiperRef, SwiperSlide, useSwiper } from 'swiper/react'
 
+import './style/style.css'
 import 'swiper/css'
-import 'swiper/css/navigation'
-import 'swiper/css/pagination'
-
-import s from './style/style.css'
-
 const CreatePost = () => {
   const [uploadImage] = useGetUploadImageMutation()
   const [createPost] = useGetCreatePostMutation()
-  const swiperRef = useRef<any>(null)
+  const swiperRef = useRef<SwiperRef>(null)
   const [currentSlide, setCurrentSlide] = useState<number>(0)
   const [images, setImages] = useState<string[]>([])
   const imagesFrom = useAppSelector(state => state.imageSlice.images)
   const dispatch = useAppDispatch()
   const swiper = useSwiper()
-  const [tempImage, setTemp] = useState([])
   const [editButton, setEdit] = useState(false)
+  const router = useRouter()
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files
 
@@ -57,11 +54,12 @@ const CreatePost = () => {
 
       formData.append('file', file)
       try {
-        await uploadImage(formData).then(res => dispatch(imageActions.setImage(res.data)))
+        await uploadImage(formData).then(res => dispatch(imageActions.setImage(res.data.images[0])))
       } catch (error) {
         console.log(error)
       }
     }
+    await router.push('/create-post/publish')
   }
   const handleSlideChange = (swiper: any) => {
     console.log(swiper.activeIndex)
@@ -77,16 +75,13 @@ const CreatePost = () => {
     }
   }
 
-  useEffect(() => {
-    console.log(imagesFrom)
-  }, [imagesFrom])
   const removeImage = (index: number) => {
-    setImages(images.filter((el, i) => i !== index))
+    setImages(images.filter((_, i) => i !== index))
   }
 
   return (
     <div className={'mx-[15px] mt-[17px]'}>
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center custom-wrapper">
         <div className={'m-[6px]'}>
           <ExitButton />
         </div>
@@ -99,7 +94,7 @@ const CreatePost = () => {
         {images.length >= 1 ? (
           <>
             <Swiper
-              // className={s.customWrapper}
+              className={'flex items-center custom-wrapper'}
               loop
               modules={[Pagination]}
               onSlideChange={handleSlideChange}
@@ -122,7 +117,7 @@ const CreatePost = () => {
       <div className="">
         <div className="flex justify-between">
           <h1 className={'text-medium-14 mb-[17px]'}> My Gallery</h1>
-          <EditButton isActive={editButton} onClick={() => setEdit(!editButton )} />
+          <EditButton isActive={editButton} onClick={() => setEdit(!editButton)} />
         </div>
         <div>
           <div className={'grid grid-cols-3 gap-[3px] '}>
