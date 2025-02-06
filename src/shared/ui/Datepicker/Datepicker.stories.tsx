@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { DateObject } from 'react-multi-date-picker' // ✅ Import DateObject
-
 import { useState } from 'react'
+import { DateObject } from 'react-multi-date-picker'
 
 import { Datepicker } from './Datepicker'
 
@@ -29,13 +28,11 @@ export const Defaultn: Story = {
         multiple
         onChange={date => {
           if (!date) {
-            setSelectedDate(null) // No date selected
+            setSelectedDate(null)
           } else if (Array.isArray(date)) {
-            setSelectedDate(
-              date.flat().map(d => (d instanceof DateObject ? d.toDate() : d)) // 🔥 Fix: Flatten array to avoid nesting
-            )
+            setSelectedDate(date.flat().map(d => (d instanceof DateObject ? d.toDate() : d)))
           } else {
-            setSelectedDate(date instanceof DateObject ? date.toDate() : date) // Convert single DateObject
+            setSelectedDate(date instanceof DateObject ? date.toDate() : date)
           }
         }}
         value={seletedDate}
