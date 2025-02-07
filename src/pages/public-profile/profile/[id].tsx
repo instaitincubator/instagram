@@ -27,6 +27,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async context => {
   const resProfile = await fetch(`https://inctagram.work/api/v1/public-user/profile/${id}`)
   const profileInfo: ProfileInfoPublic = await resProfile.json()
   const postsRes = await fetch(`https://inctagram.work/api/v1/public-posts/user/${id}`)
+  console.log(postsRes)
   const posts: ProfilePublicPosts = await postsRes.json()
   let selectedPost = null
   let comments = null

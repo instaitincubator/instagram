@@ -1,29 +1,26 @@
-import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
+import React, { ChangeEvent, useRef, useState } from 'react'
 
-import { useAppDispatch, useAppSelector } from '@/app/store'
+import { useAppDispatch } from '@/app/store'
 import DefaultAvatar from '@/features/avatar/ui/default-avatar'
 import DeleteButton from '@/features/avatar/ui/delete-button'
 import EditButton from '@/features/create-post/ul/edit-button/EditButton'
 import { imageActions } from '@/services/create-post/postSlice'
-import { useGetCreatePostMutation, useGetUploadImageMutation } from '@/services/profile/postsApi'
+import { useGetUploadImageMutation } from '@/services/profile/postsApi'
 import Button from '@/shared/ui/Button/Button'
 import ExitButton from '@/shared/ui/exit-button/exit-button'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { Pagination } from 'swiper/modules'
-import { Swiper, SwiperRef, SwiperSlide, useSwiper } from 'swiper/react'
+import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react'
 
 import './style/style.css'
 import 'swiper/css'
 const CreatePost = () => {
   const [uploadImage] = useGetUploadImageMutation()
-  const [createPost] = useGetCreatePostMutation()
   const swiperRef = useRef<SwiperRef>(null)
   const [currentSlide, setCurrentSlide] = useState<number>(0)
   const [images, setImages] = useState<string[]>([])
-  const imagesFrom = useAppSelector(state => state.imageSlice.images)
   const dispatch = useAppDispatch()
-  const swiper = useSwiper()
   const [editButton, setEdit] = useState(false)
   const router = useRouter()
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -62,17 +59,7 @@ const CreatePost = () => {
     await router.push('/create-post/publish')
   }
   const handleSlideChange = (swiper: any) => {
-    console.log(swiper.activeIndex)
     setCurrentSlide(swiper.activeIndex)
-  }
-
-  const goToSlide = (index: number) => {
-    if (swiperRef.current && swiperRef.current.swiper) {
-      // swiper.slideTo(index)
-      //
-      //
-      console.log(index)
-    }
   }
 
   const removeImage = (index: number) => {
@@ -103,7 +90,7 @@ const CreatePost = () => {
             >
               {images.map((image, i) => {
                 return (
-                  <SwiperSlide key={image} ref={swiperRef} virtualIndex={i}>
+                  <SwiperSlide key={image} virtualIndex={i}>
                     <Image alt={`image-${i}`} height={252} src={image} width={252} />
                   </SwiperSlide>
                 )
@@ -129,7 +116,6 @@ const CreatePost = () => {
                     currentSlide === index ? 'brightness-50' : 'brightness-100'
                   }`}
                   key={index}
-                  onClick={() => goToSlide(index)}
                   src={image}
                 />
 
@@ -139,6 +125,7 @@ const CreatePost = () => {
                       'bg-danger-500 absolute bottom-[80px] left-[100px] p-[4px] rounded-[50%]'
                     }
                     onClick={() => removeImage(index)}
+                    type={'button'}
                   >
                     <DeleteButton />
                   </button>
