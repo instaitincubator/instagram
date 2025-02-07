@@ -19,13 +19,14 @@ type Story = StoryObj<typeof meta>
 export const Checked: Story = {
   args: {
     label: 'Checkbox',
-    value: true,
+    value: false,
   },
 }
 
 export const NotChecked: Story = {
   args: {
     label: 'Checkbox',
+    value: true,
   },
 }
 

@@ -1,5 +1,5 @@
 import { ComponentPropsWithoutRef } from 'react'
-import DatePicker from 'react-datepicker'
+import DatePicker from 'react-multi-date-picker'
 
 import { cn } from '@/shared/utils/cn'
 
@@ -14,7 +14,6 @@ export type DatepickerProps = {
 } & ComponentPropsWithoutRef<typeof DatePicker>
 
 export const Datepicker = ({
-  calendarStartDay = 1,
   disabled,
   error,
   fullWidth,
@@ -24,8 +23,8 @@ export const Datepicker = ({
   return (
     <div className="flex flex-col">
       {label && <span className="text-regular-14 text-light-900">{label}</span>}
+
       <DatePicker
-        calendarStartDay={calendarStartDay}
         className={cn(
           'text-regular-16 disabled:text-dark-100 focus:border-accent-500 rounded-sm bg-transparent border border-dark-300 w-40',
           {
@@ -34,7 +33,6 @@ export const Datepicker = ({
           }
         )}
         disabled={disabled}
-        showIcon
         {...restProps}
       />  
       {error && <span className="text-regular-14 text-danger-500">{error}</span>}
