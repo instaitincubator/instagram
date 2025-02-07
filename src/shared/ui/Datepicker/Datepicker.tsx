@@ -36,7 +36,7 @@ export const Datepicker = ({
         disabled={disabled}
         showIcon
         {...restProps}
-      />
+      />  
       {error && <span className="text-regular-14 text-danger-500">{error}</span>}
     </div>
   )
