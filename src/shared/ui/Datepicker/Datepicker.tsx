@@ -1,5 +1,5 @@
 import { ComponentPropsWithoutRef } from 'react'
-import DatePicker from 'react-multi-date-picker'
+import DatePicker from 'react-datepicker'
 
 import { cn } from '@/shared/utils/cn'
 
@@ -34,7 +34,7 @@ export const Datepicker = ({
         )}
         disabled={disabled}
         {...restProps}
-      />  
+      />
       {error && <span className="text-regular-14 text-danger-500">{error}</span>}
     </div>
   )

@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { useState } from 'react'
-import { DateObject } from 'react-multi-date-picker'
 
 import { Datepicker } from './Datepicker'
 
@@ -19,24 +18,16 @@ type Story = StoryObj<typeof meta>
 
 export default meta
 
-export const Defaultn: Story = {
+export const Default: Story = {
   render: () => {
-    const [seletedDate, setSelectedDate] = useState<Date | Date[] | null>([])
+    const [stardDate, setStardDate] = useState<Date | null>(new Date())
+    const [endDate, setEndDate] = useState<Date | null>(new Date())
 
     return (
-      <Datepicker
-        multiple
-        onChange={date => {
-          if (!date) {
-            setSelectedDate(null)
-          } else if (Array.isArray(date)) {
-            setSelectedDate(date.flat().map(d => (d instanceof DateObject ? d.toDate() : d)))
-          } else {
-            setSelectedDate(date instanceof DateObject ? date.toDate() : date)
-          }
-        }}
-        value={seletedDate}
-      />
+      <div>
+        <Datepicker onChange={date => setStardDate(date)} selected={stardDate} selectsStart />
+        <Datepicker onChange={date => setEndDate(date)} selected={endDate} selectsEnd />
+      </div>
     )
   },
 }
@@ -52,3 +43,6 @@ export const Label: Story = {
     label: 'This is a customizable label',
   },
 }
+
+//1,option  ,create  array  and for this condition ->
+//2.
