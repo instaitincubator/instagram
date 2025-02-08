@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useRef, useState } from 'react'
 
-import { useAppDispatch } from '@/app/store'
+import { useAppDispatch, useAppSelector } from '@/app/store'
 import DefaultAvatar from '@/features/avatar/ui/default-avatar'
 import DeleteButton from '@/features/avatar/ui/delete-button'
 import EditButton from '@/features/create-post/ul/edit-button/EditButton'
@@ -8,6 +8,7 @@ import { imageActions } from '@/services/create-post/postSlice'
 import { useGetUploadImageMutation } from '@/services/profile/postsApi'
 import Button from '@/shared/ui/Button/Button'
 import ExitButton from '@/shared/ui/exit-button/exit-button'
+import { saveImageHook } from '@/shared/utils/saveImage'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { Pagination } from 'swiper/modules'
@@ -23,47 +24,42 @@ const CreatePost = () => {
   const dispatch = useAppDispatch()
   const [editButton, setEdit] = useState(false)
   const router = useRouter()
-  const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const imagess = useAppSelector(state => state.imageSlice.images)
+  const handleImageChange = async (event: ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files
 
     if (files) {
       if (files.length <= 10) {
-        const imageArray = Array.from(files)
-          .filter(file => file.size <= 21200000)
-          .map(file => URL.createObjectURL(file))
-
-        setImages(imageArray)
+        for (let i = 0; i < files.length; i++) {
+          // console.log(typeof files[i])
+          if (files[i].size <= 21200000) {
+            try {
+              uploadImage(await saveImageHook(URL.createObjectURL(files[i]))).then(res =>
+                dispatch(imageActions.setImage(res.data.images[0]))
+              )
+            } catch (e) {
+              console.log(e)
+            }
+          } else {
+            console.log('файл должен быть меньше 20МБ')
+          }
+        }
       } else {
-        console.log('Превышено максимальное количество файлов (10)')
+        console.log('максимальное количество файлов (10)')
       }
-    } else {
-      console.log('error')
     }
   }
 
   const saveImage = async () => {
-    for (let i = 0; i < images.length; i++) {
-      const response = await fetch(images[i])
-      const blob = await response.blob()
-      const file = new File([blob], `avatar${i}.png`, { type: blob.type })
-
-      const formData = new FormData()
-
-      formData.append('file', file)
-      try {
-        await uploadImage(formData).then(res => dispatch(imageActions.setImage(res.data.images[0])))
-      } catch (error) {
-        console.log(error)
-      }
-    }
     await router.push('/create-post/publish')
   }
   const handleSlideChange = (swiper: any) => {
     setCurrentSlide(swiper.activeIndex)
   }
 
-  const removeImage = (index: number) => {
-    setImages(images.filter((_, i) => i !== index))
+  const removeImage = (index: string) => {
+    // setImages(images.filter((_, i) => i !== index))
+    dispatch(imageActions.removeImage(index))
   }
 
   return (
@@ -73,12 +69,18 @@ const CreatePost = () => {
           <ExitButton />
         </div>
         <h2 className={'text-h2'}> New Publication</h2>
-        <h3 className={'text-h3 text-accent-500 m-[6px]'} onClick={saveImage}>
-          Next
-        </h3>
+        <Button
+          className={' px-0 min-w-0 contents'}
+          // disabled={images.length == 0}
+          onClick={saveImage}
+          type={'button'}
+          variant={'text'}
+        >
+          <h2 className={'text-h3 text-accent-500'}>Next</h2>
+        </Button>
       </div>
       <div className="mx-[54px] my-[19px] text-center overflow-hidden flex items-center">
-        {images.length >= 1 ? (
+        {imagess.length >= 1 ? (
           <>
             <Swiper
               className={'flex items-center custom-wrapper'}
@@ -88,10 +90,15 @@ const CreatePost = () => {
               pagination
               ref={swiperRef}
             >
-              {images.map((image, i) => {
+              {imagess.map((image, i) => {
                 return (
-                  <SwiperSlide key={image} virtualIndex={i}>
-                    <Image alt={`image-${i}`} height={252} src={image} width={252} />
+                  <SwiperSlide key={image.uploadId} virtualIndex={i}>
+                    <Image
+                      alt={`image-${image.uploadId}`}
+                      height={252}
+                      src={image.url}
+                      width={252}
+                    />
                   </SwiperSlide>
                 )
               })}
@@ -108,23 +115,24 @@ const CreatePost = () => {
         </div>
         <div>
           <div className={'grid grid-cols-3 gap-[3px] '}>
-            {images.map((image, index) => (
+            {imagess.map((image, index) => (
               <div className={'relative'} key={index}>
-                <img
+                <Image
                   alt={`img-${index}`}
-                  className={` h-[108px] w-[108px] object-contain overflow-hidden ${
+                  className={` object-contain overflow-hidden ${
                     currentSlide === index ? 'brightness-50' : 'brightness-100'
                   }`}
+                  height={108}
                   key={index}
-                  src={image}
+                  src={image.url}
+                  width={108}
                 />
-
                 {editButton && (
                   <button
                     className={
                       'bg-danger-500 absolute bottom-[80px] left-[100px] p-[4px] rounded-[50%]'
                     }
-                    onClick={() => removeImage(index)}
+                    onClick={() => removeImage(image.uploadId)}
                     type={'button'}
                   >
                     <DeleteButton />

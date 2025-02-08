@@ -13,6 +13,7 @@ import { cn } from '@/shared/utils/cn'
 
 export type ButtonProps<T extends ElementType = 'button'> = {
   as?: T
+  disabled?: boolean
   fullWidth?: boolean
   size?: ButtonSize
   variant?: ButtonVariant

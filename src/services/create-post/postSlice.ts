@@ -23,6 +23,9 @@ const createImageSlice = createSlice({
     setImage: (state, action: PayloadAction<ImagesType>): void => {
       state.images.push(action.payload)
     },
+    removeImage: (state, action: PayloadAction<string>): void => {
+      state.images = state.images.filter(image => image.uploadId !== action.payload)
+    },
   },
 })
 

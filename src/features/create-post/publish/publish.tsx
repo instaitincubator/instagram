@@ -23,38 +23,23 @@ const Publish = () => {
     }
 
     try {
-      const res = await createPost(dataRequest).unwrap()
-
-      console.log(res)
+      await createPost(dataRequest).unwrap()
     } catch (err) {
       console.log(err)
     }
   }
-  const onSubmit2 = async (data: any) => {
-    const combineImages: UploadType[] = images.map((items: any) => ({ uploadId: items.uploadId }))
-    const dataRequest: CreatePost = {
-      childrenMetadata: combineImages,
-      description: data.description,
-    }
-
-    try {
-      const result = await createPost(dataRequest).unwrap()
-
-      console.log(result)
-    } catch (err) {
-      console.log('Failed to create post:', err)
-    }
-  }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div className={'mx-[15px] mt-[17px]'}>
+    <form className={'mx-[15px] mt-[17px]'} onSubmit={handleSubmit(onSubmit)}>
+      <div>
         <div className="flex justify-between items-center custom-wrapper">
           <div className={'m-[6px]'}>
             <ExitButton />
           </div>
           <h2 className={'text-h2'}> New Publication</h2>
-          <button className={'text-h3 text-accent-500 m-[6px]'} type={'submit'}>Publish</button>
+          <button className={'text-h3 text-accent-500 m-[6px]'} type={'submit'}>
+            Publish
+          </button>
         </div>
         <div className="flex gap-[6px] mt-[19px] mb-[12px]">
           {images.map(el => (
@@ -66,12 +51,17 @@ const Publish = () => {
             />
           ))}
         </div>
-        <UserAvatar avatar={me?.avatars[1].url} userId={me?.id} userName={me?.userName || ''} />
+        <div className="my-[24px]">
+          <UserAvatar avatar={me?.avatars[1].url} userId={me?.id} userName={me?.userName || ''} />
+        </div>
       </div>
       <div className="">
         <ControlledTextarea
+          className={'min-h-[120px]'}
           control={control}
           error={errors.description?.message}
+          fullWidth
+          label={'Add publication descriptions'}
           name={'description'}
           placeholder={'Text-area'}
         />
