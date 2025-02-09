@@ -3,6 +3,7 @@ import React from 'react'
 import { useMarkAsReadMutation } from '@/app/layouts/mainLayout/api/NotificationApi'
 import { useAppDispatch, useAppSelector } from '@/app/store'
 import { paymentsNotificationsActions } from '@/services/payments-notifications/payments-notifications'
+import { useTranslation } from '@/shared/hooks/useTranslation'
 import { Alert } from '@/shared/ui/Alert/Alert'
 import { AlertItem } from '@/shared/ui/Alert/AlertItem'
 import { formatDate } from '@/shared/utils/formatDate'
@@ -10,16 +11,14 @@ import { Separator } from 'radix-ui'
 
 export const NotificationAlerts = () => {
   const paymentsNotions = useAppSelector(state => state.paymentsNotions.notifications)
-  const [markAsRead] = useMarkAsReadMutation()
+  const { t } = useTranslation()
   const dispatch = useAppDispatch()
 
   return (
     <Alert>
       {paymentsNotions?.map(notion => {
+        const message = notion.message
         const EnterHandler = () => {
-          // if (!notion.isRead) {
-          //   markAsRead({ ids: [itemId] })
-          // }
           deleteNotificationHandler()
         }
         const deleteNotificationHandler = () => {
@@ -32,8 +31,18 @@ export const NotificationAlerts = () => {
             closeHandler={deleteNotificationHandler}
             key={notion.id}
           >
-            <span className="text-bold-14 text-light-100 ">Новое уведомление!</span>
-            <span className="text-regular-14 text-light-100 pr-[30px]">{notion.message}</span>
+            <span className="text-bold-14 text-light-100 ">
+              {t.paymentNotification.notificationsTitle}{' '}
+              {!notion.isRead && (
+                <span className="text-bold-14 text-accent-500 ">
+                  {t.paymentNotification.noReadTitle}
+                </span>
+              )}
+            </span>
+
+            <span className="text-regular-14 text-light-100 pr-[30px]">
+              {t.paymentNotification.message[message]}
+            </span>
             <span className="text-regular-14 text-light-100">{formatDate(notion.createdAt)}</span>
             <Separator.Root className="my-2 bg-light-100 h-[1px] w-full" />
             <button
@@ -41,7 +50,7 @@ export const NotificationAlerts = () => {
               onClick={EnterHandler}
               type="button"
             >
-              mark as read
+              {t.paymentNotification.readButtonTitle}
             </button>
           </AlertItem>
         )

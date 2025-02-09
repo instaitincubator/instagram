@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { PaymentNotyfication } from '@/app/layouts/mainLayout/types/ApiTypes'
+import { useTranslation } from '@/shared/hooks/useTranslation'
 import { CloseIcon } from '@/shared/ui/icons/closeIcon'
 import { formatDate } from '@/shared/utils/formatDate'
 import { Separator } from 'radix-ui'
@@ -15,14 +16,24 @@ type Props = {
 
 export const PaymentNoticeItem = (props: Props) => {
   const { deleteNotification, isLastItem, mouseEnterHandler, notion, readHandler } = props
+  const { t } = useTranslation()
+  const message = notion.message
 
   return (
     <div
       className="flex flex-col w-full relative "
       onMouseEnter={() => mouseEnterHandler?.(notion.id)}
     >
-      {!notion.isRead && <span className="text-bold-14 text-light-100 ">Новое уведомление!</span>}
-      <span className="text-regular-14 text-light-100 pr-[30px]">{notion.message}</span>
+      <span className="text-bold-14 text-light-100 ">
+        {t.paymentNotification.notificationsTitle}{' '}
+        {!notion.isRead && (
+          <span className="text-bold-14 text-accent-500 ">{t.paymentNotification.noReadTitle}</span>
+        )}
+      </span>
+
+      <span className="text-regular-14 text-light-100 pr-[30px]">
+        {t.paymentNotification.message[message]}
+      </span>
       <span className="text-regular-14 text-light-100">{formatDate(notion.createdAt)}</span>
       {isLastItem && <Separator.Root className="my-2 bg-dark-100 h-[1px] w-full" />}
       {readHandler && (
@@ -31,7 +42,7 @@ export const PaymentNoticeItem = (props: Props) => {
           onClick={() => readHandler(notion.id)}
           type="button"
         >
-          mark as read
+          {t.paymentNotification.readButtonTitle}
         </button>
       )}
 

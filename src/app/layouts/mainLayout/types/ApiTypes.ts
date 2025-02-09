@@ -8,7 +8,10 @@ export type NotificationItem = {
   createdAt: string
   id: number
   isRead: boolean
-  message: string
+  message:
+    | 'The next subscription payment will be debited from your account after 1 day.'
+    | 'Your subscription ends in 7 days'
+    | 'Your subscription-ws ends in 1 day'
 }
 
 export type Messages = {
