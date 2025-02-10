@@ -2,6 +2,7 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 
 import { baseApi } from '@/services/inctagram-api'
 import { errorReduce } from '@/services/notification/error-notification'
+import { paymentsNotificationsReducer } from '@/services/payments-notifications/payments-notifications'
 import { configureStore } from '@reduxjs/toolkit'
 
 export const store = configureStore({
@@ -9,6 +10,7 @@ export const store = configureStore({
   reducer: {
     [baseApi.reducerPath]: baseApi.reducer,
     errorNotions: errorReduce,
+    paymentsNotions: paymentsNotificationsReducer,
   },
 })
 
