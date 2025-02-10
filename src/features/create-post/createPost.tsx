@@ -16,11 +16,11 @@ import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react'
 
 import './style/style.css'
 import 'swiper/css'
+import { Modal } from "@/shared/ui/Modal/Modal";
 const CreatePost = () => {
   const [uploadImage] = useGetUploadImageMutation()
   const swiperRef = useRef<SwiperRef>(null)
   const [currentSlide, setCurrentSlide] = useState<number>(0)
-  const [images, setImages] = useState<string[]>([])
   const dispatch = useAppDispatch()
   const [editButton, setEdit] = useState(false)
   const router = useRouter()
@@ -41,7 +41,7 @@ const CreatePost = () => {
               console.log(e)
             }
           } else {
-            console.log('файл должен быть меньше 20МБ')
+            console.log('The photo must be less than 20 Mb and have JPEG or PNG format}')
           }
         }
       } else {
@@ -70,13 +70,13 @@ const CreatePost = () => {
         </div>
         <h2 className={'text-h2'}> New Publication</h2>
         <Button
-          className={' px-0 min-w-0 contents'}
-          // disabled={images.length == 0}
+          className={' px-0 min-w-0 contents '}
+          disabled={imagess.length === 0}
           onClick={saveImage}
           type={'button'}
           variant={'text'}
         >
-          <h2 className={'text-h3 text-accent-500'}>Next</h2>
+          <h2 className={`text-h3 text-accent-500`}>Next</h2>
         </Button>
       </div>
       <div className="mx-[54px] my-[19px] text-center overflow-hidden flex items-center">
