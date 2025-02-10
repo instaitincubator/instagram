@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import {
   useDeleteNotificationMutation,
   useGetNotificationQuery,
   useMarkAsReadMutation,
 } from '@/app/layouts/mainLayout/api/NotificationApi'
-import { getNotificationParams } from '@/app/layouts/mainLayout/types/ApiTypes'
+import { NotificationItem, getNotificationParams } from '@/app/layouts/mainLayout/types/ApiTypes'
 import { PaymentNoticeItem } from '@/shared/ui/PaymentNoticeItem/PaymentNoticeItem'
 
 export const SingleNotification = () => {
@@ -18,9 +18,30 @@ export const SingleNotification = () => {
   const { data: notification } = useGetNotificationQuery(params)
   const [markAsRead] = useMarkAsReadMutation()
   const [deleteNotification] = useDeleteNotificationMutation()
+  const [sortedNotifications, setSortedNotifications] = useState<NotificationItem[] | undefined>([])
 
-  return notification?.items.map((item, index) => {
-    const isLastItem = index !== notification.items.length - 1
+  const sortNotifications = () => {
+    if (notification) {
+      const noReadableNotions = notification?.items.filter(item => !item.isRead)
+      const readableNotions = notification?.items.filter(item => item.isRead)
+
+      readableNotions?.sort((a, b) => {
+        const prevDate = new Date(a.createdAt)
+        const nextDate = new Date(b.createdAt)
+
+        return prevDate.getTime() - nextDate.getTime()
+      })
+
+      return [...noReadableNotions, ...readableNotions]
+    }
+  }
+
+  useEffect(() => {
+    setSortedNotifications(sortNotifications())
+  }, [notification])
+
+  return sortedNotifications?.map((item, index) => {
+    const isLastItem = index !== sortedNotifications.length - 1
     const EnterHandler = (itemId: number) => {
       if (!item.isRead) {
         markAsRead({ ids: [itemId] })
