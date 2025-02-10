@@ -21,7 +21,7 @@ export const Google = () => {
     if (isSuccess && me) {
       const userId = me?.userId
 
-      void router.push(`/profile/${userId}`)
+      void router.push(`/public-profile/profile/${userId}`)
     }
   }, [isSuccess, me, router])
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import { getSettingsLayout } from '@/app/layouts/settingsLayout/SettingsLayout'
-import PayConfirmModal from '@/pages/profile/settings/account-management/payConfirmModal/payConfirmModal'
+import PayConfirmModal from '@/pages/public-profile/settings/account-management/payConfirmModal/payConfirmModal'
 import {
   useCancelAutoRenewalMutation,
   useGetCurrentSubscriptionQuery,

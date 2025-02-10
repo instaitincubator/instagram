@@ -3,12 +3,15 @@ import React, { useState } from 'react'
 import { getPublicLayoutWithSidebar } from '@/app/layouts/PublicLayoutWithSidebar/PublicLayoutWithSidebar'
 import PostModal from '@/entities/Post/PostModal'
 import { UserInfo } from '@/features/UserInfo/UserInfo'
+import { useMeQuery } from '@/services/auth/signInApi'
+import { MeResponse } from '@/shared/types/ApiTypes/AuthApiTypes'
 import {
   PostsPublicItems,
   ProfileInfoPublic,
   ProfilePublicPosts,
 } from '@/shared/types/ApiTypes/ProfileApiTypes'
 import { CommentForPost } from '@/shared/types/public.types'
+import { cn } from '@/shared/utils/cn'
 import { GetServerSideProps } from 'next'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
@@ -52,7 +55,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async context => {
 const Profile = ({ comments, posts, profileInfo, selectedPost }: Props) => {
   const router = useRouter()
   const [isModalVisible, setIsModalVisible] = useState<boolean>(true)
-
+  const me = useMeQuery()
   const closeModal = () => {
     setIsModalVisible(false)
     const updatedQuery = { ...router.query }
@@ -61,7 +64,7 @@ const Profile = ({ comments, posts, profileInfo, selectedPost }: Props) => {
     void router.back()
   }
 
-  const isProfileOwner = false
+  const isProfileOwner = me?.data?.userId === profileInfo.id
   let profileData
   let followers
   let following
@@ -77,8 +80,12 @@ const Profile = ({ comments, posts, profileInfo, selectedPost }: Props) => {
   }
 
   return (
-    <div className={'mt-o mx-auto'}>
-      <div className="flex  items-baseline  flex-col gap-[13px] flex-1 pt-[24px] px-[15px]  md:pr-16 mb:pb-[59px] md:pl-6 md:pt-[35px] w-full">
+    <div
+      className={cn('mt-o', {
+        'mx-auto': !me?.data?.userId,
+      })}
+    >
+      <div className="flex items-baseline flex-col gap-[13px] flex-1 pt-[24px] px-[15px] md:pr-16 mb:pb-[59px] md:pl-6 md:pt-[35px] w-full">
         <UserInfo
           followersForPublic={followers}
           followingForPublic={following}
@@ -86,18 +93,18 @@ const Profile = ({ comments, posts, profileInfo, selectedPost }: Props) => {
           postsForPublic={posts}
           profile={profileData}
         />
-        <div className={'block md:hidden'}>
-          <span className={'block md:hidden'}>{profileInfo?.aboutMe}</span>
+        <div className="block md:hidden">
+          <span className="block md:hidden">{profileInfo?.aboutMe}</span>
         </div>
-        <div className=" grid grid-cols-3 md:grid-cols-4 gap-[3px] md:gap-[12px] pt-[29px]  mb:pt-[59px] justify-items-center ">
+        <div className="grid grid-cols-3 md:grid-cols-4 gap-[3px] md:gap-[12px] pt-[29px] mb:pt-[59px] mx-auto">
           {posts?.items?.map(el => {
             const onPostOpen = () => {
               setIsModalVisible(true)
-              void router.push(`/public-profile/profile/${el.ownerId}?postId=${el.id}  `)
+              void router.push(`/public-profile/profile/${el.ownerId}?postId=${el.id}`)
             }
 
             return (
-              <div className={'flex justify-center'} key={el.id}>
+              <div className="flex justify-center" key={el.id}>
                 <Image
                   alt={el.description}
                   className="md:w-[234px] md:h-[224px] object-cover"
