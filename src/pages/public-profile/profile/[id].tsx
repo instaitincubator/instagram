@@ -107,11 +107,11 @@ const Profile = ({ comments, posts, profileInfo, selectedPost }: Props) => {
               <div className="flex justify-center" key={el.id}>
                 <Image
                   alt={el.description}
-                  className="md:w-[234px] md:h-[224px] object-cover"
+                  className="md:w-[234px] w-full md:h-[224px] object-cover"
                   height={108}
                   onClick={onPostOpen}
                   src={el.images.length ? el.images[0].url : noImage}
-                  width={157}
+                  width={108}
                 />
               </div>
             )
