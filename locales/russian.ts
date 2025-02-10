@@ -123,6 +123,18 @@ export const russian = {
     payFailed: 'Транзакция завершилась неудачей. Пожалуйста, напишите в службу поддержки',
     paySuccess: 'Оплата прошла успешно!',
   },
+  paymentNotification: {
+    message: {
+      'The next subscription payment will be debited from your account after 1 day.':
+        'Следующий платеж за подписку будет списан с вашего счета через 1 день.',
+      'Your subscription ends in 7 days': 'Ваша подписка истекает через 7 дней',
+      'Your subscription-ws ends in 1 day': 'Ваша подписка истекает через 1 день',
+    },
+    noReadTitle: 'Новое',
+    notificationsTitle: 'Новое уведомление!',
+    readButtonTitle: 'пометить прочитанным',
+    title: 'Уведомления',
+  },
   profile: {
     followers: 'Подписчики',
     following: 'Подписки',
