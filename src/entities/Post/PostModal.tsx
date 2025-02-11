@@ -28,7 +28,7 @@ const PostModal = ({ comments, onClose, post }: Props) => {
     <Modal
       contentClassName="p-0 pt-8 lg:pt-0 items-start justify-between"
       headerClassName="h-[60px]"
-      modalClassName="lg:w-[50%] lg:min-w-[950px] w-[90%] min-w-[320px] min-h-[95vh] h-auto"
+      modalClassName="lg:w-[50%] lg:min-w-[950px] w-[90%] min-w-[320px] h-auto"
       onClose={onClose}
       title={title}
     >
