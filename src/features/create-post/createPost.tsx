@@ -3,6 +3,7 @@ import React, { ChangeEvent, useRef, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '@/app/store'
 import DefaultAvatar from '@/features/avatar/ui/default-avatar'
 import DeleteButton from '@/features/avatar/ui/delete-button'
+import CloseModal from '@/features/create-post/close-modal/close-modal'
 import EditButton from '@/features/create-post/ul/edit-button/EditButton'
 import { imageActions } from '@/services/create-post/postSlice'
 import { useGetUploadImageMutation } from '@/services/profile/postsApi'
@@ -16,8 +17,10 @@ import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react'
 
 import './style/style.css'
 import 'swiper/css'
-import { Modal } from "@/shared/ui/Modal/Modal";
+
 const CreatePost = () => {
+  const [open, isOpen] = useState(false)
+
   const [uploadImage] = useGetUploadImageMutation()
   const swiperRef = useRef<SwiperRef>(null)
   const [currentSlide, setCurrentSlide] = useState<number>(0)
@@ -31,7 +34,6 @@ const CreatePost = () => {
     if (files) {
       if (files.length <= 10) {
         for (let i = 0; i < files.length; i++) {
-          // console.log(typeof files[i])
           if (files[i].size <= 21200000) {
             try {
               uploadImage(await saveImageHook(URL.createObjectURL(files[i]))).then(res =>
@@ -61,11 +63,24 @@ const CreatePost = () => {
     // setImages(images.filter((_, i) => i !== index))
     dispatch(imageActions.removeImage(index))
   }
+  const handlerOpenModal = async () => {
+    if (imagess.length == 0) {
+      await router.push('/')
+    } else {
+      isOpen(true)
+    }
+
+  }
+  const handlerCloseModal = () => {
+    dispatch(imageActions.deleteState())
+    isOpen(false)
+
+  }
 
   return (
     <div className={'mx-[15px] mt-[17px]'}>
       <div className="flex justify-between items-center custom-wrapper">
-        <div className={'m-[6px]'}>
+        <div className={'m-[6px]'} onClick={handlerOpenModal}>
           <ExitButton />
         </div>
         <h2 className={'text-h2'}> New Publication</h2>
@@ -153,6 +168,7 @@ const CreatePost = () => {
           </label>
         </div>
       </div>
+      {open && <CloseModal onClose={handlerCloseModal} onSave={() => {}} />}
     </div>
   )
 }
