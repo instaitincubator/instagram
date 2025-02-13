@@ -30,7 +30,6 @@ const createImageSlice = createSlice({
     setImage: (state, action: PayloadAction<ImagesType>): void => {
       state.images.push(action.payload)
     },
-
   },
 })
 

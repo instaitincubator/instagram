@@ -4,9 +4,10 @@ import Button from '@/shared/ui/Button/Button'
 import { Modal } from '@/shared/ui/Modal/Modal'
 type ModalType = {
   onClose: () => void
+  onDiscard: ()=> void
   onSave: () => void
 }
-const CloseModal = ({ onClose, onSave }: ModalType) => {
+const CloseModal = ({ onClose, onDiscard, onSave }: ModalType) => {
   return (
     <Modal onClose={onClose} title={'Close'}>
       <p className={'whitespace-pre-wrap'}>
@@ -14,7 +15,9 @@ const CloseModal = ({ onClose, onSave }: ModalType) => {
         deleted
       </p>
       <div className="flex w-full flex-col flex-wrap-[">
-        <Button variant={'outline'}>Discard</Button>
+        <Button onClick={onDiscard} variant={'outline'}>
+          Discard
+        </Button>
         <Button fullWidth onClick={onSave}>
           Save draft
         </Button>

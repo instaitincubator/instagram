@@ -69,12 +69,14 @@ const CreatePost = () => {
     } else {
       isOpen(true)
     }
-
   }
   const handlerCloseModal = () => {
+    isOpen(false)
+  }
+  const handlerDiscardModal = async () => {
     dispatch(imageActions.deleteState())
     isOpen(false)
-
+    await router.push('/')
   }
 
   return (
@@ -168,7 +170,7 @@ const CreatePost = () => {
           </label>
         </div>
       </div>
-      {open && <CloseModal onClose={handlerCloseModal} onSave={() => {}} />}
+      {open && <CloseModal onDiscard={handlerDiscardModal} onClose={handlerCloseModal} onSave={() => {}} />}
     </div>
   )
 }
