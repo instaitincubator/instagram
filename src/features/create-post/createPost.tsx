@@ -8,6 +8,7 @@ import EditButton from '@/features/create-post/ul/edit-button/EditButton'
 import { imageActions } from '@/services/create-post/postSlice'
 import { useGetUploadImageMutation } from '@/services/profile/postsApi'
 import Button from '@/shared/ui/Button/Button'
+import ModalForPosts from '@/shared/ui/ModalForPosts/ModalForPosts'
 import ExitButton from '@/shared/ui/exit-button/exit-button'
 import { saveImageHook } from '@/shared/utils/saveImage'
 import Image from 'next/image'
@@ -170,9 +171,13 @@ const CreatePost = () => {
           </label>
         </div>
       </div>
-      {open && <CloseModal onDiscard={handlerDiscardModal} onClose={handlerCloseModal} onSave={() => {}} />}
+{/*<ModalForPosts/>*/}
+      {open && (
+        <CloseModal onClose={handlerCloseModal} onDiscard={handlerDiscardModal} onSave={() => {
+        }} />
+      )}
     </div>
-  )
+)
 }
 
 export default CreatePost

@@ -11,6 +11,7 @@ export interface ModalProps {
   onClose?: () => void
   title?: ReactNode | string
   withOutHeader?: boolean
+  withOutHeaderButtonClassName?: string
 }
 
 export const Modal: FC<PropsWithChildren<ModalProps>> = props => {
@@ -23,6 +24,7 @@ export const Modal: FC<PropsWithChildren<ModalProps>> = props => {
     onClose,
     title,
     withOutHeader,
+    withOutHeaderButtonClassName,
   } = props
 
   useEffect(() => {
@@ -63,7 +65,10 @@ export const Modal: FC<PropsWithChildren<ModalProps>> = props => {
           </header>
         ) : (
           <button
-            className="h-6 absolute top-[10%] transform -translate-y-1/2 right-[23%]"
+            className={cn(
+              'h-6 absolute top-[10%] transform -translate-y-1/2 right-[23%]',
+              withOutHeaderButtonClassName
+            )}
             onClick={onClose}
             type={'button'}
           >

@@ -4,7 +4,7 @@ import Button from '@/shared/ui/Button/Button'
 import { Modal } from '@/shared/ui/Modal/Modal'
 type ModalType = {
   onClose: () => void
-  onDiscard: ()=> void
+  onDiscard: () => void
   onSave: () => void
 }
 const CloseModal = ({ onClose, onDiscard, onSave }: ModalType) => {
