@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useRef, useState } from 'react'
 
-import { useAppDispatch, useAppSelector } from '@/app/store'
+import { AppDispatch, useAppDispatch, useAppSelector } from '@/app/store'
 import DefaultAvatar from '@/features/avatar/ui/default-avatar'
 import DeleteButton from '@/features/avatar/ui/delete-button'
 import CloseModal from '@/features/create-post/close-modal/close-modal'
@@ -8,18 +8,18 @@ import EditButton from '@/features/create-post/ul/edit-button/EditButton'
 import { imageActions } from '@/services/create-post/postSlice'
 import { useGetUploadImageMutation } from '@/services/profile/postsApi'
 import Button from '@/shared/ui/Button/Button'
-import ModalForPosts from '@/shared/ui/ModalForPosts/ModalForPosts'
+// import ModalForPosts from '@/shared/ui/ModalForPosts/ModalForPosts'
 import ExitButton from '@/shared/ui/exit-button/exit-button'
 import { saveImageHook } from '@/shared/utils/saveImage'
+import { logger } from '@storybook/node-logger'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { Pagination } from 'swiper/modules'
 import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react'
 
-import './style/style.css'
 import 'swiper/css'
 
-const CreatePost = () => {
+const CreatePostt = () => {
   const [open, isOpen] = useState(false)
 
   const [uploadImage] = useGetUploadImageMutation()
@@ -37,7 +37,8 @@ const CreatePost = () => {
         for (let i = 0; i < files.length; i++) {
           if (files[i].size <= 21200000) {
             try {
-              uploadImage(await saveImageHook(URL.createObjectURL(files[i]))).then(res =>
+              uploadImage(await saveImageHook(URL.createObjectURL(files[i])))
+                .then(res =>
                 dispatch(imageActions.setImage(res.data.images[0]))
               )
             } catch (e) {
@@ -171,13 +172,12 @@ const CreatePost = () => {
           </label>
         </div>
       </div>
-{/*<ModalForPosts/>*/}
+
       {open && (
-        <CloseModal onClose={handlerCloseModal} onDiscard={handlerDiscardModal} onSave={() => {
-        }} />
+        <CloseModal onClose={handlerCloseModal} onDiscard={handlerDiscardModal} onSave={() => {}} />
       )}
     </div>
-)
+  )
 }
 
-export default CreatePost
+export default CreatePostt

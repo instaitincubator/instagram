@@ -9,7 +9,7 @@ type ModalType = {
 }
 const CloseModal = ({ onClose, onDiscard, onSave }: ModalType) => {
   return (
-    <Modal onClose={onClose} title={'Close'}>
+    <Modal className={'z-40'} onClose={onClose} title={'Close'}>
       <p className={'whitespace-pre-wrap'}>
         Do you really want to close the creation of a publication? If you close everything will be
         deleted
