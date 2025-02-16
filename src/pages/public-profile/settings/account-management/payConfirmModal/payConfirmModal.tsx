@@ -14,14 +14,14 @@ const PayConfirmModal = () => {
   return (
     router.query.success && (
       <Modal
-        onClose={() => router.push('/profile/settings/account-management')}
+        onClose={() => router.push('/public-profile/settings/account-management')}
         title={payConfirmation}
       >
         <div className="pb-[50px] w-[300px]">
           {router.query.success === 'true' ? t.payment.paySuccess : t.payment.payFailed}
         </div>
-        <Link className="w-full" href={'/profile/settings/account-management'}>
-          <Button fullWidth onClick={() => router.push('/profile/settings/account-management')}>
+        <Link className="w-full" href={'/public-profile/settings/account-management'}>
+          <Button fullWidth>
             {router.query.success ? <div>OK</div> : <div>{t.payment.backToPayment}</div>}
           </Button>
         </Link>

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useRef, useState, useTransition } from 'react'
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
 import AvatarEditor from 'react-avatar-editor'
 
 import { useAppDispatch, useAppSelector } from '@/app/store'
@@ -88,7 +88,7 @@ const AvatarModal = ({ avatar, onClose }: AvatarModalProps) => {
     >
       {isUpload ? (
         <div className="mt-3">
-          <div className={' mx-[76px] '}>
+          <div className={'sm:mx-[76px] mx-0  '}>
             <CropperImage className={'m-full'} image={src || ''} ref={cropRef} />
           </div>
           <Button className={'mb-5 ml-auto'} onClick={handleSave}>

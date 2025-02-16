@@ -121,6 +121,19 @@ Your rights to your content remain unaffected. We do not claim ownership of your
     payFailed: 'Transaction failed. Please, write to support',
     paySuccess: 'Payment was successful!',
   },
+  paymentNotification: {
+    message: {
+      'The next subscription payment will be debited from your account after 1 day.':
+        'The next subscription payment will be debited from your account after 1 day.',
+      'Your subscription ends in 7 days': 'Your subscription ends in 7 days',
+      'Your subscription-ws ends in 1 day': 'Your subscription-ws ends in 1 day',
+      subscriptionActivated: 'Your subscription has been activated and is valid until',
+    },
+    noReadTitle: 'New',
+    notificationsTitle: 'New notification!',
+    readButtonTitle: 'mark as read',
+    title: 'Notifications',
+  },
   profile: {
     followers: 'Followers',
     following: 'Following',

@@ -7,10 +7,10 @@ export const GithubAuthCallback = () => {
   const { accessToken } = router.query
   const { data: me } = useMeQuery()
 
-  if (accessToken) {
+  if (accessToken && me?.userId) {
     setToken(accessToken as string)
-    void router.push(`/profile/${me?.userId}`)
+    void router.push(`/public-profile/profile/${me.userId}`)
   }
 
-  return <div>gitHub</div>
+  return <></>
 }

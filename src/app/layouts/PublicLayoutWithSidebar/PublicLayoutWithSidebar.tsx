@@ -1,4 +1,4 @@
-import { PropsWithChildren, ReactElement, useEffect } from 'react'
+import { PropsWithChildren, ReactElement } from 'react'
 
 import { Layout } from '@/app/layouts/mainLayout/Layout'
 import { MobileSideBar } from '@/features/SideBar/MobileSidebar'
@@ -8,7 +8,7 @@ import { NextPage } from 'next'
 
 export const PublicLayoutWithSidebar: NextPage<PropsWithChildren> = props => {
   const { children } = props
-  const { isError, isFetching, isLoading, isSuccess } = useMeQuery()
+  const { isSuccess } = useMeQuery()
 
   return (
     <Layout>

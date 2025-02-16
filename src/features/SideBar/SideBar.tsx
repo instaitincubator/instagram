@@ -67,7 +67,7 @@ export const SideBar = () => {
           child1={<Profile />}
           child2={<ProfileFill />}
           className="order-5 sm:order-3"
-          href={`/profile/${me?.userId}`}
+          href={`/public-profile/profile/${me?.userId}`}
           setActiveLink={setActiveLink}
           title={t.sidebar.myProfile}
         ></CustomLink>

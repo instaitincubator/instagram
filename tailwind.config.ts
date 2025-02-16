@@ -11,13 +11,15 @@ const colors = {
     900: '#234E99',
   },
   danger: {
-    100: '#FF8099',
+    50: '#FF809980',
+    100: '#ff8099',
     300: '#F23D61',
     500: '#CC1439',
     700: '#990F2B',
     900: '#660A1D',
   },
   dark: {
+    50: '#4C4C4C80',
     100: '#4C4C4C',
     300: '#333333',
     500: '#171717',
@@ -39,6 +41,7 @@ const colors = {
     900: '#0A6638',
   },
   warning: {
+    50: '#FFD07380',
     100: '#FFD073',
     300: '#E5AC39',
     500: '#D99000',
@@ -58,6 +61,7 @@ const config: Config = {
     './src/shared/**/*.{js,ts,jsx,tsx,mdx}',
     './src/features/**/*.{js,ts,jsx,tsx,mdx}',
   ],
+  darkMode: ['class'],
   plugins: [
     plugin(function ({ addUtilities }) {
       const newUtilities = {
@@ -141,6 +145,7 @@ const config: Config = {
         },
       })
     }),
+    require('tailwindcss-animate'),
   ],
   theme: {
     extend: {
@@ -150,13 +155,18 @@ const config: Config = {
       borderColor: {
         ...colors,
       },
+      borderRadius: {
+        lg: 'var(--radius)',
+        md: 'calc(var(--radius) - 2px)',
+        sm: 'calc(var(--radius) - 4px)',
+      },
       colors: {
-        accent: colors.accent,
-        danger: colors.danger,
-        dark: colors.dark,
-        light: colors.light,
-        success: colors.success,
-        warning: colors.warning,
+        accent: 'colors.accent',
+        danger: 'colors.danger',
+        dark: 'colors.dark',
+        light: 'colors.light',
+        success: 'colors.success',
+        warning: 'colors.warning',
       },
       gridTemplateColumns: {
         posts: 'repeat(auto-fill, minmax(200px, 1fr))',

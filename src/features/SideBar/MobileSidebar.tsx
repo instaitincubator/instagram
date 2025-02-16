@@ -23,7 +23,6 @@ export const MobileSideBar = () => {
   const [activeLink, setActiveLink] = useState('/')
   const { t } = useTranslation()
   const { data: me } = useMeQuery()
-  const [AddPostModal, setAddPostModal] = useState(false)
 
   useEffect(() => {
     setActiveLink(router.pathname)
@@ -43,7 +42,6 @@ export const MobileSideBar = () => {
         />
         <CustomLink
           activeLink={activeLink}
-          addPostModal={() => setAddPostModal(true)}
           alt={t.sidebar.create}
           child1={<Plus />}
           child2={<PlusFill />}
@@ -74,7 +72,7 @@ export const MobileSideBar = () => {
           alt={t.sidebar.myProfile}
           child1={<Profile />}
           child2={<ProfileFill />}
-          href={`/profile/${me?.userId}`}
+          href={`/public-profile/profile/${me?.userId}`}
           setActiveLink={setActiveLink}
           title={t.sidebar.myProfile}
         />
