@@ -1,12 +1,12 @@
 import React from 'react'
 
-import { useMarkAsReadMutation } from '@/app/layouts/mainLayout/api/NotificationApi'
 import { useAppDispatch, useAppSelector } from '@/app/store'
 import { paymentsNotificationsActions } from '@/services/payments-notifications/payments-notifications'
 import { useTranslation } from '@/shared/hooks/useTranslation'
 import { Alert } from '@/shared/ui/Alert/Alert'
 import { AlertItem } from '@/shared/ui/Alert/AlertItem'
 import { formatDate } from '@/shared/utils/formatDate'
+import { hasDateFormat } from '@/shared/utils/hasDate'
 import { Separator } from 'radix-ui'
 
 export const NotificationAlerts = () => {
@@ -36,9 +36,13 @@ export const NotificationAlerts = () => {
                 {t.paymentNotification.notificationsTitle}
               </span>
             )}
-
             <span className="text-regular-14 text-light-100 pr-[30px]">
-              {t.paymentNotification.message[message]}
+              {hasDateFormat(message) && (
+                <span>
+                  {t.paymentNotification.message.subscriptionActivated} {message.slice(-11)}
+                </span>
+              )}
+              {hasDateFormat(message) || <span>{t.paymentNotification.message[message]}</span>}
             </span>
             <span className="text-regular-14 text-light-100">{formatDate(notion.createdAt)}</span>
             <Separator.Root className="my-[12px] bg-dark-100 h-[1px] w-full" />

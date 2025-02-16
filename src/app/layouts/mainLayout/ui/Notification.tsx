@@ -23,7 +23,6 @@ export const NotificationComponent = () => {
 
     socket.on('notifications', notification => {
       dispatch(paymentsNotificationsActions.addNotification(notification))
-
       setTimeoutId((_: unknown) =>
         setTimeout(() => {
           dispatch(paymentsNotificationsActions.deleteNotification(notification.id))

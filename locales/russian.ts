@@ -129,6 +129,7 @@ export const russian = {
         'Следующий платеж за подписку будет списан с вашего счета через 1 день.',
       'Your subscription ends in 7 days': 'Ваша подписка истекает через 7 дней',
       'Your subscription-ws ends in 1 day': 'Ваша подписка истекает через 1 день',
+      subscriptionActivated: 'Ваша подписка активирована и действует до',
     },
     noReadTitle: 'Новое',
     notificationsTitle: 'Новое уведомление!',
