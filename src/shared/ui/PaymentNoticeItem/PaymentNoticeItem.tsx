@@ -4,6 +4,7 @@ import { PaymentNotyfication } from '@/app/layouts/mainLayout/types/ApiTypes'
 import { useTranslation } from '@/shared/hooks/useTranslation'
 import { CloseIcon } from '@/shared/ui/icons/closeIcon'
 import { formatDate } from '@/shared/utils/formatDate'
+import { hasDateFormat } from '@/shared/utils/hasDate'
 import { Separator } from 'radix-ui'
 
 type Props = {
@@ -31,9 +32,14 @@ export const PaymentNoticeItem = (props: Props) => {
       )}
 
       <span className="text-regular-14 text-light-100 pr-[30px]">
-        {t.paymentNotification.message[message]}
+        {hasDateFormat(message) && (
+          <span>
+            {t.paymentNotification.message.subscriptionActivated} {message.slice(-11)}
+          </span>
+        )}
+        {hasDateFormat(message) || <span>{t.paymentNotification.message[message]}</span>}
       </span>
-      <span className="text-regular-14 text-light-100">{formatDate(notion.createdAt)}</span>
+      <span className="text-regular-14 text-light-900">{formatDate(notion.createdAt)}</span>
       {isLastItem && <Separator.Root className="my-[12px] bg-dark-100 h-[1px] w-full" />}
       {readHandler && (
         <button
