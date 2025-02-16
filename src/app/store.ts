@@ -1,18 +1,18 @@
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 
+import { imageReduce } from '@/services/create-post/postSlice'
 import { baseApi } from '@/services/inctagram-api'
 import { errorReduce } from '@/services/notification/error-notification'
 import { paymentsNotificationsReducer } from '@/services/payments-notifications/payments-notifications'
 import { configureStore } from '@reduxjs/toolkit'
-import { imageReduce } from '@/services/create-post/postSlice'
 
 export const store = configureStore({
   middleware: getDefaultMiddleware => getDefaultMiddleware().concat(baseApi.middleware),
   reducer: {
     [baseApi.reducerPath]: baseApi.reducer,
     errorNotions: errorReduce,
-    paymentsNotions: paymentsNotificationsReducer,
     imageSlice: imageReduce,
+    paymentsNotions: paymentsNotificationsReducer,
   },
 })
 

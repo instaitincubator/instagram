@@ -1,10 +1,11 @@
 import React from 'react'
-import { getLayoutWithSidebar } from '@/app/layouts/layoutWithSidebar/LayoutWithSidebar'
-import Publish from '@/features/create-post/publish/publish'
+
+import { getPublicLayoutWithSidebar } from '@/app/layouts/PublicLayoutWithSidebar/PublicLayoutWithSidebar'
+import { Publish } from '@/features/create-post/ul/publish/publish'
 
 const PublicationPage = () => {
   return <Publish />
 }
 
-PublicationPage.getLayout = getLayoutWithSidebar
+PublicationPage.getLayout = getPublicLayoutWithSidebar
 export default PublicationPage

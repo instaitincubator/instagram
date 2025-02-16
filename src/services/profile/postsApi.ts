@@ -31,6 +31,15 @@ type PostView = {
 const getPostsApi = baseApi.injectEndpoints({
   endpoints: build => {
     return {
+      UploadImage: build.mutation({
+        query: formData => {
+          return {
+            body: formData,
+            method: 'POST',
+            url: '/api/v1/posts/image',
+          }
+        },
+      }),
       getCreatePost: build.mutation<any, CreatePost>({
         query: data => ({
           body: data,
@@ -81,17 +90,8 @@ const getPostsApi = baseApi.injectEndpoints({
           }
         },
       }),
-      getUploadImage: build.mutation({
-        query: formData => {
-          return {
-            body: formData,
-            method: 'POST',
-            url: '/api/v1/posts/image',
-          }
-        },
-      }),
     }
   },
 })
 
-export const { useGetCreatePostMutation, useGetPostsQuery, useGetUploadImageMutation } = getPostsApi
+export const { useGetCreatePostMutation, useGetPostsQuery, useUploadImageMutation } = getPostsApi

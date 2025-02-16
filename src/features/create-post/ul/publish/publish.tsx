@@ -9,9 +9,10 @@ import { useGetProfileInfoQuery } from '@/services/profile/profileApi'
 import { ControlledTextarea } from '@/shared/ui'
 import Button from '@/shared/ui/Button/Button'
 import ExitButton from '@/shared/ui/exit-button/exit-button'
+import Image from 'next/image'
 import { useRouter } from 'next/router'
 
-const Publish = () => {
+export const Publish = () => {
   const { data: me } = useGetProfileInfoQuery()
   const { images } = useAppSelector(state => state.imageSlice)
   const { control, errors, handleSubmit } = usePublicationForm()
@@ -57,7 +58,7 @@ const Publish = () => {
         </div>
         <div className="flex gap-[6px] mt-[19px] mb-[12px]">
           {images.map(el => (
-            <img
+            <Image
               alt={`img-${el.uploadId}`}
               className={'h-[96px] w-[96]'}
               key={el.uploadId}
@@ -84,5 +85,3 @@ const Publish = () => {
     </form>
   )
 }
-
-export default Publish

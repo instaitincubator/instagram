@@ -1,22 +1,22 @@
 import React from 'react'
-import CreatePostt from '@/features/create-post/createPostt'
+
+import { CreatePost } from '@/features/create-post/createPost'
 import { Modal } from '@/shared/ui/Modal/Modal'
 
-const CreatePost = () => {
-
+const CreatePostPage = () => {
   return (
     <Modal
-      className={'my-[60px] items-stretch justify-start md:items-center  md:justify-center'}
-      contentClassName={'items-center block overflow-auto'}
-      modalClassName={'bg-transparent border-none'}
-      onCloseClassname={'hidden invisible'}
+      className="my-[60px] items-stretch justify-start md:items-center  md:relative md:justify-center"
+      contentClassName="items-center block overflow-auto"
+      modalClassName="bg-transparent border-none"
+      onCloseClassname="hidden invisible"
       withOutHeader
-      withOutHeaderButtonClassName={'hidden'}
+      withOutHeaderButtonClassName="hidden"
     >
-      <CreatePostt />
+      <CreatePost />
       {/*<Publish />*/}
     </Modal>
   )
 }
 
-export default CreatePost
+export default CreatePostPage
