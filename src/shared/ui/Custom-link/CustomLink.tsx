@@ -6,7 +6,6 @@ import { useRouter } from 'next/router'
 
 interface LinkProps {
   activeLink: string
-  addPostModal?: () => void
   alt: string
   child1: React.ReactElement
   child2?: React.ReactElement
@@ -19,7 +18,6 @@ interface LinkProps {
 
 const CustomLink = ({
   activeLink,
-  addPostModal,
   child1,
   child2,
   children,
@@ -28,15 +26,26 @@ const CustomLink = ({
   setActiveLink,
   title,
 }: LinkProps) => {
-  const isActive = href?.split('/')[1] === activeLink.split('/')[1]
+  const isActive = href?.split('/')[1] === activeLink?.split('/')[1]
   const router = useRouter()
-  const handleClick = () => {
-    if (!href) {
-      if (addPostModal) {
-        addPostModal()
+  const handleLinkClick = () => {
+    if (title === 'Создать') {
+      if (router.pathname.split('/')[1] === 'public-profile') {
+        void router.push({
+          query: {
+            createPost: 'true',
+            id: router.query.id,
+          },
+        })
+      } else {
+        void router.push({
+          query: {
+            createPost: 'true',
+          },
+        })
       }
     } else {
-      setActiveLink(href)
+      setActiveLink(href!)
     }
   }
 
@@ -48,7 +57,7 @@ const CustomLink = ({
         className
       )}
       href={href ? href : router.asPath}
-      onClick={handleClick}
+      onClick={handleLinkClick}
     >
       {isActive && child2 ? child2 : child1 || null}
       {title && <span className="hidden sm:flex text-medium-14">{title}</span>}

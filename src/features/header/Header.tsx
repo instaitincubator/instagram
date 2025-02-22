@@ -1,4 +1,4 @@
-import { ComponentProps } from 'react'
+import React, { ComponentProps } from 'react'
 
 import { NotificationComponent } from '@/app/layouts/mainLayout/ui/Notification'
 import { LanguageSelect } from '@/features/language-select/LanguageSelect'

@@ -35,7 +35,7 @@ export const SideBar = () => {
 
   useEffect(() => {
     setActiveLink(router.pathname)
-  }, [router.pathname])
+  }, [])
 
   const logOutHandler = () => {
     logOut()

@@ -4,7 +4,7 @@ type ButtonType = {
   isActive?: boolean
   onClick?: () => void
 }
-const EditButton = ({ isActive, onClick }: ButtonType) => {
+export const EditButton = ({ isActive, onClick }: ButtonType) => {
   return (
     <Button
       className={
@@ -64,5 +64,3 @@ const EditButton = ({ isActive, onClick }: ButtonType) => {
     </Button>
   )
 }
-
-export default EditButton

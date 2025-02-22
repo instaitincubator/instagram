@@ -19,24 +19,20 @@ export const Publish = () => {
   const [createPost] = useGetCreatePostMutation()
   const dispatch = useAppDispatch()
   const router = useRouter()
-  const onSubmit = async (data: any) => {
+  const onSubmit = (data: any) => {
     const combineImages: UploadType[] = images.map((items: any) => ({ uploadId: items.uploadId }))
     const dataRequest: CreatePost = {
       childrenMetadata: combineImages,
       description: data.description,
     }
 
-    try {
-      await createPost(dataRequest).then(() => {
-        router.push('/')
-        dispatch(imageActions.deleteState())
-      })
-    } catch (err) {
-      console.log(err)
-    }
+    createPost(dataRequest).then(() => {
+      void router.push('/')
+      dispatch(imageActions.deleteState())
+    })
   }
-  const backToCreate = async () => {
-    await router.push('/create-post/')
+  const backToCreate = () => {
+    void router.push('/create-post/')
   }
 
   return (
@@ -46,7 +42,7 @@ export const Publish = () => {
           <Button
             className={'m-[6px] px-0 min-w-0 contents '}
             onClick={backToCreate}
-            type={'button'}
+            type="button"
             variant={'text'}
           >
             <ExitButton />
@@ -70,7 +66,7 @@ export const Publish = () => {
           <UserAvatar avatar={me?.avatars[1].url} userId={me?.id} userName={me?.userName || ''} />
         </div>
       </div>
-      <div className="">
+      <div>
         <ControlledTextarea
           className={'min-h-[120px]'}
           control={control}
