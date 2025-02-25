@@ -12,7 +12,11 @@ import ExitButton from '@/shared/ui/exit-button/exit-button'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 
-export const Publish = () => {
+interface Props {
+  backStep: () => void
+}
+
+export const Publish = (props: Props) => {
   const { data: me } = useGetProfileInfoQuery()
   const { images } = useAppSelector(state => state.imageSlice)
   const { control, errors, handleSubmit } = usePublicationForm()
@@ -31,34 +35,33 @@ export const Publish = () => {
       dispatch(imageActions.deleteState())
     })
   }
-  const backToCreate = () => {
-    void router.push('/create-post/')
-  }
 
   return (
-    <form className={'mx-[15px] mt-[17px]'} onSubmit={handleSubmit(onSubmit)}>
+    <form className="mx-[15px] mt-[17px]" onSubmit={handleSubmit(onSubmit)}>
       <div>
         <div className="flex justify-between items-center custom-wrapper">
           <Button
-            className={'m-[6px] px-0 min-w-0 contents '}
-            onClick={backToCreate}
+            className="m-[6px] px-0 min-w-0 contents"
+            onClick={props.backStep}
             type="button"
-            variant={'text'}
+            variant="text"
           >
             <ExitButton />
           </Button>
-          <h2 className={'text-h2'}> New Publication</h2>
-          <button className={'text-h3 text-accent-500 m-[6px]'} type={'submit'}>
+          <h2 className="text-h2"> New Publication</h2>
+          <button className="text-h3 text-accent-500 m-[6px]" type="submit">
             Publish
           </button>
         </div>
-        <div className="flex gap-[6px] mt-[19px] mb-[12px]">
+        <div className="flex justify-between gap-6 mt-[19px] mb-[12px] flex-wrap">
           {images.map(el => (
             <Image
               alt={`img-${el.uploadId}`}
-              className={'h-[96px] w-[96]'}
+              className="h-[96px] w-[96]"
+              height={96}
               key={el.uploadId}
               src={el.url}
+              width={96}
             />
           ))}
         </div>
@@ -68,15 +71,14 @@ export const Publish = () => {
       </div>
       <div>
         <ControlledTextarea
-          className={'min-h-[120px]'}
+          className="min-h-[120px]"
           control={control}
           error={errors.description?.message}
           fullWidth
-          label={'Add publication descriptions'}
-          name={'description'}
-          placeholder={'Text-area'}
+          label="Add publication descriptions"
+          name="description"
+          placeholder="Text-area"
         />
-        {/*<button type={'submit'}>x</button>*/}
       </div>
     </form>
   )
