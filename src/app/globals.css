@@ -9,7 +9,7 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    background-color: #4C4C4C;
+    background-color: #4c4c4c;
     border-radius: 10px;
   }
 
@@ -29,6 +29,10 @@
   /* Для Firefox */
   .scroll-hidden {
     scrollbar-width: none; /* Скрыть ползунок в Firefox */
+  }
+
+  .custom-wrapper .swiper-wrapper {
+    @apply flex items-center;
   }
 }
 

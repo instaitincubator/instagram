@@ -26,7 +26,7 @@ export const MobileSideBar = () => {
 
   useEffect(() => {
     setActiveLink(router.pathname)
-  }, [router.pathname])
+  }, [])
 
   return (
     <nav className="absolute bottom-0 w-full min-w-[360px] min-h-[60px] border-t border-dark-300 bg-dark-700 ">

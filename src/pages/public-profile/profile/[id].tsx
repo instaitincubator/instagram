@@ -4,7 +4,6 @@ import { getPublicLayoutWithSidebar } from '@/app/layouts/PublicLayoutWithSideba
 import PostModal from '@/entities/Post/PostModal'
 import { UserInfo } from '@/features/UserInfo/UserInfo'
 import { useMeQuery } from '@/services/auth/signInApi'
-import { MeResponse } from '@/shared/types/ApiTypes/AuthApiTypes'
 import {
   PostsPublicItems,
   ProfileInfoPublic,

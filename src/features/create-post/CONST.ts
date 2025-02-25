@@ -1,0 +1,4 @@
+export enum UPLOAD_STEPS {
+  CHOOSE_PHOTO = 'CHOOSE_PHOTO',
+  PUBLISH = 'PUBLISH',
+}

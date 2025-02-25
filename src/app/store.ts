@@ -1,5 +1,6 @@
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 
+import { imageReduce } from '@/services/create-post/postSlice'
 import { baseApi } from '@/services/inctagram-api'
 import { errorReduce } from '@/services/notification/error-notification'
 import { paymentsNotificationsReducer } from '@/services/payments-notifications/payments-notifications'
@@ -10,6 +11,7 @@ export const store = configureStore({
   reducer: {
     [baseApi.reducerPath]: baseApi.reducer,
     errorNotions: errorReduce,
+    imageSlice: imageReduce,
     paymentsNotions: paymentsNotificationsReducer,
   },
 })
