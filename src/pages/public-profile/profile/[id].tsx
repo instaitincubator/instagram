@@ -4,7 +4,6 @@ import { getPublicLayoutWithSidebar } from '@/app/layouts/PublicLayoutWithSideba
 import PostModal from '@/entities/Post/PostModal'
 import { UserInfo } from '@/features/UserInfo/UserInfo'
 import { useMeQuery } from '@/services/auth/signInApi'
-import { MeResponse } from '@/shared/types/ApiTypes/AuthApiTypes'
 import {
   PostsPublicItems,
   ProfileInfoPublic,
@@ -30,7 +29,6 @@ export const getServerSideProps: GetServerSideProps<Props> = async context => {
   const resProfile = await fetch(`https://inctagram.work/api/v1/public-user/profile/${id}`)
   const profileInfo: ProfileInfoPublic = await resProfile.json()
   const postsRes = await fetch(`https://inctagram.work/api/v1/public-posts/user/${id}`)
-  console.log(postsRes)
   const posts: ProfilePublicPosts = await postsRes.json()
   let selectedPost = null
   let comments = null
