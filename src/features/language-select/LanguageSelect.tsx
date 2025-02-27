@@ -44,9 +44,17 @@ export const LanguageSelect = () => {
     }
   })
 
+  const selectedLanguage = options?.findIndex(option => option.value === router.locale)
+
+  if (selectedLanguage !== -1) {
+    const selectedOption = options?.splice(selectedLanguage!, 1)[0]
+
+    options?.unshift(selectedOption!)
+  }
+
   return (
     <Select
-      className={cn('select-none ', { 'border-none bg-dark-700 ': isMobile })}
+      className={cn('select-none ', { 'border-none bg-dark-700': isMobile })}
       onChange={changeLangHandler}
       options={options!}
       value={options?.find(option => option.value === router.locale) || null}
