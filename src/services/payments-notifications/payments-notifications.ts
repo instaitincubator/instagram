@@ -10,6 +10,7 @@ const paymentsNotifications = createSlice({
     addNotification: (state, action: PayloadAction<PaymentNotyfication>): void => {
       state.notifications.push(action.payload)
     },
+
     deleteNotification: (state, action: PayloadAction<number>): void => {
       const noticeIndex = state.notifications.findIndex(item => item.id === action.payload)
 
