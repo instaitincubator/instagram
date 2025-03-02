@@ -65,10 +65,10 @@ export const SignUpForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Card className="w-[378px] mx-auto my-auto p-[24px]">
+      <Card className="flex h-full sm:h-fit bg-dark-700 sm:bg-dark-500 flex-col sm:w-[378px] p-6 m-auto items-center">
         <h1 className="text-light-100 text-h1 text-center mb-[13px]">{t.auth.signUp}</h1>
 
-        <div className="flex justify-evenly mb-[24px]">
+        <div className="flex justify-evenly gap-20 mb-[24px]">
           <GoogleButton />
           <GithubAuth />
         </div>
