@@ -78,6 +78,18 @@ export const MobileMenuSelector = () => {
               </Button>
             </DropdownMenu.Item>
           )}
+          {!me?.userId && (
+            <DropdownMenu.Item className="group border-2 border-transparent hover:text-accent-100 active:text-accent-700 leading-none flex items-center h-9  relative select-none outline-none">
+              <Button
+                fullWidth
+                onClick={() => router.push('/sign-in')}
+                size="m"
+                variant="secondary"
+              >
+                {t.header.login}
+              </Button>
+            </DropdownMenu.Item>
+          )}
         </DropdownMenu.Content>
       </DropdownMenu.Portal>
     </DropdownMenu.Root>
