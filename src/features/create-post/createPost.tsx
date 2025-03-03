@@ -82,16 +82,16 @@ export const CreatePost = () => {
 
   return (
     <Modal
-      className="my-[60px] items-stretch justify-start bg-dark-700 md:items-center md:relative md:justify-center"
+      className="my-[60px] items-stretch justify-start bg-dark-700 md:items-center md:relative md:justify-center md:rounded-xs"
       contentClassName="items-center block overflow-auto"
-      modalClassName="bg-transparent border-none md:max-w-[60%]"
+      modalClassName="bg-transparent border-none md:max-w-[75%]"
       onCloseClassname="hidden invisible"
       withOutHeader
       withOutHeaderButtonClassName="hidden"
     >
       {uploadStep === UPLOAD_STEPS.CHOOSE_PHOTO && (
-        <div className="mx-[15px] mt-[17px]">
-          <div className="flex justify-between items-center custom-wrapper">
+        <div className="mx-[15px] mt-[17px] md:bg-dark-300 md:border md:border-dark-100 md:px-0 md:py-0 md:mx-0 md:my-0">
+          <header className="flex justify-between items-center custom-wrapper md:flex-row-reverse  md:border-b-1 md:border-t-0  md:border-l-0 md:border-r-0 md:border md:border-dark-100 md:align-items-center md:py-[11px] md:px-[24px]">
             <div className="m-[6px]" onClick={handlerOpenModal}>
               <ExitButton />
             </div>
@@ -105,13 +105,13 @@ export const CreatePost = () => {
               type="button"
               variant="text"
             >
-              <h2 className="text-h3 text-accent-500">Next</h2>
+              <h2 className="text-h3 text-accent-500 md:invisible md:hidden">Next</h2>
             </Button>
-          </div>
-          <div className="mx-[54px] my-[19px] text-center overflow-hidden flex items-center">
+          </header>
+          <div className="mx-[54px] my-[19px] text-center overflow-hidden flex items-center md:mx-0 md:my-0">
             {postImages.length >= 1 ? (
               <Swiper
-                className="flex items-center custom-wrapper"
+                className="flex items-center custom-wrapper w-full"
                 loop
                 modules={[Pagination]}
                 onSlideChange={handleSlideChange}
@@ -123,6 +123,7 @@ export const CreatePost = () => {
                     <SwiperSlide key={image.uploadId} virtualIndex={i}>
                       <Image
                         alt={`image-${image.uploadId}`}
+                        className={'w-full'}
                         height={252}
                         src={image.url}
                         width={252}
@@ -132,10 +133,18 @@ export const CreatePost = () => {
                 })}
               </Swiper>
             ) : (
-              <DefaultAvatar className="max-w-252 max-h-252 " />
+              <div className={'w-full md:mx-[135px] md:mt-[72px] md:mb-[48px]'}>
+                <DefaultAvatar className="max-w-252 max-h-252 md:w-[222px] md:h-[228px] md:mb-[60px]  w-full" />
+                <div className="invisible hidden md:visible  md:flex md:gap-[24px] md:flex-col">
+                  <Button fullWidth>Select from Computer</Button>
+                  <Button fullWidth variant={'outline'}>
+                    Open draft
+                  </Button>
+                </div>
+              </div>
             )}
           </div>
-          <div>
+          <div className={'md:hidden md:invisible'}>
             <div className="flex justify-between">
               <h1 className="text-medium-14 mb-[17px]">My Gallery</h1>
               <EditButton isActive={editButton} onClick={() => setEdit(!editButton)} />
