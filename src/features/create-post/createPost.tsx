@@ -79,6 +79,12 @@ export const CreatePost = () => {
     setIsOpen(false)
     void router.push('/')
   }
+  const rightHandleClick = () => {
+    swiperRef?.current?.swiper.slideNext()
+  }
+  const leftHandleClick = () => {
+    swiperRef?.current?.swiper.slidePrev()
+  }
 
   return (
     <Modal
@@ -108,35 +114,76 @@ export const CreatePost = () => {
               <h2 className="text-h3 text-accent-500 md:invisible md:hidden">Next</h2>
             </Button>
           </header>
-          <div className="mx-[54px] my-[19px] text-center overflow-hidden flex items-center md:mx-0 md:my-0">
+          <div className=" mx-[54px] my-[19px] text-center overflow-hidden flex items-center md:mx-0 md:my-0 md:relative md:flex-grow">
             {postImages.length >= 1 ? (
-              <Swiper
-                className="flex items-center custom-wrapper w-full"
-                loop
-                modules={[Pagination]}
-                onSlideChange={handleSlideChange}
-                pagination={{ clickable: true }}
-                ref={swiperRef}
-              >
-                {postImages.map((image, i) => {
-                  return (
-                    <SwiperSlide key={image.uploadId} virtualIndex={i}>
-                      <Image
-                        alt={`image-${image.uploadId}`}
-                        className={'w-full'}
-                        height={252}
-                        src={image.url}
-                        width={252}
-                      />
-                    </SwiperSlide>
-                  )
-                })}
-              </Swiper>
+              <>
+                <Swiper
+                  className="flex items-center custom-wrapper w-full"
+                  loop
+                  modules={[Pagination]}
+                  onSlideChange={handleSlideChange}
+                  pagination={{ clickable: true }}
+                  ref={swiperRef}
+                >
+                  {postImages.map((image, i) => {
+                    return (
+                      <SwiperSlide key={image.uploadId} virtualIndex={i}>
+                        <Image
+                          alt={`image-${image.uploadId}`}
+                          className={'w-full'}
+                          height={564}
+                          src={image.url}
+                          width={492}
+                        />
+                      </SwiperSlide>
+                    )
+                  })}
+                </Swiper>
+                {postImages.length > 1 && (
+                  <div className="flex justify-between px-6">
+                    <Image
+                      alt="ArrowLeft"
+                      className="absolute top-1/2 transform -translate-y-1/2 left-2 cursor-pointer z-10 "
+                      height={24}
+                      onClick={leftHandleClick}
+                      src="/arrowLeftSlider.svg"
+                      width={24}
+                    />
+                    <Image
+                      alt="ArrowRight"
+                      className="absolute top-1/2 transform -translate-y-1/2 right-2 cursor-pointer z-10"
+                      height={24}
+                      onClick={rightHandleClick}
+                      src="/arrowRightSlider.svg"
+                      width={24}
+                    />
+                  </div>
+                )}
+                <div className={'absolute z-10 right-[11px] bottom-[11px]'}>
+                  <Image
+                    alt="image"
+                    className={'bg-dark-500 bg-opacity-80'}
+                    height={24}
+                    src={'/image-outline.svg'}
+                    width={24}
+                  />
+                </div>
+              </>
             ) : (
               <div className={'w-full md:mx-[135px] md:mt-[72px] md:mb-[48px]'}>
                 <DefaultAvatar className="max-w-252 max-h-252 md:w-[222px] md:h-[228px] md:mb-[60px]  w-full" />
                 <div className="invisible hidden md:visible  md:flex md:gap-[24px] md:flex-col">
-                  <Button fullWidth>Select from Computer</Button>
+                  <label htmlFor="imageSelector">
+                    <Button as="span">Выбрать с устройства</Button>
+                    <input
+                      accept="image/png, image/jpeg"
+                      className="hidden"
+                      id="imageSelector"
+                      multiple
+                      onChange={handleImageChange}
+                      type="file"
+                    />
+                  </label>
                   <Button fullWidth variant={'outline'}>
                     Open draft
                   </Button>
