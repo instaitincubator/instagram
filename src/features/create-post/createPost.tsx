@@ -39,19 +39,11 @@ export const CreatePost = () => {
       if (files.length <= 10) {
         for (let i = 0; i < files.length; i++) {
           if (files[i].size <= 21200000) {
-            try {
-              uploadImage(await saveImageHook(URL.createObjectURL(files[i]))).then(res =>
-                dispatch(imageActions.setImage(res.data.images[0]))
-              )
-            } catch (e) {
-              console.log(e)
-            }
-          } else {
-            console.log('The photo must be less than 20 Mb and have JPEG or PNG format')
+            uploadImage(saveImageHook(URL.createObjectURL(files[i]))).then(res =>
+              dispatch(imageActions.setImage(res.data.images[0]))
+            )
           }
         }
-      } else {
-        console.log('максимальное количество файлов (10)')
       }
     }
   }
