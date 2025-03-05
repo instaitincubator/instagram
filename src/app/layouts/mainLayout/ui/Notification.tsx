@@ -44,7 +44,7 @@ export const NotificationComponent = () => {
       <Popover.Portal>
         <Popover.Content
           align="end"
-          className="bg-dark-500 border-[1px] min-w-[300px] max-w-[355px] border-dark-300 rounded py-4 pl-4 pr-1 z-20"
+          className="bg-dark-500 border-[1px] min-w-[300px] max-w-[355px]  border-dark-300 rounded py-4 pl-4 pr-1 z-20"
           sideOffset={5}
         >
           <span className="text-bold-14 text-light-100">{t.paymentNotification.title}</span>
