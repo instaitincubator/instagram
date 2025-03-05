@@ -159,7 +159,53 @@ export const CreatePost = () => {
                     />
                   </div>
                 )}
-                <div className={'absolute z-10 right-[11px] bottom-[11px]'}>
+                <div
+                  className={
+                    'absolute z-10 right-[11px] bottom-[11px] flex flex-col items-end gap-[2px] '
+                  }
+                >
+                  <div
+                    className={
+                      'flex bg-dark-500 bg-opacity-80 rounded-[2px] p-[12px] items-start gap-[12px]'
+                    }
+                  >
+                    {postImages.map((image, index) => (
+                      <div
+                        className="relative  bg-dark-500 bg-opacity-80 rounded-[2px]"
+                        key={index}
+                      >
+                        <Image
+                          alt={`img-${index}`}
+                          className={''}
+                          height={82}
+                          key={index}
+                          src={image.url}
+                          width={80}
+                        />
+                        {editButton && (
+                          <button
+                            className={
+                              'bg-danger-500 absolute bottom-[80px] left-[100px] p-[4px] rounded-[50%]'
+                            }
+                            onClick={() => removeImage(image.uploadId)}
+                            type={'button'}
+                          >
+                            <DeleteButton />
+                          </button>
+                        )}
+                      </div>
+                    ))}
+
+                    <Button className={'contents p-0'} variant={'outline'}>
+                      <Image
+                        alt={'circle'}
+                        className={''}
+                        height={32}
+                        src={'/plus-circle-outline.svg'}
+                        width={32}
+                      />
+                    </Button>
+                  </div>
                   <Image
                     alt="image"
                     className={'bg-dark-500 bg-opacity-80'}
