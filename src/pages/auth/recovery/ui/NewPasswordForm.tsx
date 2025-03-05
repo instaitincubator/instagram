@@ -4,7 +4,7 @@ import { Controller } from 'react-hook-form'
 import {
   NewPasswordFormType,
   useNewPasswordForm,
-} from '@/features/new-password-form/useNewPasswordForm'
+} from '@/pages/auth/recovery/hooks/useNewPasswordForm'
 import { useNewPasswordMutation } from '@/services/auth/forgotPasswordApi'
 import { useTerminateAllSessionsMutation } from '@/services/profile/profileApi'
 import { useTranslation } from '@/shared/hooks/useTranslation'

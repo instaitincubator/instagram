@@ -5,7 +5,7 @@ import { PaymentType, SubscriptionAmount, SubscriptionType } from '@/shared/type
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 
-import config from '../../../../config'
+import config from '../../../../../../config'
 
 interface Props {
   paymentType: PaymentType

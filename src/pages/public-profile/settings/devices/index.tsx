@@ -1,7 +1,6 @@
 import React from 'react'
 
 import { getSettingsLayout } from '@/app/layouts/settingsLayout/SettingsLayout'
-import DeviceCard from '@/features/device-card/DeviceCard'
 import {
   useDeleteDeviceMutation,
   useGetDevicesQuery,
@@ -9,6 +8,8 @@ import {
 } from '@/services/profile/profileApi'
 import { useTranslation } from '@/shared/hooks/useTranslation'
 import Button from '@/shared/ui/Button/Button'
+
+import { DeviceCard } from './ui/DeviceCard'
 
 const Devices = () => {
   const { data: devices } = useGetDevicesQuery(undefined, {
@@ -32,16 +33,6 @@ const Devices = () => {
   const terminateAllSessionsHandler = () => {
     terminateAllSessions()
   }
-  const OtherDevicesList = otherDevices?.map(device => {
-    return (
-      <DeviceCard
-        deleteDeviceHandler={deleteDeviceHandler}
-        device={device}
-        isOther
-        key={device.deviceId}
-      />
-    )
-  })
 
   return (
     <div className="flex flex-col w-full pr-[15px]">
@@ -60,7 +51,16 @@ const Devices = () => {
       {!!otherDevices.length && (
         <div>
           <h3 className="text-h3 mb-[6px]">{t.devices.others}</h3>
-          {OtherDevicesList}
+          {otherDevices?.map(device => {
+            return (
+              <DeviceCard
+                deleteDeviceHandler={deleteDeviceHandler}
+                device={device}
+                isOther
+                key={device.deviceId}
+              />
+            )
+          })}
         </div>
       )}
     </div>

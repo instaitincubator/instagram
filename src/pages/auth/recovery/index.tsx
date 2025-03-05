@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
 
 import { getLayout } from '@/app/layouts/mainLayout/Layout'
-import { NewPasswordForm } from '@/features/new-password-form/NewPasswordForm'
+import { NewPasswordForm } from '@/pages/auth/recovery/ui/NewPasswordForm'
+import { LinkExpired } from '@/pages/auth/ui/link-expired/LinkExpired'
 import { useCheckRecoveryCodeMutation } from '@/services/auth/forgotPasswordApi'
 import { useTranslation } from '@/shared/hooks/useTranslation'
-import { LinkExpired } from '@/widgets/LinkExpired'
 import { useRouter } from 'next/router'
 
 export const Recovery = () => {

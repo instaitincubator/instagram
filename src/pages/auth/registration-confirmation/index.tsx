@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 
 import { getLayout } from '@/app/layouts/mainLayout/Layout'
+import { LinkExpired } from '@/pages/auth/ui/link-expired/LinkExpired'
 import { useConfirmCodeMutation } from '@/services/auth/signUpApi'
 import { useTranslation } from '@/shared/hooks/useTranslation'
 import Button from '@/shared/ui/Button/Button'
-import { LinkExpired } from '@/widgets/LinkExpired'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 

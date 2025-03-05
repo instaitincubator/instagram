@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 
-import { Description } from '@/entities/Post/Description'
 import { PostImage } from '@/entities/PostImage/PostImage'
 import { TimePublish } from '@/entities/TimePublish/TimePublish'
 import UserAvatar from '@/entities/UserAvatar/UserAvatar'
+import { Description } from '@/pages/public-profile/profile/ui/Post/Description'
 import { PostCardProps } from '@/shared/types/public.types'
 import { motion } from 'framer-motion'
 

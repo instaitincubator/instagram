@@ -22,7 +22,7 @@ export async function getStaticProps() {
   }
 }
 
-type Props = {
+interface Props {
   postsData: AllPublicPosts
   totalUsersData: GetTotalUsersResponse
 }

@@ -1,7 +1,7 @@
 import { PropsWithChildren, ReactElement } from 'react'
 
 import { PublicLayoutWithSidebar } from '@/app/layouts/PublicLayoutWithSidebar/PublicLayoutWithSidebar'
-import { ProfileSettingTabs } from '@/widgets/profileSettingTabs/ProfileSettingTabs'
+import { ProfileSettingTabs } from '@/widgets/profile-setting-tabs/ProfileSettingTabs'
 import { NextPage } from 'next'
 
 const SettingsLayout: NextPage<PropsWithChildren> = props => {

@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 
 import { getPublicLayoutWithSidebar } from '@/app/layouts/PublicLayoutWithSidebar/PublicLayoutWithSidebar'
-import PostModal from '@/entities/Post/PostModal'
-import { UserInfo } from '@/features/UserInfo/UserInfo'
+import PostModal from '@/pages/public-profile/profile/ui/Post/PostModal'
 import { useMeQuery } from '@/services/auth/signInApi'
 import {
   PostsPublicItems,
@@ -16,6 +15,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 import { noImage } from '../../../../public'
+import { UserInfo } from './ui/UserInfo/UserInfo'
 
 interface Props {
   comments: CommentForPost | null

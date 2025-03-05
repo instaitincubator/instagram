@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 
 import { getSettingsLayout } from '@/app/layouts/settingsLayout/SettingsLayout'
-import PayConfirmModal from '@/pages/public-profile/settings/account-management/payConfirmModal/payConfirmModal'
+import { PayButton } from '@/pages/public-profile/settings/account-management/ui/PayButton'
+import PayConfirmModal from '@/pages/public-profile/settings/account-management/ui/PayConfirmModal'
 import {
   useCancelAutoRenewalMutation,
   useGetCurrentSubscriptionQuery,
@@ -10,7 +11,6 @@ import { useTranslation } from '@/shared/hooks/useTranslation'
 import { PaymentType, SubscriptionAmount, SubscriptionType } from '@/shared/types/public.enums'
 import { Card } from '@/shared/ui/Card/Card'
 import { Checkbox } from '@/shared/ui/Checkbox/Checkbox'
-import { PayButton } from '@/shared/ui/Payment/PayButton'
 import { RadioGroup, RadioGroupItem } from '@/shared/ui/Radio-group/RadioGroup'
 import { formatDate } from '@/shared/utils/formatDate'
 

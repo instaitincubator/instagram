@@ -1,10 +1,10 @@
 import React from 'react'
 
-import { Comment } from '@/entities/Post/Comment'
 import { LikesCounter } from '@/entities/PostImage/LikesCounter'
 import { PostImage } from '@/entities/PostImage/PostImage'
 import { TimePublish } from '@/entities/TimePublish/TimePublish'
 import UserAvatar from '@/entities/UserAvatar/UserAvatar'
+import { Comment } from '@/pages/public-profile/profile/ui/Post/Comment'
 import { PostsPublicItems } from '@/shared/types/ApiTypes/ProfileApiTypes'
 import { CommentForPost } from '@/shared/types/public.types'
 import { Modal } from '@/shared/ui/Modal/Modal'

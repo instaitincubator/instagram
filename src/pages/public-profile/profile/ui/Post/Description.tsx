@@ -47,7 +47,7 @@ export const Description = ({ description, isShowedText, toggleShowedText }: Pro
 
       {isClampedText && !isShowedText && (
         <button
-          className="absolute block right-0 bottom-0 bg-dark-700 before:content-['...'] before:text-light-100 before:no-underline before:mr-[7px] text-regular-16 before:no-underline text-accent-500 "
+          className="absolute block right-0 bottom-0 bg-dark-700 before:content-['...'] before:text-light-100 before:no-underline before:mr-[7px] text-regular-16 text-accent-500 "
           onClick={toggleShowedText}
           type="button"
         >

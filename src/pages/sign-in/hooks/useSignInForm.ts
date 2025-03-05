@@ -5,7 +5,7 @@ import { useTranslation } from '@/shared/hooks/useTranslation'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
-import { LocaleType } from '../../../locales/english'
+import { LocaleType } from '../../../../locales/english'
 
 export interface SignInFormType {
   email: string

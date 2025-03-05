@@ -1,6 +1,6 @@
 import React from "react";
 
-import { PostCard } from "@/entities/Post/PostCard";
+import { PostCard } from "@/pages/public-profile/profile/ui/Post/PostCard";
 import { PostsPublicItems } from "@/shared/types/ApiTypes/ProfileApiTypes";
 import { useRouter } from "next/router";
 

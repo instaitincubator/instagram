@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { useProfileSettingsForm } from '@/features/profile-settings-form/useProfileSettingsForm'
+import { useProfileSettingsForm } from '@/pages/public-profile/settings/general-information/hooks/useProfileSettingsForm'
 import { usePutSettingsMutation } from '@/services/profile/profileApi'
 import { useTranslation } from '@/shared/hooks/useTranslation'
 import {

@@ -7,7 +7,7 @@ const Settings = () => {
 
   useEffect(() => {
     void router.push('/public-profile/settings/general-information')
-  }, [])
+  }, [router])
 
   return <div></div>
 }

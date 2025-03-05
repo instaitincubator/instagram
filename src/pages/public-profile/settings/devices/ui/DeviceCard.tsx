@@ -4,9 +4,10 @@ import { useTranslation } from '@/shared/hooks/useTranslation'
 import { Device } from '@/shared/types/ApiTypes/ProfileApiTypes'
 import { BrowserList } from '@/shared/types/public.enums'
 import Button from '@/shared/ui/Button/Button'
+import { cn } from '@/shared/utils/cn'
 import Image from 'next/image'
 
-import { LogOut } from '../../../public'
+import { LogOut } from '../../../../../../public'
 
 type Props = {
   deleteDeviceHandler?: (id: number) => void
@@ -14,11 +15,11 @@ type Props = {
   isOther: boolean
 }
 
-const DeviceCard = ({ deleteDeviceHandler, device, isOther }: Props) => {
+export const DeviceCard = ({ deleteDeviceHandler, device, isOther }: Props) => {
   const browserName = device.browserName
   const date = new Date(device.lastActive)
   const { t } = useTranslation()
-  let browserIcon = ''
+  let browserIcon
 
   if (browserName in BrowserList) {
     browserIcon = browserName.toLowerCase()
@@ -36,9 +37,10 @@ const DeviceCard = ({ deleteDeviceHandler, device, isOther }: Props) => {
           <div className="text-bold-16 text-light-100 mb-[12px]">{device.browserName}</div>
           <div className="text-regular-14 text-light-100 mb-[5px] ">IP: {device.ip}</div>
           <div
-            className={
-              'text-medium-14 ' + (isOther ? 'text-light-100 ' : 'text-accent-100 ') + 'mb-[5px] '
-            }
+            className={cn('text-medium-14 mb-[5px]', {
+              'text-accent-100': !isOther,
+              'text-light-100': isOther,
+            })}
           >
             {isOther ? `Last visit: ${date.toLocaleDateString()}` : 'Online'}
           </div>
@@ -61,5 +63,3 @@ const DeviceCard = ({ deleteDeviceHandler, device, isOther }: Props) => {
     </div>
   )
 }
-
-export default DeviceCard
