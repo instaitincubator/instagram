@@ -31,7 +31,7 @@ export const CreatePost = () => {
   const [editButton, setEdit] = useState(false)
   const router = useRouter()
   const postImages = useAppSelector(state => state.imageSlice.images)
-
+  // const [isOpen, setOpen ]
   const handleImageChange = async (event: ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files
 
@@ -103,7 +103,7 @@ export const CreatePost = () => {
             </div>
             <h2 className="text-h2">New Publication</h2>
             <Button
-              className="px-0 min-w-0 contents"
+              className="px-0 "
               disabled={postImages.length === 0}
               onClick={() => {
                 setUploadStep(UPLOAD_STEPS.PUBLISH)
@@ -111,7 +111,7 @@ export const CreatePost = () => {
               type="button"
               variant="text"
             >
-              <h2 className="text-h3 text-accent-500 md:invisible md:hidden">Next</h2>
+              <h2 className="text-h3 text-accent-500">Next</h2>
             </Button>
           </header>
           <div className=" mx-[54px] my-[19px] text-center overflow-hidden flex items-center md:mx-0 md:my-0 md:relative md:flex-grow">
@@ -164,52 +164,64 @@ export const CreatePost = () => {
                     'absolute z-10 right-[11px] bottom-[11px] flex flex-col items-end gap-[2px] '
                   }
                 >
-                  <div
-                    className={
-                      'flex bg-dark-500 bg-opacity-80 rounded-[2px] p-[12px] items-start gap-[12px]'
-                    }
-                  >
-                    {postImages.map((image, index) => (
-                      <div
-                        className="relative  bg-dark-500 bg-opacity-80 rounded-[2px]"
-                        key={index}
-                      >
-                        <Image
-                          alt={`img-${index}`}
-                          className={''}
-                          height={82}
-                          key={index}
-                          src={image.url}
-                          width={80}
-                        />
-                        {editButton && (
-                          <button
-                            className={
-                              'bg-danger-500 absolute bottom-[80px] left-[100px] p-[4px] rounded-[50%]'
-                            }
-                            onClick={() => removeImage(image.uploadId)}
-                            type={'button'}
+                  {editButton && (
+                    <div
+                      className={
+                        'flex bg-dark-500 bg-opacity-80 rounded-[2px] p-[12px] items-start gap-[12px]'
+                      }
+                    >
+                      {postImages.map((image, index) => (
+                        <>
+                          <div
+                            className="relative  bg-dark-500 bg-opacity-80 rounded-[2px]"
+                            key={index}
                           >
-                            <DeleteButton />
-                          </button>
-                        )}
-                      </div>
-                    ))}
-
-                    <Button className={'contents p-0'} variant={'outline'}>
-                      <Image
-                        alt={'circle'}
-                        className={''}
-                        height={32}
-                        src={'/plus-circle-outline.svg'}
-                        width={32}
-                      />
-                    </Button>
-                  </div>
+                            <Image
+                              alt={`img-${index}`}
+                              className={''}
+                              height={82}
+                              key={index}
+                              src={image.url}
+                              width={80}
+                            />
+                            <button
+                              className={
+                                'bg-danger-500 right-[2px]  top-[2px] absolute p-[4px] rounded-[2px]'
+                              }
+                              onClick={() => removeImage(image.uploadId)}
+                              type={'button'}
+                            >
+                              <DeleteButton />
+                            </button>
+                          </div>
+                          <label htmlFor="imageSelector">
+                            <Button as="span" className={'contents'} variant={'outline'}>
+                              <Image
+                                alt={'circle'}
+                                className={''}
+                                height={32}
+                                src={'/plus-circle-outline.svg'}
+                                width={32}
+                              />
+                            </Button>
+                            <input
+                              accept="image/png, image/jpeg"
+                              className="hidden"
+                              id="imageSelector"
+                              multiple
+                              onChange={handleImageChange}
+                              type="file"
+                            />
+                          </label>
+                        </>
+                      ))}
+                    </div>
+                  )}
                   <Image
                     alt="image"
-                    className={'bg-dark-500 bg-opacity-80'}
+                    className={'bg-dark-500 bg-opacity-80 rounded-[2px]'}
                     height={24}
+                    onClick={() => setEdit(!editButton)}
                     src={'/image-outline.svg'}
                     width={24}
                   />
