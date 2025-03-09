@@ -77,7 +77,7 @@ export const SideBar = () => {
           child1={<Plus />}
           child2={<PlusFill />}
           className="order-2"
-          href={'/create-post'}
+          // href={'/create-post'}
           setActiveLink={setActiveLink}
           title={t.sidebar.create}
         ></CustomLink>

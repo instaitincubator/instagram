@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { useAppDispatch, useAppSelector } from '@/app/store'
+import { PostImage } from '@/entities/PostImage/PostImage'
 import UserAvatar from '@/entities/UserAvatar/UserAvatar'
 import { usePublicationForm } from '@/features/publication-form/usePublicationForm'
 import { imageActions } from '@/services/create-post/postSlice'
@@ -37,9 +38,12 @@ export const Publish = (props: Props) => {
   }
 
   return (
-    <form className="mx-[15px] mt-[17px]" onSubmit={handleSubmit(onSubmit)}>
+    <form
+      className="mx-[15px] mt-[17px]  w-[70%] min-w-[320px] h-auto md:bg-dark-300 md:border-dark-100  md:rounded-[2px] md:border"
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <div>
-        <div className="flex justify-between items-center custom-wrapper">
+        <header className="flex justify-between items-center custom-wrapper ">
           <Button
             className="m-[6px] px-0 min-w-0 contents"
             onClick={props.backStep}
@@ -52,33 +56,35 @@ export const Publish = (props: Props) => {
           <button className="text-h3 text-accent-500 m-[6px]" type="submit">
             Publish
           </button>
+        </header>
+        <div className={'lg:flex w-full '}>
+          <div className="flex justify-between gap-6 mt-[19px] mb-[12px] flex-wrap">
+            <div className="max-w-[490px] flex-shrink-0 m-auto">
+              <PostImage arrImages={images} height={560} width={490} />
+            </div>
+          </div>
+          <div className="max-w-[490px] w-full">
+            <div className="my-[24px]">
+              <UserAvatar
+                avatar={me?.avatars[1].url}
+                userId={me?.id}
+                userName={me?.userName || ''}
+              />
+            </div>
+
+            <div>
+              <ControlledTextarea
+                className="min-h-[120px]"
+                control={control}
+                error={errors.description?.message}
+                fullWidth
+                label="Add publication descriptions"
+                name="description"
+                placeholder="Text-area"
+              />
+            </div>
+          </div>
         </div>
-        <div className="flex justify-between gap-6 mt-[19px] mb-[12px] flex-wrap">
-          {images.map(el => (
-            <Image
-              alt={`img-${el.uploadId}`}
-              className="h-[96px] w-[96]"
-              height={96}
-              key={el.uploadId}
-              src={el.url}
-              width={96}
-            />
-          ))}
-        </div>
-        <div className="my-[24px]">
-          <UserAvatar avatar={me?.avatars[1].url} userId={me?.id} userName={me?.userName || ''} />
-        </div>
-      </div>
-      <div>
-        <ControlledTextarea
-          className="min-h-[120px]"
-          control={control}
-          error={errors.description?.message}
-          fullWidth
-          label="Add publication descriptions"
-          name="description"
-          placeholder="Text-area"
-        />
       </div>
     </form>
   )
