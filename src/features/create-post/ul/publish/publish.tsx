@@ -1,7 +1,10 @@
 import React from 'react'
 
 import { useAppDispatch, useAppSelector } from '@/app/store'
+import { Comment } from '@/entities/Post/Comment'
+import { LikesCounter } from '@/entities/PostImage/LikesCounter'
 import { PostImage } from '@/entities/PostImage/PostImage'
+import { TimePublish } from '@/entities/TimePublish/TimePublish'
 import UserAvatar from '@/entities/UserAvatar/UserAvatar'
 import { usePublicationForm } from '@/features/publication-form/usePublicationForm'
 import { imageActions } from '@/services/create-post/postSlice'
@@ -43,7 +46,7 @@ export const Publish = (props: Props) => {
       onSubmit={handleSubmit(onSubmit)}
     >
       <div>
-        <header className="flex justify-between items-center custom-wrapper ">
+        <header className="flex justify-between items-center custom-wrapper md:mx-[24px] md:my-[12px] ">
           <Button
             className="m-[6px] px-0 min-w-0 contents"
             onClick={props.backStep}
@@ -57,24 +60,57 @@ export const Publish = (props: Props) => {
             Publish
           </button>
         </header>
-        <div className={'lg:flex w-full '}>
-          <div className="flex justify-between gap-6 mt-[19px] mb-[12px] flex-wrap">
-            <div className="max-w-[490px] flex-shrink-0 m-auto">
-              <PostImage arrImages={images} height={560} width={490} />
-            </div>
+        {/*<div className={'md:flex w-full  '}>*/}
+        {/*  <div className="flex justify-between w-1/2  gap-6 mt-[19px] mb-[12px] flex-wrap">*/}
+        {/*    <div className="hidden invisible max-w-[490px] flex-shrink-0 m-auto">*/}
+        {/*      <PostImage arrImages={images} height={503} width={490} />*/}
+        {/*    </div>*/}
+        {/*    {images.map(el => (*/}
+        {/*      <Image*/}
+        {/*        alt={`img-${el.uploadId}`}*/}
+        {/*        className="h-[96px] w-[96]"*/}
+        {/*        height={96}*/}
+        {/*        key={el.uploadId}*/}
+        {/*        src={el.url}*/}
+        {/*        width={96}*/}
+        {/*      />*/}
+        {/*    ))}*/}
+        {/*  </div>*/}
+        {/*  <div className="flex flex-1 w-1/2  flex-col justify-start  md:m-[24px] ">*/}
+        {/*    <div className="my-[24px]">*/}
+        {/*      <UserAvatar*/}
+        {/*        avatar={me?.avatars[1].url}*/}
+        {/*        userId={me?.id}*/}
+        {/*        userName={me?.userName || ''}*/}
+        {/*      />*/}
+        {/*    </div>*/}
+
+        {/*    <div>*/}
+        {/*      <ControlledTextarea*/}
+        {/*        className="min-h-[120px] md:h-100%"*/}
+        {/*        control={control}*/}
+        {/*        error={errors.description?.message}*/}
+        {/*        fullWidth*/}
+        {/*        label="Add publication descriptions"*/}
+        {/*        name="description"*/}
+        {/*        placeholder="Text-area"*/}
+        {/*      />*/}
+        {/*    </div>*/}
+        {/*  </div>*/}
+        {/*</div>*/}
+        <div className="lg:flex w-full">
+          <div className="max-w-[490px] flex-shrink-0 m-auto">
+            <PostImage arrImages={images} height={560} width={490} />
           </div>
-          <div className="max-w-[490px] w-full">
-            <div className="my-[24px]">
+          <div className="flex flex-1 flex-col justify-between max-h-[474px]">
+            <div className="flex flex-col gap-6 md:pl-6 md:py-6 ">
               <UserAvatar
                 avatar={me?.avatars[1].url}
                 userId={me?.id}
                 userName={me?.userName || ''}
               />
-            </div>
-
-            <div>
               <ControlledTextarea
-                className="min-h-[120px]"
+                className="min-h-[120px] md:h-100%"
                 control={control}
                 error={errors.description?.message}
                 fullWidth
