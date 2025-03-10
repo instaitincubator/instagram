@@ -4,7 +4,6 @@ import { useAppDispatch, useAppSelector } from '@/app/store'
 import { PostImage } from '@/entities/PostImage/PostImage'
 import DefaultAvatar from '@/features/avatar/ui/default-avatar'
 import DeleteButton from '@/features/avatar/ui/delete-button'
-import { UPLOAD_STEPS } from '@/features/create-post/CONST'
 import CloseModal from '@/features/create-post/ul/close-modal/close-modal'
 import { imageActions } from '@/services/create-post/postSlice'
 import { useUploadImageMutation } from '@/services/profile/postsApi'
@@ -14,8 +13,7 @@ import { EditButton } from '@/shared/ui/icons/editButton'
 import { saveImageHook } from '@/shared/utils/saveImage'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import { Pagination } from 'swiper/modules'
-import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react'
+import { SwiperRef } from 'swiper/react'
 interface Props {
   backStep: () => void
 }
@@ -33,7 +31,6 @@ const CreateModal = (props: Props) => {
   }
 
   const removeImage = (index: string) => {
-    // setImages(images.filter((_, i) => i !== index))
     dispatch(imageActions.removeImage(index))
   }
   const handlerOpenModal = () => {
@@ -51,12 +48,7 @@ const CreateModal = (props: Props) => {
     setIsOpen(false)
     void router.push('/')
   }
-  const rightHandleClick = () => {
-    swiperRef?.current?.swiper.slideNext()
-  }
-  const leftHandleClick = () => {
-    swiperRef?.current?.swiper.slidePrev()
-  }
+
   const handleImageChange = async (event: ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files
 
@@ -117,7 +109,7 @@ const CreateModal = (props: Props) => {
               {editButton && (
                 <div
                   className={
-                    'flex bg-dark-500 bg-opacity-80 rounded-[2px] p-[12px] items-start gap-[12px]'
+                    'hidden invisible bg-dark-500 bg-opacity-80 rounded-[2px] p-[12px] items-start gap-[12px] md:flex md:visible'
                   }
                 >
                   {images.map((image, index) => (
@@ -169,7 +161,7 @@ const CreateModal = (props: Props) => {
               )}
               <Image
                 alt="image"
-                className={'bg-dark-500 bg-opacity-80 rounded-[2px]'}
+                className={'hidden  bg-dark-500 bg-opacity-80 rounded-[2px] md:block'}
                 height={24}
                 onClick={() => setEdit(!editButton)}
                 src={'/image-outline.svg'}
