@@ -70,6 +70,14 @@ export const english = {
     yes: 'Yes, merge',
     yesConfirm: 'Yes',
   },
+  createPost: {
+    addPublicationDescriptions: 'Add publication descriptions',
+    myGallery: 'My Gallery',
+    newPublication: 'New Publication',
+    next: 'Next',
+    publish: 'Publish',
+    selectFromDevice: 'Select from Device',
+  },
   devices: {
     current: 'Current device',
     others: 'Active sessions',

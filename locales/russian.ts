@@ -72,6 +72,15 @@ export const russian = {
     yes: 'Да, объединить',
     yesConfirm: 'Да',
   },
+  createPost: {
+    addPublicationDescriptions: 'Добавить описания публикаций',
+    myGallery: 'Моя галерея',
+    newPublication: 'Новая публикация',
+    next: 'Далее',
+    publish: 'Опубликовать',
+    selectFromDevice: 'Выбрать с устройства',
+  },
+
   devices: {
     current: 'Текущее устройство',
     others: 'Активные сессии',

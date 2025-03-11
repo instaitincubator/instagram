@@ -7,6 +7,7 @@ import DeleteButton from '@/features/avatar/ui/delete-button'
 import CloseModal from '@/features/create-post/ul/close-modal/close-modal'
 import { imageActions } from '@/services/create-post/postSlice'
 import { useDeleteImageMutation, useUploadImageMutation } from '@/services/profile/postsApi'
+import { useTranslation } from '@/shared/hooks/useTranslation'
 import Button from '@/shared/ui/Button/Button'
 import ExitButton from '@/shared/ui/exit-button/exit-button'
 import { EditButton } from '@/shared/ui/icons/editButton'
@@ -18,6 +19,7 @@ interface Props {
   backStep: () => void
 }
 const CreateModal = (props: Props) => {
+  const { t } = useTranslation()
   const router = useRouter()
   const [open, setIsOpen] = useState(false)
   const dispatch = useAppDispatch()
@@ -82,7 +84,7 @@ const CreateModal = (props: Props) => {
         <div className="m-[6px]" onClick={handlerOpenModal}>
           <ExitButton />
         </div>
-        <h2 className="text-h2">New Publication</h2>
+        <h2 className="text-h2">{t.createPost.newPublication}</h2>
         <Button
           className="px-0 contents"
           disabled={images.length === 0}
@@ -93,7 +95,7 @@ const CreateModal = (props: Props) => {
           type="button"
           variant="text"
         >
-          <h2 className="text-h3 text-accent-500">Next</h2>
+          <h2 className="text-h3 text-accent-500">{t.createPost.next}</h2>
         </Button>
       </header>
       {/*header*/}
@@ -196,7 +198,7 @@ const CreateModal = (props: Props) => {
       {/*выбор фото мобайл*/}
       <div className={'md:hidden md:invisible'}>
         <div className="flex justify-between">
-          <h1 className="text-medium-14 mb-[17px]">My Gallery</h1>
+          <h1 className="text-medium-14 mb-[17px]">{t.createPost.myGallery}</h1>
           <EditButton isActive={editButton} onClick={() => setEdit(!editButton)} />
         </div>
         <div>
@@ -228,7 +230,7 @@ const CreateModal = (props: Props) => {
             ))}
           </div>
           <label htmlFor="imageSelector">
-            <Button as="span">Выбрать с устройства</Button>
+            <Button as="span">{t.createPost.selectFromDevice}</Button>
             <input
               accept="image/png, image/jpeg"
               className="hidden"
