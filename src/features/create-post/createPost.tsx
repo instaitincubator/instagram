@@ -26,14 +26,14 @@ export const CreatePost = () => {
   return (
     <Modal
       className={
-        'my-[60px] items-stretch justify-start bg-dark-700  md:fixed md:flex-col md:justify-center md:items-center md:rounded-xs md:text-light-100 md:z-10 md:bg-opacity-75'
+        'items-stretch justify-start bg-dark-700  md:fixed md:flex-col md:justify-center md:items-center md:rounded-xs md:text-light-100 md:z-10 md:bg-opacity-75'
       }
-      // contentClassName="items-center flex "
+      contentClassName="items-center flex md:justify-center "
       modalClassName={cn(
         `bg-transparent border-none md:max-w-[75%]`,
         uploadStep === UPLOAD_STEPS.CHOOSE_PHOTO
           ? 'md:max-w-[75%]'
-          : 'lg:w-[70%] lg:min-w-[950px] w-[90%] min-w-[320px] h-auto'
+          : 'contents lg:flex lg:w-[70%] lg:min-w-[950px] w-[90%] min-w-[320px] h-auto'
       )}
       // onClose={closeModal}
       onCloseClassname="hidden invisible md:flex md:visible"

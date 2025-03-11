@@ -42,18 +42,18 @@ export const Publish = (props: Props) => {
 
   return (
     <form
-      className="mx-[15px] mt-[17px]  w-[70%] min-w-[320px] h-auto md:bg-dark-300 md:border-dark-100  md:rounded-[2px] md:border"
+      className="mx-[15px] mt-[17px]  w-[70%] lg:w-[90%] min-w-[320px] h-auto md:bg-dark-300 md:border-dark-100  md:rounded-[2px] md:border"
       onSubmit={handleSubmit(onSubmit)}
     >
       <div>
-        <header className="flex justify-between items-center custom-wrapper md:mx-[24px] md:my-[12px] ">
+        <header className="flex pb-[19px] justify-between items-center custom-wrapper md:mx-[24px] md:pb-0 md:my-[12px] ">
           <Button
             className="m-[6px] px-0 min-w-0 contents"
             onClick={props.backStep}
             type="button"
             variant="text"
           >
-            <ExitButton />
+            <Image alt={'back button'} height={24} src={'./arrow-without-bg.svg'} width={24} />
           </Button>
           <h2 className="text-h2"> New Publication</h2>
           <button className="text-h3 text-accent-500 m-[6px]" type="submit">
@@ -61,7 +61,7 @@ export const Publish = (props: Props) => {
           </button>
         </header>
         <div className="lg:flex w-full">
-          <div className="max-w-[490px] flex-shrink-0 m-auto">
+          <div className="max-w-[490px] md:max-w-[250px] lg:max-w-[490px] flex-shrink-0 m-auto mb-3 mb:mb-0">
             <PostImage arrImages={images} height={560} width={490} />
           </div>
           <div className="flex flex-1 flex-col justify-between w-100%">

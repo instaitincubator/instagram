@@ -6,7 +6,7 @@ import DefaultAvatar from '@/features/avatar/ui/default-avatar'
 import DeleteButton from '@/features/avatar/ui/delete-button'
 import CloseModal from '@/features/create-post/ul/close-modal/close-modal'
 import { imageActions } from '@/services/create-post/postSlice'
-import { useUploadImageMutation } from '@/services/profile/postsApi'
+import { useDeleteImageMutation, useUploadImageMutation } from '@/services/profile/postsApi'
 import Button from '@/shared/ui/Button/Button'
 import ExitButton from '@/shared/ui/exit-button/exit-button'
 import { EditButton } from '@/shared/ui/icons/editButton'
@@ -26,11 +26,13 @@ const CreateModal = (props: Props) => {
   const { images } = useAppSelector(state => state.imageSlice)
   const [editButton, setEdit] = useState(false)
   const [uploadImage] = useUploadImageMutation()
+  const [deleteImage] = useDeleteImageMutation()
   const handleSlideChange = (swiper: any) => {
     setCurrentSlide(swiper.activeIndex)
   }
 
   const removeImage = (index: string) => {
+    deleteImage(index)
     dispatch(imageActions.removeImage(index))
   }
   const handlerOpenModal = () => {
@@ -76,13 +78,13 @@ const CreateModal = (props: Props) => {
   return (
     <div className="mx-[15px] mt-[17px] md:bg-dark-300 md:border md:border-dark-100 md:px-0 md:py-0 md:mx-0 md:my-0">
       {/*header*/}
-      <header className="flex justify-between items-center custom-wrapper md:flex-row-reverse  md:border-b-1 md:border-t-0  md:border-l-0 md:border-r-0 md:border md:border-dark-100 md:align-items-center md:py-[11px] md:px-[24px]">
+      <header className="flex justify-between items-center custom-wrapper md:flex-row  md:border-b-1 md:border-t-0  md:border-l-0 md:border-r-0 md:border md:border-dark-100 md:align-items-center md:py-[11px] md:px-[24px]">
         <div className="m-[6px]" onClick={handlerOpenModal}>
           <ExitButton />
         </div>
         <h2 className="text-h2">New Publication</h2>
         <Button
-          className="px-0 "
+          className="px-0 contents"
           disabled={images.length === 0}
           onClick={() => {
             // setUploadStep(UPLOAD_STEPS.PUBLISH)
@@ -136,27 +138,27 @@ const CreateModal = (props: Props) => {
                           <DeleteButton />
                         </button>
                       </div>
-                      <label htmlFor="imageSelector">
-                        <Button as="span" className={'contents'} variant={'outline'}>
-                          <Image
-                            alt={'circle'}
-                            className={''}
-                            height={32}
-                            src={'/plus-circle-outline.svg'}
-                            width={32}
-                          />
-                        </Button>
-                        <input
-                          accept="image/png, image/jpeg"
-                          className="hidden"
-                          id="imageSelector"
-                          multiple
-                          onChange={handleImageChange}
-                          type="file"
-                        />
-                      </label>
                     </>
                   ))}
+                  <label htmlFor="imageSelector">
+                    <Button as="span" className={'contents'} variant={'outline'}>
+                      <Image
+                        alt={'circle'}
+                        className={''}
+                        height={32}
+                        src={'/plus-circle-outline.svg'}
+                        width={32}
+                      />
+                    </Button>
+                    <input
+                      accept="image/png, image/jpeg"
+                      className="hidden"
+                      id="imageSelector"
+                      multiple
+                      onChange={handleImageChange}
+                      type="file"
+                    />
+                  </label>
                 </div>
               )}
               <Image
