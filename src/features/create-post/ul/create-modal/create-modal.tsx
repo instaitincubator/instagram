@@ -5,6 +5,7 @@ import { PostImage } from '@/entities/PostImage/PostImage'
 import DefaultAvatar from '@/features/avatar/ui/default-avatar'
 import DeleteButton from '@/features/avatar/ui/delete-button'
 import CloseModal from '@/features/create-post/ul/close-modal/close-modal'
+import PhotoList from '@/features/create-post/ul/photo-list/photo-list'
 import { imageActions } from '@/services/create-post/postSlice'
 import { useDeleteImageMutation, useUploadImageMutation } from '@/services/profile/postsApi'
 import { useTranslation } from '@/shared/hooks/useTranslation'
@@ -116,32 +117,7 @@ const CreateModal = (props: Props) => {
                     'hidden invisible bg-dark-500 bg-opacity-80 rounded-[2px] p-[12px] items-start gap-[12px] md:flex md:visible'
                   }
                 >
-                  {images.map((image, index) => (
-                    <>
-                      <div
-                        className="relative  bg-dark-500 bg-opacity-80 rounded-[2px]"
-                        key={index}
-                      >
-                        <Image
-                          alt={`img-${index}`}
-                          className={''}
-                          height={82}
-                          key={index}
-                          src={image.url}
-                          width={80}
-                        />
-                        <button
-                          className={
-                            'bg-danger-500 right-[2px]  top-[2px] absolute p-[4px] rounded-[2px]'
-                          }
-                          onClick={() => removeImage(image.uploadId)}
-                          type={'button'}
-                        >
-                          <DeleteButton />
-                        </button>
-                      </div>
-                    </>
-                  ))}
+                  <PhotoList images={images} removeImage={removeImage} />
                   <label htmlFor="imageSelector">
                     <Button as="span" className={'contents'} variant={'outline'}>
                       <Image
@@ -178,7 +154,7 @@ const CreateModal = (props: Props) => {
             <DefaultAvatar className="max-w-252 max-h-252 md:w-[222px] md:h-[228px] md:mb-[60px]  w-full" />
             <div className="invisible hidden md:visible  md:flex md:gap-[24px] md:flex-col">
               <label htmlFor="imageSelector">
-                <Button as="span">Выбрать с устройства</Button>
+                <Button as="span">{t.createPost.selectFromDevice}</Button>
                 <input
                   accept="image/png, image/jpeg"
                   className="hidden"
@@ -199,17 +175,17 @@ const CreateModal = (props: Props) => {
       <div className={'md:hidden md:invisible'}>
         <div className="flex justify-between">
           <h1 className="text-medium-14 mb-[17px]">{t.createPost.myGallery}</h1>
-          <EditButton isActive={editButton} onClick={() => setEdit(!editButton)} />
+          {images.length > 1 && (
+            <EditButton isActive={editButton} onClick={() => setEdit(!editButton)} />
+          )}
         </div>
         <div>
-          <div className="grid grid-cols-3 gap-[3px]">
+          <div className="grid grid-cols-3 gap-[3px] pb-[12px]">
             {images.map((image, index) => (
               <div className="relative" key={index}>
                 <Image
                   alt={`img-${index}`}
-                  className={`object-contain overflow-hidden ${
-                    currentSlide === index ? 'brightness-50' : 'brightness-100'
-                  }`}
+                  className={'object-contain overflow-hidden '}
                   height={108}
                   key={index}
                   src={image.url}
@@ -218,7 +194,7 @@ const CreateModal = (props: Props) => {
                 {editButton && (
                   <button
                     className={
-                      'bg-danger-500 absolute bottom-[80px] left-[100px] p-[4px] rounded-[50%]'
+                      'bg-danger-500 right-[12px]  top-[6px] absolute p-[4px] rounded-[2px]'
                     }
                     onClick={() => removeImage(image.uploadId)}
                     type={'button'}

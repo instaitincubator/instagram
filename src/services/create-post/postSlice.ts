@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
-type ImagesType = {
+export type ImagesType = {
   createdAt: string
   fileSize: number
   height: number
