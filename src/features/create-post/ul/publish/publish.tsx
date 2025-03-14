@@ -1,10 +1,7 @@
 import React from 'react'
 
 import { useAppDispatch, useAppSelector } from '@/app/store'
-import { Comment } from '@/entities/Post/Comment'
-import { LikesCounter } from '@/entities/PostImage/LikesCounter'
 import { PostImage } from '@/entities/PostImage/PostImage'
-import { TimePublish } from '@/entities/TimePublish/TimePublish'
 import UserAvatar from '@/entities/UserAvatar/UserAvatar'
 import { usePublicationForm } from '@/features/publication-form/usePublicationForm'
 import { imageActions } from '@/services/create-post/postSlice'
@@ -12,7 +9,6 @@ import { CreatePost, UploadType, useGetCreatePostMutation } from '@/services/pro
 import { useGetProfileInfoQuery } from '@/services/profile/profileApi'
 import { ControlledTextarea } from '@/shared/ui'
 import Button from '@/shared/ui/Button/Button'
-import ExitButton from '@/shared/ui/exit-button/exit-button'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 
@@ -65,7 +61,7 @@ export const Publish = (props: Props) => {
             <PostImage arrImages={images} height={560} width={490} />
           </div>
           <div className="flex flex-1 flex-col justify-between w-100%">
-            <div className="flex flex-col gap-6 md:m-6 md:py-6 ">
+            <div className="flex flex-col gap-6 md:m-6 md:py-6  md:pt-3">
               <UserAvatar
                 avatar={me?.avatars[1].url}
                 userId={me?.id}

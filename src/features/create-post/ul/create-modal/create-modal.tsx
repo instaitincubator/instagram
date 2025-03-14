@@ -24,15 +24,10 @@ const CreateModal = (props: Props) => {
   const router = useRouter()
   const [open, setIsOpen] = useState(false)
   const dispatch = useAppDispatch()
-  const swiperRef = useRef<SwiperRef>(null)
-  const [currentSlide, setCurrentSlide] = useState<number>(0)
   const { images } = useAppSelector(state => state.imageSlice)
   const [editButton, setEdit] = useState(false)
   const [uploadImage] = useUploadImageMutation()
   const [deleteImage] = useDeleteImageMutation()
-  const handleSlideChange = (swiper: any) => {
-    setCurrentSlide(swiper.activeIndex)
-  }
 
   const removeImage = (index: string) => {
     deleteImage(index)
@@ -175,7 +170,7 @@ const CreateModal = (props: Props) => {
       <div className={'md:hidden md:invisible'}>
         <div className="flex justify-between">
           <h1 className="text-medium-14 mb-[17px]">{t.createPost.myGallery}</h1>
-          {images.length > 1 && (
+          {images.length >= 1 && (
             <EditButton isActive={editButton} onClick={() => setEdit(!editButton)} />
           )}
         </div>
