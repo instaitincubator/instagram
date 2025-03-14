@@ -24,10 +24,11 @@ export const Publish = (props: Props) => {
   const dispatch = useAppDispatch()
   const router = useRouter()
   const onSubmit = (data: any) => {
+    debugger
     const combineImages: UploadType[] = images.map((items: any) => ({ uploadId: items.uploadId }))
     const dataRequest: CreatePost = {
       childrenMetadata: combineImages,
-      description: data.description,
+      description: data.description ?? '',
     }
 
     createPost(dataRequest).then(() => {
