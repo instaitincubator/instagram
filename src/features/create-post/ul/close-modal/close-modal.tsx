@@ -9,12 +9,12 @@ type ModalType = {
 }
 const CloseModal = ({ onClose, onDiscard, onSave }: ModalType) => {
   return (
-    <Modal className={'z-40'} onClose={onClose} title={'Close'}>
+    <Modal className={' max-w-[400px] px-2 mx-auto z-40'} onClose={onClose} title={'Close'}>
       <p className={'whitespace-pre-wrap'}>
         Do you really want to close the creation of a publication? If you close everything will be
         deleted
       </p>
-      <div className="flex w-full flex-col flex-wrap-[">
+      <div className="flex w-full flex-col gap-2">
         <Button onClick={onDiscard} variant={'outline'}>
           Discard
         </Button>
