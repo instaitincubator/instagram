@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { useTranslation } from '@/shared/hooks/useTranslation'
 import Button from '@/shared/ui/Button/Button'
 import { Modal } from '@/shared/ui/Modal/Modal'
 type ModalType = {
@@ -8,18 +9,17 @@ type ModalType = {
   onSave: () => void
 }
 const CloseModal = ({ onClose, onDiscard, onSave }: ModalType) => {
+  const { t } = useTranslation()
+
   return (
     <Modal className={' max-w-[400px] px-2 mx-auto z-40'} onClose={onClose} title={'Close'}>
-      <p className={'whitespace-pre-wrap'}>
-        Do you really want to close the creation of a publication? If you close everything will be
-        deleted
-      </p>
+      <p className={'whitespace-pre-wrap'}>{t.createPost.closeModal}</p>
       <div className="flex w-full flex-col gap-2">
         <Button onClick={onDiscard} variant={'outline'}>
-          Discard
+          {t.createPost.discard}
         </Button>
         <Button fullWidth onClick={onSave}>
-          Save draft
+          {t.createPost.saveDraft}
         </Button>
       </div>
     </Modal>

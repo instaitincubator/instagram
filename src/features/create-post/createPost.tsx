@@ -16,11 +16,21 @@ export const CreatePost = () => {
   const [uploadStep, setUploadStep] = useState(UPLOAD_STEPS.CHOOSE_PHOTO)
   const { createPost, ...rest } = router.query
 
-  const closeModal = () => {
-    // router.back()
-    void router.push({
-      query: rest,
-    })
+  const closeModal = async () => {
+    if (router.pathname.split('/')[1] === 'public-profile') {
+      void router.push({
+        query: {
+          createPost: 'false',
+          id: router.query.id,
+        },
+      })
+    } else {
+      void router.push({
+        query: {
+          createPost: 'false',
+        },
+      })
+    }
   }
 
   return (
@@ -35,7 +45,7 @@ export const CreatePost = () => {
           ? 'md:max-w-[75%]'
           : 'contents lg:flex lg:w-[70%] lg:min-w-[950px] w-[90%] min-w-[320px] h-auto'
       )}
-      // onClose={closeModal}
+      onClose={closeModal}
       onCloseClassname="hidden invisible md:flex md:visible"
       withOutHeader
       withOutHeaderButtonClassName="hidden"

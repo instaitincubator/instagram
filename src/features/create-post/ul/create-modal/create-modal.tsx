@@ -74,7 +74,6 @@ const CreateModal = (props: Props) => {
 
   return (
     <div className="mx-[15px]  mt-[17px] md:bg-dark-300 md:border md:border-dark-100 md:px-0 md:py-0 md:mx-0 md:my-0">
-      {/*header*/}
       <header className="flex justify-between items-center custom-wrapper md:flex-row  md:border-b-1 md:border-t-0  md:border-l-0 md:border-r-0 md:border md:border-dark-100 md:align-items-center md:py-[11px] md:px-[24px]">
         <div className="m-[6px]" onClick={handlerOpenModal}>
           <ExitButton />
@@ -84,7 +83,6 @@ const CreateModal = (props: Props) => {
           className="px-0 contents"
           disabled={images.length === 0}
           onClick={() => {
-            // setUploadStep(UPLOAD_STEPS.PUBLISH)
             props.backStep()
           }}
           type="button"
@@ -93,7 +91,6 @@ const CreateModal = (props: Props) => {
           <h2 className="text-h3 text-accent-500">{t.createPost.next}</h2>
         </Button>
       </header>
-      {/*header*/}
       <div className=" mx-[54px] my-[19px] text-center overflow-hidden flex items-center md:mx-0 md:my-0 md:relative md:flex-grow">
         {images.length >= 1 ? (
           <>
@@ -116,7 +113,6 @@ const CreateModal = (props: Props) => {
                     <Button as="span" className={'contents'} variant={'outline'}>
                       <Image
                         alt={'circle'}
-                        className={''}
                         height={32}
                         src={'/plus-circle-outline.svg'}
                         width={32}
@@ -165,7 +161,6 @@ const CreateModal = (props: Props) => {
           </div>
         )}
       </div>
-      {/*выбор фото мобайл*/}
       <div className={'md:hidden md:invisible'}>
         <div className="flex justify-between">
           <h1 className="text-medium-14 mb-[17px]">{t.createPost.myGallery}</h1>

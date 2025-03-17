@@ -72,10 +72,14 @@ export const english = {
   },
   createPost: {
     addPublicationDescriptions: 'Add publication descriptions',
+    closeModal:
+      'Do you really want to close the creation of a publication? If you close everything will be deleted',
+    discard: 'Discard',
     myGallery: 'My Gallery',
     newPublication: 'New Publication',
     next: 'Next',
     publish: 'Publish',
+    saveDraft: 'Save draft',
     selectFromDevice: 'Select from Device',
   },
   devices: {
