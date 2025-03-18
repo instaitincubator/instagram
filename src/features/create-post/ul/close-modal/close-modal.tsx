@@ -12,7 +12,11 @@ const CloseModal = ({ onClose, onDiscard, onSave }: ModalType) => {
   const { t } = useTranslation()
 
   return (
-    <Modal className={' max-w-[400px] px-2 mx-auto z-40'} onClose={onClose} title={'Close'}>
+    <Modal
+      className={' max-w-[400px] px-2 mx-auto z-40'}
+      onClose={onClose}
+      title={t.createPost.close}
+    >
       <p className={'whitespace-pre-wrap'}>{t.createPost.closeModal}</p>
       <div className="flex w-full flex-col gap-2">
         <Button onClick={onDiscard} variant={'outline'}>

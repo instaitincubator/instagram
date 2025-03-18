@@ -74,6 +74,7 @@ export const russian = {
   },
   createPost: {
     addPublicationDescriptions: 'Добавить описания публикаций',
+    close: 'Закрыть',
     closeModal:
       'Вы действительно хотите закрыть создание публикации? Если вы закроете, все будет удалено',
     discard: 'Закрыть',

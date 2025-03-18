@@ -72,6 +72,7 @@ export const english = {
   },
   createPost: {
     addPublicationDescriptions: 'Add publication descriptions',
+    close: 'Close',
     closeModal:
       'Do you really want to close the creation of a publication? If you close everything will be deleted',
     discard: 'Discard',
