@@ -12,7 +12,8 @@ export const usePublicationForm = () => {
       .max(500, { message: 'Description should be longer than 500' })
       .regex(aboutMeRegex, {
         message: 'Only letters, numbers and special characters are allowed: _-@',
-      }),
+      })
+      .optional(),
   })
 
   const {

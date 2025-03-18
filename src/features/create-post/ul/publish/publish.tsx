@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { useAppDispatch, useAppSelector } from '@/app/store'
+import { PostImage } from '@/entities/PostImage/PostImage'
 import UserAvatar from '@/entities/UserAvatar/UserAvatar'
 import { usePublicationForm } from '@/features/publication-form/usePublicationForm'
 import { imageActions } from '@/services/create-post/postSlice'
@@ -8,7 +9,6 @@ import { CreatePost, UploadType, useGetCreatePostMutation } from '@/services/pro
 import { useGetProfileInfoQuery } from '@/services/profile/profileApi'
 import { ControlledTextarea } from '@/shared/ui'
 import Button from '@/shared/ui/Button/Button'
-import ExitButton from '@/shared/ui/exit-button/exit-button'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 
@@ -24,10 +24,11 @@ export const Publish = (props: Props) => {
   const dispatch = useAppDispatch()
   const router = useRouter()
   const onSubmit = (data: any) => {
+    debugger
     const combineImages: UploadType[] = images.map((items: any) => ({ uploadId: items.uploadId }))
     const dataRequest: CreatePost = {
       childrenMetadata: combineImages,
-      description: data.description,
+      description: data.description ?? '',
     }
 
     createPost(dataRequest).then(() => {
@@ -37,48 +38,48 @@ export const Publish = (props: Props) => {
   }
 
   return (
-    <form className="mx-[15px] mt-[17px]" onSubmit={handleSubmit(onSubmit)}>
+    <form
+      className="mx-[15px] mt-[17px]  w-[70%] lg:w-[90%] min-w-[320px] h-auto md:bg-dark-300 md:border-dark-100  md:rounded-[2px] md:border"
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <div>
-        <div className="flex justify-between items-center custom-wrapper">
+        <header className="flex pb-[19px] justify-between items-center custom-wrapper md:mx-[24px] md:pb-0 md:my-[12px] ">
           <Button
             className="m-[6px] px-0 min-w-0 contents"
             onClick={props.backStep}
             type="button"
             variant="text"
           >
-            <ExitButton />
+            <Image alt={'back button'} height={24} src={'./arrow-without-bg.svg'} width={24} />
           </Button>
           <h2 className="text-h2"> New Publication</h2>
           <button className="text-h3 text-accent-500 m-[6px]" type="submit">
             Publish
           </button>
+        </header>
+        <div className="lg:flex w-full">
+          <div className="max-w-[490px] md:max-w-[250px] lg:max-w-[490px] flex-shrink-0 m-auto mb-3 mb:mb-0">
+            <PostImage arrImages={images} height={560} width={490} />
+          </div>
+          <div className="flex flex-1 flex-col justify-between w-100%">
+            <div className="flex flex-col gap-6 md:m-6 md:py-6  md:pt-3">
+              <UserAvatar
+                avatar={me?.avatars[1].url}
+                userId={me?.id}
+                userName={me?.userName || ''}
+              />
+              <ControlledTextarea
+                className="min-h-[120px] md:h-100%"
+                control={control}
+                error={errors.description?.message}
+                fullWidth
+                label="Add publication descriptions"
+                name="description"
+                placeholder="Text-area"
+              />
+            </div>
+          </div>
         </div>
-        <div className="flex justify-between gap-6 mt-[19px] mb-[12px] flex-wrap">
-          {images.map(el => (
-            <Image
-              alt={`img-${el.uploadId}`}
-              className="h-[96px] w-[96]"
-              height={96}
-              key={el.uploadId}
-              src={el.url}
-              width={96}
-            />
-          ))}
-        </div>
-        <div className="my-[24px]">
-          <UserAvatar avatar={me?.avatars[1].url} userId={me?.id} userName={me?.userName || ''} />
-        </div>
-      </div>
-      <div>
-        <ControlledTextarea
-          className="min-h-[120px]"
-          control={control}
-          error={errors.description?.message}
-          fullWidth
-          label="Add publication descriptions"
-          name="description"
-          placeholder="Text-area"
-        />
       </div>
     </form>
   )

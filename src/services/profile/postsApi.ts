@@ -40,6 +40,14 @@ const getPostsApi = baseApi.injectEndpoints({
           }
         },
       }),
+      deleteImage: build.mutation({
+        query: data => {
+          return {
+            method: 'DELETE',
+            url: `/api/v1/posts/image/${data}`,
+          }
+        },
+      }),
       getCreatePost: build.mutation<any, CreatePost>({
         query: data => ({
           body: data,
@@ -94,4 +102,9 @@ const getPostsApi = baseApi.injectEndpoints({
   },
 })
 
-export const { useGetCreatePostMutation, useGetPostsQuery, useUploadImageMutation } = getPostsApi
+export const {
+  useDeleteImageMutation,
+  useGetCreatePostMutation,
+  useGetPostsQuery,
+  useUploadImageMutation,
+} = getPostsApi

@@ -28,8 +28,9 @@ const CustomLink = ({
 }: LinkProps) => {
   const isActive = href?.split('/')[1] === activeLink?.split('/')[1]
   const router = useRouter()
-  const handleLinkClick = () => {
+  const handleLinkClick = (e: React.MouseEvent) => {
     if (title === 'Создать') {
+      e.preventDefault()
       if (router.pathname.split('/')[1] === 'public-profile') {
         void router.push({
           query: {

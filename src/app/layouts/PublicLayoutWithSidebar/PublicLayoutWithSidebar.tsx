@@ -17,7 +17,7 @@ export const PublicLayoutWithSidebar: NextPage<PropsWithChildren> = props => {
     <Layout>
       <div className="sm:flex sm:flex-1 w-full overflow-y-auto">
         <div className="flex flex-1 flex-col overflow-x-auto order-1">
-          {router.query.createPost && <CreatePost />}
+          {router.query.createPost === 'true' && <CreatePost />}
           {children}
         </div>
         {isSuccess && (

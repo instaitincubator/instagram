@@ -72,6 +72,20 @@ export const russian = {
     yes: 'Да, объединить',
     yesConfirm: 'Да',
   },
+  createPost: {
+    addPublicationDescriptions: 'Добавить описания публикаций',
+    close: 'Закрыть',
+    closeModal:
+      'Вы действительно хотите закрыть создание публикации? Если вы закроете, все будет удалено',
+    discard: 'Закрыть',
+    myGallery: 'Моя галерея',
+    newPublication: 'Новая публикация',
+    next: 'Далее',
+    publish: 'Опубликовать',
+    saveDraft: 'Сохранить черновик',
+    selectFromDevice: 'Выбрать с устройства',
+  },
+
   devices: {
     current: 'Текущее устройство',
     others: 'Активные сессии',
