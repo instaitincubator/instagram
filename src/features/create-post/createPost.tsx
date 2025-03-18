@@ -14,7 +14,6 @@ import 'swiper/css/pagination'
 export const CreatePost = () => {
   const router = useRouter()
   const [uploadStep, setUploadStep] = useState(UPLOAD_STEPS.CHOOSE_PHOTO)
-  const { createPost, ...rest } = router.query
   const [openModal, setOpenModal] = useState(false)
   const closeModal = async () => {
     if (router.pathname.split('/')[1] === 'public-profile') {
