@@ -57,8 +57,8 @@ export const SignInForm = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <Card className="flex flex-col w-[378px] p-6 m-auto items-center">
+    <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
+      <Card className="flex h-full sm:h-fit bg-dark-700 sm:bg-dark-500 flex-col sm:w-[378px] p-6 m-auto items-center">
         <div>
           <span className="text-h1">{t.auth.signIn}</span>
         </div>

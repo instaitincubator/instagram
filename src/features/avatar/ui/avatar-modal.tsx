@@ -81,7 +81,7 @@ const AvatarModal = ({ avatar, onClose }: AvatarModalProps) => {
   return (
     <Modal
       className={
-        'px-0 bg-black bg-opacity-50 justify-start pt-[60px] md:backdrop-blur-0 md:justify-center'
+        'px-0 z-10 bg-black bg-opacity-50 justify-start pt-[60px] md:backdrop-blur-0 md:justify-center'
       }
       onClose={onClose}
       title={t.generalInformation.addProfilePhoto}
