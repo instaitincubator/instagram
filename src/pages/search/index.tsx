@@ -1,22 +1,31 @@
-import { getPublicLayoutWithSidebar } from '@/app/layouts/PublicLayoutWithSidebar/PublicLayoutWithSidebar'
-import { useLazyGetAllUsersQuery } from '@/services/users/users-api' // Используем "ленивый" запрос
 import { useEffect, useRef, useState } from 'react'
 
+import { getPublicLayoutWithSidebar } from '@/app/layouts/PublicLayoutWithSidebar/PublicLayoutWithSidebar'
+import { useLazyGetAllUsersQuery } from '@/services/users/users-api'
 import { Items } from '@/services/users/usersApiTypes'
 import SearchWithQueries from '@/shared/ui/Input/SearchWithQueries'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 const Search = () => {
   const observerRef = useRef<HTMLDivElement | null>(null)
   const [users, setUsers] = useState<Items[]>([])
+  const router = useRouter()
   const [cursor, setCursor] = useState<null | number>(0)
 
   const [fetchUsers, { data, isFetching }] = useLazyGetAllUsersQuery()
 
   useEffect(() => {
-    fetchUsers({ cursor: 0, pageNumber: 1, pageSize: 10, search: '' })
-  }, [])
+    setUsers([])
+    setCursor(0)
+    fetchUsers({
+      cursor: 0,
+      pageNumber: 1,
+      pageSize: 10,
+      search: router.query.searchTerm ? router.query.searchTerm.toString() : '',
+    })
+  }, [router.query.searchTerm])
 
   useEffect(() => {
     if (data?.items) {
@@ -47,7 +56,6 @@ const Search = () => {
   return (
     <div className="flex flex-col sm:p-10 p-5 justify-between h-full">
       <SearchWithQueries placeholder="Find user" />
-
       {users.map(user => (
         <div className="flex flex-col pt-5" key={user.id}>
           <div className="flex gap-4">
