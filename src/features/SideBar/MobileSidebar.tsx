@@ -29,7 +29,7 @@ export const MobileSideBar = () => {
   }, [])
 
   return (
-    <nav className="absolute bottom-0 w-full min-w-[360px] min-h-[60px] border-t border-dark-300 bg-dark-700 ">
+    <nav className="fixed bottom-0 w-full min-w-[360px] min-h-[60px] border-t border-dark-300 bg-dark-700 ">
       <div className="flex justify-evenly h-[60px] items-center w-full gap-[24px]">
         <CustomLink
           activeLink={activeLink}
