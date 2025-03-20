@@ -145,5 +145,5 @@ export interface GetPublicProfilePostsParams {
   pageSize?: number
   sortBy?: 'asc' | 'desc'
   sortDirection?: 'asc' | 'desc'
-  userId: string
+  userId: number
 }
