@@ -54,7 +54,7 @@ const Search = () => {
   }, [cursor, isFetching])
 
   return (
-    <div className="flex flex-col sm:p-10 p-5 justify-between h-full">
+    <div className="flex flex-col sm:p-10 p-5 h-full">
       <SearchWithQueries placeholder="Find user" />
       {users.map(user => (
         <div className="flex flex-col pt-5" key={user.id}>
