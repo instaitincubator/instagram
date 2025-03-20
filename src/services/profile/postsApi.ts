@@ -55,29 +55,6 @@ const getPostsApi = baseApi.injectEndpoints({
           url: '/api/v1/posts',
         }),
       }),
-      getPosts: build.query<ProfilePosts, GetProfilePostsParams>({
-        providesTags: ['Posts'],
-        query: arg => {
-          const params = new URLSearchParams()
-
-          if (arg.pageNumber !== undefined) {
-            params.append('pageNumber', arg.pageNumber.toString())
-          }
-          if (arg.pageSize !== undefined) {
-            params.append('pageSize', arg.pageSize.toString())
-          }
-          if (arg.sortBy) {
-            params.append('sortBy', arg.sortBy)
-          }
-          if (arg.sortDirection) {
-            params.append('sortDirection', arg.sortDirection)
-          }
-
-          return {
-            url: `/api/v1/posts/${arg.userName}?${params.toString()}`,
-          }
-        },
-      }),
       getPublicPost: build.query<ProfilePublicPosts, GetPublicProfilePostsParams>({
         providesTags: ['Posts'],
         query: arg => {
@@ -94,7 +71,7 @@ const getPostsApi = baseApi.injectEndpoints({
           }
 
           return {
-            url: `/api/v1/public-posts/user/${arg.userId}`,
+            url: `/api/v1/public-posts/user/${arg.userId}?endCursorPostId=${arg.endCursorPostId}`,
           }
         },
       }),
@@ -105,6 +82,7 @@ const getPostsApi = baseApi.injectEndpoints({
 export const {
   useDeleteImageMutation,
   useGetCreatePostMutation,
-  useGetPostsQuery,
+  useGetPublicPostQuery,
+  useLazyGetPublicPostQuery,
   useUploadImageMutation,
 } = getPostsApi
