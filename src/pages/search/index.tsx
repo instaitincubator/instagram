@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import { getPublicLayoutWithSidebar } from '@/app/layouts/PublicLayoutWithSidebar/PublicLayoutWithSidebar'
 import { useLazyGetAllUsersQuery } from '@/services/users/users-api'
 import { Items } from '@/services/users/usersApiTypes'
+import { useTranslation } from '@/shared/hooks/useTranslation'
 import SearchWithQueries from '@/shared/ui/Input/SearchWithQueries'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -12,6 +13,7 @@ const Search = () => {
   const observerRef = useRef<HTMLDivElement | null>(null)
   const [users, setUsers] = useState<Items[]>([])
   const router = useRouter()
+  const { t } = useTranslation()
   const [cursor, setCursor] = useState<null | number>(0)
 
   const [fetchUsers, { data, isFetching }] = useLazyGetAllUsersQuery()
@@ -55,7 +57,7 @@ const Search = () => {
 
   return (
     <div className="flex flex-col sm:p-10 p-5 h-full">
-      <SearchWithQueries placeholder="Find user" />
+      <SearchWithQueries placeholder={t.pages.users.findUsers} />
       {users.map(user => (
         <div className="flex flex-col pt-5" key={user.id}>
           <div className="flex gap-4">
