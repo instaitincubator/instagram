@@ -1,5 +1,4 @@
 import type {
-  Avatars,
   ProfileFollowers,
   ProfileFollowing,
   ProfileInfo,
@@ -49,7 +48,6 @@ export const UserInfo = ({
         <Avatar name={profileName} round size="72px" src={profile?.avatars?.[0]?.url || ''} />
         <span className="text-bold-16 md:hidden">{profileName}</span>
       </div>
-
       <div className="w-full pl-[7px] md:pl-9 flex flex-col">
         <div className="flex justify-between w-full">
           <span className="hidden text-h1 md:block">{profileName}</span>

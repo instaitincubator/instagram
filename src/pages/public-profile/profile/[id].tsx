@@ -5,12 +5,19 @@ import PostModal from '@/entities/Post/PostModal'
 import { UserInfo } from '@/features/UserInfo/UserInfo'
 import { useMeQuery } from '@/services/auth/signInApi'
 import { useGetPublicPostQuery, useLazyGetPublicPostQuery } from '@/services/profile/postsApi'
+import { useLazyGetPublicUserQuery } from '@/services/public/publicProfileCounts'
+import {
+  useFollowingUserMutation,
+  useGetFollowUserQuery,
+} from '@/services/users/users-following/usersFollowing-api'
 import {
   PostsPublicItems,
+  ProfileInfo,
   ProfileInfoPublic,
   ProfilePublicPosts,
 } from '@/shared/types/ApiTypes/ProfileApiTypes'
 import { CommentForPost } from '@/shared/types/public.types'
+import Button from '@/shared/ui/Button/Button'
 import { cn } from '@/shared/utils/cn'
 import { GetServerSideProps } from 'next'
 import Image from 'next/image'
@@ -21,14 +28,14 @@ import { noImage } from '../../../../public'
 interface Props {
   comments: CommentForPost | null
   posts: ProfilePublicPosts
-  profileInfo: ProfileInfoPublic
+  profileInfo: ProfileInfo
   selectedPost: PostsPublicItems | null
 }
 
 export const getServerSideProps: GetServerSideProps<Props> = async context => {
   const { id, postId } = context.query
   const resProfile = await fetch(`https://inctagram.work/api/v1/public-user/profile/${id}`)
-  const profileInfo: ProfileInfoPublic = await resProfile.json()
+  const profileInfo: ProfileInfo = await resProfile.json()
   const postsRes = await fetch(`https://inctagram.work/api/v1/public-posts/user/${id}`)
   const posts: ProfilePublicPosts = await postsRes.json()
   let selectedPost = null
@@ -56,11 +63,26 @@ const Profile = ({ comments, posts, profileInfo, selectedPost }: Props) => {
   const router = useRouter()
   const [isModalVisible, setIsModalVisible] = useState<boolean>(true)
   const me = useMeQuery()
-
+  const [fetchProfile, { data: pizdata, isSuccess }] = useLazyGetPublicUserQuery()
+  const [profile, setProfile] = useState<ProfileInfo>(profileInfo)
   const [allPosts, setAllPosts] = useState<PostsPublicItems[]>(posts.items)
-
+  const [followUser] = useFollowingUserMutation()
+  const { data: follower } = useGetFollowUserQuery({ userName: profile.userName })
   const [fetchPosts, { data: newPosts, isFetching }] = useLazyGetPublicPostQuery()
   const lastPostObserverRef = useRef<HTMLDivElement | null>(null)
+
+  useEffect(() => {
+    if (profileInfo) {
+      setProfile(profileInfo)
+    }
+  }, [profileInfo])
+
+  useEffect(() => {
+    if (pizdata && isSuccess) {
+      setProfile(pizdata)
+    }
+  }, [pizdata])
+  console.log(profile)
 
   useEffect(() => {
     if (newPosts?.items) {
@@ -81,7 +103,7 @@ const Profile = ({ comments, posts, profileInfo, selectedPost }: Props) => {
           fetchPosts({
             endCursorPostId: lastPostId,
             pageSize: 100,
-            userId: profileInfo.id,
+            userId: profile.id,
           })
         }
       },
@@ -101,20 +123,29 @@ const Profile = ({ comments, posts, profileInfo, selectedPost }: Props) => {
     void router.back()
   }
 
-  const isProfileOwner = me?.data?.userId === profileInfo.id
+  const isProfileOwner = me?.data?.userId === profile.id
   let profileData
   let followers
   let following
 
-  if (profileInfo) {
+  if (profile) {
     profileData = {
-      aboutMe: profileInfo?.aboutMe,
-      avatars: profileInfo?.avatars,
-      userName: profileInfo?.userName,
+      aboutMe: profile?.aboutMe,
+      avatars: profile?.avatars,
+      userName: profile?.userName,
     }
-    followers = profileInfo?.userMetadata.followers
-    following = profileInfo?.userMetadata.following
+    followers = profile?.userMetadata.followers
+    following = profile?.userMetadata.following
   }
+  const followUnfollowUser = () => {
+    // if(follower.items.)items
+    followUser({ selectedUserId: profile.id })
+    setTimeout(() => {
+      fetchProfile(profile.id)
+    }, 500)
+  }
+
+  console.log(follower)
 
   return (
     <div
@@ -130,8 +161,19 @@ const Profile = ({ comments, posts, profileInfo, selectedPost }: Props) => {
           postsForPublic={posts}
           profile={profileData}
         />
+        {!isProfileOwner && (
+          <div className="w-full">
+            <Button className="mb-4" fullWidth onClick={followUnfollowUser} size="xxl">
+              фоолоу нахой
+            </Button>
+            <Button fullWidth size="xxl" variant="secondary">
+              не фолооуу
+            </Button>
+          </div>
+        )}
+
         <div className="block md:hidden">
-          <span className="block md:hidden">{profileInfo?.aboutMe}</span>
+          <span className="block md:hidden">{profile?.aboutMe}</span>
         </div>
         <div className="grid grid-cols-3 md:grid-cols-4 gap-[3px] md:gap-[12px] pt-[29px] mb:pt-[59px] mx-auto">
           {allPosts.map(el => {
@@ -154,7 +196,7 @@ const Profile = ({ comments, posts, profileInfo, selectedPost }: Props) => {
             )
           })}
         </div>
-        <div className="h-10" ref={lastPostObserverRef} />
+        {/*<div className="h-10" ref={lastPostObserverRef} />*/}
       </div>
       {isModalVisible && selectedPost && (
         <PostModal comments={comments!} onClose={closeModal} post={selectedPost!} />
