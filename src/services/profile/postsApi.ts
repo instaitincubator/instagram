@@ -1,8 +1,6 @@
 import { baseApi } from '@/services/inctagram-api'
 import {
-  GetProfilePostsParams,
   GetPublicProfilePostsParams,
-  ProfilePosts,
   ProfilePublicPosts,
 } from '@/shared/types/ApiTypes/ProfileApiTypes'
 
@@ -71,7 +69,7 @@ const getPostsApi = baseApi.injectEndpoints({
           }
 
           return {
-            url: `/api/v1/public-posts/user/${arg.userId}?endCursorPostId=${arg.endCursorPostId}`,
+            url: `/api/v1/public-posts/user/${arg.userId}/${arg.endCursorPostId}`,
           }
         },
       }),
