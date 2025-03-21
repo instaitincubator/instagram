@@ -1,4 +1,4 @@
-interface Images {
+export interface homePagePostImages {
   createdAt: string
   fileSize: number
   height: number
@@ -14,11 +14,11 @@ interface Owner {
 
 interface Items {
   avatarOwner: string
-  avatarWhoLikes: boolean
+  avatarWhoLikes: string[]
   createdAt: string
   description: string
   id: number
-  images: Images[]
+  images: homePagePostImages[]
   isLiked: boolean
   likesCount: number
   location: string
