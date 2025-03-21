@@ -4,7 +4,7 @@ import { getPublicLayoutWithSidebar } from '@/app/layouts/PublicLayoutWithSideba
 import PostModal from '@/entities/Post/PostModal'
 import { UserInfo } from '@/features/UserInfo/UserInfo'
 import { useMeQuery } from '@/services/auth/signInApi'
-import { useGetPublicPostQuery, useLazyGetPublicPostQuery } from '@/services/profile/postsApi'
+import { useLazyGetPublicPostQuery } from '@/services/profile/postsApi'
 import {
   PostsPublicItems,
   ProfileInfoPublic,
@@ -69,10 +69,9 @@ const Profile = ({ comments, posts, profileInfo, selectedPost }: Props) => {
   }, [newPosts])
 
   useEffect(() => {
-    if (!lastPostObserverRef.current || isFetching) {
+    if (!lastPostObserverRef.current || isFetching || allPosts.length >= posts.totalCount) {
       return
     }
-
     const observer = new IntersectionObserver(
       entries => {
         if (entries[0].isIntersecting) {
@@ -80,7 +79,7 @@ const Profile = ({ comments, posts, profileInfo, selectedPost }: Props) => {
 
           fetchPosts({
             endCursorPostId: lastPostId,
-            pageSize: 100,
+            pageSize: 8,
             userId: profileInfo.id,
           })
         }
