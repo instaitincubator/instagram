@@ -1,14 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { Comment } from '@/entities/Post/Comment'
 import { LikesCounter } from '@/entities/PostImage/LikesCounter'
 import { PostImage } from '@/entities/PostImage/PostImage'
 import { TimePublish } from '@/entities/TimePublish/TimePublish'
 import UserAvatar from '@/entities/UserAvatar/UserAvatar'
-import { useDeletePostMutation } from '@/services/profile/postsApi'
 import { PostsPublicItems } from '@/shared/types/ApiTypes/ProfileApiTypes'
 import { CommentForPost } from '@/shared/types/public.types'
+import Button from '@/shared/ui/Button/Button'
 import { Modal } from '@/shared/ui/Modal/Modal'
+import { AnimatePresence, motion } from 'framer-motion'
+import Image from 'next/image'
 
 interface Props {
   comments: CommentForPost
@@ -18,7 +20,7 @@ interface Props {
 }
 
 const PostModal = ({ comments, deletePostCallback, onClose, post }: Props) => {
-  console.log(post)
+  const [isVisible, setIsVisible] = useState(false)
   const title = (
     <UserAvatar
       avatar={post.avatarOwner}
@@ -33,15 +35,72 @@ const PostModal = ({ comments, deletePostCallback, onClose, post }: Props) => {
       headerClassName="h-[60px]"
       modalClassName="lg:w-[50%] lg:min-w-[950px] w-[90%] min-w-[320px] h-auto"
       onClose={onClose}
-      title={title}
+      // title={title}
     >
       <div className="lg:flex w-full" key={post.id}>
-        <button onClick={() => deletePostCallback(post.id)}>x</button>
-        <button onClick={() => deletePostCallback(post.id)}>edit</button>
+        <div className="flex justify-between items-center relative md:hidden">
+          {title}
+
+          <AnimatePresence initial>
+            <motion.button onClick={() => setIsVisible(!isVisible)} whileTap={{ y: 1 }}>
+              <Button variant={'text'}>
+                <Image alt={'more'} height={24} src={'/more.svg'} width={24} />
+              </Button>
+            </motion.button>
+            {isVisible ? (
+              <motion.div
+                animate={{ opacity: 1, scale: 1 }}
+                className="absolute bg-dark-100 m-2 border items-start top-[40px] gap-[12px] flex flex-col py-[12px]  z-40 right-[14px]"
+                exit={{ opacity: 0, scale: 0 }}
+                initial={{ opacity: 0, scale: 0 }}
+                key="box"
+                onMouseEnter={() => setIsVisible(true)}
+                onMouseLeave={() => setIsVisible(false)}
+                tabIndex={0}
+              >
+                <Button
+                  className={'flex gap-[12px]'}
+                  onClick={() => deletePostCallback(post.id)}
+                  variant={'text'}
+                >
+                  <Image alt={'more'} height={24} src={'/pen.svg'} width={24} /> Edit Post
+                </Button>
+
+                <Button
+                  className={'flex gap-[12px]'}
+                  onClick={() => deletePostCallback(post.id)}
+                  variant={'text'}
+                >
+                  <Image alt={'more'} height={24} src={'/basket.svg'} width={24} />
+                  Delete Post
+                </Button>
+              </motion.div>
+            ) : null}
+          </AnimatePresence>
+        </div>
         <div className="max-w-[490px] flex-shrink-0 m-auto">
           <PostImage arrImages={post.images} height={560} width={490} />
         </div>
         <div className="flex flex-1 flex-col justify-between max-h-[474px]">
+          <div className="h-fit">
+            <div className="w-full h-[1px] bg-dark-100" />
+            <div className="p-2 flex flex-col gap-2">
+              <LikesCounter avatarWhoLikes={post.avatarWhoLikes} likesCount={post.likesCount} />
+              <article className="flex flex-wrap  gap-1">
+                <h2 className={'text-bold-14  font-bold   whitespace-nowrap text-base'}>
+                  {post.userName}
+                </h2>
+                <h1
+                  className={
+                    'break-words whitespace-normal overflow-hidden leading-relaxed max-w-full text-sm'
+                  }
+                >
+                  {post.description}
+                </h1>
+              </article>
+              <TimePublish createdAt={post.createdAt} />
+            </div>
+          </div>
           <div className="flex flex-col gap-6 pl-6 py-6 overflow-y-auto">
             {comments?.items.length > 0 ? (
               comments?.items.map(comment => <Comment comment={comment} key={comment.id} />)
@@ -49,13 +108,13 @@ const PostModal = ({ comments, deletePostCallback, onClose, post }: Props) => {
               <span>no comments</span>
             )}
           </div>
-          <div className="h-fit">
-            <div className="w-full h-[1px] bg-dark-100" />
-            <div className="p-2 flex flex-col gap-2">
-              <LikesCounter avatarWhoLikes={post.avatarWhoLikes} likesCount={post.likesCount} />
-              <TimePublish createdAt={post.createdAt} />
-            </div>
-          </div>
+          {/*<div className="h-fit">*/}
+          {/*  <div className="w-full h-[1px] bg-dark-100" />*/}
+          {/*  <div className="p-2 flex flex-col gap-2">*/}
+          {/*    <LikesCounter avatarWhoLikes={post.avatarWhoLikes} likesCount={post.likesCount} />*/}
+          {/*    <TimePublish createdAt={post.createdAt} />*/}
+          {/*  </div>*/}
+          {/*</div>*/}
         </div>
       </div>
     </Modal>
