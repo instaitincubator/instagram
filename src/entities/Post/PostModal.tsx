@@ -5,17 +5,20 @@ import { LikesCounter } from '@/entities/PostImage/LikesCounter'
 import { PostImage } from '@/entities/PostImage/PostImage'
 import { TimePublish } from '@/entities/TimePublish/TimePublish'
 import UserAvatar from '@/entities/UserAvatar/UserAvatar'
+import { useDeletePostMutation } from '@/services/profile/postsApi'
 import { PostsPublicItems } from '@/shared/types/ApiTypes/ProfileApiTypes'
 import { CommentForPost } from '@/shared/types/public.types'
 import { Modal } from '@/shared/ui/Modal/Modal'
 
 interface Props {
   comments: CommentForPost
+  deletePostCallback: (id: number) => void
   onClose: () => void
   post: PostsPublicItems
 }
 
-const PostModal = ({ comments, onClose, post }: Props) => {
+const PostModal = ({ comments, deletePostCallback, onClose, post }: Props) => {
+  console.log(post)
   const title = (
     <UserAvatar
       avatar={post.avatarOwner}
@@ -33,6 +36,8 @@ const PostModal = ({ comments, onClose, post }: Props) => {
       title={title}
     >
       <div className="lg:flex w-full" key={post.id}>
+        <button onClick={() => deletePostCallback(post.id)}>x</button>
+        <button onClick={() => deletePostCallback(post.id)}>edit</button>
         <div className="max-w-[490px] flex-shrink-0 m-auto">
           <PostImage arrImages={post.images} height={560} width={490} />
         </div>

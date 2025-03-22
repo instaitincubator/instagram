@@ -31,20 +31,20 @@ type PostView = {
 const getPostsApi = baseApi.injectEndpoints({
   endpoints: build => {
     return {
-      UploadImage: build.mutation({
-        query: formData => {
-          return {
-            body: formData,
-            method: 'POST',
-            url: '/api/v1/posts/image',
-          }
-        },
-      }),
       deleteImage: build.mutation({
         query: data => {
           return {
             method: 'DELETE',
             url: `/api/v1/posts/image/${data}`,
+          }
+        },
+      }),
+
+      deletePost: build.mutation({
+        query: data => {
+          return {
+            method: 'DELETE',
+            url: `/api/v1/posts/${data}`,
           }
         },
       }),
@@ -98,13 +98,33 @@ const getPostsApi = baseApi.injectEndpoints({
           }
         },
       }),
+      updatePost: build.mutation({
+        query: data => {
+          return {
+            body: data.discription,
+            method: 'PUT',
+            url: `/api/v1/posts/${data.id}`,
+          }
+        },
+      }),
+      uploadImage: build.mutation({
+        query: formData => {
+          return {
+            body: formData,
+            method: 'POST',
+            url: '/api/v1/posts/image',
+          }
+        },
+      }),
     }
   },
 })
 
 export const {
   useDeleteImageMutation,
+  useDeletePostMutation,
   useGetCreatePostMutation,
   useGetPostsQuery,
+  useUpdatePostMutation,
   useUploadImageMutation,
 } = getPostsApi

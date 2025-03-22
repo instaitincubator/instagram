@@ -4,6 +4,7 @@ import { getPublicLayoutWithSidebar } from '@/app/layouts/PublicLayoutWithSideba
 import PostModal from '@/entities/Post/PostModal'
 import { UserInfo } from '@/features/UserInfo/UserInfo'
 import { useMeQuery } from '@/services/auth/signInApi'
+import { useDeletePostMutation, useUpdatePostMutation } from '@/services/profile/postsApi'
 import {
   PostsPublicItems,
   ProfileInfoPublic,
@@ -62,11 +63,17 @@ const Profile = ({ comments, posts, profileInfo, selectedPost }: Props) => {
     delete updatedQuery.postId
     void router.back()
   }
+  const [deletePost] = useDeletePostMutation()
+  const [editPost] = useUpdatePostMutation()
 
   const isProfileOwner = me?.data?.userId === profileInfo.id
   let profileData
   let followers
   let following
+
+  const updatePost = (id: number, description: string) => {
+    editPost({ description, id })
+  }
 
   if (profileInfo) {
     profileData = {
@@ -76,6 +83,10 @@ const Profile = ({ comments, posts, profileInfo, selectedPost }: Props) => {
     }
     followers = profileInfo?.userMetadata.followers
     following = profileInfo?.userMetadata.following
+  }
+  const deletePostHandler = (id: number) => {
+    deletePost(id)
+    closeModal()
   }
 
   return (
@@ -118,7 +129,12 @@ const Profile = ({ comments, posts, profileInfo, selectedPost }: Props) => {
         </div>
       </div>
       {isModalVisible && selectedPost && (
-        <PostModal comments={comments!} onClose={closeModal} post={selectedPost!} />
+        <PostModal
+          comments={comments!}
+          deletePostCallback={deletePostHandler}
+          onClose={closeModal}
+          post={selectedPost!}
+        />
       )}
     </div>
   )
