@@ -32,7 +32,7 @@
     "country-state-city": "^3.2.1",
     "date-fns": "^3.6.0",
     "lucide-react": "^0.474.0",
-    "motion": "^11.13.1",
+    "motion": "^11.18.2",
     "next": "14.2.3",
     "nprogress": "^0.2.0",
     "prop-types": "^15.8.1",

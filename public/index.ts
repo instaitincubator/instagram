@@ -20,4 +20,5 @@ export { default as chrome } from "./chrome.svg";
 export { default as Heart } from "./heart.svg";
 export { default as noImage } from "./noImage.png";
 export { default as OutlinedHeart } from "./outlinedHeart.svg";
+export { default as Plane } from "./plane.svg";
 
