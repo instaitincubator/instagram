@@ -1,5 +1,9 @@
 import React, { useRef } from 'react'
 
+import {
+  useGetPostLikeStatusQuery,
+  useUpdateLikeStatusMutation,
+} from '@/entities/likesCounter/queries/likes-api'
 import { homePagePostImages } from '@/services/home-posts/home-page-types'
 import Image from 'next/image'
 import { Pagination } from 'swiper/modules'
@@ -9,9 +13,10 @@ import { noImage } from '../../../../public'
 
 interface Props {
   images: homePagePostImages[]
+  postId: number
 }
 
-export const HomePostImage = ({ images }: Props) => {
+export const HomePostImage = ({ images, postId }: Props) => {
   const swiperRef = useRef<SwiperRef>(null)
 
   const rightHandleClick = () => {
@@ -20,9 +25,20 @@ export const HomePostImage = ({ images }: Props) => {
   const leftHandleClick = () => {
     swiperRef?.current?.swiper.slidePrev()
   }
+  const { data: postLikeStatus } = useGetPostLikeStatusQuery(postId!)
+  const [updateLikeStatus] = useUpdateLikeStatusMutation()
+
+  const onLike = () => {
+    if (postId) {
+      updateLikeStatus({
+        likeStatus: postLikeStatus?.isLiked ? 'NONE' : 'LIKE',
+        postId: postId,
+      })
+    }
+  }
 
   return (
-    <div>
+    <div className="relative">
       {images.length > 1 ? (
         <div className="relative">
           <Swiper loop modules={[Pagination]} pagination ref={swiperRef}>
@@ -32,7 +48,7 @@ export const HomePostImage = ({ images }: Props) => {
                   alt={'SlideImage'}
                   className="w-full"
                   height={image.height}
-                  onClick={() => {}}
+                  onDoubleClick={onLike}
                   src={image.url}
                   width={image.width}
                 />
@@ -63,7 +79,7 @@ export const HomePostImage = ({ images }: Props) => {
           alt={'SlideImage'}
           className="w-full"
           height={images[0].height}
-          onClick={() => {}}
+          onDoubleClick={onLike}
           src={images.length ? images[0].url : noImage}
           width={images[0].width}
         />

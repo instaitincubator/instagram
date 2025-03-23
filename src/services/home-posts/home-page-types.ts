@@ -12,7 +12,7 @@ interface Owner {
   lastName: string
 }
 
-interface Items {
+export interface HomePagePost {
   avatarOwner: string
   avatarWhoLikes: string[]
   createdAt: string
@@ -29,7 +29,7 @@ interface Items {
 }
 
 export interface homePageResponse {
-  items: Items[]
+  items: HomePagePost[]
   nextCursor: number
   page: number
   pageSize: number

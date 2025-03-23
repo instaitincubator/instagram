@@ -1,10 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react'
 
-import { LikesCounter } from '@/entities/likesCounter/LikesCounter'
+import UserAvatar from '@/entities/UserAvatar/UserAvatar'
 import { homePostsPaginationParams } from '@/features/home/const'
 import { HomePostImage } from '@/features/home/ui/HomePostImage'
+import { MobilePostMenu } from '@/features/home/ui/MobilePostMenu'
+import { PostActionPanel } from '@/features/home/ui/PostActionPanel'
 import { useGetFollowersPostsQuery } from '@/services/home-posts/home-page-api'
-import { homePageRequest } from '@/services/home-posts/home-page-types'
+import { HomePagePost, homePageRequest } from '@/services/home-posts/home-page-types'
 
 import 'swiper/css'
 import 'swiper/css/navigation'
@@ -13,20 +15,32 @@ import 'swiper/css/pagination'
 export const HomePage = () => {
   const [postsPaginationParams, setPostsPaginationParams] =
     useState<homePageRequest>(homePostsPaginationParams)
+
   const { data: followersPosts, isFetching: isPostsFetching } =
     useGetFollowersPostsQuery(postsPaginationParams)
   const lastPostObserverRef = useRef<HTMLDivElement | null>(null)
+  const [allFollowersPosts, setAllFollowersPosts] = useState<HomePagePost[]>([])
 
   useEffect(() => {
-    if (!lastPostObserverRef.current || isPostsFetching) {
+    if (followersPosts) {
+      setAllFollowersPosts(prev => {
+        return [...prev!, ...followersPosts.items!]
+      })
+    }
+  }, [followersPosts])
+
+  useEffect(() => {
+    if (!lastPostObserverRef.current || !followersPosts) {
       return
     }
+
     const observer = new IntersectionObserver(
       entries => {
         if (entries[0].isIntersecting) {
-          setPostsPaginationParams(prev => {
-            return { ...prev, endCursorPostId: followersPosts?.nextCursor! }
-          })
+          setPostsPaginationParams(prev => ({
+            ...prev,
+            endCursorPostId: followersPosts.nextCursor!,
+          }))
         }
       },
       { threshold: 1.0 }
@@ -35,7 +49,7 @@ export const HomePage = () => {
     observer.observe(lastPostObserverRef.current)
 
     return () => observer.disconnect()
-  }, [isPostsFetching])
+  }, [allFollowersPosts.length, followersPosts])
 
   if (!followersPosts) {
     return null
@@ -43,18 +57,25 @@ export const HomePage = () => {
 
   return (
     <div className="p-4 flex flex-col gap-4">
-      {followersPosts?.items.map(post => {
+      {allFollowersPosts?.map(post => {
+        const lastPostId =
+          allFollowersPosts.length > 0 ? allFollowersPosts[allFollowersPosts.length - 1].id : null
+
         return (
-          <div className="border-2 border-dark-300" key={post.id}>
-            <HomePostImage images={post.images} />
-            <span>
-              {post.owner.firstName}
-              {post.owner.lastName}
-            </span>
-            <LikesCounter
+          <div key={post.id}>
+            <div className="flex justify-between items-center">
+              <UserAvatar
+                avatar={post.avatarOwner}
+                userId={post.ownerId}
+                userName={post.userName}
+              />
+              <MobilePostMenu />
+            </div>
+            <HomePostImage images={post.images} postId={post.id} />
+            <PostActionPanel
               avatarWhoLikes={post.avatarWhoLikes}
+              id={post.id}
               likesCount={post.likesCount}
-              postId={post.id}
             />
           </div>
         )

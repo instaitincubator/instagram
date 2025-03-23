@@ -2,20 +2,18 @@ import {
   useGetPostLikeStatusQuery,
   useUpdateLikeStatusMutation,
 } from '@/entities/likesCounter/queries/likes-api'
-import { useMeQuery } from '@/services/auth/signInApi'
 import Image from 'next/image'
 
-import { OutlinedHeart } from '../../../public'
+import { Heart, OutlinedHeart } from '../../../public'
 
 interface Props {
-  avatarWhoLikes: string[]
   likesCount: number
   postId?: number
 }
 
-export const LikesCounter = ({ avatarWhoLikes, likesCount, postId }: Props) => {
-  const [updateLikeStatus] = useUpdateLikeStatusMutation()
+export const LikesCounter = ({ likesCount, postId }: Props) => {
   const { data: postLikeStatus } = useGetPostLikeStatusQuery(postId!)
+  const [updateLikeStatus] = useUpdateLikeStatusMutation()
 
   const onLike = () => {
     if (postId) {
@@ -29,22 +27,23 @@ export const LikesCounter = ({ avatarWhoLikes, likesCount, postId }: Props) => {
   return (
     <div className="flex gap-2  items-center">
       <div className="flex relative">
-        {avatarWhoLikes.slice(0, 3).map((ph, i) => {
+        {postLikeStatus?.items.map((userLiked, index) => {
           return (
             <Image
               alt="likersAvatar"
-              className={`rounded-full z-[${10 + 10 * -i}] first:ml-0 ml-[-5px] flex`}
+              className={`rounded-full z-[${10 + 10 * -index}] first:ml-0 ml-[-5px] flex`}
               height={20}
-              key={i}
-              src={ph}
+              key={index}
+              src={userLiked.avatars[1].url}
               width={20}
             />
           )
         })}
       </div>
-      {likesCount}
+      {postLikeStatus?.items.length}
       <div className="cursor-pointer" onClick={onLike}>
-        <OutlinedHeart />
+        {!postLikeStatus?.isLiked && <OutlinedHeart />}
+        {postLikeStatus?.isLiked && <Heart />}
       </div>
     </div>
   )
