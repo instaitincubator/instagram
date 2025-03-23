@@ -3,8 +3,10 @@ import React, { useState } from 'react'
 import { getPublicLayoutWithSidebar } from '@/app/layouts/PublicLayoutWithSidebar/PublicLayoutWithSidebar'
 import PostModal from '@/entities/Post/PostModal'
 import { UserInfo } from '@/features/UserInfo/UserInfo'
+import CloseModal from '@/features/create-post/ul/close-modal/close-modal'
 import { useMeQuery } from '@/services/auth/signInApi'
 import { useDeletePostMutation, useUpdatePostMutation } from '@/services/profile/postsApi'
+import { useTranslation } from '@/shared/hooks/useTranslation'
 import {
   PostsPublicItems,
   ProfileInfoPublic,
@@ -63,6 +65,7 @@ const Profile = ({ comments, posts, profileInfo, selectedPost }: Props) => {
     delete updatedQuery.postId
     void router.back()
   }
+  const { t } = useTranslation()
   const [deletePost] = useDeletePostMutation()
   const [editPost] = useUpdatePostMutation()
 

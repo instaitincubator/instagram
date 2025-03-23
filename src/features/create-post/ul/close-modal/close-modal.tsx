@@ -6,24 +6,30 @@ import { Modal } from '@/shared/ui/Modal/Modal'
 type ModalType = {
   onClose: () => void
   onDiscard: () => void
+  onDiscardText: string
   onSave: () => void
+  onSaveString: string
+  text: string
+  title: string
 }
-const CloseModal = ({ onClose, onDiscard, onSave }: ModalType) => {
-  const { t } = useTranslation()
-
+const CloseModal = ({
+  onClose,
+  onDiscard,
+  onDiscardText,
+  onSave,
+  onSaveString,
+  text,
+  title,
+}: ModalType) => {
   return (
-    <Modal
-      className={' max-w-[400px] px-2 mx-auto z-40'}
-      onClose={onClose}
-      title={t.createPost.close}
-    >
-      <p className={'whitespace-pre-wrap'}>{t.createPost.closeModal}</p>
+    <Modal className={' mx-auto z-40'} onClose={onClose} title={title}>
+      <p className={'whitespace-pre-wrap'}>{text}</p>
       <div className="flex w-full flex-col gap-2">
         <Button onClick={onDiscard} variant={'outline'}>
-          {t.createPost.discard}
+          {onDiscardText}
         </Button>
         <Button fullWidth onClick={onSave}>
-          {t.createPost.saveDraft}
+          {onSaveString}
         </Button>
       </div>
     </Modal>
