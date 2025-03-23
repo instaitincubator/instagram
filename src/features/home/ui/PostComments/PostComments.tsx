@@ -25,7 +25,7 @@ export const PostComments = ({ description, postId, username }: Props) => {
         <span>{description}</span>
       </div>
       <div>
-        {comments?.items.slice(0, showAllComments).map((comment, index) => (
+        {comments?.items.slice(0, showAllComments).map(comment => (
           <div className="flex gap-2" key={comment.id}>
             <div className="flex gap-4 pb-2 pl-2">
               <span className="text-bold-16">{comment.from.username}</span>

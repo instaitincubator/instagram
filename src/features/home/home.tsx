@@ -19,8 +19,7 @@ export const HomePage = () => {
   const [postsPaginationParams, setPostsPaginationParams] =
     useState<homePageRequest>(homePostsPaginationParams)
 
-  const { data: followersPosts, isFetching: isPostsFetching } =
-    useGetFollowersPostsQuery(postsPaginationParams)
+  const { data: followersPosts } = useGetFollowersPostsQuery(postsPaginationParams)
   const lastPostObserverRef = useRef<HTMLDivElement | null>(null)
   const [allFollowersPosts, setAllFollowersPosts] = useState<HomePagePost[]>([])
 
