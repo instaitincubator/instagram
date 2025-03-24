@@ -14,5 +14,6 @@ export const baseApi = createApi({
     'Notifications',
     'FollowersPost',
     'PostLikeStatus',
+    'Comments',
   ],
 })
