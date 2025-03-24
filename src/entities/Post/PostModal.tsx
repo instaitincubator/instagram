@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { Comment } from '@/entities/Post/Comment'
 import { PostImage } from '@/entities/PostImage/PostImage'
