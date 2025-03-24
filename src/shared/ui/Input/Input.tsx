@@ -71,10 +71,10 @@ export const Input = forwardRef<ElementRef<'input'>, Props>(
               {
                 'border-danger-500 placeholder:text-light-100': error,
                 'border-dark-300 hover:border-dark-100': !error,
-                className,
                 'pr-[20px], pl-[30px]': type === 'search',
                 'pr-[35px]': type === 'password',
-              }
+              },
+              className
             )}
             {...rest}
             disabled={disabled}
