@@ -19,13 +19,15 @@ import Image from 'next/image'
 interface Props {
   comments: CommentForPost
   deletePostCallback: (id: number) => void
+  editPost: (id: number, description: string) => void
   onClose: () => void
   post: PostsPublicItems
 }
 
-const PostModal = ({ comments, deletePostCallback, onClose, post }: Props) => {
+const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Props) => {
   const [isVisible, setIsVisible] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
+  const [isOpenForEdit, setIsOpenForEdit] = useState(false)
   const [status, setStatus] = useState<'EDIT' | 'INITIAL'>('INITIAL')
   const { t } = useTranslation()
   const title = (
@@ -37,7 +39,18 @@ const PostModal = ({ comments, deletePostCallback, onClose, post }: Props) => {
   )
   const { control, errors, handleSubmit } = usePublicationForm({ description: post.description })
   const onSubmit = (data: any) => {
-    console.log(data)
+    if (data.description === post.description) {
+      setStatus('INITIAL')
+    } else {
+      editPost(post.id, data.description)
+    }
+  }
+  const onCloseEditor = (data: { description?: string }) => {
+    if (data.description === post.description) {
+      setStatus('INITIAL')
+    } else {
+      setIsOpenForEdit(true)
+    }
   }
 
   return (
@@ -50,8 +63,8 @@ const PostModal = ({ comments, deletePostCallback, onClose, post }: Props) => {
     >
       <div className="lg:flex w-full" key={post.id}>
         {status === 'EDIT' ? (
-          <div className="flex items-center justify-between">
-            <Button className={'text-h3'} onClick={() => setStatus('INITIAL')} variant={'text'}>
+          <div className="flex items-center justify-between py-[18px]">
+            <Button className={'text-h3'} onClick={handleSubmit(onCloseEditor)} variant={'text'}>
               Cancel
             </Button>
             <h2 className={'text-h2'}>Edit Post</h2>
@@ -110,7 +123,8 @@ const PostModal = ({ comments, deletePostCallback, onClose, post }: Props) => {
           <PostImage arrImages={post.images} height={560} width={490} />
         </div>
         {status === 'EDIT' ? (
-          <form action="">
+          <div>
+            {title}
             <ControlledTextarea
               className="min-h-[120px] md:h-100%"
               control={control}
@@ -120,7 +134,7 @@ const PostModal = ({ comments, deletePostCallback, onClose, post }: Props) => {
               name="description"
               placeholder="Text-area"
             />
-          </form>
+          </div>
         ) : (
           <div className="flex flex-1 flex-col justify-between max-h-[474px]">
             <div className="hidden justify-between items-center relative md:flex">
@@ -216,6 +230,19 @@ const PostModal = ({ comments, deletePostCallback, onClose, post }: Props) => {
           onSave={() => setIsOpen(false)}
           onSaveString={'No'}
           text={'Are you sure you want to delete this post?'}
+          title={t.createPost.close}
+        />
+      )}
+      {isOpenForEdit && (
+        <CloseModal
+          onClose={() => setIsOpenForEdit(false)}
+          onDiscard={() => setStatus('INITIAL')}
+          onDiscardText={'Yes'}
+          onSave={() => setIsOpenForEdit(false)}
+          onSaveString={'No'}
+          text={
+            'Do you really want to finish editing? If you close the changes you have made will not be saved'
+          }
           title={t.createPost.close}
         />
       )}

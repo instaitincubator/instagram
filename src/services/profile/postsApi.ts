@@ -73,12 +73,12 @@ const getPostsApi = baseApi.injectEndpoints({
           }
         },
       }),
-      updatePost: build.mutation({
-        query: data => {
+      updatePost: build.mutation<void, { description: { description: string }; id: number }>({
+        query: ({ description, id }) => {
           return {
-            body: data.discription,
+            body: description,
             method: 'PUT',
-            url: `/api/v1/posts/${data.id}`,
+            url: `/api/v1/posts/${id}`,
           }
         },
       }),
@@ -99,8 +99,8 @@ export const {
   useDeleteImageMutation,
   useDeletePostMutation,
   useGetCreatePostMutation,
-  useUpdatePostMutation,
   useGetPublicPostQuery,
   useLazyGetPublicPostQuery,
+  useUpdatePostMutation,
   useUploadImageMutation,
 } = getPostsApi

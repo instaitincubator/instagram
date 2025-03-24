@@ -3,10 +3,12 @@ import React, { useEffect, useRef, useState } from 'react'
 import { getPublicLayoutWithSidebar } from '@/app/layouts/PublicLayoutWithSidebar/PublicLayoutWithSidebar'
 import PostModal from '@/entities/Post/PostModal'
 import { UserInfo } from '@/features/UserInfo/UserInfo'
-import CloseModal from '@/features/create-post/ul/close-modal/close-modal'
 import { useMeQuery } from '@/services/auth/signInApi'
-import { useLazyGetPublicPostQuery } from '@/services/profile/postsApi'
-import { useDeletePostMutation, useUpdatePostMutation } from '@/services/profile/postsApi'
+import {
+  useDeletePostMutation,
+  useLazyGetPublicPostQuery,
+  useUpdatePostMutation,
+} from '@/services/profile/postsApi'
 import { useTranslation } from '@/shared/hooks/useTranslation'
 import {
   PostsPublicItems,
@@ -102,7 +104,7 @@ const Profile = ({ comments, posts, profileInfo, selectedPost }: Props) => {
     delete updatedQuery.postId
     void router.back()
   }
-  const { t } = useTranslation()
+
   const [deletePost] = useDeletePostMutation()
   const [editPost] = useUpdatePostMutation()
 
@@ -112,7 +114,7 @@ const Profile = ({ comments, posts, profileInfo, selectedPost }: Props) => {
   let following
 
   const updatePost = (id: number, description: string) => {
-    editPost({ description, id })
+    editPost({ description: { description }, id })
   }
 
   if (profileInfo) {
@@ -173,6 +175,7 @@ const Profile = ({ comments, posts, profileInfo, selectedPost }: Props) => {
         <PostModal
           comments={comments!}
           deletePostCallback={deletePostHandler}
+          editPost={updatePost}
           onClose={closeModal}
           post={selectedPost!}
         />
