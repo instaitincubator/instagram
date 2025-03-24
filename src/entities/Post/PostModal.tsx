@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import { Comment } from '@/entities/Post/Comment'
-import { LikesCounter } from '@/entities/PostImage/LikesCounter'
 import { PostImage } from '@/entities/PostImage/PostImage'
 import { TimePublish } from '@/entities/TimePublish/TimePublish'
 import UserAvatar from '@/entities/UserAvatar/UserAvatar'
+import { LikesCounter } from '@/entities/likesCounter/LikesCounter'
 import CloseModal from '@/features/create-post/ul/close-modal/close-modal'
 import { usePublicationForm } from '@/features/publication-form/usePublicationForm'
 import { useTranslation } from '@/shared/hooks/useTranslation'
@@ -165,6 +165,11 @@ const PostModal = ({ comments, deletePostCallback, onClose, post }: Props) => {
                   {post.description}
                 </h1>
               </article>
+              <LikesCounter
+                avatarWhoLikes={post.avatarWhoLikes}
+                likesCount={post.likesCount}
+                postId={post.id}
+              />
               <TimePublish createdAt={post.createdAt} />
             </div>
           </div>

@@ -134,7 +134,7 @@ export type ProfilePublicPosts = {
   totalUsers: number
 }
 export interface GetProfilePostsParams {
-  pageNumber?: number
+  endCursorPostId?: number
   pageSize?: number
   sortBy?: 'asc' | 'desc'
   sortDirection?: 'asc' | 'desc'
@@ -145,5 +145,5 @@ export interface GetPublicProfilePostsParams {
   pageSize?: number
   sortBy?: 'asc' | 'desc'
   sortDirection?: 'asc' | 'desc'
-  userId: string
+  userId: number
 }

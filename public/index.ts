@@ -8,7 +8,7 @@ export { default as MessageFill } from "./MessageFill.svg";
 export { default as Plus } from "./Plus.svg";
 export { default as PlusFill } from "./PlusFill.svg";
 export { default as Profile } from "./Profile.svg";
-export { default as ProfileFill } from "./ProfileFill.svg";
+export {default as ProfileFill} from "./ProfileFill.svg";
 export { default as Search } from "./Search.svg";
 export { default as SearchFill } from "./SearchFill.svg";
 export { default as Settings } from "./Settings.svg";
@@ -20,4 +20,5 @@ export { default as chrome } from "./chrome.svg";
 export { default as Heart } from "./heart.svg";
 export { default as noImage } from "./noImage.png";
 export { default as OutlinedHeart } from "./outlinedHeart.svg";
+export { default as Plane } from "./plane.svg";
 

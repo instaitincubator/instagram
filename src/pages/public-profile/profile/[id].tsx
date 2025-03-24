@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 import { getPublicLayoutWithSidebar } from '@/app/layouts/PublicLayoutWithSidebar/PublicLayoutWithSidebar'
 import PostModal from '@/entities/Post/PostModal'
 import { UserInfo } from '@/features/UserInfo/UserInfo'
 import CloseModal from '@/features/create-post/ul/close-modal/close-modal'
 import { useMeQuery } from '@/services/auth/signInApi'
+import { useLazyGetPublicPostQuery } from '@/services/profile/postsApi'
 import { useDeletePostMutation, useUpdatePostMutation } from '@/services/profile/postsApi'
 import { useTranslation } from '@/shared/hooks/useTranslation'
 import {
@@ -58,6 +59,42 @@ const Profile = ({ comments, posts, profileInfo, selectedPost }: Props) => {
   const router = useRouter()
   const [isModalVisible, setIsModalVisible] = useState<boolean>(true)
   const me = useMeQuery()
+
+  const [allPosts, setAllPosts] = useState<PostsPublicItems[]>(posts.items)
+
+  const [fetchPosts, { data: newPosts, isFetching }] = useLazyGetPublicPostQuery()
+  const lastPostObserverRef = useRef<HTMLDivElement | null>(null)
+
+  useEffect(() => {
+    if (newPosts?.items) {
+      setAllPosts(prevPosts => [...prevPosts, ...newPosts.items])
+    }
+  }, [newPosts])
+
+  useEffect(() => {
+    if (!lastPostObserverRef.current || isFetching || allPosts.length >= posts.totalCount) {
+      return
+    }
+    const observer = new IntersectionObserver(
+      entries => {
+        if (entries[0].isIntersecting) {
+          const lastPostId = allPosts.length > 0 ? allPosts[allPosts.length - 1].id : 1
+
+          fetchPosts({
+            endCursorPostId: lastPostId,
+            pageSize: 8,
+            userId: profileInfo.id,
+          })
+        }
+      },
+      { threshold: 1.0 }
+    )
+
+    observer.observe(lastPostObserverRef.current)
+
+    return () => observer.disconnect()
+  }, [isFetching])
+
   const closeModal = () => {
     setIsModalVisible(false)
     const updatedQuery = { ...router.query }
@@ -110,7 +147,7 @@ const Profile = ({ comments, posts, profileInfo, selectedPost }: Props) => {
           <span className="block md:hidden">{profileInfo?.aboutMe}</span>
         </div>
         <div className="grid grid-cols-3 md:grid-cols-4 gap-[3px] md:gap-[12px] pt-[29px] mb:pt-[59px] mx-auto">
-          {posts?.items?.map(el => {
+          {allPosts.map(el => {
             const onPostOpen = () => {
               setIsModalVisible(true)
               void router.push(`/public-profile/profile/${el.ownerId}?postId=${el.id}`)
@@ -130,6 +167,7 @@ const Profile = ({ comments, posts, profileInfo, selectedPost }: Props) => {
             )
           })}
         </div>
+        <div className="h-10" ref={lastPostObserverRef} />
       </div>
       {isModalVisible && selectedPost && (
         <PostModal
