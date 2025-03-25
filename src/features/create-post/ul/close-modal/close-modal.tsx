@@ -5,7 +5,7 @@ import Button from '@/shared/ui/Button/Button'
 import { Modal } from '@/shared/ui/Modal/Modal'
 type ModalType = {
   onClose: () => void
-  onDiscard: () => void
+  onDiscard?: () => void
   onDiscardText: string
   onSave: () => void
   onSaveString: string

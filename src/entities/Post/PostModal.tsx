@@ -6,6 +6,8 @@ import { TimePublish } from '@/entities/TimePublish/TimePublish'
 import UserAvatar from '@/entities/UserAvatar/UserAvatar'
 import { LikesCounter } from '@/entities/likesCounter/LikesCounter'
 import CloseModal from '@/features/create-post/ul/close-modal/close-modal'
+import { DropdownItem } from '@/features/dropdown/dropdown'
+import { MobilePostMenu } from '@/features/home/ui/MobilePostMenu'
 import { usePublicationForm } from '@/features/publication-form/usePublicationForm'
 import { useTranslation } from '@/shared/hooks/useTranslation'
 import { PostsPublicItems } from '@/shared/types/ApiTypes/ProfileApiTypes'
@@ -55,9 +57,10 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
 
   return (
     <Modal
-      contentClassName="p-0 pt-0 lg:pt-0 items-start justify-between "
+      className={'w-full'}
+      contentClassName="p-0 pt-0  bg-dark-700 lg:pt-0 items-start justify-between "
       headerClassName="h-[60px]"
-      modalClassName="lg:w-[50%] lg:min-w-[950px] w-[90%] min-w-[320px] h-auto"
+      modalClassName=" lg:w-[50%] lg:min-w-[950px] w-[100%] min-w-[320px] h-auto"
       onClose={onClose}
       // title={title}
     >
@@ -79,43 +82,27 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
         ) : (
           <div className="flex justify-between items-center relative md:hidden">
             {title}
-
-            <AnimatePresence initial>
-              <motion.button onClick={() => setIsVisible(!isVisible)}>
-                <Button variant={'text'}>
-                  <Image alt={'more'} height={24} src={'/more.svg'} width={24} />
-                </Button>
-              </motion.button>
-              {isVisible ? (
-                <motion.div
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="absolute bg-dark-100 m-2 border items-start top-[40px] gap-[12px] flex flex-col py-[12px]  z-40 right-[14px]"
-                  exit={{ opacity: 0, scale: 0 }}
-                  initial={{ opacity: 0, scale: 0 }}
-                  key="box"
-                  onMouseEnter={() => setIsVisible(true)}
-                  onMouseLeave={() => setIsVisible(false)}
-                  tabIndex={0}
+            <MobilePostMenu>
+              <DropdownItem>
+                <Button
+                  className={'flex gap-[12px]'}
+                  onClick={() => setStatus('EDIT')}
+                  variant={'text'}
                 >
-                  <Button
-                    className={'flex gap-[12px]'}
-                    onClick={() => setStatus('EDIT')}
-                    variant={'text'}
-                  >
-                    <Image alt={'more'} height={24} src={'/pen.svg'} width={24} /> Edit Post
-                  </Button>
-
-                  <Button
-                    className={'flex gap-[12px]'}
-                    onClick={() => setIsOpen(true)}
-                    variant={'text'}
-                  >
-                    <Image alt={'more'} height={24} src={'/basket.svg'} width={24} />
-                    Delete Post
-                  </Button>
-                </motion.div>
-              ) : null}
-            </AnimatePresence>
+                  <Image alt={'more'} height={24} src={'/pen.svg'} width={24} /> Edit Post
+                </Button>
+              </DropdownItem>
+              <DropdownItem>
+                <Button
+                  className={'flex gap-[12px]'}
+                  onClick={() => setIsOpen(true)}
+                  variant={'text'}
+                >
+                  <Image alt={'more'} height={24} src={'/basket.svg'} width={24} />
+                  Delete Post
+                </Button>
+              </DropdownItem>
+            </MobilePostMenu>
           </div>
         )}
 
@@ -140,42 +127,27 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
             <div className="hidden justify-between items-center relative md:flex">
               {title}
 
-              <AnimatePresence initial>
-                <motion.button onClick={() => setIsVisible(!isVisible)}>
-                  <Button variant={'text'}>
-                    <Image alt={'more'} height={24} src={'/more.svg'} width={24} />
-                  </Button>
-                </motion.button>
-                {isVisible ? (
-                  <motion.div
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="absolute bg-dark-100 m-2 border items-start top-[40px] gap-[12px] flex flex-col py-[12px]  z-40 right-[14px]"
-                    exit={{ opacity: 0, scale: 0 }}
-                    initial={{ opacity: 0, scale: 0 }}
-                    key="box"
-                    onMouseEnter={() => setIsVisible(true)}
-                    onMouseLeave={() => setIsVisible(false)}
-                    tabIndex={0}
+              <MobilePostMenu>
+                <DropdownItem>
+                  <Button
+                    className={'flex gap-[12px]'}
+                    onClick={() => setStatus('EDIT')}
+                    variant={'text'}
                   >
-                    <Button
-                      className={'flex gap-[12px]'}
-                      onClick={() => deletePostCallback(post.id)}
-                      variant={'text'}
-                    >
-                      <Image alt={'more'} height={24} src={'/pen.svg'} width={24} /> Edit Post
-                    </Button>
-
-                    <Button
-                      className={'flex gap-[12px]'}
-                      onClick={() => setIsOpen(true)}
-                      variant={'text'}
-                    >
-                      <Image alt={'more'} height={24} src={'/basket.svg'} width={24} />
-                      Delete Post
-                    </Button>
-                  </motion.div>
-                ) : null}
-              </AnimatePresence>
+                    <Image alt={'more'} height={24} src={'/pen.svg'} width={24} /> Edit Post
+                  </Button>
+                </DropdownItem>
+                <DropdownItem>
+                  <Button
+                    className={'flex gap-[12px]'}
+                    onClick={() => setIsOpen(true)}
+                    variant={'text'}
+                  >
+                    <Image alt={'more'} height={24} src={'/basket.svg'} width={24} />
+                    Delete Post
+                  </Button>
+                </DropdownItem>
+              </MobilePostMenu>
             </div>
             <div className="h-fit">
               <div className="w-full h-[1px] bg-dark-100" />
