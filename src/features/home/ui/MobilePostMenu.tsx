@@ -1,6 +1,8 @@
 import React from 'react'
 
+import { Follow } from '@/shared/ui/icons/follow'
 import { Menu } from '@/shared/ui/icons/menu'
+import { UnFollow } from '@/shared/ui/icons/unFollow'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 
 type MobilePostMenuProps = {
@@ -19,7 +21,11 @@ export const MobilePostMenu = ({ imageUrl }: MobilePostMenuProps) => {
       </DropdownMenu.Trigger>
       <DropdownMenu.Portal>
         <DropdownMenu.Content className="text-light-100 mr-4 text-regular-14 bg-dark-500 w-fit rounded-sm border border-dark-100 px-2 py-3">
-          <DropdownMenu.Item className="group leading-none flex items-center h-9  relative select-none outline-none"></DropdownMenu.Item>
+          <DropdownMenu.Item className="group leading-none flex items-center h-9  relative select-none outline-none">
+            <Follow />
+            <UnFollow />
+            UnFollow
+          </DropdownMenu.Item>
           <DropdownMenu.Item
             className="group leading-none flex items-center h-9 relative select-none outline-none"
             onClick={copyLinkHandler}
