@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { CopyLink } from '@/shared/ui/icons/copyLink'
 import { Follow } from '@/shared/ui/icons/follow'
 import { Menu } from '@/shared/ui/icons/menu'
 import { UnFollow } from '@/shared/ui/icons/unFollow'
@@ -30,6 +31,7 @@ export const MobilePostMenu = ({ imageUrl }: MobilePostMenuProps) => {
             className="group leading-none flex items-center h-9 relative select-none outline-none"
             onClick={copyLinkHandler}
           >
+            <CopyLink />
             Copy Link
           </DropdownMenu.Item>
         </DropdownMenu.Content>
