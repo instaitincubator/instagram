@@ -70,7 +70,7 @@ export const HomePage = () => {
               />
               <div className="flex gap-4">
                 <span className="opacity-50">{formatDate(post.createdAt)}</span>
-                <MobilePostMenu />
+                <MobilePostMenu imageUrl={post.images[0]?.url} />
               </div>
             </div>
             <HomePostImage images={post.images} postId={post.id} />
