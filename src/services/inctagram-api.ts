@@ -1,19 +1,22 @@
-import {baseQueryWithReauth} from '@/services/incragram.base-query'
-import {createApi} from '@reduxjs/toolkit/query/react'
+import { baseQueryWithReauth } from '@/services/incragram.base-query'
+import { createApi } from '@reduxjs/toolkit/query/react'
 
 export const baseApi = createApi({
-    baseQuery: baseQueryWithReauth,
-    endpoints: build => ({}),
-    reducerPath: 'inctagram-api',
-    tagTypes: ['Me', 'profile', 'FollowersPost',
-        'PostLikeStatus',
-        'following',
-        'followingStatus',
-        'Posts',
-        'Comments',
-        'Posts',
-        'sessions',
-        'currentSub',
-        'Notifications',
-    ],
+  baseQuery: baseQueryWithReauth,
+  endpoints: build => ({}),
+  reducerPath: 'inctagram-api',
+  tagTypes: [
+    'Me',
+    'profile',
+    'FollowersPost',
+    'PostLikeStatus',
+    'following',
+    'followingStatus',
+    'Posts',
+    'Comments',
+    'Posts',
+    'sessions',
+    'currentSub',
+    'Notifications',
+  ],
 })
