@@ -5,10 +5,13 @@ import PostModal from '@/entities/Post/PostModal'
 import { UserInfo } from '@/features/UserInfo/UserInfo'
 import { useMeQuery } from '@/services/auth/signInApi'
 import { useGetPublicPostQuery, useLazyGetPublicPostQuery } from '@/services/profile/postsApi'
+import { useGetFollowersQuery, useGetFollowingQuery } from '@/services/profile/profileApi'
 import { useLazyGetPublicUserQuery } from '@/services/public/publicProfileCounts'
 import {
   useFollowingUserMutation,
   useGetFollowUserQuery,
+  useGetUserWithFollowingStatusQuery,
+  useUnFollowingUserMutation,
 } from '@/services/users/users-following/usersFollowing-api'
 import {
   PostsPublicItems,
@@ -67,9 +70,13 @@ const Profile = ({ comments, posts, profileInfo, selectedPost }: Props) => {
   const [profile, setProfile] = useState<ProfileInfo>(profileInfo)
   const [allPosts, setAllPosts] = useState<PostsPublicItems[]>(posts.items)
   const [followUser] = useFollowingUserMutation()
-  const { data: follower } = useGetFollowUserQuery({ userName: profile.userName })
   const [fetchPosts, { data: newPosts, isFetching }] = useLazyGetPublicPostQuery()
   const lastPostObserverRef = useRef<HTMLDivElement | null>(null)
+  const [unFollow, { isSuccess: unfollowUserSuccess }] = useUnFollowingUserMutation()
+
+  const { data: userFollowingStatus } = useGetUserWithFollowingStatusQuery(profile.userName)
+
+  console.log(userFollowingStatus?.isFollowing)
 
   useEffect(() => {
     if (profileInfo) {
@@ -82,7 +89,6 @@ const Profile = ({ comments, posts, profileInfo, selectedPost }: Props) => {
       setProfile(pizdata)
     }
   }, [pizdata])
-  console.log(profile)
 
   useEffect(() => {
     if (newPosts?.items) {
@@ -134,18 +140,21 @@ const Profile = ({ comments, posts, profileInfo, selectedPost }: Props) => {
       avatars: profile?.avatars,
       userName: profile?.userName,
     }
-    followers = profile?.userMetadata.followers
-    following = profile?.userMetadata.following
+    followers = profile?.userMetadata.followers!
+    following = profile?.userMetadata.following!
   }
+
   const followUnfollowUser = () => {
-    // if(follower.items.)items
-    followUser({ selectedUserId: profile.id })
+    if (!userFollowingStatus?.isFollowing && userFollowingStatus) {
+      followUser({ selectedUserId: profile.id })
+    } else {
+      unFollow({ userId: profileInfo.id })
+    }
     setTimeout(() => {
       fetchProfile(profile.id)
     }, 500)
   }
-
-  console.log(follower)
+  const unFollowUnfollowUser = () => {}
 
   return (
     <div
@@ -164,10 +173,14 @@ const Profile = ({ comments, posts, profileInfo, selectedPost }: Props) => {
         {!isProfileOwner && (
           <div className="w-full">
             <Button className="mb-4" fullWidth onClick={followUnfollowUser} size="xxl">
-              фоолоу нахой
+              {userFollowingStatus && !userFollowingStatus?.isFollowing ? (
+                <span>Follow</span>
+              ) : (
+                <span>UnFollow</span>
+              )}
             </Button>
             <Button fullWidth size="xxl" variant="secondary">
-              не фолооуу
+              Send Message
             </Button>
           </div>
         )}

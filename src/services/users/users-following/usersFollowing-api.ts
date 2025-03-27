@@ -1,10 +1,11 @@
 import { baseApi } from '@/services/inctagram-api'
+import { UserWithFollowingStatusResponse } from '@/services/users/usersApiTypes'
 
 const followingApi = baseApi.injectEndpoints({
   endpoints: build => {
     return {
       followingUser: build.mutation<any, any>({
-        invalidatesTags: ['following', 'profile'],
+        invalidatesTags: ['following', 'profile', 'followingStatus'],
         query: body => {
           return {
             body,
@@ -14,7 +15,6 @@ const followingApi = baseApi.injectEndpoints({
         },
       }),
       getFollowUser: build.query<any, any>({
-        providesTags: ['following'],
         query: arg => {
           return {
             method: 'GET',
@@ -22,13 +22,21 @@ const followingApi = baseApi.injectEndpoints({
           }
         },
       }),
+      getUserWithFollowingStatus: build.query<UserWithFollowingStatusResponse, string>({
+        providesTags: ['followingStatus'],
+        query: arg => {
+          return {
+            method: 'GET',
+            url: `/api/v1/users/${arg}`,
+          }
+        },
+      }),
       unFollowingUser: build.mutation<any, any>({
-        invalidatesTags: ['following', 'profile'],
+        invalidatesTags: ['following', 'profile', 'followingStatus'],
         query: body => {
           return {
-            body,
-            method: 'POST',
-            url: '/api/v1/users/follower/{userId}',
+            method: 'DELETE',
+            url: `/api/v1/users/follower/${body.userId}`,
           }
         },
       }),
@@ -36,5 +44,9 @@ const followingApi = baseApi.injectEndpoints({
   },
 })
 
-export const { useFollowingUserMutation, useGetFollowUserQuery, useUnFollowingUserMutation } =
-  followingApi
+export const {
+  useFollowingUserMutation,
+  useGetFollowUserQuery,
+  useGetUserWithFollowingStatusQuery,
+  useUnFollowingUserMutation,
+} = followingApi
