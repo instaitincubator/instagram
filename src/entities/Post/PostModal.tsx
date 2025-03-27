@@ -1,10 +1,10 @@
 import React from 'react'
 
 import { Comment } from '@/entities/Post/Comment'
-import { LikesCounter } from '@/entities/PostImage/LikesCounter'
 import { PostImage } from '@/entities/PostImage/PostImage'
 import { TimePublish } from '@/entities/TimePublish/TimePublish'
 import UserAvatar from '@/entities/UserAvatar/UserAvatar'
+import { LikesCounter } from '@/entities/likesCounter/LikesCounter'
 import { PostsPublicItems } from '@/shared/types/ApiTypes/ProfileApiTypes'
 import { CommentForPost } from '@/shared/types/public.types'
 import { Modal } from '@/shared/ui/Modal/Modal'
@@ -47,7 +47,11 @@ const PostModal = ({ comments, onClose, post }: Props) => {
           <div className="h-fit">
             <div className="w-full h-[1px] bg-dark-100" />
             <div className="p-2 flex flex-col gap-2">
-              <LikesCounter avatarWhoLikes={post.avatarWhoLikes} likesCount={post.likesCount} />
+              <LikesCounter
+                avatarWhoLikes={post.avatarWhoLikes}
+                likesCount={post.likesCount}
+                postId={post.id}
+              />
               <TimePublish createdAt={post.createdAt} />
             </div>
           </div>

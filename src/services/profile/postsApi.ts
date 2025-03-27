@@ -69,7 +69,7 @@ const getPostsApi = baseApi.injectEndpoints({
           }
 
           return {
-            url: `/api/v1/public-posts/user/${arg.userId}?endCursorPostId=${arg.endCursorPostId}`,
+            url: `/api/v1/public-posts/user/${arg.userId}/${arg.endCursorPostId}`,
           }
         },
       }),
