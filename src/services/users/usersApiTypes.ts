@@ -42,3 +42,6 @@ export interface UserWithFollowingStatusResponse {
   region: string
   userName: string
 }
+export interface followingUserRequest {
+  selectedUserId: number
+}

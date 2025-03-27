@@ -1,8 +1,6 @@
 import { baseApi } from '@/services/inctagram-api'
 import {
-  GetProfilePostsParams,
   GetPublicProfilePostsParams,
-  ProfilePosts,
   ProfilePublicPosts,
 } from '@/shared/types/ApiTypes/ProfileApiTypes'
 
