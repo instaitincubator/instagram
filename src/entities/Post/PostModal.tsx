@@ -4,10 +4,10 @@ import { Comment } from '@/entities/Post/Comment'
 import { PostImage } from '@/entities/PostImage/PostImage'
 import { TimePublish } from '@/entities/TimePublish/TimePublish'
 import UserAvatar from '@/entities/UserAvatar/UserAvatar'
-import { LikesCounter } from '@/entities/likesCounter/LikesCounter'
 import CloseModal from '@/features/create-post/ul/close-modal/close-modal'
 import { DropdownItem } from '@/features/dropdown/dropdown'
 import { MobilePostMenu } from '@/features/home/ui/MobilePostMenu'
+import { PostActionPanel } from '@/features/home/ui/PostActionPanel'
 import { usePublicationForm } from '@/features/publication-form/usePublicationForm'
 import { useTranslation } from '@/shared/hooks/useTranslation'
 import { PostsPublicItems } from '@/shared/types/ApiTypes/ProfileApiTypes'
@@ -15,7 +15,6 @@ import { CommentForPost } from '@/shared/types/public.types'
 import { ControlledTextarea } from '@/shared/ui'
 import Button from '@/shared/ui/Button/Button'
 import { Modal } from '@/shared/ui/Modal/Modal'
-import { AnimatePresence, motion } from 'framer-motion'
 import Image from 'next/image'
 
 interface Props {
@@ -45,6 +44,7 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
       setStatus('INITIAL')
     } else {
       editPost(post.id, data.description)
+      setStatus('INITIAL')
     }
   }
   const onCloseEditor = (data: { description?: string }) => {
@@ -57,8 +57,8 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
 
   return (
     <Modal
-      className={'w-full'}
-      contentClassName="p-0 pt-0  bg-dark-700 lg:pt-0 items-start justify-between "
+      className={'w-full '}
+      contentClassName="p-[15px] pt-0  bg-dark-700 lg:bg-dark-300 lg:pt-0 items-start justify-between "
       headerClassName="h-[60px]"
       modalClassName=" lg:w-[50%] lg:min-w-[950px] w-[100%] min-w-[320px] h-auto"
       onClose={onClose}
@@ -66,7 +66,7 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
     >
       <div className="lg:flex w-full" key={post.id}>
         {status === 'EDIT' ? (
-          <div className="flex items-center justify-between py-[18px]">
+          <div className="flex items-center lg:hidden lg:invisible justify-between py-[18px] ">
             <Button className={'text-h3'} onClick={handleSubmit(onCloseEditor)} variant={'text'}>
               Cancel
             </Button>
@@ -106,21 +106,26 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
           </div>
         )}
 
-        <div className="max-w-[490px] flex-shrink-0 m-auto">
+        <div className="max-w-[490px]  lg:w-1/2 flex-shrink-0 m-auto">
           <PostImage arrImages={post.images} height={560} width={490} />
         </div>
         {status === 'EDIT' ? (
-          <div>
-            {title}
-            <ControlledTextarea
-              className="min-h-[120px] md:h-100%"
-              control={control}
-              error={errors.description?.message}
-              fullWidth
-              label="Add publication descriptions"
-              name="description"
-              placeholder="Text-area"
-            />
+          <div className={'h-fit lg:w-1/2 flex flex-col gap-[24px] pt-[20px] lg:p-[24px]'}>
+            <div className="">
+              {title}
+              <ControlledTextarea
+                className="min-h-[120px] md:h-100%"
+                control={control}
+                error={errors.description?.message}
+                fullWidth
+                label="Add publication descriptions"
+                name="description"
+                placeholder="Text-area"
+              />
+            </div>
+            <div className="mt-auto">
+              <Button>Save Changes</Button>
+            </div>
           </div>
         ) : (
           <div className="flex flex-1 flex-col justify-between max-h-[474px]">
@@ -151,37 +156,41 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
             </div>
             <div className="h-fit">
               <div className="w-full h-[1px] bg-dark-100" />
-              <div className="p-2 flex flex-col gap-2">
-                <LikesCounter
-                  // avatarWhoLikes={post.avatarWhoLikes}
-                  likesCount={post.likesCount}
-                />
-                <article className="flex flex-wrap  gap-1">
-                  <h2 className={'text-bold-14  font-bold   whitespace-nowrap text-base'}>
-                    {post.userName}
-                  </h2>
-                  <h1
-                    className={
-                      'break-words whitespace-normal overflow-hidden leading-relaxed max-w-full text-sm'
-                    }
-                  >
-                    {post.description}
-                  </h1>
-                </article>
-                <LikesCounter
-                  // avatarWhoLikes={post.avatarWhoLikes}
-                  likesCount={post.likesCount}
-                  postId={post.id}
-                />
-                <TimePublish createdAt={post.createdAt} />
+              <div className="flex justify-around flex-col lg:flex-col-reverse">
+                <div className="p-2 flex flex-col gap-2">
+                  {/*<LikesCounter*/}
+                  {/*  // avatarWhoLikes={post.avatarWhoLikes}*/}
+                  {/*  likesCount={post.likesCount}*/}
+                  {/*/>*/}
+                  <PostActionPanel
+                    avatarWhoLikes={post.avatarWhoLikes}
+                    id={post.id}
+                    likesCount={post.likesCount}
+                  />
+                  <article className="flex flex-wrap  gap-1">
+                    <h2 className={'text-bold-14  font-bold   whitespace-nowrap text-base'}>
+                      {post.userName}
+                    </h2>
+                    <h1
+                      className={
+                        'break-words whitespace-normal overflow-hidden leading-relaxed max-w-full text-sm'
+                      }
+                    >
+                      {post.description}
+                    </h1>
+                  </article>
+
+                  <TimePublish createdAt={post.createdAt} />
+                </div>
+
+                <div className="flex flex-col gap-6 pl-6 py-6 overflow-y-auto">
+                  {comments?.items.length > 0 ? (
+                    comments?.items.map(comment => <Comment comment={comment} key={comment.id} />)
+                  ) : (
+                    <span>no comments</span>
+                  )}
+                </div>
               </div>
-            </div>
-            <div className="flex flex-col gap-6 pl-6 py-6 overflow-y-auto">
-              {comments?.items.length > 0 ? (
-                comments?.items.map(comment => <Comment comment={comment} key={comment.id} />)
-              ) : (
-                <span>no comments</span>
-              )}
             </div>
 
             {/*<div className="h-fit">*/}
