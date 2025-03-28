@@ -4,6 +4,7 @@ import { UPLOAD_STEPS } from '@/features/create-post/CONST'
 import CloseModal from '@/features/create-post/ul/close-modal/close-modal'
 import CreateModal from '@/features/create-post/ul/create-modal/create-modal'
 import { Publish } from '@/features/create-post/ul/publish/publish'
+import { useTranslation } from '@/shared/hooks/useTranslation'
 import { Modal } from '@/shared/ui/Modal/Modal'
 import { cn } from '@/shared/utils/cn'
 import { useRouter } from 'next/router'
@@ -12,6 +13,7 @@ import 'swiper/css'
 import 'swiper/css/pagination'
 
 export const CreatePost = () => {
+  const { t } = useTranslation()
   const router = useRouter()
   const [uploadStep, setUploadStep] = useState(UPLOAD_STEPS.CHOOSE_PHOTO)
   const [openModal, setOpenModal] = useState(false)
@@ -58,7 +60,17 @@ export const CreatePost = () => {
           <Publish backStep={() => setUploadStep(UPLOAD_STEPS.CHOOSE_PHOTO)} />
         )}
       </Modal>
-      {openModal && <CloseModal onClose={closeModal} onDiscard={closeModal} onSave={() => {}} />}
+      {openModal && (
+        <CloseModal
+          onClose={closeModal}
+          onDiscard={closeModal}
+          onDiscardText={t.createPost.discard}
+          onSave={() => {}}
+          onSaveString={t.createPost.saveDraft}
+          text={t.createPost.closeModal}
+          title={t.createPost.close}
+        />
+      )}
     </>
   )
 }

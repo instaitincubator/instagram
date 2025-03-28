@@ -39,15 +39,20 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
     />
   )
   const { control, errors, handleSubmit } = usePublicationForm({ description: post.description })
-  const onSubmit = (data: any) => {
-    if (data.description === post.description) {
-      setStatus('INITIAL')
-    } else {
-      editPost(post.id, data.description)
-      setStatus('INITIAL')
+  const onSubmit = (data: { description?: string }) => {
+    if (data.description) {
+      if (data.description === post.description) {
+        setStatus('INITIAL')
+      } else {
+        editPost(post.id, data.description)
+        setStatus('INITIAL')
+      }
     }
   }
   const onCloseEditor = (data: { description?: string }) => {
+    if (status === 'INITIAL') {
+      onClose()
+    }
     if (data.description === post.description) {
       setStatus('INITIAL')
     } else {
@@ -58,10 +63,10 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
   return (
     <Modal
       className={'w-full '}
-      contentClassName="p-[15px] pt-0  bg-dark-700 lg:bg-dark-300 lg:pt-0 items-start justify-between "
+      contentClassName="p-[15px] lg:p-0 pt-0  bg-dark-700 lg:bg-dark-300 lg:pt-0 items-start justify-between "
       headerClassName="h-[60px]"
       modalClassName=" lg:w-[50%] lg:min-w-[950px] w-[100%] min-w-[320px] h-auto"
-      onClose={onClose}
+      onClose={handleSubmit(onCloseEditor)}
       // title={title}
     >
       <div className="lg:flex w-full" key={post.id}>
@@ -111,7 +116,9 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
           <PostImage arrImages={post.images} height={560} width={490} />
         </div>
         {status === 'EDIT' ? (
-          <div className={'h-fit lg:w-1/2 flex flex-col gap-[24px] pt-[20px] lg:p-[24px]'}>
+          <div
+            className={'h-fit lg:p-[24px] lg:w-1/2 flex flex-col gap-[24px] pt-[20px] lg:p-[24px]'}
+          >
             <div className="">
               {title}
               <ControlledTextarea
@@ -124,12 +131,15 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
                 placeholder="Text-area"
               />
             </div>
-            <div className="mt-auto">
+            <div
+              className="mt-auto hidden invisible lg:visible lg:flex"
+              onClick={handleSubmit(onSubmit)}
+            >
               <Button>Save Changes</Button>
             </div>
           </div>
         ) : (
-          <div className="flex flex-1 flex-col justify-between max-h-[474px]">
+          <div className="flex lg:px-[24px] flex-1 flex-col justify-between max-h-[474px]">
             <div className="hidden justify-between items-center relative md:flex">
               {title}
 
@@ -218,6 +228,8 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
       )}
       {isOpenForEdit && (
         <CloseModal
+          buttonsClassName={''}
+          className={''}
           onClose={() => setIsOpenForEdit(false)}
           onDiscard={() => setStatus('INITIAL')}
           onDiscardText={t.generalInformation.yes}

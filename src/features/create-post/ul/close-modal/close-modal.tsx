@@ -3,28 +3,45 @@ import React from 'react'
 import { useTranslation } from '@/shared/hooks/useTranslation'
 import Button from '@/shared/ui/Button/Button'
 import { Modal } from '@/shared/ui/Modal/Modal'
+import { cn } from '@/shared/utils/cn'
+import { className } from 'postcss-selector-parser'
 type ModalType = {
+  buttonsClassName?: string
+  className?: string
   onClose: () => void
   onDiscard?: () => void
   onDiscardText: string
   onSave: () => void
   onSaveString: string
   text: string
+  textClassName?: string
   title: string
 }
 const CloseModal = ({
+  buttonsClassName,
+  className,
   onClose,
   onDiscard,
   onDiscardText,
   onSave,
   onSaveString,
   text,
+  textClassName,
   title,
 }: ModalType) => {
   return (
-    <Modal className={' mx-auto z-40'} onClose={onClose} title={title}>
-      <p className={'whitespace-pre-wrap'}>{text}</p>
-      <div className="flex w-full flex-col gap-2">
+    <Modal
+      className={cn('lg:max-w-[489px] mx-auto z-40', className)}
+      onClose={onClose}
+      title={title}
+    >
+      <p className={cn('whitespace-pre-wrap', textClassName)}>{text}</p>
+      <div
+        className={cn(
+          'flex w-full flex-col gap-2 lg:w-[216px] lg:gap-[24px] lg:flex-row',
+          buttonsClassName
+        )}
+      >
         <Button onClick={onDiscard} variant={'outline'}>
           {onDiscardText}
         </Button>
