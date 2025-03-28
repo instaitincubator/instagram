@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { useCreateCommentMutation } from '@/services/comments/comments-api'
 import Button from '@/shared/ui/Button/Button'
 import { Input } from '@/shared/ui/Input/Input'
+import { cn } from '@/shared/utils/cn'
 
 interface Props {
   postId: number
@@ -29,7 +30,10 @@ export const SendComment = ({ postId }: Props) => {
         value={commentText}
       />
       <Button
-        className="text-accent-500 active:border-none focus:border-none"
+        className={cn('text-accent-500 active:border-none focus:border-none', {
+          'border-none': commentText === '',
+        })}
+        disabled={commentText === ''}
         onClick={createNewComment}
         variant="text"
       >

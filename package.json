@@ -69,7 +69,7 @@
     "@storybook/react": "^8.1.8",
     "@storybook/test": "^8.1.8",
     "@storybook/theming": "^8.1.9",
-    "@types/node": "^20",
+    "@types/node": "^20.17.28",
     "@types/nprogress": "^0.2.3",
     "@types/react": "^18",
     "@types/react-avatar-editor": "^13.0.3",
