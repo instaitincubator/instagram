@@ -68,15 +68,15 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
         {status === 'EDIT' ? (
           <div className="flex items-center lg:hidden lg:invisible justify-between py-[18px] ">
             <Button className={'text-h3'} onClick={handleSubmit(onCloseEditor)} variant={'text'}>
-              Cancel
+              {t.postModal.cancel}
             </Button>
-            <h2 className={'text-h2'}>Edit Post</h2>
+            <h2 className={'text-h2'}>{t.postModal.editPost}</h2>
             <Button
               className={'text-h3 text-accent-500 '}
               onClick={handleSubmit(onSubmit)}
               variant={'text'}
             >
-              Save
+              {t.postModal.save}
             </Button>
           </div>
         ) : (
@@ -89,7 +89,8 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
                   onClick={() => setStatus('EDIT')}
                   variant={'text'}
                 >
-                  <Image alt={'more'} height={24} src={'/pen.svg'} width={24} /> Edit Post
+                  <Image alt={'more'} height={24} src={'/pen.svg'} width={24} />{' '}
+                  {t.postModal.editPost}
                 </Button>
               </DropdownItem>
               <DropdownItem>
@@ -99,7 +100,7 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
                   variant={'text'}
                 >
                   <Image alt={'more'} height={24} src={'/basket.svg'} width={24} />
-                  Delete Post
+                  {t.postModal.deletePost}
                 </Button>
               </DropdownItem>
             </MobilePostMenu>
@@ -139,7 +140,8 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
                     onClick={() => setStatus('EDIT')}
                     variant={'text'}
                   >
-                    <Image alt={'more'} height={24} src={'/pen.svg'} width={24} /> Edit Post
+                    <Image alt={'more'} height={24} src={'/pen.svg'} width={24} />
+                    {t.postModal.editPost}
                   </Button>
                 </DropdownItem>
                 <DropdownItem>
@@ -149,7 +151,7 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
                     variant={'text'}
                   >
                     <Image alt={'more'} height={24} src={'/basket.svg'} width={24} />
-                    Delete Post
+                    {t.postModal.deletePost}
                   </Button>
                 </DropdownItem>
               </MobilePostMenu>
@@ -207,10 +209,10 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
         <CloseModal
           onClose={() => setIsOpen(false)}
           onDiscard={() => deletePostCallback(post.id)}
-          onDiscardText={'Yes'}
+          onDiscardText={t.generalInformation.yes}
           onSave={() => setIsOpen(false)}
-          onSaveString={'No'}
-          text={'Are you sure you want to delete this post?'}
+          onSaveString={t.postModal.no}
+          text={t.postModal.youWantDeletePost}
           title={t.createPost.close}
         />
       )}
@@ -218,12 +220,10 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
         <CloseModal
           onClose={() => setIsOpenForEdit(false)}
           onDiscard={() => setStatus('INITIAL')}
-          onDiscardText={'Yes'}
+          onDiscardText={t.generalInformation.yes}
           onSave={() => setIsOpenForEdit(false)}
-          onSaveString={'No'}
-          text={
-            'Do you really want to finish editing? If you close the changes you have made will not be saved'
-          }
+          onSaveString={t.postModal.no}
+          text={t.postModal.finishEditingPost}
           title={t.createPost.close}
         />
       )}
