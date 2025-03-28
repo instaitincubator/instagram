@@ -74,6 +74,7 @@ const getPostsApi = baseApi.injectEndpoints({
         },
       }),
       updatePost: build.mutation<void, { description: { description: string }; id: number }>({
+        invalidatesTags: ['Posts'],
         query: ({ description, id }) => {
           return {
             body: description,

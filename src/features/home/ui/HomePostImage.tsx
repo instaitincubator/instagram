@@ -78,10 +78,10 @@ export const HomePostImage = ({ images, postId }: Props) => {
         <Image
           alt={'SlideImage'}
           className="w-full"
-          height={1440}
+          height={images.length ? images[0].height : 1440}
           onDoubleClick={onLike}
           src={images.length ? images[0].url : noImage}
-          width={1440}
+          width={images.length ? images[0].height : 1440}
         />
       )}
     </div>
