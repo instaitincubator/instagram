@@ -8,12 +8,15 @@ export const baseApi = createApi({
   tagTypes: [
     'Me',
     'profile',
+    'FollowersPost',
+    'PostLikeStatus',
+    'following',
+    'followingStatus',
+    'Posts',
+    'Comments',
     'Posts',
     'sessions',
     'currentSub',
     'Notifications',
-    'FollowersPost',
-    'PostLikeStatus',
-    'Comments',
   ],
 })

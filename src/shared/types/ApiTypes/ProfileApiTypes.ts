@@ -59,7 +59,7 @@ export type Items = {
 }
 
 export type ProfileFollowers = {
-  items: Items
+  items: Items[]
   nextCursor: number
   page: number
   pageSize: number
@@ -69,7 +69,7 @@ export type ProfileFollowers = {
 }
 
 export type ProfileFollowing = {
-  items: Items
+  items: Items[]
   nextCursor: number
   page: number
   pageSize: number

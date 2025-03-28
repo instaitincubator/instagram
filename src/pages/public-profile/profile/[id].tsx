@@ -12,7 +12,7 @@ import {
 import { useTranslation } from '@/shared/hooks/useTranslation'
 import {
   PostsPublicItems,
-  ProfileInfoPublic,
+  ProfileInfo,
   ProfilePublicPosts,
 } from '@/shared/types/ApiTypes/ProfileApiTypes'
 import { CommentForPost } from '@/shared/types/public.types'
@@ -26,14 +26,14 @@ import { noImage } from '../../../../public'
 interface Props {
   comments: CommentForPost | null
   posts: ProfilePublicPosts
-  profileInfo: ProfileInfoPublic
+  profileInfo: ProfileInfo
   selectedPost: PostsPublicItems | null
 }
 
 export const getServerSideProps: GetServerSideProps<Props> = async context => {
   const { id, postId } = context.query
   const resProfile = await fetch(`https://inctagram.work/api/v1/public-user/profile/${id}`)
-  const profileInfo: ProfileInfoPublic = await resProfile.json()
+  const profileInfo: ProfileInfo = await resProfile.json()
   const postsRes = await fetch(`https://inctagram.work/api/v1/public-posts/user/${id}`)
   const posts: ProfilePublicPosts = await postsRes.json()
   let selectedPost = null
@@ -61,9 +61,7 @@ const Profile = ({ comments, posts, profileInfo, selectedPost }: Props) => {
   const router = useRouter()
   const [isModalVisible, setIsModalVisible] = useState<boolean>(true)
   const me = useMeQuery()
-
   const [allPosts, setAllPosts] = useState<PostsPublicItems[]>(posts.items)
-
   const [fetchPosts, { data: newPosts, isFetching }] = useLazyGetPublicPostQuery()
   const lastPostObserverRef = useRef<HTMLDivElement | null>(null)
 
@@ -133,21 +131,12 @@ const Profile = ({ comments, posts, profileInfo, selectedPost }: Props) => {
 
   return (
     <div
-      className={cn('mt-o', {
+      className={cn('mt-o w-full', {
         'mx-auto': !me?.data?.userId,
       })}
     >
       <div className="flex items-baseline flex-col gap-[13px] flex-1 pt-[24px] px-[15px] md:pr-16 mb:pb-[59px] md:pl-6 md:pt-[35px] w-full">
-        <UserInfo
-          followersForPublic={followers}
-          followingForPublic={following}
-          isProfileOwner={isProfileOwner}
-          postsForPublic={posts}
-          profile={profileData}
-        />
-        <div className="block md:hidden">
-          <span className="block md:hidden">{profileInfo?.aboutMe}</span>
-        </div>
+        <UserInfo postsForPublic={posts} profileInfo={profileInfo} />
         <div className="grid grid-cols-3 md:grid-cols-4 gap-[3px] md:gap-[12px] pt-[29px] mb:pt-[59px] mx-auto">
           {allPosts.map(el => {
             const onPostOpen = () => {

@@ -44,6 +44,7 @@ const profileApi = baseApi.injectEndpoints({
         },
       }),
       getFollowing: build.query<ProfileFollowing, string>({
+        providesTags: ['following'],
         query: (userName: string) => {
           return {
             url: `/api/v1/users/${userName}/following`,
