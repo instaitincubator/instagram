@@ -201,4 +201,9 @@ export const russian = {
     search: 'Поиск',
     statistics: 'Статистика',
   },
+  timeAdditionPost: {
+    seconds: 'секунд',
+    days: 'дня',
+    back: 'назад',
+  },
 }

@@ -200,5 +200,10 @@ Your rights to your content remain unaffected. We do not claim ownership of your
     search: 'Search',
     statistics: 'Statistics',
   },
+  timeAdditionPost: {
+    seconds: 'seconds',
+    days: 'days',
+    back: 'back',
+  },
 }
 export type LocaleType = typeof english
