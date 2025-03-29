@@ -61,18 +61,19 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
 
   return (
     <Modal
-      className="w-full"
-      contentClassName="p-[15px] lg:p-0 pt-0  bg-dark-700 lg:bg-dark-300 lg:pt-0 items-start justify-between"
+      className="w-full z-80"
+      contentClassName="p-[15px] sm:p-0 pt-0 bg-dark-700 sm:bg-dark-300 sm:pt-0 items-start justify-between"
       headerClassName="h-[60px]"
-      modalClassName={cn('lg:w-[50%] lg:min-w-[950px] w-[100%] min-w-[320px] h-auto', {
+      modalClassName={cn('sm:w-[50%] lg:min-w-[1000px] w-[100%] min-w-[320px] h-auto', {
         'h-full bg-dark-700 mt-[59px]': isMobile,
       })}
       onClose={handleSubmit(onCloseEditor)}
       withOutHeader={isMobile}
+      withOutHeaderButtonClassName="hidden"
     >
-      <div className="lg:flex w-full" key={post.id}>
+      <div className="sm:flex w-full flex-col lg:flex-row" key={post.id}>
         {status === EDIT_POST_STATUS.EDIT ? (
-          <div className="flex items-center lg:hidden lg:invisible justify-between py-[18px]">
+          <div className="flex items-center sm:hidden sm:invisible justify-between py-[18px]">
             <Button className="text-h3" onClick={handleSubmit(onCloseEditor)} variant="text">
               {t.postModal.cancel}
             </Button>
@@ -94,11 +95,11 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
           />
         )}
 
-        <div className="max-w-[490px] lg:w-1/2 flex-shrink-0 m-auto">
+        <div className="max-w-[490px] sm:w-1/2 flex-shrink-0 m-auto">
           <PostImage arrImages={post.images} height={560} width={490} />
         </div>
         {status === EDIT_POST_STATUS.EDIT ? (
-          <div className="h-fit lg:w-1/2 flex flex-col gap-[24px] pt-[20px] lg:p-[24px]">
+          <div className="h-fit sm:w-1/2 flex flex-col gap-[24px] pt-[20px] sm:p-[24px]">
             <div>
               <UserAvatar
                 avatar={post.avatarOwner}
@@ -106,7 +107,7 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
                 userName={post.owner ? post.owner : post.userName}
               />
               <ControlledTextarea
-                className="min-h-[120px] md:h-100%"
+                className="min-h-[120px] sm:h-100%"
                 control={control}
                 error={errors.description?.message}
                 fullWidth
@@ -116,15 +117,15 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
               />
             </div>
             <div
-              className="mt-auto hidden invisible lg:visible lg:flex"
+              className="mt-auto hidden invisible sm:visible sm:flex"
               onClick={handleSubmit(onSubmit)}
             >
               <Button>{t.postModal.saveChanges}</Button>
             </div>
           </div>
         ) : (
-          <div className="flex lg:px-[24px] flex-1 flex-col justify-between max-h-[474px]">
-            <div className="hidden justify-between items-center relative md:flex">
+          <div className="flex sm:px-[24px] flex-1 flex-col justify-between max-h-[474px]">
+            <div className="hidden justify-between items-center relative sm:flex">
               <UserAvatar
                 avatar={post.avatarOwner}
                 userId={post.ownerId}
@@ -155,12 +156,12 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
             </div>
             <div className="h-fit">
               <div className="w-full h-[1px] bg-dark-100" />
-              <div className="flex justify-around flex-col lg:flex-col-reverse">
+              <div className="flex justify-around flex-col sm:flex-col-reverse">
                 <div className="p-2 flex flex-col gap-2">
                   <PostActionPanel
-                    avatarWhoLikes={post.avatarWhoLikes}
                     id={post.id}
                     likesCount={post.likesCount}
+                    messageIconClassname={cn('bg-dark-300', { 'bg-dark-700': isMobile })}
                   />
                   <article className="flex flex-wrap  gap-1">
                     <h2 className="text-bold-14  font-bold   whitespace-nowrap text-base">

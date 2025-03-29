@@ -104,32 +104,12 @@ const Profile = ({ comments, posts, profileInfo, selectedPost }: Props) => {
   }
 
   const [deletePost] = useDeletePostMutation()
-  const [editPost, { isSuccess }] = useUpdatePostMutation()
-
-  const isProfileOwner = me?.data?.userId === profileInfo.id
-  let profileData
-  let followers
-  let following
+  const [editPost] = useUpdatePostMutation()
 
   const updatePost = (id: number, description: string) => {
     editPost({ description: { description }, id }).then(res => {
-      console.log(res)
-      // console.log(isSuccess)
       fetchPosts({ endCursorPostId: 1, userId: profileInfo.id })
     })
-    // console.log(isSuccess)
-    if (isSuccess) {
-    }
-  }
-
-  if (profileInfo) {
-    profileData = {
-      aboutMe: profileInfo?.aboutMe,
-      avatars: profileInfo?.avatars,
-      userName: profileInfo?.userName,
-    }
-    followers = profileInfo?.userMetadata.followers
-    following = profileInfo?.userMetadata.following
   }
   const deletePostHandler = (id: number) => {
     deletePost(id)
