@@ -70,7 +70,9 @@ export const HomePage = () => {
               />
               <div className="flex gap-4">
                 <FormatDateForPost post={post} />
-                <MobilePostMenu imageUrl={post.images[0]?.url} />
+                <MobilePostMenu
+                  imageUrl={`${process.env.NEXT_PUBLIC_DOMAIN}/public-profile/profile/${post.ownerId}?postId=${post.id}`}
+                />
               </div>
             </div>
             <HomePostImage images={post.images} postId={post.id} />
