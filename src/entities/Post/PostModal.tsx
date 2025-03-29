@@ -64,23 +64,23 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
 
   return (
     <Modal
-      className={'w-full '}
+      className="w-full"
       contentClassName="p-[15px] lg:p-0 pt-0  bg-dark-700 lg:bg-dark-300 lg:pt-0 items-start justify-between "
       headerClassName="h-[60px]"
-      modalClassName=" lg:w-[50%] lg:min-w-[950px] w-[100%] min-w-[320px] h-auto"
+      modalClassName="lg:w-[50%] lg:min-w-[950px] w-[100%] min-w-[320px] h-auto"
       onClose={handleSubmit(onCloseEditor)}
     >
       <div className="lg:flex w-full" key={post.id}>
-        {status === 'EDIT' ? (
-          <div className="flex items-center lg:hidden lg:invisible justify-between py-[18px] ">
-            <Button className={'text-h3'} onClick={handleSubmit(onCloseEditor)} variant={'text'}>
+        {status === EDIT_POST_STATUS.EDIT ? (
+          <div className="flex items-center lg:hidden lg:invisible justify-between py-[18px]">
+            <Button className="text-h3" onClick={handleSubmit(onCloseEditor)} variant="text">
               {t.postModal.cancel}
             </Button>
-            <h2 className={'text-h2'}>{t.postModal.editPost}</h2>
+            <h2 className="text-h2">{t.postModal.editPost}</h2>
             <Button
-              className={'text-h3 text-accent-500 '}
+              className="text-h3 text-accent-500"
               onClick={handleSubmit(onSubmit)}
-              variant={'text'}
+              variant="text"
             >
               {t.postModal.save}
             </Button>
@@ -91,21 +91,17 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
             <MobilePostMenu>
               <DropdownItem>
                 <Button
-                  className={'flex gap-[12px]'}
+                  className="flex gap-[12px]"
                   onClick={() => setStatus(EDIT_POST_STATUS.EDIT)}
                   variant="text"
                 >
-                  <Image alt={'more'} height={24} src={'/pen.svg'} width={24} />
+                  <Image alt="more" height={24} src="/pen.svg" width={24} />
                   {t.postModal.editPost}
                 </Button>
               </DropdownItem>
               <DropdownItem>
-                <Button
-                  className={'flex gap-[12px]'}
-                  onClick={() => setIsOpen(true)}
-                  variant={'text'}
-                >
-                  <Image alt={'more'} height={24} src={'/basket.svg'} width={24} />
+                <Button className="flex gap-[12px]" onClick={() => setIsOpen(true)} variant="text">
+                  <Image alt="more" height={24} src="/basket.svg" width={24} />
                   {t.postModal.deletePost}
                 </Button>
               </DropdownItem>
@@ -113,12 +109,12 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
           </div>
         )}
 
-        <div className="max-w-[490px]  lg:w-1/2 flex-shrink-0 m-auto">
+        <div className="max-w-[490px] lg:w-1/2 flex-shrink-0 m-auto">
           <PostImage arrImages={post.images} height={560} width={490} />
         </div>
-        {status === 'EDIT' ? (
-          <div className={'h-fit lg:w-1/2 flex flex-col gap-[24px] pt-[20px] lg:p-[24px]'}>
-            <div className="">
+        {status === EDIT_POST_STATUS.EDIT ? (
+          <div className="h-fit lg:w-1/2 flex flex-col gap-[24px] pt-[20px] lg:p-[24px]">
+            <div>
               {title}
               <ControlledTextarea
                 className="min-h-[120px] md:h-100%"
@@ -134,32 +130,31 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
               className="mt-auto hidden invisible lg:visible lg:flex"
               onClick={handleSubmit(onSubmit)}
             >
-              <Button>Save Changes</Button>
+              <Button>{t.postModal.saveChanges}</Button>
             </div>
           </div>
         ) : (
           <div className="flex lg:px-[24px] flex-1 flex-col justify-between max-h-[474px]">
             <div className="hidden justify-between items-center relative md:flex">
               {title}
-
               <MobilePostMenu>
                 <DropdownItem>
                   <Button
-                    className={'flex gap-[12px]'}
+                    className="flex gap-[12px]"
                     onClick={() => setStatus(EDIT_POST_STATUS.EDIT)}
-                    variant={'text'}
+                    variant="text"
                   >
-                    <Image alt={'more'} height={24} src={'/pen.svg'} width={24} />
+                    <Image alt="more" height={24} src="/pen.svg" width={24} />
                     {t.postModal.editPost}
                   </Button>
                 </DropdownItem>
                 <DropdownItem>
                   <Button
-                    className={'flex gap-[12px]'}
+                    className="flex gap-[12px]"
                     onClick={() => setIsOpen(true)}
-                    variant={'text'}
+                    variant="text"
                   >
-                    <Image alt={'more'} height={24} src={'/basket.svg'} width={24} />
+                    <Image alt="more" height={24} src="/basket.svg" width={24} />
                     {t.postModal.deletePost}
                   </Button>
                 </DropdownItem>
@@ -175,14 +170,10 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
                     likesCount={post.likesCount}
                   />
                   <article className="flex flex-wrap  gap-1">
-                    <h2 className={'text-bold-14  font-bold   whitespace-nowrap text-base'}>
+                    <h2 className="text-bold-14  font-bold   whitespace-nowrap text-base">
                       {post.userName}
                     </h2>
-                    <h1
-                      className={
-                        'break-words whitespace-normal overflow-hidden leading-relaxed max-w-full text-sm'
-                      }
-                    >
+                    <h1 className="break-words whitespace-normal overflow-hidden leading-relaxed max-w-full text-sm">
                       {post.description}
                     </h1>
                   </article>
@@ -194,7 +185,7 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
                   {comments?.items.length > 0 ? (
                     comments?.items.map(comment => <Comment comment={comment} key={comment.id} />)
                   ) : (
-                    <span>no comments</span>
+                    <span>{t.postModal.noComments}</span>
                   )}
                 </div>
               </div>
@@ -215,8 +206,6 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
       )}
       {isOpenForEdit && (
         <CloseModal
-          buttonsClassName={''}
-          className={''}
           onClose={() => setIsOpenForEdit(false)}
           onDiscard={() => setStatus(EDIT_POST_STATUS.INITIAL)}
           onDiscardText={t.generalInformation.yes}

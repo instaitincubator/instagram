@@ -158,7 +158,9 @@ Your rights to your content remain unaffected. We do not claim ownership of your
     finishEditingPost:
       'Do you really want to finish editing? If you close the changes you have made will not be saved',
     no: 'No',
+    noComments: 'no comments',
     save: 'Save',
+    saveChanges: 'Save Changes',
     youWantDeletePost: 'Are you sure you want to delete this post?',
   },
   profile: {
