@@ -10,12 +10,14 @@ import { DropdownItem } from '@/features/dropdown/dropdown'
 import { MobilePostMenu } from '@/features/home/ui/MobilePostMenu'
 import { PostActionPanel } from '@/features/home/ui/PostActionPanel'
 import { usePublicationForm } from '@/features/publication-form/usePublicationForm'
+import useIsMobile from '@/shared/hooks/useIsMobile'
 import { useTranslation } from '@/shared/hooks/useTranslation'
 import { PostsPublicItems } from '@/shared/types/ApiTypes/ProfileApiTypes'
 import { CommentForPost } from '@/shared/types/public.types'
 import { ControlledTextarea } from '@/shared/ui'
 import Button from '@/shared/ui/Button/Button'
 import { Modal } from '@/shared/ui/Modal/Modal'
+import { cn } from '@/shared/utils/cn'
 import Image from 'next/image'
 
 interface Props {
@@ -32,6 +34,7 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
   const [status, setStatus] = useState<EDIT_POST_STATUS.EDIT | EDIT_POST_STATUS.INITIAL>(
     EDIT_POST_STATUS.INITIAL
   )
+  const isMobile = useIsMobile(480)
   const { t } = useTranslation()
   const title = (
     <UserAvatar
@@ -65,10 +68,13 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
   return (
     <Modal
       className="w-full"
-      contentClassName="p-[15px] lg:p-0 pt-0  bg-dark-700 lg:bg-dark-300 lg:pt-0 items-start justify-between "
+      contentClassName="p-[15px] lg:p-0 pt-0  bg-dark-700 lg:bg-dark-300 lg:pt-0 items-start justify-between"
       headerClassName="h-[60px]"
-      modalClassName="lg:w-[50%] lg:min-w-[950px] w-[100%] min-w-[320px] h-auto"
+      modalClassName={cn('lg:w-[50%] lg:min-w-[950px] w-[100%] min-w-[320px] h-auto', {
+        'h-full bg-dark-700 mt-[59px]': isMobile,
+      })}
       onClose={handleSubmit(onCloseEditor)}
+      withOutHeader={isMobile}
     >
       <div className="lg:flex w-full" key={post.id}>
         {status === EDIT_POST_STATUS.EDIT ? (

@@ -1,5 +1,6 @@
 import React, { FC, PropsWithChildren, ReactNode, useEffect } from 'react'
 
+import useIsMobile from '@/shared/hooks/useIsMobile'
 import { cn } from '@/shared/utils/cn'
 import Image from 'next/image'
 
@@ -28,6 +29,7 @@ export const Modal: FC<PropsWithChildren<ModalProps>> = props => {
     withOutHeader,
     withOutHeaderButtonClassName,
   } = props
+  const isMobile = useIsMobile(479)
 
   useEffect(() => {
     const handleClose = (event: KeyboardEvent): void => {
@@ -53,7 +55,7 @@ export const Modal: FC<PropsWithChildren<ModalProps>> = props => {
           'fixed inset-0 z-40 w-full h-full bg-dark-900 bg-opacity-20',
           onCloseClassname
         )}
-        onClick={onClose}
+        onClick={!isMobile ? onClose : undefined}
       />
       <div className={cn('bg-dark-300 z-50 overflow-auto border border-dark-100', modalClassName)}>
         {!withOutHeader ? (
