@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 
 import { Comment } from '@/entities/Post/Comment'
 import { EDIT_POST_STATUS } from '@/entities/Post/PostTypes'
+import { PostModalHeader } from '@/entities/Post/ui/PostModalHeader'
 import { PostImage } from '@/entities/PostImage/PostImage'
 import { TimePublish } from '@/entities/TimePublish/TimePublish'
 import UserAvatar from '@/entities/UserAvatar/UserAvatar'
@@ -85,44 +86,12 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
             </Button>
           </div>
         ) : (
-          <div className="flex justify-between items-center relative md:hidden">
-            <UserAvatar
-              avatar={post.avatarOwner}
-              userId={post.ownerId}
-              userName={post.owner ? post.owner : post.userName}
-            />
-            <div className="flex gap-4">
-              <MobilePostMenu>
-                <DropdownItem>
-                  <Button
-                    className="flex gap-[12px]"
-                    onClick={() => setStatus(EDIT_POST_STATUS.EDIT)}
-                    variant="text"
-                  >
-                    <Image alt="more" height={24} src="/pen.svg" width={24} />
-                    {t.postModal.editPost}
-                  </Button>
-                </DropdownItem>
-                <DropdownItem>
-                  <Button
-                    className="flex gap-[12px]"
-                    onClick={() => setIsOpen(true)}
-                    variant="text"
-                  >
-                    <Image alt="more" height={24} src="/basket.svg" width={24} />
-                    {t.postModal.deletePost}
-                  </Button>
-                </DropdownItem>
-              </MobilePostMenu>
-              <button
-                className={cn('h-6', { hidden: !isMobile })}
-                onClick={handleSubmit(onCloseEditor)}
-                type="button"
-              >
-                <Image alt="close" height={24} src="/close.svg" width={24}></Image>
-              </button>
-            </div>
-          </div>
+          <PostModalHeader
+            onClose={handleSubmit(onCloseEditor)}
+            post={post}
+            setIsOpen={setIsOpen}
+            setStatus={setStatus}
+          />
         )}
 
         <div className="max-w-[490px] lg:w-1/2 flex-shrink-0 m-auto">
