@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 
 import { Comment } from '@/entities/Post/Comment'
+import { EDIT_POST_STATUS } from '@/entities/Post/PostTypes'
 import { PostImage } from '@/entities/PostImage/PostImage'
 import { TimePublish } from '@/entities/TimePublish/TimePublish'
 import UserAvatar from '@/entities/UserAvatar/UserAvatar'
@@ -26,10 +27,11 @@ interface Props {
 }
 
 const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Props) => {
-  const [isVisible, setIsVisible] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
   const [isOpenForEdit, setIsOpenForEdit] = useState(false)
-  const [status, setStatus] = useState<'EDIT' | 'INITIAL'>('INITIAL')
+  const [status, setStatus] = useState<EDIT_POST_STATUS.EDIT | EDIT_POST_STATUS.INITIAL>(
+    EDIT_POST_STATUS.INITIAL
+  )
   const { t } = useTranslation()
   const title = (
     <UserAvatar
@@ -42,19 +44,19 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
   const onSubmit = (data: { description?: string }) => {
     if (data.description) {
       if (data.description === post.description) {
-        setStatus('INITIAL')
+        setStatus(EDIT_POST_STATUS.INITIAL)
       } else {
         editPost(post.id, data.description)
-        setStatus('INITIAL')
+        setStatus(EDIT_POST_STATUS.INITIAL)
       }
     }
   }
   const onCloseEditor = (data: { description?: string }) => {
-    if (status === 'INITIAL') {
+    if (status === EDIT_POST_STATUS.INITIAL) {
       onClose()
     }
     if (data.description === post.description) {
-      setStatus('INITIAL')
+      setStatus(EDIT_POST_STATUS.INITIAL)
     } else {
       setIsOpenForEdit(true)
     }
@@ -67,7 +69,6 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
       headerClassName="h-[60px]"
       modalClassName=" lg:w-[50%] lg:min-w-[950px] w-[100%] min-w-[320px] h-auto"
       onClose={handleSubmit(onCloseEditor)}
-      // title={title}
     >
       <div className="lg:flex w-full" key={post.id}>
         {status === 'EDIT' ? (
@@ -91,10 +92,10 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
               <DropdownItem>
                 <Button
                   className={'flex gap-[12px]'}
-                  onClick={() => setStatus('EDIT')}
-                  variant={'text'}
+                  onClick={() => setStatus(EDIT_POST_STATUS.EDIT)}
+                  variant="text"
                 >
-                  <Image alt={'more'} height={24} src={'/pen.svg'} width={24} />{' '}
+                  <Image alt={'more'} height={24} src={'/pen.svg'} width={24} />
                   {t.postModal.editPost}
                 </Button>
               </DropdownItem>
@@ -116,9 +117,7 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
           <PostImage arrImages={post.images} height={560} width={490} />
         </div>
         {status === 'EDIT' ? (
-          <div
-            className={'h-fit lg:p-[24px] lg:w-1/2 flex flex-col gap-[24px] pt-[20px] lg:p-[24px]'}
-          >
+          <div className={'h-fit lg:w-1/2 flex flex-col gap-[24px] pt-[20px] lg:p-[24px]'}>
             <div className="">
               {title}
               <ControlledTextarea
@@ -147,7 +146,7 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
                 <DropdownItem>
                   <Button
                     className={'flex gap-[12px]'}
-                    onClick={() => setStatus('EDIT')}
+                    onClick={() => setStatus(EDIT_POST_STATUS.EDIT)}
                     variant={'text'}
                   >
                     <Image alt={'more'} height={24} src={'/pen.svg'} width={24} />
@@ -170,10 +169,6 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
               <div className="w-full h-[1px] bg-dark-100" />
               <div className="flex justify-around flex-col lg:flex-col-reverse">
                 <div className="p-2 flex flex-col gap-2">
-                  {/*<LikesCounter*/}
-                  {/*  // avatarWhoLikes={post.avatarWhoLikes}*/}
-                  {/*  likesCount={post.likesCount}*/}
-                  {/*/>*/}
                   <PostActionPanel
                     avatarWhoLikes={post.avatarWhoLikes}
                     id={post.id}
@@ -204,14 +199,6 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
                 </div>
               </div>
             </div>
-
-            {/*<div className="h-fit">*/}
-            {/*  <div className="w-full h-[1px] bg-dark-100" />*/}
-            {/*  <div className="p-2 flex flex-col gap-2">*/}
-            {/*    <LikesCounter avatarWhoLikes={post.avatarWhoLikes} likesCount={post.likesCount} />*/}
-            {/*    <TimePublish createdAt={post.createdAt} />*/}
-            {/*  </div>*/}
-            {/*</div>*/}
           </div>
         )}
       </div>
@@ -231,7 +218,7 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
           buttonsClassName={''}
           className={''}
           onClose={() => setIsOpenForEdit(false)}
-          onDiscard={() => setStatus('INITIAL')}
+          onDiscard={() => setStatus(EDIT_POST_STATUS.INITIAL)}
           onDiscardText={t.generalInformation.yes}
           onSave={() => setIsOpenForEdit(false)}
           onSaveString={t.postModal.no}
