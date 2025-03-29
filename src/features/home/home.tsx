@@ -2,13 +2,13 @@ import React, { useEffect, useRef, useState } from 'react'
 
 import UserAvatar from '@/entities/UserAvatar/UserAvatar'
 import { homePostsPaginationParams } from '@/features/home/const'
+import { FormatDateForPost } from '@/features/home/formatDateForPost'
 import { HomePostImage } from '@/features/home/ui/HomePostImage'
 import { MobilePostMenu } from '@/features/home/ui/MobilePostMenu'
 import { PostActionPanel } from '@/features/home/ui/PostActionPanel'
 import { PostComments } from '@/features/home/ui/PostComments/PostComments'
 import { useGetFollowersPostsQuery } from '@/services/home-posts/home-page-api'
 import { HomePagePost, homePageRequest } from '@/services/home-posts/home-page-types'
-import { useTranslation } from '@/shared/hooks/useTranslation'
 import { Separator } from 'radix-ui'
 
 import 'swiper/css'
@@ -22,55 +22,6 @@ export const HomePage = () => {
   const { data: followersPosts } = useGetFollowersPostsQuery(postsPaginationParams)
   const lastPostObserverRef = useRef<HTMLDivElement | null>(null)
   const [allFollowersPosts, setAllFollowersPosts] = useState<HomePagePost[]>([])
-
-  const { t } = useTranslation()
-
-  const formatDateForPost = (date: string) => {
-    const now = new Date()
-    const postDate = new Date(date)
-    const differenceInTime = now.getTime() - postDate.getTime()
-
-    const differenceInSeconds = Math.floor(differenceInTime / 1000)
-    const differenceInMinutes = Math.floor(differenceInSeconds / 60)
-    const differenceInHours = Math.floor(differenceInMinutes / 60)
-    const differenceInDays = Math.floor(differenceInHours / 24)
-    const differenceInMonths = Math.floor(differenceInDays / 30)
-    const differenceInYears = Math.floor(differenceInMonths / 12)
-
-    if (differenceInSeconds < 60) {
-      return `${differenceInSeconds} ${t.timeAdditionPost.seconds}${
-        differenceInSeconds === 1 ? 'у' : 'ы'
-      } ${t.timeAdditionPost.back}`
-    } else if (differenceInMinutes < 60) {
-      return `${differenceInMinutes} минут${differenceInMinutes === 1 ? 'у' : 'ы'} ${
-        t.timeAdditionPost.back
-      }`
-    } else if (differenceInHours < 24) {
-      return `${differenceInHours} час${differenceInHours === 1 ? 'а' : 'ов'} ${
-        t.timeAdditionPost.back
-      }`
-    } else if (differenceInDays < 30) {
-      let ending
-
-      if (differenceInDays === 1) {
-        ending = 'день'
-      } else if (differenceInDays === 2 || differenceInDays === 3 || differenceInDays === 4) {
-        ending = t.timeAdditionPost.days
-      } else {
-        ending = t.timeAdditionPost.days
-      }
-
-      return `${differenceInDays} ${ending} ${t.timeAdditionPost.back}`
-    } else if (differenceInMonths < 12) {
-      return `${differenceInMonths} месяц${differenceInMonths === 1 ? '' : 'а'} ${
-        t.timeAdditionPost.back
-      }`
-    } else {
-      return `${differenceInYears} год${differenceInYears === 1 ? '' : 'а'} ${
-        t.timeAdditionPost.back
-      }`
-    }
-  }
 
   useEffect(() => {
     if (followersPosts) {
@@ -118,7 +69,7 @@ export const HomePage = () => {
                 userName={post.userName}
               />
               <div className="flex gap-4">
-                <span className="opacity-50">{formatDateForPost(post.createdAt)}</span>
+                <FormatDateForPost post={post} />
                 <MobilePostMenu imageUrl={post.images[0]?.url} />
               </div>
             </div>
