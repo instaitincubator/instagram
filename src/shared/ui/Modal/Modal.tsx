@@ -77,7 +77,7 @@ export const Modal: FC<PropsWithChildren<ModalProps>> = props => {
               withOutHeaderButtonClassName
             )}
             onClick={onClose}
-            type={'button'}
+            type="button"
           >
             <Image alt="close" height={24} src="/close.svg" width={24}></Image>
           </button>

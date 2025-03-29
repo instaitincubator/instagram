@@ -36,13 +36,6 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
   )
   const isMobile = useIsMobile(480)
   const { t } = useTranslation()
-  const title = (
-    <UserAvatar
-      avatar={post.avatarOwner}
-      userId={post.ownerId}
-      userName={post.owner ? post.owner : post.userName}
-    />
-  )
   const { control, errors, handleSubmit } = usePublicationForm({ description: post.description })
   const onSubmit = (data: { description?: string }) => {
     if (data.description) {
@@ -93,25 +86,42 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
           </div>
         ) : (
           <div className="flex justify-between items-center relative md:hidden">
-            {title}
-            <MobilePostMenu>
-              <DropdownItem>
-                <Button
-                  className="flex gap-[12px]"
-                  onClick={() => setStatus(EDIT_POST_STATUS.EDIT)}
-                  variant="text"
-                >
-                  <Image alt="more" height={24} src="/pen.svg" width={24} />
-                  {t.postModal.editPost}
-                </Button>
-              </DropdownItem>
-              <DropdownItem>
-                <Button className="flex gap-[12px]" onClick={() => setIsOpen(true)} variant="text">
-                  <Image alt="more" height={24} src="/basket.svg" width={24} />
-                  {t.postModal.deletePost}
-                </Button>
-              </DropdownItem>
-            </MobilePostMenu>
+            <UserAvatar
+              avatar={post.avatarOwner}
+              userId={post.ownerId}
+              userName={post.owner ? post.owner : post.userName}
+            />
+            <div className="flex gap-4">
+              <MobilePostMenu>
+                <DropdownItem>
+                  <Button
+                    className="flex gap-[12px]"
+                    onClick={() => setStatus(EDIT_POST_STATUS.EDIT)}
+                    variant="text"
+                  >
+                    <Image alt="more" height={24} src="/pen.svg" width={24} />
+                    {t.postModal.editPost}
+                  </Button>
+                </DropdownItem>
+                <DropdownItem>
+                  <Button
+                    className="flex gap-[12px]"
+                    onClick={() => setIsOpen(true)}
+                    variant="text"
+                  >
+                    <Image alt="more" height={24} src="/basket.svg" width={24} />
+                    {t.postModal.deletePost}
+                  </Button>
+                </DropdownItem>
+              </MobilePostMenu>
+              <button
+                className={cn('h-6', { hidden: !isMobile })}
+                onClick={handleSubmit(onCloseEditor)}
+                type="button"
+              >
+                <Image alt="close" height={24} src="/close.svg" width={24}></Image>
+              </button>
+            </div>
           </div>
         )}
 
@@ -121,7 +131,11 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
         {status === EDIT_POST_STATUS.EDIT ? (
           <div className="h-fit lg:w-1/2 flex flex-col gap-[24px] pt-[20px] lg:p-[24px]">
             <div>
-              {title}
+              <UserAvatar
+                avatar={post.avatarOwner}
+                userId={post.ownerId}
+                userName={post.owner ? post.owner : post.userName}
+              />
               <ControlledTextarea
                 className="min-h-[120px] md:h-100%"
                 control={control}
@@ -142,7 +156,11 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
         ) : (
           <div className="flex lg:px-[24px] flex-1 flex-col justify-between max-h-[474px]">
             <div className="hidden justify-between items-center relative md:flex">
-              {title}
+              <UserAvatar
+                avatar={post.avatarOwner}
+                userId={post.ownerId}
+                userName={post.owner ? post.owner : post.userName}
+              />
               <MobilePostMenu>
                 <DropdownItem>
                   <Button
