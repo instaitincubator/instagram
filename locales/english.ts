@@ -200,5 +200,23 @@ Your rights to your content remain unaffected. We do not claim ownership of your
     search: 'Search',
     statistics: 'Statistics',
   },
+  timeAdditionPost: {
+    back: 'back',
+    minute: 'minute',
+    minutes: 'minutes',
+    minutesPlural: 'minutes',
+    hour: 'hour',
+    hours: 'hours',
+    hoursPlural: 'hours',
+    day: 'day',
+    days: 'days',
+    daysPlural: 'days',
+    month: 'month',
+    months: 'months',
+    monthsPlural: 'months',
+    year: 'year',
+    years: 'years',
+    yearsPlural: 'years',
+  },
 }
 export type LocaleType = typeof english
