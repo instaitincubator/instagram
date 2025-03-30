@@ -1,4 +1,17 @@
-export interface LikesApiType {
+export interface updatePostLikesRequest {
+  likeStatus: 'DISLIKE' | 'LIKE' | 'NONE'
+  postId: number
+}
+
+export interface updateCommentLikesRequest {
+  commentId: number
+  likeStatus: 'DISLIKE' | 'LIKE' | 'NONE'
+  postId: number
+}
+
+export interface updateAnswerLikesRequest {
+  answerId: number
+  commentId: number
   likeStatus: 'DISLIKE' | 'LIKE' | 'NONE'
   postId: number
 }
@@ -21,7 +34,7 @@ interface Items {
   userName: string
 }
 
-export interface GetAvatarResponse {
+export interface GetPostLikesResponse {
   isLiked: boolean
   items: Items[]
   nextCursor: null | number

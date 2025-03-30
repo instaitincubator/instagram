@@ -76,11 +76,7 @@ export const HomePage = () => {
               </div>
             </div>
             <HomePostImage images={post.images} postId={post.id} />
-            <PostActionPanel
-              avatarWhoLikes={post.avatarWhoLikes}
-              id={post.id}
-              likesCount={post.likesCount}
-            />
+            <PostActionPanel id={post.id} />
             <PostComments
               description={post.description}
               postId={post.id}
