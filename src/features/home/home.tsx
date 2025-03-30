@@ -2,11 +2,11 @@ import React, { useEffect, useRef, useState } from 'react'
 
 import UserAvatar from '@/entities/UserAvatar/UserAvatar'
 import { homePostsPaginationParams } from '@/features/home/const'
-import { FormatDateForPost } from '@/features/home/formatDateForPost'
 import { HomePostImage } from '@/features/home/ui/HomePostImage'
 import { MobilePostMenu } from '@/features/home/ui/MobilePostMenu'
 import { PostActionPanel } from '@/features/home/ui/PostActionPanel'
 import { PostComments } from '@/features/home/ui/PostComments/PostComments'
+import { FormatDateForPost } from '@/features/home/ui/formatDateForPost'
 import { useGetFollowersPostsQuery } from '@/services/home-posts/home-page-api'
 import { HomePagePost, homePageRequest } from '@/services/home-posts/home-page-types'
 import { Separator } from 'radix-ui'
@@ -69,7 +69,7 @@ export const HomePage = () => {
                 userName={post.userName}
               />
               <div className="flex gap-4">
-                <FormatDateForPost post={post} />
+                <FormatDateForPost createdAt={post.createdAt} />
                 <MobilePostMenu
                   imageUrl={`${process.env.NEXT_PUBLIC_DOMAIN}/public-profile/profile/${post.ownerId}?postId=${post.id}`}
                 />

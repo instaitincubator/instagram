@@ -1,8 +1,7 @@
-import { HomePagePost } from '@/services/home-posts/home-page-types'
 import { useTranslation } from '@/shared/hooks/useTranslation'
 
-type FormatDateForPostProps = {
-  post: HomePagePost
+interface Props {
+  createdAt: string
 }
 
 const getTimeString = (value: number, units: string[], suffix: string) => {
@@ -24,10 +23,10 @@ const getTimeString = (value: number, units: string[], suffix: string) => {
   return `${value} ${units[2]} ${suffix}`
 }
 
-export const FormatDateForPost = ({ post }: FormatDateForPostProps) => {
+export const FormatDateForPost = ({ createdAt }: Props) => {
   const { t } = useTranslation()
   const now = new Date()
-  const postDate = new Date(post.createdAt)
+  const postDate = new Date(createdAt)
   const differenceInTime = now.getTime() - postDate.getTime()
 
   const differenceInMinutes = Math.floor(differenceInTime / (1000 * 60))
