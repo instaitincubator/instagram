@@ -64,7 +64,7 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
       className="w-full z-80"
       contentClassName="p-[15px] sm:p-0 pt-0 bg-dark-700 sm:bg-dark-300 sm:pt-0 items-start justify-between"
       headerClassName="h-[60px]"
-      modalClassName={cn('sm:w-[50%] lg:min-w-[1000px] w-[100%] min-w-[320px] h-auto', {
+      modalClassName={cn('lg:w-[50%] sm:w-[80%] lg:min-w-[1000px] w-[100%] min-w-[320px] h-auto', {
         'h-full bg-dark-700 mt-[59px]': isMobile,
       })}
       onClose={handleSubmit(onCloseEditor)}
@@ -95,7 +95,7 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
           />
         )}
 
-        <div className="max-w-[490px] sm:w-1/2 flex-shrink-0 m-auto">
+        <div className="lg:max-w-[490px] sm:pb-5 lg:pb-0 w-[95%] flex-shrink-0 m-auto">
           <PostImage arrImages={post.images} height={560} width={490} />
         </div>
         {status === EDIT_POST_STATUS.EDIT ? (
@@ -125,7 +125,7 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
           </div>
         ) : (
           <div className="flex sm:px-[24px] flex-1 flex-col justify-between max-h-[474px]">
-            <div className="hidden justify-between items-center relative sm:flex">
+            <div className="hidden justify-between items-center relative lg:flex">
               <UserAvatar
                 avatar={post.avatarOwner}
                 userId={post.ownerId}

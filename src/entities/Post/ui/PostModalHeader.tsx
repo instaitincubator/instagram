@@ -23,7 +23,7 @@ export const PostModalHeader = ({ onClose, post, setIsOpen, setStatus }: Props) 
   const { t } = useTranslation()
 
   return (
-    <div className="flex justify-between items-center relative md:hidden">
+    <div className="flex justify-between items-center relative lg:hidden sm:px-8">
       <UserAvatar
         avatar={post.avatarOwner}
         userId={post.ownerId}
