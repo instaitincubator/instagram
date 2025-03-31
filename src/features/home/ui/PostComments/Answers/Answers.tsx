@@ -11,7 +11,7 @@ interface Props {
 }
 
 export const Answers = ({ commentId, postId }: Props) => {
-  const { data: answers } = useGetCommentAnswersQuery({ commentId, postId })
+  const { data: answers } = useGetCommentAnswersQuery({ commentId, postId, sortDirection: 'asc' })
 
   return (
     <div className="flex flex-col gap-2 pt-2">

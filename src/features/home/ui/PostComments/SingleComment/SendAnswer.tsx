@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 
 import { useCreateAnswerMutation } from '@/services/comments/answers/answers-api'
-import { useCreateCommentMutation } from '@/services/comments/comments-api'
 import Button from '@/shared/ui/Button/Button'
 import { Input } from '@/shared/ui/Input/Input'
 import { cn } from '@/shared/utils/cn'
@@ -28,7 +27,7 @@ export const SendAnswer = ({ commentId, postId }: Props) => {
         className="border-none"
         fullWidth
         onChangeText={setCommentText}
-        placeholder="Add a Comment..."
+        placeholder="Add an answer..."
         value={commentText}
       />
       <Button

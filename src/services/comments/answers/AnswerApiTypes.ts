@@ -9,6 +9,7 @@ export interface CreateAnswerRequest {
 export interface GetCommentAnswerRequest {
   commentId: number
   postId: number
+  sortDirection: 'asc' | 'desc'
 }
 
 export interface CreateAnswerResponse {
