@@ -1,7 +1,7 @@
 import React from 'react'
 
 import UserAvatar from '@/entities/UserAvatar/UserAvatar'
-import { LikesCounter } from '@/entities/likesCounter/LikesCounter'
+import { AnswerLikesCounter } from '@/entities/likesCounter/AnswerLikesCounter'
 import { FormatDateForPost } from '@/features/home/ui/formatDateForPost'
 import { useGetCommentAnswersQuery } from '@/services/comments/answers/answers-api'
 
@@ -11,7 +11,7 @@ interface Props {
 }
 
 export const Answers = ({ commentId, postId }: Props) => {
-  const { data: answers } = useGetCommentAnswersQuery({ commentId, postId })
+  const { data: answers } = useGetCommentAnswersQuery({ commentId, postId, sortDirection: 'asc' })
 
   return (
     <div className="flex flex-col gap-2 pt-2">
@@ -34,7 +34,12 @@ export const Answers = ({ commentId, postId }: Props) => {
             </div>
           </div>
           <div>
-            <LikesCounter commentId={answer.id} postId={postId} />
+            <AnswerLikesCounter
+              answerId={answer.id}
+              commentId={answer.commentId}
+              isLiked={answer.isLiked}
+              postId={postId}
+            />
           </div>
         </div>
       ))}

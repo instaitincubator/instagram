@@ -4,7 +4,7 @@ import { Comment } from '@/entities/Post/Comment'
 import { PostImage } from '@/entities/PostImage/PostImage'
 import { TimePublish } from '@/entities/TimePublish/TimePublish'
 import UserAvatar from '@/entities/UserAvatar/UserAvatar'
-import { LikesCounter } from '@/entities/likesCounter/LikesCounter'
+import { PostLikesCounter } from '@/entities/likesCounter/PostLikesCounter'
 import { PostsPublicItems } from '@/shared/types/ApiTypes/ProfileApiTypes'
 import { CommentForPost } from '@/shared/types/public.types'
 import { Modal } from '@/shared/ui/Modal/Modal'
@@ -47,7 +47,7 @@ const PostModal = ({ comments, onClose, post }: Props) => {
           <div className="h-fit">
             <div className="w-full h-[1px] bg-dark-100" />
             <div className="p-2 flex flex-col gap-2">
-              <LikesCounter
+              <PostLikesCounter
                 avatarWhoLikes={post.avatarWhoLikes}
                 likesCount={post.likesCount}
                 postId={post.id}

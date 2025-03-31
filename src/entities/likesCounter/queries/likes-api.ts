@@ -16,6 +16,7 @@ export const LikesApi = baseApi.injectEndpoints({
       }),
     }),
     updateAnswerLikeStatus: builder.mutation<void, updateAnswerLikesRequest>({
+      invalidatesTags: ['Answer'],
       query: arg => ({
         body: arg,
         method: 'PUT',
@@ -23,14 +24,15 @@ export const LikesApi = baseApi.injectEndpoints({
       }),
     }),
     updateCommentLikeStatus: builder.mutation<void, updateCommentLikesRequest>({
-      invalidatesTags: ['PostLikeStatus'],
+      invalidatesTags: ['Answer', 'Comments'],
       query: arg => ({
         body: arg,
         method: 'PUT',
-        url: `/api/v1/posts/${arg.postId}/comments/${arg.commentId}/answers`,
+        url: `/api/v1/posts/${arg.postId}/comments/${arg.commentId}/like-status`,
       }),
     }),
     updatePostLikeStatus: builder.mutation<void, updatePostLikesRequest>({
+      invalidatesTags: ['Answer'],
       query: arg => ({
         body: arg,
         method: 'PUT',

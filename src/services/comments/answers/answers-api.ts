@@ -17,7 +17,9 @@ export const CommentsApi = baseApi.injectEndpoints({
       }),
     }),
     getCommentAnswers: builder.query<GetCommentAnswerResponse, GetCommentAnswerRequest>({
+      providesTags: ['Answer'],
       query: arg => ({
+        params: arg,
         url: `/api/v1/posts/${arg.postId}/comments/${arg.commentId}/answers`,
       }),
     }),
