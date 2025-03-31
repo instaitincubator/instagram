@@ -1,6 +1,6 @@
 'use client'
 
-import { HTMLAttributes, forwardRef, useCallback, useImperativeHandle, useRef } from 'react'
+import React, { HTMLAttributes, forwardRef, useCallback, useImperativeHandle, useRef } from 'react'
 
 import { cn } from '@/lib/utils'
 import { Variants, motion, useAnimation } from 'motion/react'
