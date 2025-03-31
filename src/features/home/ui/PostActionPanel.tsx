@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { LikesCounter } from '@/entities/likesCounter/LikesCounter'
+// import { LikesCounter } from '@/entities/likesCounter/LikesCounter'
 import { MessageCircleMoreIcon } from '@/shared/ui/Animate-icons/message-circle-more'
 import { cn } from '@/shared/utils/cn'
 
