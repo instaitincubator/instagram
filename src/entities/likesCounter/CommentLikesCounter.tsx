@@ -1,6 +1,5 @@
+import { LikesImagesWithUserList } from '@/entities/likesCounter/LikesImagesWithUserList'
 import { useUpdateCommentLikeStatusMutation } from '@/entities/likesCounter/queries/likes-api'
-
-import { Heart, OutlinedHeart } from '../../../public'
 
 interface Props {
   commentId: number
@@ -23,10 +22,7 @@ export const CommentLikesCounter = ({ commentId, isLiked, postId }: Props) => {
 
   return (
     <div className="flex gap-2  items-center">
-      <div className="cursor-pointer relative" onClick={onLike}>
-        {!isLiked && <OutlinedHeart />}
-        {isLiked && <Heart />}
-      </div>
+      <LikesImagesWithUserList isLiked={isLiked!} onLike={onLike} />
     </div>
   )
 }
