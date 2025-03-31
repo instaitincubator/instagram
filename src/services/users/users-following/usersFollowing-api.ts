@@ -27,7 +27,7 @@ const followingApi = baseApi.injectEndpoints({
         },
       }),
       unFollowingUser: build.mutation<void, number>({
-        invalidatesTags: ['following', 'profile', 'followingStatus'],
+        invalidatesTags: ['following', 'profile', 'followingStatus', 'FollowersPost'],
         query: body => {
           return {
             method: 'DELETE',
