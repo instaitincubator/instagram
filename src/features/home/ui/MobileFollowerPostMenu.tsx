@@ -12,7 +12,7 @@ interface Props {
   postId: number
 }
 
-export const MobilePostMenu = ({ imageUrl, postId }: Props) => {
+export const MobileFollowerPostMenu = ({ imageUrl, postId }: Props) => {
   const [unfollow] = useUnFollowingUserMutation()
   const copyLinkHandler = () => {
     void navigator.clipboard.writeText(imageUrl)

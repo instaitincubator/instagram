@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import UserAvatar from '@/entities/UserAvatar/UserAvatar'
 import { homePostsPaginationParams } from '@/features/home/const'
 import { HomePostImage } from '@/features/home/ui/HomePostImage'
-import { MobilePostMenu } from '@/features/home/ui/MobilePostMenu'
+import { MobileFollowerPostMenu } from '@/features/home/ui/MobileFollowerPostMenu'
 import { PostActionPanel } from '@/features/home/ui/PostActionPanel'
 import { PostComments } from '@/features/home/ui/PostComments/PostComments'
 import { FormatDateForPost } from '@/features/home/ui/formatDateForPost'
@@ -70,7 +70,7 @@ export const HomePage = () => {
               />
               <div className="flex gap-4">
                 <FormatDateForPost createdAt={post.createdAt} />
-                <MobilePostMenu
+                <MobileFollowerPostMenu
                   imageUrl={`${process.env.NEXT_PUBLIC_DOMAIN}/public-profile/profile/${post.ownerId}?postId=${post.id}`}
                   postId={post.ownerId}
                 />
