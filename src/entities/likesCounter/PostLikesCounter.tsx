@@ -25,14 +25,14 @@ export const PostLikesCounter = ({ postId }: Props) => {
   return (
     <div className="flex gap-2  items-center">
       <div className="flex relative">
-        {postLikeStatus?.items.map((userLiked, index) => {
+        {postLikeStatus?.items.slice(-3).map((userLiked, index) => {
           return (
             <Image
               alt="likersAvatar"
               className={`rounded-full z-[${10 + 10 * -index}] first:ml-0 ml-[-5px] flex`}
               height={20}
               key={index}
-              src={userLiked.avatars[1].url}
+              src={userLiked.avatars.length > 1 ? userLiked.avatars[1].url : '/avatar.png'}
               width={20}
             />
           )

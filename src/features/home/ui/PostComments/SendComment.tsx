@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 
 import { useCreateCommentMutation } from '@/services/comments/comments-api'
+import { useTranslation } from '@/shared/hooks/useTranslation'
 import Button from '@/shared/ui/Button/Button'
 import { Input } from '@/shared/ui/Input/Input'
 import { cn } from '@/shared/utils/cn'
@@ -12,6 +13,7 @@ interface Props {
 export const SendComment = ({ postId }: Props) => {
   const [commentText, setCommentText] = useState<string>('')
   const [createComment] = useCreateCommentMutation()
+  const { t } = useTranslation()
   const createNewComment = () => {
     createComment({
       content: commentText,
@@ -26,7 +28,7 @@ export const SendComment = ({ postId }: Props) => {
         className="border-none"
         fullWidth
         onChangeText={setCommentText}
-        placeholder="Add a Comment..."
+        placeholder={t.home.addComment}
         value={commentText}
       />
       <Button
@@ -37,7 +39,7 @@ export const SendComment = ({ postId }: Props) => {
         onClick={createNewComment}
         variant="text"
       >
-        Publish
+        {t.home.publish}
       </Button>
     </div>
   )
