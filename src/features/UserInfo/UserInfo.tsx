@@ -26,9 +26,9 @@ export const UserInfo = ({ posts, postsForPublic, profileInfo }: Props) => {
   const [profile, setProfile] = useState<ProfileInfo>(profileInfo)
   const [fetchProfile, { data: newProfileInfo, isSuccess }] = useLazyGetPublicUserQuery()
   const { t } = useTranslation()
-  const me = useMeQuery()
+  const { data: me, isLoading: isMeLoading } = useMeQuery()
   const isMobile = useIsMobile(480)
-  const isProfileOwner = me?.data?.userId === profile.id
+  const isProfileOwner = me?.userId === profile.id
   const { data: userFollowingStatus } = useGetUserWithFollowingStatusQuery(profile.userName)
 
   useEffect(() => {
@@ -61,14 +61,14 @@ export const UserInfo = ({ posts, postsForPublic, profileInfo }: Props) => {
         <div className="w-full pl-[7px] md:pl-9 flex flex-col">
           <div className="flex justify-between w-full">
             <span className="hidden text-h1 md:block">{profile.userName}</span>
-            {isProfileOwner && (
+            {isProfileOwner && !isMeLoading && (
               <Link className="hidden md:block" href="/public-profile/settings">
                 <Button className="text-h3" variant="secondary">
                   {t.profile.profileSetting}
                 </Button>
               </Link>
             )}
-            {!isMobile && (
+            {!isMobile && !isMeLoading && (
               <ButtonForOtherUsersProfile
                 fetchProfile={fetchProfile}
                 isFollowing={userFollowingStatus?.isFollowing!}
@@ -98,7 +98,7 @@ export const UserInfo = ({ posts, postsForPublic, profileInfo }: Props) => {
             </div>
           </div>
           <p
-            className={cn('hidden md:block ', { 'max-w-[750px]': !me?.data?.userId })}
+            className={cn('hidden md:block ', { 'max-w-[750px]': !me?.userId })}
             dangerouslySetInnerHTML={{
               __html: (profile.aboutMe || '').replace(/\n\r?/g, '<br/>'),
             }}
