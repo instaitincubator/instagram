@@ -1,19 +1,20 @@
 import React, { useState } from 'react'
 
-import { useCreateCommentMutation } from '@/services/comments/comments-api'
+import { useCreateAnswerMutation } from '@/services/comments/answers/answers-api'
 import Button from '@/shared/ui/Button/Button'
 import { Input } from '@/shared/ui/Input/Input'
 import { cn } from '@/shared/utils/cn'
 
 interface Props {
+  commentId: number
   postId: number
 }
-
-export const SendComment = ({ postId }: Props) => {
+export const SendAnswer = ({ commentId, postId }: Props) => {
   const [commentText, setCommentText] = useState<string>('')
-  const [createComment] = useCreateCommentMutation()
-  const createNewComment = () => {
-    createComment({
+  const [createAnswer] = useCreateAnswerMutation()
+  const createNewAnswer = () => {
+    createAnswer({
+      commentId,
       content: commentText,
       postId,
     })
@@ -26,7 +27,7 @@ export const SendComment = ({ postId }: Props) => {
         className="border-none"
         fullWidth
         onChangeText={setCommentText}
-        placeholder="Add a Comment..."
+        placeholder="Add an answer..."
         value={commentText}
       />
       <Button
@@ -34,7 +35,7 @@ export const SendComment = ({ postId }: Props) => {
           'border-none': commentText === '',
         })}
         disabled={commentText === ''}
-        onClick={createNewComment}
+        onClick={createNewAnswer}
         variant="text"
       >
         Publish

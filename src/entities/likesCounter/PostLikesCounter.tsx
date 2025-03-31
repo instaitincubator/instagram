@@ -1,25 +1,23 @@
+import { LikesImagesWithUserList } from '@/entities/likesCounter/LikesImagesWithUserList'
 import {
   useGetPostLikeStatusQuery,
-  useUpdateLikeStatusMutation,
+  useUpdatePostLikeStatusMutation,
 } from '@/entities/likesCounter/queries/likes-api'
 import Image from 'next/image'
 
-import { Heart, OutlinedHeart } from '../../../public'
-
 interface Props {
-  likesCount: number
-  postId?: number
+  postId: number
 }
 
-export const LikesCounter = ({ likesCount, postId }: Props) => {
-  const { data: postLikeStatus } = useGetPostLikeStatusQuery(postId!)
-  const [updateLikeStatus] = useUpdateLikeStatusMutation()
+export const PostLikesCounter = ({ postId }: Props) => {
+  const { data: postLikeStatus } = useGetPostLikeStatusQuery(postId)
+  const [updatePostLikeStatus] = useUpdatePostLikeStatusMutation()
 
   const onLike = () => {
     if (postId) {
-      updateLikeStatus({
+      updatePostLikeStatus({
         likeStatus: postLikeStatus?.isLiked ? 'NONE' : 'LIKE',
-        postId: postId,
+        postId,
       })
     }
   }
@@ -41,10 +39,7 @@ export const LikesCounter = ({ likesCount, postId }: Props) => {
         })}
       </div>
       {postLikeStatus?.items.length}
-      <div className="cursor-pointer" onClick={onLike}>
-        {!postLikeStatus?.isLiked && <OutlinedHeart />}
-        {postLikeStatus?.isLiked && <Heart />}
-      </div>
+      <LikesImagesWithUserList isLiked={postLikeStatus?.isLiked!} onLike={onLike} />
     </div>
   )
 }

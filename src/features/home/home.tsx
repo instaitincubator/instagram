@@ -6,9 +6,9 @@ import { HomePostImage } from '@/features/home/ui/HomePostImage'
 import { MobilePostMenu } from '@/features/home/ui/MobilePostMenu'
 import { PostActionPanel } from '@/features/home/ui/PostActionPanel'
 import { PostComments } from '@/features/home/ui/PostComments/PostComments'
+import { FormatDateForPost } from '@/features/home/ui/formatDateForPost'
 import { useGetFollowersPostsQuery } from '@/services/home-posts/home-page-api'
 import { HomePagePost, homePageRequest } from '@/services/home-posts/home-page-types'
-import { formatDate } from '@/shared/utils/formatDate'
 import { Separator } from 'radix-ui'
 
 import 'swiper/css'
@@ -69,16 +69,14 @@ export const HomePage = () => {
                 userName={post.userName}
               />
               <div className="flex gap-4">
-                <span className="opacity-50">{formatDate(post.createdAt)}</span>
-                <MobilePostMenu />
+                <FormatDateForPost createdAt={post.createdAt} />
+                <MobilePostMenu
+                  imageUrl={`${process.env.NEXT_PUBLIC_DOMAIN}/public-profile/profile/${post.ownerId}?postId=${post.id}`}
+                />
               </div>
             </div>
             <HomePostImage images={post.images} postId={post.id} />
-            <PostActionPanel
-              avatarWhoLikes={post.avatarWhoLikes}
-              id={post.id}
-              likesCount={post.likesCount}
-            />
+            <PostActionPanel id={post.id} />
             <PostComments
               description={post.description}
               postId={post.id}

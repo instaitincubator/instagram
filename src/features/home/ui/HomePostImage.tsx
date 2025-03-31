@@ -2,7 +2,7 @@ import React, { useRef } from 'react'
 
 import {
   useGetPostLikeStatusQuery,
-  useUpdateLikeStatusMutation,
+  useUpdatePostLikeStatusMutation,
 } from '@/entities/likesCounter/queries/likes-api'
 import { homePagePostImages } from '@/services/home-posts/home-page-types'
 import Image from 'next/image'
@@ -26,7 +26,7 @@ export const HomePostImage = ({ images, postId }: Props) => {
     swiperRef?.current?.swiper.slidePrev()
   }
   const { data: postLikeStatus } = useGetPostLikeStatusQuery(postId!)
-  const [updateLikeStatus] = useUpdateLikeStatusMutation()
+  const [updateLikeStatus] = useUpdatePostLikeStatusMutation()
 
   const onLike = () => {
     if (postId) {
