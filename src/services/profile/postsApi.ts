@@ -3,29 +3,8 @@ import {
   GetPublicProfilePostsParams,
   ProfilePublicPosts,
 } from '@/shared/types/ApiTypes/ProfileApiTypes'
+import { CreatePost } from '@/shared/types/public.types'
 
-export type UploadType = {
-  uploadId: string
-}
-export type CreatePost = {
-  childrenMetadata: UploadType[]
-  description: string
-}
-type PostView = {
-  avatarOwner: string
-  avatarWhoLikes: string[]
-  createdAt: string
-  description: string
-  id: number
-  images: any
-  isLiked: boolean
-  likesCount: number
-  location: string
-  owner: any
-  ownerId: number
-  updatedAt: string
-  userName: string
-}
 const getPostsApi = baseApi.injectEndpoints({
   endpoints: build => {
     return {

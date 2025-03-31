@@ -9,9 +9,43 @@ export type Images = {
   width: number
 }
 
+export type ImagesType = {
+  createdAt: string
+  fileSize: number
+  height: number
+  uploadId: string
+  url: string
+  width: number
+}
+export type CreatePostState = {
+  images: ImagesType[]
+  message?: string
+}
 export type PostCardProps = {
   openModal: (post: PostsPublicItems) => void
   post: PostsPublicItems
+}
+export type UploadType = {
+  uploadId: string
+}
+export type CreatePost = {
+  childrenMetadata: UploadType[]
+  description: string
+}
+type PostView = {
+  avatarOwner: string
+  avatarWhoLikes: string[]
+  createdAt: string
+  description: string
+  id: number
+  images: any
+  isLiked: boolean
+  likesCount: number
+  location: string
+  owner: any
+  ownerId: number
+  updatedAt: string
+  userName: string
 }
 
 export interface From {

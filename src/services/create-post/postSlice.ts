@@ -1,17 +1,6 @@
+import { CreatePostState, ImagesType } from '@/shared/types/public.types'
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
-export type ImagesType = {
-  createdAt: string
-  fileSize: number
-  height: number
-  uploadId: string
-  url: string
-  width: number
-}
-type CreatePostState = {
-  images: ImagesType[]
-  message?: string
-}
 const initialState: CreatePostState = {
   images: [],
   message: undefined,

@@ -1,11 +1,8 @@
 import React, { FC, PropsWithChildren } from 'react'
 
 import DeleteButton from '@/features/avatar/ui/delete-button'
-import { ImagesType } from '@/services/create-post/postSlice'
-import { cn } from '@/shared/utils/cn'
+import { ImagesType } from '@/shared/types/public.types'
 import Image from 'next/image'
-import { className } from 'postcss-selector-parser'
-import { Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
 type ListProps = {
@@ -14,7 +11,7 @@ type ListProps = {
   removeImage: (removeId: string) => void
 }
 const PhotoList: FC<PropsWithChildren<ListProps>> = props => {
-  const { className, images, removeImage } = props
+  const { images, removeImage } = props
 
   return (
     <div className={'relative w-[300px] overflow-hidden'}>
