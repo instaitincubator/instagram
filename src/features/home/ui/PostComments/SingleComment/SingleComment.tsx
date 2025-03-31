@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 import UserAvatar from '@/entities/UserAvatar/UserAvatar'
-import { LikesCounter } from '@/entities/likesCounter/LikesCounter'
+import { CommentLikesCounter } from '@/entities/likesCounter/CommentLikesCounter'
 import { Answers } from '@/features/home/ui/PostComments/Answers/Answers'
 import { SendAnswer } from '@/features/home/ui/PostComments/SingleComment/SendAnswer'
 import { ShowAnswerButton } from '@/features/home/ui/PostComments/SingleComment/ShowAnswerButton'
@@ -67,7 +67,11 @@ export const SingleComment = ({ comments, isAllCommentViewed, postId }: Props) =
           {showAnswerInput[comment.id] && <SendAnswer commentId={comment.id} postId={postId} />}
         </div>
         <div>
-          <LikesCounter commentId={comment.id} postId={postId} />
+          <CommentLikesCounter
+            commentId={comment.id}
+            isLiked={comment.isLiked}
+            postId={comment.postId}
+          />
         </div>
       </div>
     )
