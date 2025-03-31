@@ -28,7 +28,9 @@ export const SingleComment = ({ comments, isAllCommentViewed, postId }: Props) =
           <div>
             <div className="flex gap-2 items-center">
               <UserAvatar
-                avatar={comment.from.avatars[1].url}
+                avatar={
+                  comment.from.avatars.length > 1 ? comment.from.avatars[1].url : '/avatar.png'
+                }
                 avatarSize={24}
                 className="py-0"
                 userId={comment.from.id}
