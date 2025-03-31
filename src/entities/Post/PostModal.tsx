@@ -47,11 +47,7 @@ const PostModal = ({ comments, onClose, post }: Props) => {
           <div className="h-fit">
             <div className="w-full h-[1px] bg-dark-100" />
             <div className="p-2 flex flex-col gap-2">
-              <PostLikesCounter
-                avatarWhoLikes={post.avatarWhoLikes}
-                likesCount={post.likesCount}
-                postId={post.id}
-              />
+              <PostLikesCounter postId={post.id} />
               <TimePublish createdAt={post.createdAt} />
             </div>
           </div>
