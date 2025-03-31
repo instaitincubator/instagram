@@ -12,7 +12,7 @@ interface Props {
 export const PostActionPanel = ({ id }: Props) => {
   return (
     <div className="flex justify-between items-center py-2">
-      <PostLikesCounter postId={id} withAvatar />
+      <PostLikesCounter postId={id} />
       <div className="flex gap-2 items-center">
         <MessageCircleMoreIcon className="bg-dark-700 hover:bg-dark-700" size={20} />
         <div className="pr-1">

@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { useTranslation } from '@/shared/hooks/useTranslation'
 import { CopyLink } from '@/shared/ui/icons/copyLink'
 import { Follow } from '@/shared/ui/icons/follow'
 import { Menu } from '@/shared/ui/icons/menu'
@@ -12,8 +13,9 @@ type MobilePostMenuProps = {
 
 export const MobilePostMenu = ({ imageUrl }: MobilePostMenuProps) => {
   const copyLinkHandler = () => {
-    navigator.clipboard.writeText(imageUrl)
+    void navigator.clipboard.writeText(imageUrl)
   }
+  const { t } = useTranslation()
 
   return (
     <DropdownMenu.Root>
@@ -25,14 +27,14 @@ export const MobilePostMenu = ({ imageUrl }: MobilePostMenuProps) => {
           <DropdownMenu.Item className="group leading-none flex items-center h-9  relative select-none outline-none cursor-pointer">
             <Follow />
             <UnFollow />
-            <span className="ml-[7px]">UnFollow</span>
+            <span className="ml-[7px]">{t.home.unfollow}</span>
           </DropdownMenu.Item>
           <DropdownMenu.Item
             className="group leading-none flex items-center h-9 relative select-none outline-none cursor-pointer"
             onClick={copyLinkHandler}
           >
             <CopyLink />
-            <span className="ml-[7px]">Copy Link</span>
+            <span className="ml-[7px]">{t.home.copyLink}</span>
           </DropdownMenu.Item>
         </DropdownMenu.Content>
       </DropdownMenu.Portal>

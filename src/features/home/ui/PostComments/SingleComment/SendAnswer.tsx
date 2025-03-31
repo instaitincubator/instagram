@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 
 import { useCreateAnswerMutation } from '@/services/comments/answers/answers-api'
+import { useTranslation } from '@/shared/hooks/useTranslation'
 import Button from '@/shared/ui/Button/Button'
 import { Input } from '@/shared/ui/Input/Input'
 import { cn } from '@/shared/utils/cn'
@@ -12,6 +13,7 @@ interface Props {
 export const SendAnswer = ({ commentId, postId }: Props) => {
   const [commentText, setCommentText] = useState<string>('')
   const [createAnswer] = useCreateAnswerMutation()
+  const { t } = useTranslation()
   const createNewAnswer = () => {
     createAnswer({
       commentId,
@@ -27,7 +29,7 @@ export const SendAnswer = ({ commentId, postId }: Props) => {
         className="border-none"
         fullWidth
         onChangeText={setCommentText}
-        placeholder="Add an answer..."
+        placeholder={t.home.addAnswer}
         value={commentText}
       />
       <Button
@@ -38,7 +40,7 @@ export const SendAnswer = ({ commentId, postId }: Props) => {
         onClick={createNewAnswer}
         variant="text"
       >
-        Publish
+        {t.home.publish}
       </Button>
     </div>
   )

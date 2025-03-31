@@ -7,6 +7,7 @@ import { SendAnswer } from '@/features/home/ui/PostComments/SingleComment/SendAn
 import { ShowAnswerButton } from '@/features/home/ui/PostComments/SingleComment/ShowAnswerButton'
 import { FormatDateForPost } from '@/features/home/ui/formatDateForPost'
 import { Comments } from '@/services/comments/CommentsApiTypes'
+import { useTranslation } from '@/shared/hooks/useTranslation'
 
 interface Props {
   comments: Comments[]
@@ -18,13 +19,11 @@ export const SingleComment = ({ comments, isAllCommentViewed, postId }: Props) =
   const showAllComments = isAllCommentViewed ? comments?.length : 3
   const [showAnswer, setShowAnswer] = useState<Record<number, boolean>>({})
   const [showAnswerInput, setShowAnswerInput] = useState<Record<number, boolean>>({})
+  const { t } = useTranslation()
 
   return comments?.slice(0, showAllComments).map(comment => {
     return (
-      <div
-        className="flex w-full justify-between p-2 border-2 rounded-2xl border-dark-300"
-        key={comment.id}
-      >
+      <div className="flex w-full justify-between p-2 rounded-2xl" key={comment.id}>
         <div className="w-full">
           <div>
             <div className="flex gap-2 items-center">
@@ -39,7 +38,12 @@ export const SingleComment = ({ comments, isAllCommentViewed, postId }: Props) =
             </div>
             <div className="flex gap-5 pl-9 items-center text-regular-14 text-light-900">
               <FormatDateForPost createdAt={comment.createdAt} />
-              {comment.likeCount > 0 && <span>likes: {comment.likeCount}</span>}
+              {comment.likeCount > 0 && (
+                <span>
+                  {t.home.likes}
+                  {comment.likeCount}
+                </span>
+              )}
               <span
                 onClick={() =>
                   setShowAnswerInput(prev => ({
@@ -48,7 +52,7 @@ export const SingleComment = ({ comments, isAllCommentViewed, postId }: Props) =
                   }))
                 }
               >
-                {!showAnswerInput[comment.id] ? 'answer' : "don't answer"}
+                {!showAnswerInput[comment.id] ? t.home.answer : t.home.notAnswer}
               </span>
             </div>
           </div>
