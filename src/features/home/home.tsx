@@ -72,6 +72,7 @@ export const HomePage = () => {
                 <FormatDateForPost createdAt={post.createdAt} />
                 <MobilePostMenu
                   imageUrl={`${process.env.NEXT_PUBLIC_DOMAIN}/public-profile/profile/${post.ownerId}?postId=${post.id}`}
+                  postId={post.ownerId}
                 />
               </div>
             </div>
