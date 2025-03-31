@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PropsWithChildren } from 'react'
 
 import { CopyLink } from '@/shared/ui/icons/copyLink'
 import { Follow } from '@/shared/ui/icons/follow'
@@ -9,12 +9,11 @@ import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 type MobilePostMenuProps = {
   imageUrl: string
 }
+export const MobilePostMenu: React.FC<PropsWithChildren> = ({ children, imageUrl }: MobilePostMenuProps) => {
 
-export const MobilePostMenu = ({ imageUrl }: MobilePostMenuProps) => {
-  const copyLinkHandler = () => {
+    const copyLinkHandler = () => {
     navigator.clipboard.writeText(imageUrl)
   }
-
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger className="flex align-baseline">
@@ -22,6 +21,7 @@ export const MobilePostMenu = ({ imageUrl }: MobilePostMenuProps) => {
       </DropdownMenu.Trigger>
       <DropdownMenu.Portal>
         <DropdownMenu.Content className="text-light-100 mr-4 text-regular-14 bg-dark-500 w-fit rounded-sm border border-dark-100 px-2 py-3">
+          {children}
           <DropdownMenu.Item className="group leading-none flex items-center h-9  relative select-none outline-none cursor-pointer">
             <Follow />
             <UnFollow />
@@ -34,6 +34,8 @@ export const MobilePostMenu = ({ imageUrl }: MobilePostMenuProps) => {
             <CopyLink />
             <span className="ml-[7px]">Copy Link</span>
           </DropdownMenu.Item>
+                  {children}
+
         </DropdownMenu.Content>
       </DropdownMenu.Portal>
     </DropdownMenu.Root>

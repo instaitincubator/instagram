@@ -47,6 +47,7 @@ export const english = {
     passwordValidMessage:
       'The password must contain at least one digit, one uppercase letter, one lowercase letter, and one special character ( ! " # $ % & \' ( ) * + , . / : ; < = > ? @ [ \\ ] ^ _ ` { | } ~ )',
     passwords_notMatch: 'Passwords do not match',
+
     privacyPolicy: 'Privacy Policy',
     privacyPolicy1: 'Privacy Policy',
     recoveryMessage:
@@ -149,6 +150,18 @@ Your rights to your content remain unaffected. We do not claim ownership of your
     notificationsTitle: 'New notification!',
     readButtonTitle: 'mark as read',
     title: 'Notifications',
+  },
+  postModal: {
+    cancel: 'Cancel',
+    deletePost: 'Delete Post',
+    editPost: 'Edit Post',
+    finishEditingPost:
+      'Do you really want to finish editing? If you close the changes you have made will not be saved',
+    no: 'No',
+    noComments: 'no comments',
+    save: 'Save',
+    saveChanges: 'Save Changes',
+    youWantDeletePost: 'Are you sure you want to delete this post?',
   },
   profile: {
     followers: 'Followers',

@@ -152,6 +152,18 @@ export const russian = {
     readButtonTitle: 'пометить прочитанным',
     title: 'Уведомления',
   },
+  postModal: {
+    cancel: 'Отменить',
+    deletePost: 'Удалить пост',
+    editPost: 'Редактировать',
+    finishEditingPost:
+      'Вы действительно хотите закончить редактирование? При закрытии внесенные изменения не будут сохранены',
+    no: 'Нет',
+    noComments: 'нет комментариев',
+    save: 'Сохранить',
+    saveChanges: 'Сохранить изменения',
+    youWantDeletePost: 'Вы уверены, что хотите удалить этот пост?',
+  },
   profile: {
     followers: 'Подписчики',
     following: 'Подписки',

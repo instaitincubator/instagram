@@ -209,7 +209,15 @@ const CreateModal = (props: Props) => {
       </div>
 
       {open && (
-        <CloseModal onClose={handlerCloseModal} onDiscard={handlerDiscardModal} onSave={() => {}} />
+        <CloseModal
+          onClose={handlerCloseModal}
+          onDiscard={handlerDiscardModal}
+          onDiscardText={t.createPost.discard}
+          onSave={() => {}}
+          onSaveString={t.createPost.saveDraft}
+          text={t.createPost.closeModal}
+          title={t.createPost.close}
+        />
       )}
     </div>
   )
