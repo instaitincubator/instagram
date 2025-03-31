@@ -19,18 +19,21 @@ export const CreatePost = () => {
   const [openModal, setOpenModal] = useState(false)
   const closeModal = async () => {
     if (router.pathname.split('/')[1] === 'public-profile') {
-      void router.push({
-        query: {
-          createPost: 'false',
-          id: router.query.id,
-        },
-      })
+      const updateQuery = { ...router.query }
+
+      delete updateQuery.createPost
+      void router.back()
+      // void router.push({
+      //   query: {
+      //     createPost: 'false',
+      //     id: router.query.id,
+      //   },
+      // })
     } else {
-      void router.push({
-        query: {
-          createPost: 'false',
-        },
-      })
+      const updateQuery = { ...router.query }
+
+      delete updateQuery.createPost
+      void router.back()
     }
     setOpenModal(false)
   }
@@ -39,7 +42,7 @@ export const CreatePost = () => {
     <>
       <Modal
         className={
-          'items-stretch justify-start bg-dark-700   mt-[60px] md:mt-0 md:fixed md:flex-col md:justify-center md:items-center md:rounded-xs md:text-light-100 md:z-10 md:bg-opacity-75'
+          'items-stretch z-50 justify-start bg-dark-700   mt-[60px] md:mt-0 md:fixed md:flex-col md:justify-center md:items-center md:rounded-xs md:text-light-100 md:z-10 md:bg-opacity-75'
         }
         contentClassName="items-center flex md:justify-center "
         modalClassName={cn(
