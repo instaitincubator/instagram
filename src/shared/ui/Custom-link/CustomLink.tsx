@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { useTranslation } from '@/shared/hooks/useTranslation'
 import { cn } from '@/shared/utils/cn'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -28,8 +29,9 @@ const CustomLink = ({
 }: LinkProps) => {
   const isActive = href?.split('/')[1] === activeLink?.split('/')[1]
   const router = useRouter()
+  const { t } = useTranslation()
   const handleLinkClick = (e: React.MouseEvent) => {
-    if (title === 'Создать') {
+    if (title === t.sidebar.create) {
       e.preventDefault()
       if (router.pathname.split('/')[1] === 'public-profile') {
         void router.push({

@@ -3,7 +3,10 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
-export const usePublicationForm = () => {
+type FormProps = {
+  description?: string
+}
+export const usePublicationForm = (props: FormProps) => {
   type schemaType = z.infer<typeof PublicationSchema>
   const aboutMeRegex = /^[0-9A-Za-zА-Яа-я!@#$%^&*( )_+=\-`~{}[\]:;"'<>,.?/\\|\s]*$/
   const PublicationSchema = z.object({
@@ -21,6 +24,9 @@ export const usePublicationForm = () => {
     formState: { errors },
     handleSubmit,
   } = useForm<schemaType>({
+    defaultValues: {
+      description: props.description ?? '',
+    },
     mode: 'onBlur',
     resolver: zodResolver(PublicationSchema),
   })

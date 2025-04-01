@@ -15,9 +15,11 @@ import { EditButton } from '@/shared/ui/icons/editButton'
 import { saveImageHook } from '@/shared/utils/saveImage'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
+
 interface Props {
   backStep: () => void
 }
+
 const CreateModal = (props: Props) => {
   const { t } = useTranslation()
   const router = useRouter()
@@ -55,19 +57,11 @@ const CreateModal = (props: Props) => {
       if (files.length <= 10) {
         for (let i = 0; i < files.length; i++) {
           if (files[i].size <= 21200000) {
-            try {
-              uploadImage(await saveImageHook(URL.createObjectURL(files[i]))).then(res =>
-                dispatch(imageActions.setImage(res.data.images[0]))
-              )
-            } catch (e) {
-              console.log(e)
-            }
-          } else {
-            console.log('The photo must be less than 20 Mb and have JPEG or PNG format')
+            uploadImage(await saveImageHook(URL.createObjectURL(files[i]))).then(res =>
+              dispatch(imageActions.setImage(res.data.images[0]))
+            )
           }
         }
-      } else {
-        console.log('максимальное количество файлов (10)')
       }
     }
   }
@@ -209,7 +203,15 @@ const CreateModal = (props: Props) => {
       </div>
 
       {open && (
-        <CloseModal onClose={handlerCloseModal} onDiscard={handlerDiscardModal} onSave={() => {}} />
+        <CloseModal
+          onClose={handlerCloseModal}
+          onDiscard={handlerDiscardModal}
+          onDiscardText={t.createPost.discard}
+          onSave={() => {}}
+          onSaveString={t.createPost.saveDraft}
+          text={t.createPost.closeModal}
+          title={t.createPost.close}
+        />
       )}
     </div>
   )

@@ -1,25 +1,23 @@
+import { LikesImagesWithUserList } from '@/entities/likesCounter/LikesImagesWithUserList'
 import {
   useGetPostLikeStatusQuery,
-  useUpdateLikeStatusMutation,
+  useUpdatePostLikeStatusMutation,
 } from '@/entities/likesCounter/queries/likes-api'
 import Image from 'next/image'
 
-import { Heart, OutlinedHeart } from '../../../public'
-
 interface Props {
-  likesCount: number
-  postId?: number
+  postId: number
 }
 
-export const LikesCounter = ({ likesCount, postId }: Props) => {
-  const { data: postLikeStatus } = useGetPostLikeStatusQuery(postId!)
-  const [updateLikeStatus] = useUpdateLikeStatusMutation()
+export const PostLikesCounter = ({ postId }: Props) => {
+  const { data: postLikeStatus } = useGetPostLikeStatusQuery(postId)
+  const [updatePostLikeStatus] = useUpdatePostLikeStatusMutation()
 
   const onLike = () => {
     if (postId) {
-      updateLikeStatus({
+      updatePostLikeStatus({
         likeStatus: postLikeStatus?.isLiked ? 'NONE' : 'LIKE',
-        postId: postId,
+        postId,
       })
     }
   }
@@ -27,24 +25,21 @@ export const LikesCounter = ({ likesCount, postId }: Props) => {
   return (
     <div className="flex gap-2  items-center">
       <div className="flex relative">
-        {postLikeStatus?.items.map((userLiked, index) => {
+        {postLikeStatus?.items.slice(-3).map((userLiked, index) => {
           return (
             <Image
               alt="likersAvatar"
               className={`rounded-full z-[${10 + 10 * -index}] first:ml-0 ml-[-5px] flex`}
               height={20}
               key={index}
-              src={userLiked.avatars[1].url}
+              src={userLiked.avatars.length > 1 ? userLiked.avatars[1].url : '/avatar.png'}
               width={20}
             />
           )
         })}
       </div>
       {postLikeStatus?.items.length}
-      <div className="cursor-pointer" onClick={onLike}>
-        {!postLikeStatus?.isLiked && <OutlinedHeart />}
-        {postLikeStatus?.isLiked && <Heart />}
-      </div>
+      <LikesImagesWithUserList isLiked={postLikeStatus?.isLiked!} onLike={onLike} />
     </div>
   )
 }

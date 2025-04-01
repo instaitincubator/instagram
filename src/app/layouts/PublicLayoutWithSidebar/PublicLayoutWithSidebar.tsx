@@ -21,7 +21,7 @@ export const PublicLayoutWithSidebar: NextPage<PropsWithChildren> = props => {
           {children}
         </div>
         {isSuccess && (
-          <div className=" sm:block sm:border-r border-dark-300">
+          <div className="z-0 sm:block sm:border-r border-dark-300">
             <div className="hidden sm:flex">
               <SideBar />
             </div>

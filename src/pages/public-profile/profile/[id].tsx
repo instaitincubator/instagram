@@ -4,7 +4,12 @@ import { getPublicLayoutWithSidebar } from '@/app/layouts/PublicLayoutWithSideba
 import PostModal from '@/entities/Post/PostModal'
 import { UserInfo } from '@/features/UserInfo/UserInfo'
 import { useMeQuery } from '@/services/auth/signInApi'
-import { useLazyGetPublicPostQuery } from '@/services/profile/postsApi'
+import {
+  useDeletePostMutation,
+  useLazyGetPublicPostQuery,
+  useUpdatePostMutation,
+} from '@/services/profile/postsApi'
+import { useTranslation } from '@/shared/hooks/useTranslation'
 import {
   PostsPublicItems,
   ProfileInfo,
@@ -98,6 +103,19 @@ const Profile = ({ comments, posts, profileInfo, selectedPost }: Props) => {
     void router.back()
   }
 
+  const [deletePost] = useDeletePostMutation()
+  const [editPost] = useUpdatePostMutation()
+
+  const updatePost = (id: number, description: string) => {
+    editPost({ description: { description }, id }).then(res => {
+      fetchPosts({ endCursorPostId: 1, userId: profileInfo.id })
+    })
+  }
+  const deletePostHandler = (id: number) => {
+    deletePost(id)
+    closeModal()
+  }
+
   return (
     <div
       className={cn('mt-o w-full', {
@@ -130,7 +148,13 @@ const Profile = ({ comments, posts, profileInfo, selectedPost }: Props) => {
         <div className="h-10" ref={lastPostObserverRef} />
       </div>
       {isModalVisible && selectedPost && (
-        <PostModal comments={comments!} onClose={closeModal} post={selectedPost!} />
+        <PostModal
+          comments={comments!}
+          deletePostCallback={deletePostHandler}
+          editPost={updatePost}
+          onClose={closeModal}
+          post={selectedPost!}
+        />
       )}
     </div>
   )

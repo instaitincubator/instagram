@@ -5,8 +5,9 @@ import { PostImage } from '@/entities/PostImage/PostImage'
 import UserAvatar from '@/entities/UserAvatar/UserAvatar'
 import { usePublicationForm } from '@/features/publication-form/usePublicationForm'
 import { imageActions } from '@/services/create-post/postSlice'
-import { CreatePost, UploadType, useGetCreatePostMutation } from '@/services/profile/postsApi'
+import { useGetCreatePostMutation } from '@/services/profile/postsApi'
 import { useGetProfileInfoQuery } from '@/services/profile/profileApi'
+import { CreatePost, UploadType } from '@/shared/types/public.types'
 import { ControlledTextarea } from '@/shared/ui'
 import Button from '@/shared/ui/Button/Button'
 import Image from 'next/image'
@@ -19,7 +20,7 @@ interface Props {
 export const Publish = (props: Props) => {
   const { data: me } = useGetProfileInfoQuery()
   const { images } = useAppSelector(state => state.imageSlice)
-  const { control, errors, handleSubmit } = usePublicationForm()
+  const { control, errors, handleSubmit } = usePublicationForm({ description: '' })
   const [createPost] = useGetCreatePostMutation()
   const dispatch = useAppDispatch()
   const router = useRouter()
