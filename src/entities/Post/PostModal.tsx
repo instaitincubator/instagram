@@ -2,18 +2,17 @@ import React, { useState } from 'react'
 
 import { Comment } from '@/entities/Post/Comment'
 import { EDIT_POST_STATUS } from '@/entities/Post/PostTypes'
+import { MobilePostMenu } from '@/entities/Post/ui/MobilePostMenu'
 import { PostModalHeader } from '@/entities/Post/ui/PostModalHeader'
 import { PostImage } from '@/entities/PostImage/PostImage'
 import { TimePublish } from '@/entities/TimePublish/TimePublish'
 import UserAvatar from '@/entities/UserAvatar/UserAvatar'
 import CloseModal from '@/features/create-post/ul/close-modal/close-modal'
 import { DropdownItem } from '@/features/dropdown/dropdown'
-import { MobilePostMenu } from '@/features/home/ui/MobilePostMenu'
 import { PostActionPanel } from '@/features/home/ui/PostActionPanel'
 import { usePublicationForm } from '@/features/publication-form/usePublicationForm'
 import useIsMobile from '@/shared/hooks/useIsMobile'
 import { useTranslation } from '@/shared/hooks/useTranslation'
-import { PostLikesCounter } from '@/entities/likesCounter/PostLikesCounter'
 import { PostsPublicItems } from '@/shared/types/ApiTypes/ProfileApiTypes'
 import { CommentForPost } from '@/shared/types/public.types'
 import { ControlledTextarea } from '@/shared/ui'
@@ -131,13 +130,6 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
                 avatar={post.avatarOwner}
                 userId={post.ownerId}
                 userName={post.owner ? post.owner : post.userName}
-          <div className="h-fit">
-            <div className="w-full h-[1px] bg-dark-100" />
-            <div className="p-2 flex flex-col gap-2">
-              <PostLikesCounter
-                avatarWhoLikes={post.avatarWhoLikes}
-                likesCount={post.likesCount}
-                postId={post.id}
               />
               <MobilePostMenu>
                 <DropdownItem>
@@ -168,7 +160,6 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
                 <div className="p-2 flex flex-col gap-2">
                   <PostActionPanel
                     id={post.id}
-                    likesCount={post.likesCount}
                     messageIconClassname={cn('bg-dark-300', { 'bg-dark-700': isMobile })}
                   />
                   <article className="flex flex-wrap  gap-1">
@@ -179,7 +170,6 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
                       {post.description}
                     </h1>
                   </article>
-
                   <TimePublish createdAt={post.createdAt} />
                 </div>
 

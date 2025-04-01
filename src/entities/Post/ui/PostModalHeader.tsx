@@ -1,9 +1,9 @@
 import React from 'react'
 
 import { EDIT_POST_STATUS } from '@/entities/Post/PostTypes'
+import { MobilePostMenu } from '@/entities/Post/ui/MobilePostMenu'
 import UserAvatar from '@/entities/UserAvatar/UserAvatar'
 import { DropdownItem } from '@/features/dropdown/dropdown'
-import { MobilePostMenu } from '@/features/home/ui/MobilePostMenu'
 import useIsMobile from '@/shared/hooks/useIsMobile'
 import { useTranslation } from '@/shared/hooks/useTranslation'
 import { PostsPublicItems } from '@/shared/types/ApiTypes/ProfileApiTypes'

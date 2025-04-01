@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { SendComment } from '@/features/home/ui/PostComments/SendComment'
 import { SingleComment } from '@/features/home/ui/PostComments/SingleComment/SingleComment'
 import { useGetAllPostCommentsQuery } from '@/services/comments/comments-api'
+import { useTranslation } from '@/shared/hooks/useTranslation'
 
 interface Props {
   description: string
@@ -15,7 +16,7 @@ export const PostComments = ({ description, postId, username }: Props) => {
     postId,
     sortDirection: 'asc',
   })
-
+  const { t } = useTranslation()
   const [allCommentsViewed, setAllCommentsViewed] = useState<boolean>(false)
 
   return (
@@ -35,7 +36,7 @@ export const PostComments = ({ description, postId, username }: Props) => {
             className="opacity-50 pl-2 cursor-pointer"
             onClick={() => setAllCommentsViewed(true)}
           >
-            View more Comments({comments?.items.length! - 3})
+            {t.home.moreComments}({comments?.items.length! - 3})
           </span>
         )}
       </div>

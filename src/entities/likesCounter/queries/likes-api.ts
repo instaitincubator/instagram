@@ -32,7 +32,7 @@ export const LikesApi = baseApi.injectEndpoints({
       }),
     }),
     updatePostLikeStatus: builder.mutation<void, updatePostLikesRequest>({
-      invalidatesTags: ['Answer'],
+      invalidatesTags: ['PostLikeStatus'],
       query: arg => ({
         body: arg,
         method: 'PUT',

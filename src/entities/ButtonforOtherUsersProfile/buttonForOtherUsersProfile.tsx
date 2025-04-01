@@ -37,28 +37,26 @@ export const ButtonForOtherUsersProfile = ({
   }
 
   return (
-    <div>
-      {!isProfileOwner && (
-        <div
-          className={cn('w-full', {
-            'flex gap-4': !isMobile,
-          })}
+    !isProfileOwner && (
+      <div
+        className={cn('w-full', {
+          'flex gap-4': !isMobile,
+        })}
+      >
+        <Button
+          className="mb-4"
+          fullWidth
+          onClick={followUnfollowUser}
+          size="xxl"
+          variant={isFollowing ? 'outline' : 'primary'}
         >
-          <Button
-            className="mb-4"
-            fullWidth
-            onClick={followUnfollowUser}
-            size="xxl"
-            variant={isFollowing ? 'outline' : 'primary'}
-          >
-            {!isFollowing && <span>Follow</span>}
-            {isFollowing && <span>UnFollow</span>}
-          </Button>
-          <Button fullWidth size="xxl" variant="secondary">
-            Send Message
-          </Button>
-        </div>
-      )}
-    </div>
+          {!isFollowing && <span>Follow</span>}
+          {isFollowing && <span>UnFollow</span>}
+        </Button>
+        <Button fullWidth size="xxl" variant="secondary">
+          Send Message
+        </Button>
+      </div>
+    )
   )
 }
