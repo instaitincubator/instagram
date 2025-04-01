@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 
 import { useUnFollowingUserMutation } from '@/services/users/users-following/usersFollowing-api'
+import { useTranslation } from '@/shared/hooks/useTranslation'
 import { CopyLink } from '@/shared/ui/icons/copyLink'
 import { Menu } from '@/shared/ui/icons/menu'
 import { UnFollow } from '@/shared/ui/icons/unFollow'
@@ -15,6 +16,7 @@ interface Props {
 export const MobileFollowerPostMenu = ({ imageUrl, userId }: Props) => {
   const [unFollow, { isSuccess }] = useUnFollowingUserMutation()
   const router = useRouter()
+  const t = useTranslation()
 
   const unFollowUserHandler = () => {
     unFollow(userId)
@@ -40,7 +42,7 @@ export const MobileFollowerPostMenu = ({ imageUrl, userId }: Props) => {
           <DropdownMenu.Item className="group leading-none flex items-center h-9  relative select-none outline-none cursor-pointer">
             <UnFollow />
             <span className="ml-[7px]" onClick={unFollowUserHandler}>
-              UnFollow
+              {t.t.home.unfollow}
             </span>
           </DropdownMenu.Item>
           <DropdownMenu.Item
@@ -48,7 +50,7 @@ export const MobileFollowerPostMenu = ({ imageUrl, userId }: Props) => {
             onClick={copyLinkHandler}
           >
             <CopyLink />
-            <span className="ml-[7px]">Copy Link</span>
+            <span className="ml-[7px]">{t.t.home.copyLink}</span>
           </DropdownMenu.Item>
         </DropdownMenu.Content>
       </DropdownMenu.Portal>
