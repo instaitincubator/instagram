@@ -19,7 +19,7 @@ const EmailVerification = () => {
           height={352}
           src="/emailVerificationImage.png"
           width={473}
-        ></Image>
+        />
       </div>
     </div>
   )
