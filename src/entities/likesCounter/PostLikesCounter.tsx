@@ -22,8 +22,12 @@ export const PostLikesCounter = ({ postId }: Props) => {
     }
   }
 
+  const likesMouseOutHandler = () => {}
+
+  const likesMouseOverHandler = () => {}
+
   return (
-    <div className="flex gap-2  items-center">
+    <div className="flex gap-2 relative items-center" onMouseOut={e => {}} onMouseOver={e => {}}>
       <div className="flex relative">
         {postLikeStatus?.items.slice(-3).map((userLiked, index) => {
           return (
@@ -40,6 +44,7 @@ export const PostLikesCounter = ({ postId }: Props) => {
       </div>
       {postLikeStatus?.items.length}
       <LikesImagesWithUserList isLiked={postLikeStatus?.isLiked!} onLike={onLike} />
+      {/*<div className="absolute bottom-[100% + 10px] px-3 py-2 border-amber-100 bg-dark-100 "></div>*/}
     </div>
   )
 }
