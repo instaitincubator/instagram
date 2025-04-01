@@ -32,7 +32,7 @@ export const HomePage = () => {
   }, [followersPosts])
 
   useEffect(() => {
-    if (!lastPostObserverRef.current || !followersPosts) {
+    if (!lastPostObserverRef.current || !followersPosts?.items.length) {
       return
     }
 
