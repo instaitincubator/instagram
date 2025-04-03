@@ -7,6 +7,7 @@ import { MobileFollowerPostMenu } from '@/features/home/ui/MobileFollowerPostMen
 import { PostActionPanel } from '@/features/home/ui/PostActionPanel'
 import { PostComments } from '@/features/home/ui/PostComments/PostComments'
 import { FormatDateForPost } from '@/features/home/ui/formatDateForPost'
+import { useMeQuery } from '@/services/auth/signInApi'
 import { useGetFollowersPostsQuery } from '@/services/home-posts/home-page-api'
 import { HomePagePost, homePageRequest } from '@/services/home-posts/home-page-types'
 import { Separator } from 'radix-ui'
@@ -18,7 +19,7 @@ import 'swiper/css/pagination'
 export const HomePage = () => {
   const [postsPaginationParams, setPostsPaginationParams] =
     useState<homePageRequest>(homePostsPaginationParams)
-
+  const { data: myData } = useMeQuery()
   const { data: followersPosts } = useGetFollowersPostsQuery(postsPaginationParams)
   const lastPostObserverRef = useRef<HTMLDivElement | null>(null)
   const [allFollowersPosts, setAllFollowersPosts] = useState<HomePagePost[]>([])
@@ -30,7 +31,6 @@ export const HomePage = () => {
       })
     }
   }, [followersPosts])
-
   useEffect(() => {
     if (!lastPostObserverRef.current || !followersPosts?.items.length) {
       return

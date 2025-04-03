@@ -24,7 +24,7 @@ interface Avatars {
   width: number
 }
 
-interface Items {
+export interface Items {
   avatars: Avatars[]
   createdAt: string
   id: number
