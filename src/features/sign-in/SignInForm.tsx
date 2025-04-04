@@ -51,7 +51,7 @@ export const SignInForm = () => {
           return
         }
         refetch()
-        void router.replace(`/public-profile/${userId}`)
+        void router.replace(`/public-profile/profile/${userId}`)
       })
       .catch()
   }
