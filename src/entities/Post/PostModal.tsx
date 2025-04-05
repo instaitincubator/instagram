@@ -7,9 +7,11 @@ import { PostModalHeader } from '@/entities/Post/ui/PostModalHeader'
 import { PostImage } from '@/entities/PostImage/PostImage'
 import { TimePublish } from '@/entities/TimePublish/TimePublish'
 import UserAvatar from '@/entities/UserAvatar/UserAvatar'
+import PostModalComment from '@/features/PostModalComment/PostModalComment'
 import CloseModal from '@/features/create-post/ul/close-modal/close-modal'
 import { DropdownItem } from '@/features/dropdown/dropdown'
 import { PostActionPanel } from '@/features/home/ui/PostActionPanel'
+import { PostComments } from '@/features/home/ui/PostComments/PostComments'
 import { usePublicationForm } from '@/features/publication-form/usePublicationForm'
 import useIsMobile from '@/shared/hooks/useIsMobile'
 import { useTranslation } from '@/shared/hooks/useTranslation'
@@ -124,7 +126,7 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
             </div>
           </div>
         ) : (
-          <div className="flex sm:px-[24px] flex-1 flex-col justify-between max-h-[474px]">
+          <div className="flex sm:px-[24px] flex-1 flex-col justify-between overscroll-contain lg:max-h-[474px]">
             <div className="hidden justify-between items-center relative lg:flex">
               <UserAvatar
                 avatar={post.avatarOwner}
@@ -157,29 +159,40 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
             <div className="h-fit">
               <div className="w-full h-[1px] bg-dark-100" />
               <div className="flex justify-around flex-col sm:flex-col-reverse">
-                <div className="p-2 flex flex-col gap-2">
-                  <PostActionPanel
-                    id={post.id}
-                    messageIconClassname={cn('bg-dark-300', { 'bg-dark-700': isMobile })}
-                  />
-                  <article className="flex flex-wrap  gap-1">
-                    <h2 className="text-bold-14  font-bold   whitespace-nowrap text-base">
-                      {post.userName}
-                    </h2>
-                    <h1 className="break-words whitespace-normal overflow-hidden leading-relaxed max-w-full text-sm">
-                      {post.description}
-                    </h1>
-                  </article>
-                  <TimePublish createdAt={post.createdAt} />
-                </div>
+                <PostActionPanel
+                  id={post.id}
+                  messageIconClassname={cn('bg-dark-300', { 'bg-dark-700': isMobile })}
+                />
+                {/*<PostComments*/}
+                {/*  description={post.description}*/}
+                {/*  postId={post.id}*/}
+                {/*  username={post.userName}*/}
+                {/*/>*/}
+                <PostModalComment
+                  description={post.description}
+                  postId={post.id}
+                  username={post.userName}
+                />
 
-                <div className="flex flex-col gap-6 pl-6 py-6 overflow-y-auto">
-                  {comments?.items.length > 0 ? (
-                    comments?.items.map(comment => <Comment comment={comment} key={comment.id} />)
-                  ) : (
-                    <span>{t.postModal.noComments}</span>
-                  )}
-                </div>
+                {/*<div className="p-2 flex flex-col gap-2">*/}
+                {/*  <article className="flex flex-wrap  gap-1">*/}
+                {/*    <h2 className="text-bold-14  font-bold   whitespace-nowrap text-base">*/}
+                {/*      {post.userName}*/}
+                {/*    </h2>*/}
+                {/*    <h1 className="break-words whitespace-normal overflow-hidden leading-relaxed max-w-full text-sm">*/}
+                {/*      {post.description}*/}
+                {/*    </h1>*/}
+                {/*  </article>*/}
+                {/*  <TimePublish createdAt={post.createdAt} />*/}
+                {/*</div>*/}
+
+                {/*<div className="flex flex-col gap-6 pl-6 py-6 overflow-y-auto">*/}
+                {/*  {comments?.items.length > 0 ? (*/}
+                {/*    comments?.items.map(comment => <Comment comment={comment} key={comment.id} />)*/}
+                {/*  ) : (*/}
+                {/*    <span>{t.postModal.noComments}</span>*/}
+                {/*  )}*/}
+                {/*</div>*/}
               </div>
             </div>
           </div>
@@ -207,6 +220,7 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
           title={t.createPost.close}
         />
       )}
+      <Modal className={'z-999'}>ophtoperorkopregkopgorekpogrkpgorpoerg rrkrkrkrkr</Modal>
     </Modal>
   )
 }

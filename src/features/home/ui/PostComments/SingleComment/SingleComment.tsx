@@ -23,7 +23,7 @@ export const SingleComment = ({ comments, isAllCommentViewed, postId }: Props) =
 
   return comments?.slice(0, showAllComments).map(comment => {
     return (
-      <div className="flex w-full justify-between p-2 rounded-2xl" key={comment.id}>
+      <div className=" flex w-full justify-between p-2 rounded-2xl" key={comment.id}>
         <div className="w-full">
           <div>
             <div className="flex gap-2 items-center">

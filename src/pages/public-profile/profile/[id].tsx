@@ -16,6 +16,7 @@ import {
   ProfilePublicPosts,
 } from '@/shared/types/ApiTypes/ProfileApiTypes'
 import { CommentForPost } from '@/shared/types/public.types'
+import { Modal } from '@/shared/ui/Modal/Modal'
 import { cn } from '@/shared/utils/cn'
 import { GetServerSideProps } from 'next'
 import Image from 'next/image'
@@ -156,6 +157,8 @@ const Profile = ({ comments, posts, profileInfo, selectedPost }: Props) => {
           post={selectedPost!}
         />
       )}
+
+      {/*<Modal className={'z-999'}>ophtoperorkopregkopgorekpogrkpgorpoerg rrkrkrkrkr</Modal>*/}
     </div>
   )
 }
