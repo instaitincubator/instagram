@@ -1,10 +1,8 @@
 import React from 'react'
 
-import { useTranslation } from '@/shared/hooks/useTranslation'
 import Button from '@/shared/ui/Button/Button'
 import { Modal } from '@/shared/ui/Modal/Modal'
 import { cn } from '@/shared/utils/cn'
-import { className } from 'postcss-selector-parser'
 type ModalType = {
   buttonsClassName?: string
   className?: string
@@ -45,7 +43,11 @@ const CloseModal = ({
         <Button onClick={onDiscard} variant={'outline'}>
           {onDiscardText}
         </Button>
-        <Button fullWidth onClick={onSave}>
+        <Button
+          fullWidth
+          onClick={onSave}
+          className={'text-wrap leading-tight whitespace-normal px-[0]'}
+        >
           {onSaveString}
         </Button>
       </div>
