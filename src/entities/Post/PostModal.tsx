@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { Comment } from '@/entities/Post/Comment'
 import { EDIT_POST_STATUS } from '@/entities/Post/PostTypes'
 import { MobilePostMenu } from '@/entities/Post/ui/MobilePostMenu'
+import PostEditMenu from '@/entities/Post/ui/PostEditMenu'
 import { PostModalHeader } from '@/entities/Post/ui/PostModalHeader'
 import { PostImage } from '@/entities/PostImage/PostImage'
 import { TimePublish } from '@/entities/TimePublish/TimePublish'
@@ -75,19 +76,7 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
     >
       <div className="sm:flex w-full flex-col lg:flex-row" key={post.id}>
         {status === EDIT_POST_STATUS.EDIT ? (
-          <div className="flex items-center sm:hidden sm:invisible justify-between py-[18px]">
-            <Button className="text-h3" onClick={handleSubmit(onCloseEditor)} variant="text">
-              {t.postModal.cancel}
-            </Button>
-            <h2 className="text-h2">{t.postModal.editPost}</h2>
-            <Button
-              className="text-h3 text-accent-500"
-              onClick={handleSubmit(onSubmit)}
-              variant="text"
-            >
-              {t.postModal.save}
-            </Button>
-          </div>
+          <PostEditMenu onClose={handleSubmit(onCloseEditor)} onSubmit={handleSubmit(onSubmit)} />
         ) : (
           <PostModalHeader
             onClose={handleSubmit(onCloseEditor)}
@@ -220,7 +209,7 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
           title={t.createPost.close}
         />
       )}
-      <Modal className={'z-999'}>ophtoperorkopregkopgorekpogrkpgorpoerg rrkrkrkrkr</Modal>
+      {/*<Modal className={'z-999'}>ophtoperorkopregkopgorekpogrkpgorpoerg rrkrkrkrkr</Modal>*/}
     </Modal>
   )
 }

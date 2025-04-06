@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { getPublicLayoutWithSidebar } from '@/app/layouts/PublicLayoutWithSidebar/PublicLayoutWithSidebar'
 import PostModal from '@/entities/Post/PostModal'
 import { UserInfo } from '@/features/UserInfo/UserInfo'
+import { PostComments } from '@/features/home/ui/PostComments/PostComments'
 import { useMeQuery } from '@/services/auth/signInApi'
 import {
   useDeletePostMutation,
@@ -158,7 +159,9 @@ const Profile = ({ comments, posts, profileInfo, selectedPost }: Props) => {
         />
       )}
 
-      {/*<Modal className={'z-999'}>ophtoperorkopregkopgorekpogrkpgorpoerg rrkrkrkrkr</Modal>*/}
+      {/*<Modal className={'z-999'}>*/}
+      {/*  <PostComments postId={router.query.postID?.toString} />*/}
+      {/*</Modal>*/}
     </div>
   )
 }
