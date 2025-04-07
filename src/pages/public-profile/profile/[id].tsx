@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 
 import { getPublicLayoutWithSidebar } from '@/app/layouts/PublicLayoutWithSidebar/PublicLayoutWithSidebar'
 import PostModal from '@/entities/Post/PostModal'
+import PostMobileComments from '@/features/PostModalComment/PostMobileComments/PostMobileComments'
 import { UserInfo } from '@/features/UserInfo/UserInfo'
 import { PostComments } from '@/features/home/ui/PostComments/PostComments'
 import { useMeQuery } from '@/services/auth/signInApi'
@@ -66,6 +67,7 @@ const Profile = ({ comments, posts, profileInfo, selectedPost }: Props) => {
   const [allPosts, setAllPosts] = useState<PostsPublicItems[]>(posts.items)
   const [fetchPosts, { data: newPosts, isFetching }] = useLazyGetPublicPostQuery()
   const lastPostObserverRef = useRef<HTMLDivElement | null>(null)
+  const [showComments, setShowComments] = useState(false)
 
   useEffect(() => {
     if (newPosts?.items) {
@@ -117,6 +119,16 @@ const Profile = ({ comments, posts, profileInfo, selectedPost }: Props) => {
     deletePost(id)
     closeModal()
   }
+  let postId
+
+  if (router.query.postID) {
+    postId = +router.query.postID
+  }
+  const showCommentsModal = () => {
+    setShowComments(true)
+  }
+
+  console.log(selectedPost)
 
   return (
     <div
@@ -156,12 +168,24 @@ const Profile = ({ comments, posts, profileInfo, selectedPost }: Props) => {
           editPost={updatePost}
           onClose={closeModal}
           post={selectedPost!}
+          showCommentsModal={showCommentsModal}
         />
       )}
-
-      {/*<Modal className={'z-999'}>*/}
-      {/*  <PostComments postId={router.query.postID?.toString} />*/}
-      {/*</Modal>*/}
+      {showComments && selectedPost && router.query.postId && (
+        <Modal
+          className={'z-999 bg-dark-700  border-0 w-full mt-[60px] h-full justify-start'}
+          contentClassName={'items-center'}
+          modalClassName={'bg-dark-700 w-full p-[15px]'}
+          onClose={() => setShowComments(false)}
+        >
+          <PostMobileComments
+            avatar={selectedPost?.avatarOwner}
+            description={selectedPost?.description}
+            postId={+router.query.postId}
+            username={selectedPost?.userName}
+          />
+        </Modal>
+      )}
     </div>
   )
 }

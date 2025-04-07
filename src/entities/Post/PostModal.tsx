@@ -30,9 +30,17 @@ interface Props {
   editPost: (id: number, description: string) => void
   onClose: () => void
   post: PostsPublicItems
+  showCommentsModal: () => void
 }
 
-const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Props) => {
+const PostModal = ({
+  comments,
+  deletePostCallback,
+  editPost,
+  onClose,
+  post,
+  showCommentsModal,
+}: Props) => {
   const [isOpen, setIsOpen] = useState(false)
   const [isOpenForEdit, setIsOpenForEdit] = useState(false)
   const [status, setStatus] = useState<EDIT_POST_STATUS.EDIT | EDIT_POST_STATUS.INITIAL>(
@@ -160,6 +168,7 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
                 <PostModalComment
                   description={post.description}
                   postId={post.id}
+                  showCommentsModal={showCommentsModal}
                   username={post.userName}
                 />
 

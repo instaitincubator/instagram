@@ -1,19 +1,19 @@
 import React, { useState } from 'react'
 
-import { Comment } from '@/entities/Post/Comment'
+import UserAvatar from '@/entities/UserAvatar/UserAvatar'
+import { SendComment } from '@/features/home/ui/PostComments/SendComment'
 import { SingleComment } from '@/features/home/ui/PostComments/SingleComment/SingleComment'
 import { useGetAllPostCommentsQuery } from '@/services/comments/comments-api'
 import { useTranslation } from '@/shared/hooks/useTranslation'
-import { Modal } from '@storybook/components'
 
-interface Props {
+interface PropsComments {
+  avatar: string
   description: string
   postId: number
-  showCommentsModal: () => void
   username: string
 }
 
-const PostModalComment = ({ description, postId, showCommentsModal, username }: Props) => {
+const PostMobileComments = ({ avatar, description, postId, username }: PropsComments) => {
   const { data: comments } = useGetAllPostCommentsQuery({
     postId,
     sortDirection: 'asc',
@@ -21,25 +21,18 @@ const PostModalComment = ({ description, postId, showCommentsModal, username }: 
   const { t } = useTranslation()
   const [allCommentsViewed, setAllCommentsViewed] = useState<boolean>(false)
 
-  const showModal = () => {
-    showCommentsModal()
-  }
-
   return (
-    <div>
-      <div className="flex gap-4 pb-2 pl-2">
-        <span className="text-bold-16">{username}</span>
+    <div className={'w-full'}>
+      <div className="flex gap-4 pb-2 pl-2  items-center border-b">
+        <UserAvatar avatar={avatar} avatarSize={24} userName={username} />
+        {/*<span className="text-bold-16">{username}</span>*/}
         <span>{description}</span>
       </div>
-
-      {comments?.items.length! > 3 && !allCommentsViewed && (
-        <span className="opacity-50 pl-2 cursor-pointer" onClick={showModal}>
-          {t.home.moreComments}({comments?.items.length! - 3})
-        </span>
-      )}
+      <SingleComment comments={comments?.items!} isAllCommentViewed postId={postId} />
+      <SendComment postId={postId} />
       {/*<Modal className={'z-100 bg-white'}>feffefef</Modal>*/}
     </div>
   )
 }
 
-export default PostModalComment
+export default PostMobileComments
