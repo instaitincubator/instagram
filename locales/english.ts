@@ -83,6 +83,8 @@ export const english = {
     publish: 'Publish',
     saveDraft: 'Save draft',
     selectFromDevice: 'Select from Device',
+    textArea: 'Text-area',
+    openDraft: 'Open draft',
   },
   devices: {
     current: 'Current device',

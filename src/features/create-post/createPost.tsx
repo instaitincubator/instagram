@@ -17,18 +17,12 @@ export const CreatePost = () => {
   const router = useRouter()
   const [uploadStep, setUploadStep] = useState(UPLOAD_STEPS.CHOOSE_PHOTO)
   const [openModal, setOpenModal] = useState(false)
-  const closeModal = async () => {
+  const closeModal = () => {
     if (router.pathname.split('/')[1] === 'public-profile') {
       const updateQuery = { ...router.query }
 
       delete updateQuery.createPost
       void router.back()
-      // void router.push({
-      //   query: {
-      //     createPost: 'false',
-      //     id: router.query.id,
-      //   },
-      // })
     } else {
       const updateQuery = { ...router.query }
 
