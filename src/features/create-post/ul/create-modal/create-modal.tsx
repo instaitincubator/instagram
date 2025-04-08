@@ -149,7 +149,7 @@ const CreateModal = (props: Props) => {
                 />
               </label>
               <Button fullWidth variant={'outline'}>
-                Open draft
+                {t.createPost.openDraft}
               </Button>
             </div>
           </div>

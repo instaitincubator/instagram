@@ -84,6 +84,8 @@ export const russian = {
     publish: 'Опубликовать',
     saveDraft: 'Сохранить черновик',
     selectFromDevice: 'Выбрать с устройства',
+    textArea: 'Текстовая область',
+    openDraft: 'Открыть черновик',
   },
   devices: {
     current: 'Текущее устройство',

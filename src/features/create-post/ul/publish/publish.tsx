@@ -8,6 +8,7 @@ import { useMeQuery } from '@/services/auth/signInApi'
 import { imageActions } from '@/services/create-post/postSlice'
 import { useGetCreatePostMutation } from '@/services/profile/postsApi'
 import { useGetProfileInfoQuery } from '@/services/profile/profileApi'
+import { useTranslation } from '@/shared/hooks/useTranslation'
 import { CreatePost, UploadType } from '@/shared/types/public.types'
 import { ControlledTextarea } from '@/shared/ui'
 import Button from '@/shared/ui/Button/Button'
@@ -26,6 +27,7 @@ export const Publish = ({ backStep }: Props) => {
   const [createPost] = useGetCreatePostMutation()
   const dispatch = useAppDispatch()
   const router = useRouter()
+  const { t } = useTranslation()
 
   const onSubmit = (data: any) => {
     const combineImages: UploadType[] = images.map((items: any) => ({ uploadId: items.uploadId }))
@@ -55,9 +57,9 @@ export const Publish = ({ backStep }: Props) => {
           >
             <Image alt={'back button'} height={24} src={'./arrow-without-bg.svg'} width={24} />
           </Button>
-          <h2 className="text-h2"> New Publication</h2>
+          <h2 className="text-h2">{t.createPost.newPublication}</h2>
           <button className="text-h3 text-accent-500 m-[6px]" type="submit">
-            Publish
+            {t.createPost.publish}
           </button>
         </header>
         <div className="lg:flex w-full">
@@ -76,9 +78,9 @@ export const Publish = ({ backStep }: Props) => {
                 control={control}
                 error={errors.description?.message}
                 fullWidth
-                label="Add publication descriptions"
+                label={t.createPost.addPublicationDescriptions}
                 name="description"
-                placeholder="Text-area"
+                placeholder={t.createPost.textArea}
               />
             </div>
           </div>
