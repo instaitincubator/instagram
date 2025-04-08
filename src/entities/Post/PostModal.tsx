@@ -155,16 +155,12 @@ const PostModal = ({
             </div>
             <div className="h-fit">
               <div className="w-full h-[1px] bg-dark-100" />
-              <div className="flex justify-around flex-col sm:flex-col-reverse">
+              <div className="flex justify-around flex-col sm:flex-col-reverse  lg:flex-col ">
                 <PostActionPanel
                   id={post.id}
                   messageIconClassname={cn('bg-dark-300', { 'bg-dark-700': isMobile })}
                 />
-                {/*<PostComments*/}
-                {/*  description={post.description}*/}
-                {/*  postId={post.id}*/}
-                {/*  username={post.userName}*/}
-                {/*/>*/}
+
                 <PostModalComment
                   description={post.description}
                   postId={post.id}

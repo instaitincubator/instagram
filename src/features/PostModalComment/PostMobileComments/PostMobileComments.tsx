@@ -23,13 +23,18 @@ const PostMobileComments = ({ avatar, description, postId, username }: PropsComm
 
   return (
     <div className={'w-full'}>
-      <div className="flex gap-4 pb-2 pl-2  items-center border-b">
+      <div className=""></div>
+      <div className="flex gap-4 mb-2 pl-2  items-center border-b">
         <UserAvatar avatar={avatar} avatarSize={24} userName={username} />
         {/*<span className="text-bold-16">{username}</span>*/}
         <span>{description}</span>
       </div>
-      <SingleComment comments={comments?.items!} isAllCommentViewed postId={postId} />
-      <SendComment postId={postId} />
+      <div>
+        <SingleComment comments={comments?.items!} isAllCommentViewed postId={postId} />
+      </div>
+      <div className="fixed  bg-dark-700  bottom-[60px] md:w-full">
+        <SendComment postId={postId} />
+      </div>
       {/*<Modal className={'z-100 bg-white'}>feffefef</Modal>*/}
     </div>
   )

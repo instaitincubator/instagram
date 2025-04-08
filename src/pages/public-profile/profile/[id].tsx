@@ -119,16 +119,24 @@ const Profile = ({ comments, posts, profileInfo, selectedPost }: Props) => {
     deletePost(id)
     closeModal()
   }
-  let postId
 
-  if (router.query.postID) {
-    postId = +router.query.postID
-  }
   const showCommentsModal = () => {
     setShowComments(true)
   }
 
-  console.log(selectedPost)
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 768) {
+        setShowComments(false)
+      }
+    }
+
+    window.addEventListener('resize', handleResize)
+
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
 
   return (
     <div
@@ -177,6 +185,8 @@ const Profile = ({ comments, posts, profileInfo, selectedPost }: Props) => {
           contentClassName={'items-center'}
           modalClassName={'bg-dark-700 w-full p-[15px]'}
           onClose={() => setShowComments(false)}
+          // withOutHeader
+          // withOutHead  erButtonClassName={'hidden invisible'}
         >
           <PostMobileComments
             avatar={selectedPost?.avatarOwner}
