@@ -3,6 +3,14 @@ export interface updatePostLikesRequest {
   postId: number
 }
 
+export interface getPostLikesRequest {
+  cursor?: number
+  pageNumber?: number
+  pageSize?: number
+  postId: number
+  search?: string
+}
+
 export interface updateCommentLikesRequest {
   commentId: number
   likeStatus: 'DISLIKE' | 'LIKE' | 'NONE'

@@ -59,34 +59,36 @@ export const HomePage = () => {
 
   return (
     <div className="p-4 flex flex-col gap-4 sm:max-w-[860px] sm:min-w-[340px] sm:w-[80%] m-auto">
-      {allFollowersPosts?.map(post => {
-        return (
-          <div className="w-full" key={post.id}>
-            <div className="flex justify-between items-center">
-              <UserAvatar
-                avatar={post.avatarOwner}
-                userId={post.ownerId}
-                userName={post.userName}
-              />
-              <div className="flex gap-4">
-                <FormatDateForPost createdAt={post.createdAt} />
-                <MobileFollowerPostMenu
-                  imageUrl={`${process.env.NEXT_PUBLIC_DOMAIN}/public-profile/profile/${post.ownerId}?postId=${post.id}`}
-                  postId={post.ownerId}
+      {myData?.userId &&
+        allFollowersPosts?.length &&
+        allFollowersPosts?.map(post => {
+          return (
+            <div className="w-full" key={post.id}>
+              <div className="flex justify-between items-center">
+                <UserAvatar
+                  avatar={post.avatarOwner}
+                  userId={post.ownerId}
+                  userName={post.userName}
                 />
+                <div className="flex gap-4">
+                  <FormatDateForPost createdAt={post.createdAt} />
+                  <MobileFollowerPostMenu
+                    imageUrl={`${process.env.NEXT_PUBLIC_DOMAIN}/public-profile/profile/${post.ownerId}?postId=${post.id}`}
+                    postId={post.ownerId}
+                  />
+                </div>
               </div>
+              <HomePostImage images={post.images} postId={post.id} />
+              <PostActionPanel id={post.id} />
+              <PostComments
+                description={post.description}
+                postId={post.id}
+                username={post.userName}
+              />
+              <Separator.Root className="my-2 bg-dark-100 h-[1px]" />
             </div>
-            <HomePostImage images={post.images} postId={post.id} />
-            <PostActionPanel id={post.id} />
-            <PostComments
-              description={post.description}
-              postId={post.id}
-              username={post.userName}
-            />
-            <Separator.Root className="my-2 bg-dark-100 h-[1px]" />
-          </div>
-        )
-      })}
+          )
+        })}
       <div className="h-10" ref={lastPostObserverRef} />
     </div>
   )

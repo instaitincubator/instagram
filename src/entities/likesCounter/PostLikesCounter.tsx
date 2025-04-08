@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { LikesImagesWithUserList } from '@/entities/likesCounter/LikesImagesWithUserList'
 import { LikesModal } from '@/entities/likesCounter/LikesModal'
@@ -6,6 +6,7 @@ import {
   useGetPostLikeStatusQuery,
   useUpdatePostLikeStatusMutation,
 } from '@/entities/likesCounter/queries/likes-api'
+import { useTranslation } from '@/shared/hooks/useTranslation'
 import Image from 'next/image'
 
 interface Props {
@@ -13,10 +14,12 @@ interface Props {
 }
 
 export const PostLikesCounter = ({ postId }: Props) => {
-  const { data: postLikeStatus } = useGetPostLikeStatusQuery(postId)
+  const { data: postLikeStatus } = useGetPostLikeStatusQuery({ postId })
   const [updatePostLikeStatus] = useUpdatePostLikeStatusMutation()
   const [isHovered, setIsHovered] = useState(false)
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
+  const { locale, t } = useTranslation()
+  const [likesEnding, setLikesEnding] = useState('')
 
   const onLike = () => {
     if (postId) {
@@ -42,6 +45,20 @@ export const PostLikesCounter = ({ postId }: Props) => {
   const closeLikesModal = () => {
     setIsModalVisible(false)
   }
+  const sklonenie = (number: number | undefined, txt: string[], cases = [2, 0, 1, 1, 1, 2]) =>
+    number
+      ? txt[number % 100 > 4 && number % 100 < 20 ? 2 : cases[number % 10 < 5 ? number % 10 : 5]]
+      : txt[2]
+
+  useEffect(() => {
+    if (postLikeStatus) {
+      if (locale === 'english') {
+        setLikesEnding(postLikeStatus.items.length > 1 ? 's' : '')
+      } else {
+        setLikesEnding(sklonenie(postLikeStatus.items.length, ['я', 'и', 'й']))
+      }
+    }
+  }, [postLikeStatus])
 
   return (
     <div
@@ -65,7 +82,7 @@ export const PostLikesCounter = ({ postId }: Props) => {
       </div>
       {postLikeStatus?.items.length}
       <LikesImagesWithUserList isLiked={postLikeStatus?.isLiked!} onLike={onLike} />
-      {isHovered && (
+      {isHovered && postLikeStatus?.items.length ? (
         <div className="absolute bottom-[100%] flex gap-2 px-4 py-3 items-end border-amber-100 bg-dark-100 w-max rounded">
           <div className="flex gap-2 relative">
             {postLikeStatus?.items.slice(-3).map((userLiked, index) => {
@@ -86,17 +103,12 @@ export const PostLikesCounter = ({ postId }: Props) => {
             onClick={openLikesModal}
           >
             {postLikeStatus?.items.length}
-            <span>likes</span>
+            <span>{t.home.likesModal + likesEnding}</span>
           </div>
         </div>
-      )}
+      ) : null}
       {isModalVisible && postLikeStatus?.items.length && (
-        <LikesModal
-          deletePostCallback={() => {}}
-          editPost={() => {}}
-          onClose={closeLikesModal}
-          users={postLikeStatus.items}
-        />
+        <LikesModal onClose={closeLikesModal} postId={postId} />
       )}
     </div>
   )

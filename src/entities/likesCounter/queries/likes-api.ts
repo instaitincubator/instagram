@@ -1,5 +1,6 @@
 import {
   GetPostLikesResponse,
+  getPostLikesRequest,
   updateAnswerLikesRequest,
   updateCommentLikesRequest,
   updatePostLikesRequest,
@@ -8,11 +9,11 @@ import { baseApi } from '@/services/inctagram-api'
 
 export const LikesApi = baseApi.injectEndpoints({
   endpoints: builder => ({
-    getPostLikeStatus: builder.query<GetPostLikesResponse, number>({
+    getPostLikeStatus: builder.query<GetPostLikesResponse, getPostLikesRequest>({
       providesTags: ['PostLikeStatus'],
       query: arg => ({
         method: 'GET',
-        url: `/api/v1/posts/${arg}/likes`,
+        url: `/api/v1/posts/${arg.postId}/likes?${arg.pageSize ? '&pageSize=' + arg.pageSize : ''}${arg.cursor ? '&cursor=' + arg.cursor : ''}${arg.search ? '&search=' + arg.search : ''}${arg.pageNumber ? '&pageNumber=' + arg.pageNumber : ''}`,
       }),
     }),
     updateAnswerLikeStatus: builder.mutation<void, updateAnswerLikesRequest>({

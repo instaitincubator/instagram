@@ -1,83 +1,55 @@
-import React, { useState } from 'react'
+import React from 'react'
 
-import { ButtonForOtherUsersProfile } from '@/entities/ButtonforOtherUsersProfile/buttonForOtherUsersProfile'
-import { EDIT_POST_STATUS } from '@/entities/Post/PostTypes'
 import UserAvatar from '@/entities/UserAvatar/UserAvatar'
-import { Items } from '@/entities/likesCounter/queries/likesApiTypes'
-import { usePublicationForm } from '@/features/publication-form/usePublicationForm'
+import { useGetPostLikeStatusQuery } from '@/entities/likesCounter/queries/likes-api'
+import { useMeQuery } from '@/services/auth/signInApi'
 import { useLazyGetPublicUserQuery } from '@/services/public/publicProfileCounts'
 import {
   useFollowingUserMutation,
   useUnFollowingUserMutation,
 } from '@/services/users/users-following/usersFollowing-api'
 import useIsMobile from '@/shared/hooks/useIsMobile'
+import { usePaginationParams } from '@/shared/hooks/usePaginationParams'
 import { useTranslation } from '@/shared/hooks/useTranslation'
-import { PostsPublicItems } from '@/shared/types/ApiTypes/ProfileApiTypes'
-import { CommentForPost } from '@/shared/types/public.types'
 import Button from '@/shared/ui/Button/Button'
 import SearchWithQueries from '@/shared/ui/Input/SearchWithQueries'
 import { Modal } from '@/shared/ui/Modal/Modal'
 import { cn } from '@/shared/utils/cn'
-import Image from 'next/image'
 
 interface Props {
-  deletePostCallback: () => void
-  editPost: () => void
   onClose: () => void
-  users: Items[]
+  postId: number
 }
-export const LikesModal = ({ deletePostCallback, editPost, onClose, users }: Props) => {
-  const [isOpen, setIsOpen] = useState(false)
-  const [isOpenForEdit, setIsOpenForEdit] = useState(false)
-  const [status, setStatus] = useState<EDIT_POST_STATUS.EDIT | EDIT_POST_STATUS.INITIAL>(
-    EDIT_POST_STATUS.INITIAL
-  )
+export const LikesModal = ({ onClose, postId }: Props) => {
+  const { paginationParams } = usePaginationParams()
+  const { data: postLikes } = useGetPostLikeStatusQuery({ ...paginationParams, postId })
   const isMobile = useIsMobile(480)
+  const me = useMeQuery()
+
   const { t } = useTranslation()
-  // const { control, errors, handleSubmit } = usePublicationForm({ description: post.description })
-  const onSubmit = (data: { description?: string }) => {
-    if (data.description) {
-      // if (data.description === post.description) {
-      //   setStatus(EDIT_POST_STATUS.INITIAL)
-      // } else {
-      // editPost(post.id, data.description)
-      // setStatus(EDIT_POST_STATUS.INITIAL)
-      // }
-    }
-  }
+
   const [fetchProfile, { data: newProfileInfo, isSuccess }] = useLazyGetPublicUserQuery()
-  const onCloseEditor = (data: { description?: string }) => {
-    // if (status === EDIT_POST_STATUS.INITIAL) {
-    //   onClose()
-    // }
-    // if (data.description === post.description) {
-    //   setStatus(EDIT_POST_STATUS.INITIAL)
-    // } else {
-    //   setIsOpenForEdit(true)
-    // }
-  }
 
   const [followUser] = useFollowingUserMutation()
   const [unFollow] = useUnFollowingUserMutation()
 
   return (
     <Modal
-      className="w-full z-80"
+      className="w-full z-[1000]"
       contentClassName="p-[15px] sm:p-0 pt-0 bg-dark-700 sm:bg-dark-300 sm:pt-0 items-start justify-between"
       headerClassName="h-[60px]"
       modalClassName={cn('lg:w-[50%] sm:w-[80%] lg:min-w-[1000px] w-[100%] min-w-[320px] h-auto', {
         'h-full bg-dark-700 mt-[59px]': isMobile,
       })}
       onClose={onClose}
-      title="Likes"
+      title={t.home.likesModalTitle}
       withOutHeader={isMobile}
       withOutHeaderButtonClassName="hidden"
     >
       <div className="flex flex-col px-6 py-3 gap-3 w-full">
-        <SearchWithQueries placeholder="Search" />
+        <SearchWithQueries className="border-dark-100" placeholder="Search" />
         <div className="flex flex-col gap-3">
-          {users.map(user => {
-            console.log(user)
+          {postLikes?.items.map(user => {
             const followUnfollowUser = () => {
               if (!user.isFollowing) {
                 followUser({ selectedUserId: user.userId })
@@ -98,13 +70,15 @@ export const LikesModal = ({ deletePostCallback, editPost, onClose, users }: Pro
                     userName={user.userName}
                   />
                 </div>
-                <Button
-                  onClick={followUnfollowUser}
-                  variant={user.isFollowing ? 'outline' : 'primary'}
-                >
-                  {!user.isFollowing && <span>Follow</span>}
-                  {user.isFollowing && <span>UnFollow</span>}
-                </Button>
+                {me?.data?.userId && me?.data?.userId !== user.userId && (
+                  <Button
+                    onClick={followUnfollowUser}
+                    variant={user.isFollowing ? 'outline' : 'primary'}
+                  >
+                    {!user.isFollowing && <span>Follow</span>}
+                    {user.isFollowing && <span>UnFollow</span>}
+                  </Button>
+                )}
               </div>
             )
           })}

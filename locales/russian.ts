@@ -107,6 +107,8 @@ export const russian = {
     copyLink: 'Копировать ссылку',
     hideAnswers: 'Скрыть ответы',
     likes: 'нравится: ',
+    likesModal: 'реакци',
+    likesModalTitle: 'Оценки',
     moreComments: 'Показать больше комментариев ',
     notAnswer: 'не отвечать',
     publish: 'Отправить',
