@@ -1,9 +1,13 @@
-import { getLayout } from "@/app/layouts/mainLayout/Layout"
-import { Messanger } from "@/features/messanger/Messanger"
+import { getPublicLayoutWithSidebar } from '@/app/layouts/PublicLayoutWithSidebar/PublicLayoutWithSidebar'
+import { Messanger } from '@/features/messanger/Messanger'
 
 const Messages = () => {
-  return <Messanger />
+  return (
+    <div className="h-full">
+      <Messanger />
+    </div>
+  )
 }
 
-Messages.getLayout = getLayout
+Messages.getLayout = getPublicLayoutWithSidebar
 export default Messages
