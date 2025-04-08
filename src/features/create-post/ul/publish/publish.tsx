@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '@/app/store'
 import { PostImage } from '@/entities/PostImage/PostImage'
 import UserAvatar from '@/entities/UserAvatar/UserAvatar'
 import { usePublicationForm } from '@/features/publication-form/usePublicationForm'
+import { useMeQuery } from '@/services/auth/signInApi'
 import { imageActions } from '@/services/create-post/postSlice'
 import { useGetCreatePostMutation } from '@/services/profile/postsApi'
 import { useGetProfileInfoQuery } from '@/services/profile/profileApi'
@@ -17,15 +18,16 @@ interface Props {
   backStep: () => void
 }
 
-export const Publish = (props: Props) => {
+export const Publish = ({ backStep }: Props) => {
   const { data: me } = useGetProfileInfoQuery()
+  const { data: myUserId } = useMeQuery()
   const { images } = useAppSelector(state => state.imageSlice)
   const { control, errors, handleSubmit } = usePublicationForm({ description: '' })
   const [createPost] = useGetCreatePostMutation()
   const dispatch = useAppDispatch()
   const router = useRouter()
+
   const onSubmit = (data: any) => {
-    debugger
     const combineImages: UploadType[] = images.map((items: any) => ({ uploadId: items.uploadId }))
     const dataRequest: CreatePost = {
       childrenMetadata: combineImages,
@@ -33,7 +35,7 @@ export const Publish = (props: Props) => {
     }
 
     createPost(dataRequest).then(() => {
-      void router.push('/')
+      void router.push(`/public-profile/profile/${myUserId?.userId}`)
       dispatch(imageActions.deleteState())
     })
   }
@@ -47,7 +49,7 @@ export const Publish = (props: Props) => {
         <header className="flex pb-[19px] justify-between items-center custom-wrapper md:mx-[24px] md:pb-0 md:my-[12px] ">
           <Button
             className="m-[6px] px-0 min-w-0 contents"
-            onClick={props.backStep}
+            onClick={backStep}
             type="button"
             variant="text"
           >
