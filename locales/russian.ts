@@ -115,6 +115,10 @@ export const russian = {
     unfollow: 'отписаться',
     viewAnswers: 'Показать ответы',
   },
+  messanger: {
+    noMoreMessages: 'Больше нет сообщений',
+    searchPlaceholder: 'Поиск сообщений...',
+  },
   pages: {
     profile: {
       accountType: 'Тип учетной записи:',
