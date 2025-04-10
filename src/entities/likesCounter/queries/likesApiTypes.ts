@@ -11,6 +11,10 @@ export interface getPostLikesRequest {
   search?: string
 }
 
+export interface getCommentLikesRequest extends getPostLikesRequest {
+  commentId: number
+}
+
 export interface updateCommentLikesRequest {
   commentId: number
   likeStatus: 'DISLIKE' | 'LIKE' | 'NONE'
@@ -32,7 +36,7 @@ interface Avatars {
   width: number
 }
 
-export interface Items {
+export interface LikeItems {
   avatars: Avatars[]
   createdAt: string
   id: number
@@ -44,7 +48,7 @@ export interface Items {
 
 export interface GetPostLikesResponse {
   isLiked: boolean
-  items: Items[]
+  items: LikeItems[]
   nextCursor: null | number
   page: number
   pageSize: number
