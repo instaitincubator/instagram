@@ -14,14 +14,16 @@ export const LikesApi = baseApi.injectEndpoints({
       providesTags: ['PostLikeStatus'],
       query: arg => ({
         method: 'GET',
-        url: `/api/v1/posts/${arg.postId}/comments/${arg.commentId}/likes?${arg.pageSize ? '&pageSize=' + arg.pageSize : ''}${arg.cursor ? '&cursor=' + arg.cursor : ''}${arg.search ? '&search=' + arg.search : ''}${arg.pageNumber ? '&pageNumber=' + arg.pageNumber : ''}`,
+        params: arg,
+        url: `/api/v1/posts/${arg.postId}/comments/${arg.commentId}/likes`,
       }),
     }),
     getPostLikeStatus: builder.query<GetPostLikesResponse, getPostLikesRequest>({
       providesTags: ['PostLikeStatus'],
       query: arg => ({
         method: 'GET',
-        url: `/api/v1/posts/${arg.postId}/likes?${arg.pageSize ? '&pageSize=' + arg.pageSize : ''}${arg.cursor ? '&cursor=' + arg.cursor : ''}${arg.search ? '&search=' + arg.search : ''}${arg.pageNumber ? '&pageNumber=' + arg.pageNumber : ''}`,
+        params: arg,
+        url: `/api/v1/posts/${arg.postId}/likes`,
       }),
     }),
     updateAnswerLikeStatus: builder.mutation<void, updateAnswerLikesRequest>({
