@@ -4,14 +4,12 @@ import { getPublicLayoutWithSidebar } from '@/app/layouts/PublicLayoutWithSideba
 import PostModal from '@/entities/Post/PostModal'
 import PostMobileComments from '@/features/PostModalComment/PostMobileComments/PostMobileComments'
 import { UserInfo } from '@/features/UserInfo/UserInfo'
-import { PostComments } from '@/features/home/ui/PostComments/PostComments'
 import { useMeQuery } from '@/services/auth/signInApi'
 import {
   useDeletePostMutation,
   useLazyGetPublicPostQuery,
   useUpdatePostMutation,
 } from '@/services/profile/postsApi'
-import { useTranslation } from '@/shared/hooks/useTranslation'
 import {
   PostsPublicItems,
   ProfileInfo,
@@ -184,7 +182,7 @@ const Profile = ({ comments, posts, profileInfo, selectedPost }: Props) => {
       )}
       {showComments && selectedPost && router.query.postId && (
         <Modal
-          className={'z-999 bg-dark-700  border-0 w-full mt-[60px] h-full justify-start'}
+          className={'z-999 bg-dark-700  border-0 w-auto mt-[60px] h-auto mb-[60px] justify-start'}
           contentClassName={'items-center px-0'}
           modalClassName={'bg-dark-700 w-full py-[15px] '}
           onClose={onCloseModal}
@@ -193,8 +191,10 @@ const Profile = ({ comments, posts, profileInfo, selectedPost }: Props) => {
         >
           <PostMobileComments
             avatar={selectedPost?.avatarOwner}
+            createdAt={selectedPost.createdAt}
             description={selectedPost?.description}
             onClose={onCloseModal}
+            ownerId={selectedPost?.ownerId}
             postId={+router.query.postId}
             username={selectedPost?.userName}
           />
