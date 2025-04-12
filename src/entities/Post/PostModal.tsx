@@ -13,6 +13,7 @@ import CloseModal from '@/features/create-post/ul/close-modal/close-modal'
 import { DropdownItem } from '@/features/dropdown/dropdown'
 import { PostActionPanel } from '@/features/home/ui/PostActionPanel'
 import { PostComments } from '@/features/home/ui/PostComments/PostComments'
+import { SendComment } from '@/features/home/ui/PostComments/SendComment'
 import { usePublicationForm } from '@/features/publication-form/usePublicationForm'
 import useIsMobile from '@/shared/hooks/useIsMobile'
 import { useTranslation } from '@/shared/hooks/useTranslation'
@@ -153,14 +154,16 @@ const PostModal = ({
                 </DropdownItem>
               </MobilePostMenu>
             </div>
-            <div className="h-fit">
+            <div className="">
               <div className="w-full h-[1px] bg-dark-100" />
-              <div className="flex justify-around flex-col sm:flex-col-reverse  lg:flex-col ">
-                <PostActionPanel
-                  id={post.id}
-                  messageIconClassname={cn('bg-dark-300', { 'bg-dark-700': isMobile })}
-                />
-
+              <div className="flex justify-around flex-col sm:flex-col-reverse ">
+                <div className="">
+                  <PostActionPanel
+                    id={post.id}
+                    messageIconClassname={cn('bg-dark-300', { 'bg-dark-700': isMobile })}
+                  />
+                  <SendComment postId={post.id} />
+                </div>
                 <PostModalComment
                   description={post.description}
                   postId={post.id}

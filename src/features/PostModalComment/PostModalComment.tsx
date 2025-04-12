@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 
 import { Comment } from '@/entities/Post/Comment'
+import { SendComment } from '@/features/home/ui/PostComments/SendComment'
 import { SingleComment } from '@/features/home/ui/PostComments/SingleComment/SingleComment'
 import { useGetAllPostCommentsQuery } from '@/services/comments/comments-api'
 import { useTranslation } from '@/shared/hooks/useTranslation'
@@ -31,13 +32,15 @@ const PostModalComment = ({ description, postId, showCommentsModal, username }: 
         <span className="text-bold-16">{username}</span>
         <span>{description}</span>
       </div>
-
+      <div className="h-60 overflow-y-auto">
+        <SingleComment comments={comments?.items!} isAllCommentViewed postId={postId} />
+      </div>
+      {/*<SendComment postId={postId} />*/}
       {comments?.items.length! > 3 && !allCommentsViewed && (
-        <span className="opacity-50 pl-2 cursor-pointer" onClick={showModal}>
+        <span className="opacity-50 pl-2 cursor-pointer lg:hidden" onClick={showModal}>
           {t.home.moreComments}({comments?.items.length! - 3})
         </span>
       )}
-      {/*<Modal className={'z-100 bg-white'}>feffefef</Modal>*/}
     </div>
   )
 }
