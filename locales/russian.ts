@@ -171,6 +171,13 @@ export const russian = {
     readButtonTitle: 'пометить прочитанным',
     title: 'Уведомления',
   },
+  myPayment: {
+    dateOfPayment: 'Дата платежа:',
+    endDateOfSubscription: 'Дата окончания подписки:',
+    price: 'Цена',
+    subscriptionType: 'Тип подписки:',
+    paymentType: 'Тип оплаты:',
+  },
   postModal: {
     cancel: 'Отменить',
     deletePost: 'Удалить пост',
