@@ -4,9 +4,11 @@ import { useAppDispatch, useAppSelector } from '@/app/store'
 import { PostImage } from '@/entities/PostImage/PostImage'
 import UserAvatar from '@/entities/UserAvatar/UserAvatar'
 import { usePublicationForm } from '@/features/publication-form/usePublicationForm'
+import { useMeQuery } from '@/services/auth/signInApi'
 import { imageActions } from '@/services/create-post/postSlice'
 import { useGetCreatePostMutation } from '@/services/profile/postsApi'
 import { useGetProfileInfoQuery } from '@/services/profile/profileApi'
+import { useTranslation } from '@/shared/hooks/useTranslation'
 import { CreatePost, UploadType } from '@/shared/types/public.types'
 import { ControlledTextarea } from '@/shared/ui'
 import Button from '@/shared/ui/Button/Button'
@@ -17,15 +19,17 @@ interface Props {
   backStep: () => void
 }
 
-export const Publish = (props: Props) => {
+export const Publish = ({ backStep }: Props) => {
   const { data: me } = useGetProfileInfoQuery()
+  const { data: myUserId } = useMeQuery()
   const { images } = useAppSelector(state => state.imageSlice)
   const { control, errors, handleSubmit } = usePublicationForm({ description: '' })
   const [createPost] = useGetCreatePostMutation()
   const dispatch = useAppDispatch()
   const router = useRouter()
+  const { t } = useTranslation()
+
   const onSubmit = (data: any) => {
-    debugger
     const combineImages: UploadType[] = images.map((items: any) => ({ uploadId: items.uploadId }))
     const dataRequest: CreatePost = {
       childrenMetadata: combineImages,
@@ -33,7 +37,7 @@ export const Publish = (props: Props) => {
     }
 
     createPost(dataRequest).then(() => {
-      void router.push('/')
+      void router.push(`/public-profile/profile/${myUserId?.userId}`)
       dispatch(imageActions.deleteState())
     })
   }
@@ -47,15 +51,15 @@ export const Publish = (props: Props) => {
         <header className="flex pb-[19px] justify-between items-center custom-wrapper md:mx-[24px] md:pb-0 md:my-[12px] ">
           <Button
             className="m-[6px] px-0 min-w-0 contents"
-            onClick={props.backStep}
+            onClick={backStep}
             type="button"
             variant="text"
           >
             <Image alt={'back button'} height={24} src={'./arrow-without-bg.svg'} width={24} />
           </Button>
-          <h2 className="text-h2"> New Publication</h2>
+          <h2 className="text-h2">{t.createPost.newPublication}</h2>
           <button className="text-h3 text-accent-500 m-[6px]" type="submit">
-            Publish
+            {t.createPost.publish}
           </button>
         </header>
         <div className="lg:flex w-full">
@@ -74,9 +78,9 @@ export const Publish = (props: Props) => {
                 control={control}
                 error={errors.description?.message}
                 fullWidth
-                label="Add publication descriptions"
+                label={t.createPost.addPublicationDescriptions}
                 name="description"
-                placeholder="Text-area"
+                placeholder={t.createPost.textArea}
               />
             </div>
           </div>

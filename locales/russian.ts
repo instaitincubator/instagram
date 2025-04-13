@@ -85,6 +85,8 @@ export const russian = {
     publish: 'Опубликовать',
     saveDraft: 'Сохранить черновик',
     selectFromDevice: 'Выбрать с устройства',
+    textArea: 'Текстовая область',
+    openDraft: 'Открыть черновик',
   },
   devices: {
     current: 'Текущее устройство',
@@ -113,6 +115,10 @@ export const russian = {
     publish: 'Отправить',
     unfollow: 'отписаться',
     viewAnswers: 'Показать ответы',
+  },
+  messanger: {
+    noMoreMessages: 'Больше нет сообщений',
+    searchPlaceholder: 'Поиск сообщений...',
   },
   pages: {
     profile: {
