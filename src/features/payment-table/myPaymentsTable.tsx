@@ -41,10 +41,10 @@ export const MyPaymentsTable = ({ columns, formatPrice, payments, setSort, sort 
         </Table.TableRoot>
       </div>
 
-      <div className="flex flex-col md:hidden w-full">
+      <div className="flex flex-col md:hidden w-full pr-[15px] m-auto">
         {payments?.map((payment, index) => (
           <div
-            className="p-4 border rounded border-dark-300 last:border-b-0 bg-dark-500 mt-[6px] w-full "
+            className="p-4 border rounded border-dark-300 last:border-b-0 bg-dark-500 mt-[6px] w-full"
             key={index}
           >
             <div className="flex justify-between mt-3">

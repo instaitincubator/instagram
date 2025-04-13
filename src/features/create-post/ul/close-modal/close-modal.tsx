@@ -45,8 +45,8 @@ const CloseModal = ({
         </Button>
         <Button
           fullWidth
-          onClick={onSave}
           className={'text-wrap leading-tight whitespace-normal px-[0]'}
+          onClick={onSave}
         >
           {onSaveString}
         </Button>
