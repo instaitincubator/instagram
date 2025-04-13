@@ -59,7 +59,7 @@ const PostMobileComments = ({
           <span>{description}</span>
         </div>
         <div className={'flex pl-11 items-center text-regular-14 text-light-900'}>
-          {<FormatDateForPost createdAt={createdAt} />}{' '}
+          <FormatDateForPost createdAt={createdAt} />
         </div>
       </div>
       <div className=" border border-dark-100 w-full" />

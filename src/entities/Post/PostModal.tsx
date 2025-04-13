@@ -124,7 +124,7 @@ const PostModal = ({
             </div>
           </div>
         ) : (
-          <div className="flex sm:px-[24px] flex-1 flex-col justify-between overscroll-contain lg:max-h-[474px]">
+          <div className="flex sm:px-[24px] flex-1 flex-col justify-start  overscroll-contain lg:max-h-[474px]">
             <div className="hidden justify-between items-center relative lg:flex">
               <UserAvatar
                 avatar={post.avatarOwner}
@@ -156,16 +156,19 @@ const PostModal = ({
             </div>
             <div className="">
               <div className="w-full h-[1px] bg-dark-100" />
-              <div className="flex justify-around flex-col sm:flex-col-reverse ">
-                <div className="">
+              <div className="flex  justify-around gap-[6px] md:gap-[30px] flex-col sm:flex-col-reverse ">
+                <div className="relative bottom-0">
                   <PostActionPanel
                     id={post.id}
                     messageIconClassname={cn('bg-dark-300', { 'bg-dark-700': isMobile })}
                   />
-                  <SendComment postId={post.id} />
+
+                  <SendComment className={'hidden invisible md:flex md:visible'} postId={post.id} />
                 </div>
                 <PostModalComment
+                  avatar={post.avatarOwner}
                   description={post.description}
+                  ownerId={post.ownerId}
                   postId={post.id}
                   showCommentsModal={showCommentsModal}
                   username={post.userName}
@@ -217,7 +220,6 @@ const PostModal = ({
           title={t.createPost.close}
         />
       )}
-      {/*<Modal className={'z-999'}>ophtoperorkopregkopgorekpogrkpgorpoerg rrkrkrkrkr</Modal>*/}
     </Modal>
   )
 }

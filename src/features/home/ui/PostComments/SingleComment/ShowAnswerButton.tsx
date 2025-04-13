@@ -3,6 +3,7 @@ import React from 'react'
 import { useTranslation } from '@/shared/hooks/useTranslation'
 
 interface Props {
+  answerClassName?: string
   isAnswerShowed: boolean
   onShowAnswerClick: () => void
 }
