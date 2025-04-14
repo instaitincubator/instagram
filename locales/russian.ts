@@ -72,6 +72,7 @@ export const russian = {
     yes: 'Да, объединить',
     yesConfirm: 'Да',
   },
+  comments: 'Комментарии',
   createPost: {
     addPublicationDescriptions: 'Добавить описания публикаций',
     close: 'Закрыть',

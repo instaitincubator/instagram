@@ -71,6 +71,7 @@ export const english = {
     yes: 'Yes, merge',
     yesConfirm: 'Yes',
   },
+  comments: 'Comments',
   createPost: {
     addPublicationDescriptions: 'Add publication descriptions',
     close: 'Close',
