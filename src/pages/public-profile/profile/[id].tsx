@@ -182,7 +182,9 @@ const Profile = ({ comments, posts, profileInfo, selectedPost }: Props) => {
       )}
       {showComments && selectedPost && router.query.postId && (
         <Modal
-          className={'z-999 bg-dark-700  border-0 w-auto mt-[60px] h-auto mb-[60px] justify-start'}
+          className={
+            'z-999 bg-dark-700  border-0 w-auto mt-[60px] h-auto mb-[60px] md:mb-0 justify-start'
+          }
           contentClassName={'items-center px-0'}
           modalClassName={'bg-dark-700 w-full py-[15px] '}
           onClose={onCloseModal}

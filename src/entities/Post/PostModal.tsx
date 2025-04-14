@@ -73,10 +73,10 @@ const PostModal = ({
 
   return (
     <Modal
-      className="w-full z-80"
+      className="w-full md:mt-[60px] z-80"
       contentClassName="p-[15px] sm:p-0 pt-0 bg-dark-700 sm:bg-dark-300 sm:pt-0 items-start justify-between"
       headerClassName="h-[60px]"
-      modalClassName={cn('lg:w-[50%] sm:w-[80%] lg:min-w-[1000px] w-[100%] min-w-[320px] h-auto', {
+      modalClassName={cn('lg:w-[50%] sm:w-[70%] lg:min-w-[1000px] w-[100%] min-w-[320px] h-auto', {
         'h-full bg-dark-700 mt-[59px]': isMobile,
       })}
       onClose={handleSubmit(onCloseEditor)}
@@ -156,14 +156,14 @@ const PostModal = ({
             </div>
             <div className="">
               <div className="w-full h-[1px] bg-dark-100" />
-              <div className="flex  justify-around gap-[6px] md:gap-[30px] flex-col sm:flex-col-reverse ">
+              <div className="flex  justify-around gap-[6px] md:gap-[10px] ld:gap-[30px]  flex-col md:flex-col  lg:flex-col-reverse ">
                 <div className="relative bottom-0">
                   <PostActionPanel
                     id={post.id}
                     messageIconClassname={cn('bg-dark-300', { 'bg-dark-700': isMobile })}
                   />
 
-                  <SendComment className={'hidden invisible md:flex md:visible'} postId={post.id} />
+                  <SendComment className={'hidden invisible lg:flex lg:visible'} postId={post.id} />
                 </div>
                 <PostModalComment
                   avatar={post.avatarOwner}

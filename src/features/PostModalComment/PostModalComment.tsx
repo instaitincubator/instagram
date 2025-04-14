@@ -57,7 +57,7 @@ const PostModalComment = ({
           {/*<span className="text-bold-16">{username}</span>*/}
           <span>{description}</span>
         </div>
-        <div className="h-auto md:h-[270px] overflow-y-auto">
+        <div className="h-auto  md:hidden lg:block lg:h-[270px] overflow-y-auto">
           <div className="hidden invisible  lg:flex  lg:visible gap-4 pb-2 pl-2 items-center">
             <UserAvatar avatar={avatar} avatarSize={24} userId={ownerId} userName={username} />
             {/*<span className="text-bold-16">{username}</span>*/}
@@ -68,7 +68,7 @@ const PostModalComment = ({
             comments={comments?.items!}
             isAllCommentViewed={allCommentsViewed}
             postId={postId}
-            showAnswerClassName={'hidden md:flex'}
+            showAnswerClassName={'hidden md:flex md:flex-col'}
           />
         </div>
         {/*<SendComment postId={postId} />*/}
