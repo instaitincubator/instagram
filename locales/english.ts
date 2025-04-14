@@ -171,6 +171,13 @@ Your rights to your content remain unaffected. We do not claim ownership of your
     readButtonTitle: 'mark as read',
     title: 'Notifications',
   },
+  myPayment: {
+    dateOfPayment: 'Date of payment:',
+    endDateOfSubscription: 'End date of subscription:',
+    price: 'Price',
+    subscriptionType: 'Subscription type:',
+    paymentType: 'Payment Type:',
+  },
   postModal: {
     cancel: 'Cancel',
     deletePost: 'Delete Post',
