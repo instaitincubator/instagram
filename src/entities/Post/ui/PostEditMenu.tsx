@@ -3,10 +3,11 @@ import React from 'react'
 import { useTranslation } from '@/shared/hooks/useTranslation'
 import Button from '@/shared/ui/Button/Button'
 
-type Props = {
+interface Props {
   onClose: () => void
   onSubmit: () => void
 }
+
 const PostEditMenu = ({ onClose, onSubmit }: Props) => {
   const { t } = useTranslation()
 

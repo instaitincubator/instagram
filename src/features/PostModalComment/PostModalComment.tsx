@@ -54,13 +54,11 @@ const PostModalComment = ({
       <div className="flex flex-col-reverse gap-2">
         <div className="flex lg:hidden lg:invisible gap-4 pb-2 pl-2 items-center">
           <UserAvatar avatar={avatar} avatarSize={24} userId={ownerId} userName={username} />
-          {/*<span className="text-bold-16">{username}</span>*/}
           <span>{description}</span>
         </div>
         <div className="h-auto  md:hidden lg:block lg:h-[270px] overflow-y-auto">
           <div className="hidden invisible  lg:flex  lg:visible gap-4 pb-2 pl-2 items-center">
             <UserAvatar avatar={avatar} avatarSize={24} userId={ownerId} userName={username} />
-            {/*<span className="text-bold-16">{username}</span>*/}
             <span>{description}</span>
           </div>
           <SingleComment
@@ -71,7 +69,6 @@ const PostModalComment = ({
             showAnswerClassName={'hidden md:flex md:flex-col'}
           />
         </div>
-        {/*<SendComment postId={postId} />*/}
         {comments?.items.length! > 3 && !allCommentsViewed && (
           <span className="opacity-50 pl-2 cursor-pointer lg:hidden" onClick={showModal}>
             {t.home.moreComments}({comments?.items.length! - 3})

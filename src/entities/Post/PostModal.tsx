@@ -1,24 +1,20 @@
 import React, { useState } from 'react'
 
-import { Comment } from '@/entities/Post/Comment'
 import { EDIT_POST_STATUS } from '@/entities/Post/PostTypes'
 import { MobilePostMenu } from '@/entities/Post/ui/MobilePostMenu'
 import PostEditMenu from '@/entities/Post/ui/PostEditMenu'
 import { PostModalHeader } from '@/entities/Post/ui/PostModalHeader'
 import { PostImage } from '@/entities/PostImage/PostImage'
-import { TimePublish } from '@/entities/TimePublish/TimePublish'
 import UserAvatar from '@/entities/UserAvatar/UserAvatar'
 import PostModalComment from '@/features/PostModalComment/PostModalComment'
 import CloseModal from '@/features/create-post/ul/close-modal/close-modal'
 import { DropdownItem } from '@/features/dropdown/dropdown'
 import { PostActionPanel } from '@/features/home/ui/PostActionPanel'
-import { PostComments } from '@/features/home/ui/PostComments/PostComments'
 import { SendComment } from '@/features/home/ui/PostComments/SendComment'
 import { usePublicationForm } from '@/features/publication-form/usePublicationForm'
 import useIsMobile from '@/shared/hooks/useIsMobile'
 import { useTranslation } from '@/shared/hooks/useTranslation'
 import { PostsPublicItems } from '@/shared/types/ApiTypes/ProfileApiTypes'
-import { CommentForPost } from '@/shared/types/public.types'
 import { ControlledTextarea } from '@/shared/ui'
 import Button from '@/shared/ui/Button/Button'
 import { Modal } from '@/shared/ui/Modal/Modal'
@@ -26,7 +22,6 @@ import { cn } from '@/shared/utils/cn'
 import Image from 'next/image'
 
 interface Props {
-  comments: CommentForPost
   deletePostCallback: (id: number) => void
   editPost: (id: number, description: string) => void
   onClose: () => void
@@ -34,14 +29,7 @@ interface Props {
   showCommentsModal: () => void
 }
 
-const PostModal = ({
-  comments,
-  deletePostCallback,
-  editPost,
-  onClose,
-  post,
-  showCommentsModal,
-}: Props) => {
+const PostModal = ({ deletePostCallback, editPost, onClose, post, showCommentsModal }: Props) => {
   const [isOpen, setIsOpen] = useState(false)
   const [isOpenForEdit, setIsOpenForEdit] = useState(false)
   const [status, setStatus] = useState<EDIT_POST_STATUS.EDIT | EDIT_POST_STATUS.INITIAL>(
@@ -173,26 +161,6 @@ const PostModal = ({
                   showCommentsModal={showCommentsModal}
                   username={post.userName}
                 />
-
-                {/*<div className="p-2 flex flex-col gap-2">*/}
-                {/*  <article className="flex flex-wrap  gap-1">*/}
-                {/*    <h2 className="text-bold-14  font-bold   whitespace-nowrap text-base">*/}
-                {/*      {post.userName}*/}
-                {/*    </h2>*/}
-                {/*    <h1 className="break-words whitespace-normal overflow-hidden leading-relaxed max-w-full text-sm">*/}
-                {/*      {post.description}*/}
-                {/*    </h1>*/}
-                {/*  </article>*/}
-                {/*  <TimePublish createdAt={post.createdAt} />*/}
-                {/*</div>*/}
-
-                {/*<div className="flex flex-col gap-6 pl-6 py-6 overflow-y-auto">*/}
-                {/*  {comments?.items.length > 0 ? (*/}
-                {/*    comments?.items.map(comment => <Comment comment={comment} key={comment.id} />)*/}
-                {/*  ) : (*/}
-                {/*    <span>{t.postModal.noComments}</span>*/}
-                {/*  )}*/}
-                {/*</div>*/}
               </div>
             </div>
           </div>

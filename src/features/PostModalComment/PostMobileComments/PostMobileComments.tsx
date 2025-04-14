@@ -55,7 +55,6 @@ const PostMobileComments = ({
             userId={ownerId}
             userName={username}
           />
-          {/*<span className="text-bold-16">{username}</span>*/}
           <span>{description}</span>
         </div>
         <div className={'flex pl-11 items-center text-regular-14 text-light-900'}>
@@ -69,7 +68,6 @@ const PostMobileComments = ({
       <div className="bg-dark-700 px-[15px] bottom-[60px]">
         <SendComment postId={postId} />
       </div>
-      {/*<Modal className={'z-100 bg-white'}>feffefef</Modal>*/}
     </div>
   )
 }
