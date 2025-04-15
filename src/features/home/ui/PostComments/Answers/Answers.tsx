@@ -22,7 +22,7 @@ export const Answers = ({ commentId, postId }: Props) => {
           <div>
             <div className="flex gap-2 items-center pl-9">
               <UserAvatar
-                avatar={answer.from.avatars[1].url}
+                avatar={answer?.from?.avatars[1]?.url}
                 avatarSize={24}
                 className="py-0"
                 userId={answer.from.id}
