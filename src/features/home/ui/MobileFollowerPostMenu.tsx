@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { useUnFollowingUserMutation } from '@/services/users/users-following/usersFollowing-api'
 import { useTranslation } from '@/shared/hooks/useTranslation'
 import { CopyLink } from '@/shared/ui/icons/copyLink'
@@ -20,7 +18,9 @@ export const MobileFollowerPostMenu = ({ imageUrl, postId }: Props) => {
   const { t } = useTranslation()
 
   const unFollowHandler = () => {
-    unfollow(postId)
+    unfollow(postId).then(() => {
+      window.location.reload()
+    })
   }
 
   return (
