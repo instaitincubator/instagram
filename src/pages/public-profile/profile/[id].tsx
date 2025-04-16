@@ -172,7 +172,6 @@ const Profile = ({ comments, posts, profileInfo, selectedPost }: Props) => {
       </div>
       {isModalVisible && selectedPost && (
         <PostModal
-          comments={comments!}
           deletePostCallback={deletePostHandler}
           editPost={updatePost}
           onClose={closeModal}
