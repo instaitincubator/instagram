@@ -46,7 +46,6 @@ const CloseModal = ({
         <Button onClick={onDiscard} variant={'outline'}>
           {onDiscardText}
         </Button>
-
         <Button
           className={cn(
             'text-wrap leading-tight whitespace-normal px-[0]',

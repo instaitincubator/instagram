@@ -58,7 +58,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async context => {
   }
 }
 
-const Profile = ({ comments, posts, profileInfo, selectedPost }: Props) => {
+const Profile = ({ posts, profileInfo, selectedPost }: Props) => {
   const router = useRouter()
   const [isModalVisible, setIsModalVisible] = useState<boolean>(true)
   const me = useMeQuery()
