@@ -109,7 +109,7 @@ const Profile = ({ comments, posts, profileInfo, selectedPost }: Props) => {
   const [editPost] = useUpdatePostMutation()
 
   const updatePost = (id: number, description: string) => {
-    editPost({ description: { description }, id }).then(res => {
+    editPost({ description: { description }, id }).then(_ => {
       fetchPosts({ endCursorPostId: 1, userId: profileInfo.id })
     })
   }
@@ -172,7 +172,6 @@ const Profile = ({ comments, posts, profileInfo, selectedPost }: Props) => {
       </div>
       {isModalVisible && selectedPost && (
         <PostModal
-          comments={comments!}
           deletePostCallback={deletePostHandler}
           editPost={updatePost}
           onClose={closeModal}
