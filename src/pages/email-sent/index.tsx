@@ -6,7 +6,7 @@ import Image from 'next/image'
 const EmailSent = () => {
   return (
     <div>
-      <Card className="w-[378px] h-[228px] mx-auto my-auto p-[24px]">
+      <Card className=" w-[378px] h-[228px] mx-auto my-auto p-[24px]">
         <div className="flex justify-between mb-[11px]">
           <h1 className="text-light-100 text-h1">Email sent</h1>
           <Image alt="close-icon" height={24} src="/close.svg" width={24}></Image>

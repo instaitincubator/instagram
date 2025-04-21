@@ -18,11 +18,11 @@ export const Answers = ({ commentId, postId }: Props) => {
   return (
     <div className="flex flex-col gap-2 pt-2">
       {answers?.items.map(answer => (
-        <div className="w-full flex justify-between" key={answer.id}>
+        <div className="w-full flex justify-between ml-5" key={answer.id}>
           <div>
             <div className="flex gap-2 items-center pl-9">
               <UserAvatar
-                avatar={answer.from.avatars[1].url}
+                avatar={answer?.from?.avatars[1]?.url}
                 avatarSize={24}
                 className="py-0"
                 userId={answer.from.id}

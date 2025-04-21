@@ -36,7 +36,7 @@ const CreateModal = (props: Props) => {
   }
   const handlerOpenModal = () => {
     if (images.length === 0) {
-      void router.push('/')
+      void router.back()
     } else {
       setIsOpen(true)
     }
@@ -47,7 +47,7 @@ const CreateModal = (props: Props) => {
   const handlerDiscardModal = () => {
     dispatch(imageActions.deleteState())
     setIsOpen(false)
-    void router.push('/')
+    void router.back()
   }
 
   const handleImageChange = async (event: ChangeEvent<HTMLInputElement>) => {
@@ -69,7 +69,7 @@ const CreateModal = (props: Props) => {
   return (
     <div className="mx-[15px]  mt-[17px] md:bg-dark-300 md:border md:border-dark-100 md:px-0 md:py-0 md:mx-0 md:my-0">
       <header className="flex justify-between items-center custom-wrapper md:flex-row  md:border-b-1 md:border-t-0  md:border-l-0 md:border-r-0 md:border md:border-dark-100 md:align-items-center md:py-[11px] md:px-[24px]">
-        <div className="m-[6px]" onClick={handlerOpenModal}>
+        <div className="m-[6px] cursor-pointer" onClick={handlerOpenModal}>
           <ExitButton />
         </div>
         <h2 className="text-h2">{t.createPost.newPublication}</h2>
@@ -149,7 +149,7 @@ const CreateModal = (props: Props) => {
                 />
               </label>
               <Button fullWidth variant={'outline'}>
-                Open draft
+                {t.createPost.openDraft}
               </Button>
             </div>
           </div>

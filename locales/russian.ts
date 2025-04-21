@@ -72,6 +72,7 @@ export const russian = {
     yes: 'Да, объединить',
     yesConfirm: 'Да',
   },
+  comments: 'Комментарии',
   createPost: {
     addPublicationDescriptions: 'Добавить описания публикаций',
     close: 'Закрыть',
@@ -84,6 +85,8 @@ export const russian = {
     publish: 'Опубликовать',
     saveDraft: 'Сохранить черновик',
     selectFromDevice: 'Выбрать с устройства',
+    textArea: 'Текстовая область',
+    openDraft: 'Открыть черновик',
   },
   devices: {
     current: 'Текущее устройство',
@@ -114,6 +117,10 @@ export const russian = {
     publish: 'Отправить',
     unfollow: 'отписаться',
     viewAnswers: 'Показать ответы',
+  },
+  messanger: {
+    noMoreMessages: 'Больше нет сообщений',
+    searchPlaceholder: 'Поиск сообщений...',
   },
   pages: {
     profile: {
@@ -166,6 +173,13 @@ export const russian = {
     notificationsTitle: 'Новое уведомление!',
     readButtonTitle: 'пометить прочитанным',
     title: 'Уведомления',
+  },
+  myPayment: {
+    dateOfPayment: 'Дата платежа:',
+    endDateOfSubscription: 'Дата окончания подписки:',
+    price: 'Цена',
+    subscriptionType: 'Тип подписки:',
+    paymentType: 'Тип оплаты:',
   },
   postModal: {
     cancel: 'Отменить',

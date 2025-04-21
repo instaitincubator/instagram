@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 
 import { getPublicLayoutWithSidebar } from '@/app/layouts/PublicLayoutWithSidebar/PublicLayoutWithSidebar'
 import PostModal from '@/entities/Post/PostModal'
+import PostMobileComments from '@/features/PostModalComment/PostMobileComments/PostMobileComments'
 import { UserInfo } from '@/features/UserInfo/UserInfo'
 import { useMeQuery } from '@/services/auth/signInApi'
 import {
@@ -9,13 +10,13 @@ import {
   useLazyGetPublicPostQuery,
   useUpdatePostMutation,
 } from '@/services/profile/postsApi'
-import { useTranslation } from '@/shared/hooks/useTranslation'
 import {
   PostsPublicItems,
   ProfileInfo,
   ProfilePublicPosts,
 } from '@/shared/types/ApiTypes/ProfileApiTypes'
 import { CommentForPost } from '@/shared/types/public.types'
+import { Modal } from '@/shared/ui/Modal/Modal'
 import { cn } from '@/shared/utils/cn'
 import { GetServerSideProps } from 'next'
 import Image from 'next/image'
@@ -57,13 +58,14 @@ export const getServerSideProps: GetServerSideProps<Props> = async context => {
   }
 }
 
-const Profile = ({ comments, posts, profileInfo, selectedPost }: Props) => {
+const Profile = ({ posts, profileInfo, selectedPost }: Props) => {
   const router = useRouter()
   const [isModalVisible, setIsModalVisible] = useState<boolean>(true)
   const me = useMeQuery()
   const [allPosts, setAllPosts] = useState<PostsPublicItems[]>(posts.items)
   const [fetchPosts, { data: newPosts, isFetching }] = useLazyGetPublicPostQuery()
   const lastPostObserverRef = useRef<HTMLDivElement | null>(null)
+  const [showComments, setShowComments] = useState(false)
 
   useEffect(() => {
     if (newPosts?.items) {
@@ -107,13 +109,34 @@ const Profile = ({ comments, posts, profileInfo, selectedPost }: Props) => {
   const [editPost] = useUpdatePostMutation()
 
   const updatePost = (id: number, description: string) => {
-    editPost({ description: { description }, id }).then(res => {
+    editPost({ description: { description }, id }).then(_ => {
       fetchPosts({ endCursorPostId: 1, userId: profileInfo.id })
     })
   }
   const deletePostHandler = (id: number) => {
     deletePost(id)
     closeModal()
+  }
+
+  const showCommentsModal = () => {
+    setShowComments(true)
+  }
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 768) {
+        setShowComments(false)
+      }
+    }
+
+    window.addEventListener('resize', handleResize)
+
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
+  const onCloseModal = () => {
+    setShowComments(false)
   }
 
   return (
@@ -149,12 +172,34 @@ const Profile = ({ comments, posts, profileInfo, selectedPost }: Props) => {
       </div>
       {isModalVisible && selectedPost && (
         <PostModal
-          comments={comments!}
           deletePostCallback={deletePostHandler}
           editPost={updatePost}
           onClose={closeModal}
           post={selectedPost!}
+          showCommentsModal={showCommentsModal}
         />
+      )}
+      {showComments && selectedPost && router.query.postId && (
+        <Modal
+          className={
+            'z-999 bg-dark-700  border-0 w-auto mt-[60px] h-auto mb-[60px] md:mb-0 justify-start'
+          }
+          contentClassName={'items-center px-0'}
+          modalClassName={'bg-dark-700 w-full py-[15px] '}
+          onClose={onCloseModal}
+          withOutHeader
+          withOutHeaderButtonClassName={'hidden invisible'}
+        >
+          <PostMobileComments
+            avatar={selectedPost?.avatarOwner}
+            createdAt={selectedPost.createdAt}
+            description={selectedPost?.description}
+            onClose={onCloseModal}
+            ownerId={selectedPost?.ownerId}
+            postId={+router.query.postId}
+            username={selectedPost?.userName}
+          />
+        </Modal>
       )}
     </div>
   )

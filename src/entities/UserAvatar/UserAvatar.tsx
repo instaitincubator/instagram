@@ -14,7 +14,7 @@ interface Props {
   isShowedText?: boolean
   toggleShowedText?: () => void
   userId?: number
-  userName: Owner | string
+  userName?: Owner | string
 }
 
 const UserAvatar = ({
@@ -39,7 +39,7 @@ const UserAvatar = ({
         {typeof userName === 'string' ? (
           <p>{userName}</p>
         ) : (
-          <p>{`${userName.firstName} ${userName.lastName}`}</p>
+          <p>{`${userName?.firstName} ${userName?.lastName}`}</p>
         )}
       </Link>
       {isShowedText && (

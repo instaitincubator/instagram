@@ -1,20 +1,20 @@
 import React, { useState } from 'react'
 
-import { Comment } from '@/entities/Post/Comment'
 import { EDIT_POST_STATUS } from '@/entities/Post/PostTypes'
 import { MobilePostMenu } from '@/entities/Post/ui/MobilePostMenu'
+import PostEditMenu from '@/entities/Post/ui/PostEditMenu'
 import { PostModalHeader } from '@/entities/Post/ui/PostModalHeader'
 import { PostImage } from '@/entities/PostImage/PostImage'
-import { TimePublish } from '@/entities/TimePublish/TimePublish'
 import UserAvatar from '@/entities/UserAvatar/UserAvatar'
+import PostModalComment from '@/features/PostModalComment/PostModalComment'
 import CloseModal from '@/features/create-post/ul/close-modal/close-modal'
 import { DropdownItem } from '@/features/dropdown/dropdown'
 import { PostActionPanel } from '@/features/home/ui/PostActionPanel'
+import { SendComment } from '@/features/home/ui/PostComments/SendComment'
 import { usePublicationForm } from '@/features/publication-form/usePublicationForm'
 import useIsMobile from '@/shared/hooks/useIsMobile'
 import { useTranslation } from '@/shared/hooks/useTranslation'
 import { PostsPublicItems } from '@/shared/types/ApiTypes/ProfileApiTypes'
-import { CommentForPost } from '@/shared/types/public.types'
 import { ControlledTextarea } from '@/shared/ui'
 import Button from '@/shared/ui/Button/Button'
 import { Modal } from '@/shared/ui/Modal/Modal'
@@ -22,14 +22,14 @@ import { cn } from '@/shared/utils/cn'
 import Image from 'next/image'
 
 interface Props {
-  comments: CommentForPost
   deletePostCallback: (id: number) => void
   editPost: (id: number, description: string) => void
   onClose: () => void
   post: PostsPublicItems
+  showCommentsModal: () => void
 }
 
-const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Props) => {
+const PostModal = ({ deletePostCallback, editPost, onClose, post, showCommentsModal }: Props) => {
   const [isOpen, setIsOpen] = useState(false)
   const [isOpenForEdit, setIsOpenForEdit] = useState(false)
   const [status, setStatus] = useState<EDIT_POST_STATUS.EDIT | EDIT_POST_STATUS.INITIAL>(
@@ -61,10 +61,10 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
 
   return (
     <Modal
-      className="w-full z-80"
+      className="w-full md:mt-[60px] z-80"
       contentClassName="p-[15px] sm:p-0 pt-0 bg-dark-700 sm:bg-dark-300 sm:pt-0 items-start justify-between"
       headerClassName="h-[60px]"
-      modalClassName={cn('lg:w-[50%] sm:w-[80%] lg:min-w-[1000px] w-[100%] min-w-[320px] h-auto', {
+      modalClassName={cn('lg:w-[50%] sm:w-[70%] lg:min-w-[1000px] w-[100%] min-w-[320px] h-auto', {
         'h-full bg-dark-700 mt-[59px]': isMobile,
       })}
       onClose={handleSubmit(onCloseEditor)}
@@ -73,19 +73,7 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
     >
       <div className="sm:flex w-full flex-col lg:flex-row" key={post.id}>
         {status === EDIT_POST_STATUS.EDIT ? (
-          <div className="flex items-center sm:hidden sm:invisible justify-between py-[18px]">
-            <Button className="text-h3" onClick={handleSubmit(onCloseEditor)} variant="text">
-              {t.postModal.cancel}
-            </Button>
-            <h2 className="text-h2">{t.postModal.editPost}</h2>
-            <Button
-              className="text-h3 text-accent-500"
-              onClick={handleSubmit(onSubmit)}
-              variant="text"
-            >
-              {t.postModal.save}
-            </Button>
-          </div>
+          <PostEditMenu onClose={handleSubmit(onCloseEditor)} onSubmit={handleSubmit(onSubmit)} />
         ) : (
           <PostModalHeader
             onClose={handleSubmit(onCloseEditor)}
@@ -124,7 +112,7 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
             </div>
           </div>
         ) : (
-          <div className="flex sm:px-[24px] flex-1 flex-col justify-between max-h-[474px]">
+          <div className="flex sm:px-[24px] flex-1 flex-col justify-start  overscroll-contain lg:max-h-[474px]">
             <div className="hidden justify-between items-center relative lg:flex">
               <UserAvatar
                 avatar={post.avatarOwner}
@@ -154,32 +142,25 @@ const PostModal = ({ comments, deletePostCallback, editPost, onClose, post }: Pr
                 </DropdownItem>
               </MobilePostMenu>
             </div>
-            <div className="h-fit">
+            <div className="">
               <div className="w-full h-[1px] bg-dark-100" />
-              <div className="flex justify-around flex-col sm:flex-col-reverse">
-                <div className="p-2 flex flex-col gap-2">
+              <div className="flex  justify-around gap-[6px] md:gap-[10px] ld:gap-[30px]  flex-col md:flex-col  lg:flex-col-reverse ">
+                <div className="relative bottom-0">
                   <PostActionPanel
                     id={post.id}
                     messageIconClassname={cn('bg-dark-300', { 'bg-dark-700': isMobile })}
                   />
-                  <article className="flex flex-wrap  gap-1">
-                    <h2 className="text-bold-14  font-bold   whitespace-nowrap text-base">
-                      {post.userName}
-                    </h2>
-                    <h1 className="break-words whitespace-normal overflow-hidden leading-relaxed max-w-full text-sm">
-                      {post.description}
-                    </h1>
-                  </article>
-                  <TimePublish createdAt={post.createdAt} />
-                </div>
 
-                <div className="flex flex-col gap-6 pl-6 py-6 overflow-y-auto">
-                  {comments?.items.length > 0 ? (
-                    comments?.items.map(comment => <Comment comment={comment} key={comment.id} />)
-                  ) : (
-                    <span>{t.postModal.noComments}</span>
-                  )}
+                  <SendComment className={'hidden invisible lg:flex lg:visible'} postId={post.id} />
                 </div>
+                <PostModalComment
+                  avatar={post.avatarOwner}
+                  description={post.description}
+                  ownerId={post.ownerId}
+                  postId={post.id}
+                  showCommentsModal={showCommentsModal}
+                  username={post.userName}
+                />
               </div>
             </div>
           </div>
