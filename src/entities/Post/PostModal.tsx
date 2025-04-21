@@ -143,7 +143,7 @@ const PostModal = ({ deletePostCallback, editPost, onClose, post, showCommentsMo
               </MobilePostMenu>
             </div>
             <div className="">
-              <div className="w-full h-[1px] bg-dark-100" />
+              <div className="w-full h-[1px] bg-dark-100 hidden invisible lg:visible lg:block" />
               <div className="flex  justify-around gap-[6px] md:gap-[10px] ld:gap-[30px]  flex-col md:flex-col  lg:flex-col-reverse ">
                 <div className="relative bottom-0">
                   <PostActionPanel
