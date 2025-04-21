@@ -79,14 +79,16 @@ export const russian = {
     closeModal:
       'Вы действительно хотите закрыть создание публикации? Если вы закроете, все будет удалено',
     discard: 'Закрыть',
+    errorSize: 'Фотография должна быть размером менее 20 Мб и иметь формат JPEG или PNG',
+    maxCount: 'Максимальное количество фотографий должно быть 10',
     myGallery: 'Моя галерея',
     newPublication: 'Новая публикация',
     next: 'Далее',
+    openDraft: 'Открыть черновик',
     publish: 'Опубликовать',
     saveDraft: 'Сохранить черновик',
     selectFromDevice: 'Выбрать с устройства',
     textArea: 'Текстовая область',
-    openDraft: 'Открыть черновик',
   },
   devices: {
     current: 'Текущее устройство',
@@ -121,6 +123,13 @@ export const russian = {
   messanger: {
     noMoreMessages: 'Больше нет сообщений',
     searchPlaceholder: 'Поиск сообщений...',
+  },
+  myPayment: {
+    dateOfPayment: 'Дата платежа:',
+    endDateOfSubscription: 'Дата окончания подписки:',
+    paymentType: 'Тип оплаты:',
+    price: 'Цена',
+    subscriptionType: 'Тип подписки:',
   },
   pages: {
     profile: {
@@ -173,13 +182,6 @@ export const russian = {
     notificationsTitle: 'Новое уведомление!',
     readButtonTitle: 'пометить прочитанным',
     title: 'Уведомления',
-  },
-  myPayment: {
-    dateOfPayment: 'Дата платежа:',
-    endDateOfSubscription: 'Дата окончания подписки:',
-    price: 'Цена',
-    subscriptionType: 'Тип подписки:',
-    paymentType: 'Тип оплаты:',
   },
   postModal: {
     cancel: 'Отменить',

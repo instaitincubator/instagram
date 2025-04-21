@@ -78,14 +78,16 @@ export const english = {
     closeModal:
       'Do you really want to close the creation of a publication? If you close everything will be deleted',
     discard: 'Discard',
+    errorSize: 'The photo must be less than 20 Mb and have JPEG or PNG format',
+    maxCount: 'The maximum number of photos must be 10',
     myGallery: 'My Gallery',
     newPublication: 'New Publication',
     next: 'Next',
+    openDraft: 'Open draft',
     publish: 'Publish',
     saveDraft: 'Save draft',
     selectFromDevice: 'Select from Device',
     textArea: 'Text-area',
-    openDraft: 'Open draft',
   },
   devices: {
     current: 'Current device',
@@ -120,6 +122,13 @@ export const english = {
   messanger: {
     noMoreMessages: 'No more messages',
     searchPlaceholder: 'Search messages...',
+  },
+  myPayment: {
+    dateOfPayment: 'Date of payment:',
+    endDateOfSubscription: 'End date of subscription:',
+    paymentType: 'Payment Type:',
+    price: 'Price',
+    subscriptionType: 'Subscription type:',
   },
   pages: {
     profile: {
@@ -172,13 +181,6 @@ Your rights to your content remain unaffected. We do not claim ownership of your
     notificationsTitle: 'New notification!',
     readButtonTitle: 'mark as read',
     title: 'Notifications',
-  },
-  myPayment: {
-    dateOfPayment: 'Date of payment:',
-    endDateOfSubscription: 'End date of subscription:',
-    price: 'Price',
-    subscriptionType: 'Subscription type:',
-    paymentType: 'Payment Type:',
   },
   postModal: {
     cancel: 'Cancel',

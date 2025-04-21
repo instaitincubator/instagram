@@ -59,6 +59,11 @@ const PostModal = ({ deletePostCallback, editPost, onClose, post, showCommentsMo
     }
   }
 
+  const onCloseEdit = () => {
+    setStatus(EDIT_POST_STATUS.INITIAL)
+    setIsOpenForEdit(false)
+  }
+
   return (
     <Modal
       className="w-full md:mt-[60px] z-80"
@@ -180,7 +185,7 @@ const PostModal = ({ deletePostCallback, editPost, onClose, post, showCommentsMo
       {isOpenForEdit && (
         <CloseModal
           onClose={() => setIsOpenForEdit(false)}
-          onDiscard={() => setStatus(EDIT_POST_STATUS.INITIAL)}
+          onDiscard={onCloseEdit}
           onDiscardText={t.generalInformation.yes}
           onSave={() => setIsOpenForEdit(false)}
           onSaveString={t.postModal.no}
