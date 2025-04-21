@@ -109,6 +109,8 @@ export const english = {
     copyLink: 'Copy Link',
     hideAnswers: 'Hide Answers',
     likes: 'likes: ',
+    likesModal: 'like',
+    likesModalTitle: 'Likes',
     moreComments: 'View more Comments ',
     notAnswer: "don't answer",
     publish: 'Publish',
