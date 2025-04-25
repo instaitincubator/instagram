@@ -30,7 +30,7 @@ export const ChooseChatPanel = () => {
     if (!data?.items) {
       return []
     }
-
+    // console.log(sortedMessages)
     const unreadMessages = data.items.filter(msg => msg.status === 'SENT')
     const readMessages = data.items.filter(msg => msg.status === 'READ')
 
@@ -91,13 +91,13 @@ export const ChooseChatPanel = () => {
                 key={latestMessage.id}
               >
                 <div className="flex-shrink-0">
-                  <UserAvatar
-                    avatar={latestMessage.avatars[0]?.url}
-                    avatarSize={40}
-                    isShowedText={false}
-                    userId={latestMessage.ownerId}
-                    userName=""
-                  />
+                  {/*<UserAvatar*/}
+                  {/*  avatar={latestMessage.avatars[0]?.url && ''}*/}
+                  {/*  avatarSize={40}*/}
+                  {/*  isShowedText={false}*/}
+                  {/*  userId={latestMessage.ownerId}*/}
+                  {/*  userName=""*/}
+                  {/*/>*/}
                 </div>
                 <div className="flex-grow flex flex-col justify-between py-2">
                   <div className="font-medium">{latestMessage.userName}</div>

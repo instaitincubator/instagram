@@ -36,7 +36,12 @@ export const MessangerApi = baseApi.injectEndpoints({
         return endpointName
       },
     }),
+    getUserMessage: builder.query({
+      query: arg => ({
+        url: `/api/v1/messanger/${arg.id}`,
+      }),
+    }),
   }),
 })
 
-export const { useGetLatestMessagesQuery } = MessangerApi
+export const { useGetLatestMessagesQuery, useGetUserMessageQuery } = MessangerApi
