@@ -64,7 +64,7 @@ export const ChooseChatPanel = () => {
   }
 
   return (
-    <div className="h-full flex flex-col sm:max-w-[300px] sm:border-r sm:border-dark-300 sm:bg-dark-500">
+    <div className="h-full flex flex-col w-full sm:border-r sm:border-dark-300 sm:bg-dark-500">
       <div className="p-4">
         <SearchWithQueries placeholder={t.messanger.searchPlaceholder} />
       </div>
