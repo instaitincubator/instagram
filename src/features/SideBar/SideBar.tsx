@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useMediaQuery } from 'react-responsive'
 
 import LogOutModal from '@/features/SideBar/modal/logOutModal'
 import { useLogOutMutation } from '@/services/auth/logOutApi'
@@ -32,6 +33,17 @@ export const SideBar = () => {
   const { data: me } = useMeQuery()
   const [openModal, setModal] = useState<boolean>(false)
   const email = me?.email ?? ''
+
+  const isSmallScreen = useMediaQuery({ query: '(max-height:700px)' })
+  const isMediumScreen = useMediaQuery({ query: '(max-height:950px)' })
+
+  let paddingTop
+
+  if (isSmallScreen) {
+    paddingTop = '20px'
+  } else if (isMediumScreen) {
+    paddingTop = '75px'
+  }
 
   useEffect(() => {
     setActiveLink(router.pathname)
@@ -101,7 +113,10 @@ export const SideBar = () => {
           title={t.sidebar.search}
         ></CustomLink>
       </div>
-      <div className="hidden sm:flex flex-col items-start w-full pl-14 pt-[60px] gap-[24px]">
+      <div
+        className="hidden sm:flex flex-col items-start w-full pl-14 pt-[60px] gap-[24px]"
+        style={{ paddingTop }}
+      >
         <CustomLink
           activeLink={activeLink}
           alt={t.sidebar.statistics}
@@ -119,7 +134,16 @@ export const SideBar = () => {
           title={t.sidebar.favourites}
         ></CustomLink>
       </div>
-      <div className="hidden sm:flex items-center w-full pl-16 pt-[180px] text-light-100">
+      {/*<div className="hidden sm:flex items-center w-full pl-16 pt-[180px] text-light-100">*/}
+      {/*  <LogOut />*/}
+      {/*  <Button as="a" className="pl-0" onClick={() => setModal(true)} variant="text">*/}
+      {/*    <span className="text-light-100 text-medium-14">{t.sidebar.logOut}</span>*/}
+      {/*  </Button>*/}
+      {/*</div>*/}
+      <div
+        className="hidden sm:flex items-center w-full pl-16  text-light-100"
+        style={{ paddingTop }}
+      >
         <LogOut />
         <Button as="a" className="pl-0" onClick={() => setModal(true)} variant="text">
           <span className="text-light-100 text-medium-14">{t.sidebar.logOut}</span>
