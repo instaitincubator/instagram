@@ -12,7 +12,10 @@ import { useRouter } from 'next/router'
 
 import { LoadingDots } from '../LoadingDots/LoadingDots'
 
-export const ChooseChatPanel = () => {
+type Props = {
+  sentId: (id: any) => void
+}
+export const ChooseChatPanel = (props: Props) => {
   const [page, setPage] = useState(0)
   const containerRef = useRef<HTMLDivElement>(null)
   const { t } = useTranslation()
@@ -62,6 +65,9 @@ export const ChooseChatPanel = () => {
   if (isLoading || !data) {
     return <LoadingDots />
   }
+  const test = (el: any) => {
+    props.sentId(el)
+  }
 
   return (
     <div className="h-full flex flex-col sm:max-w-[300px] sm:border-r sm:border-dark-300 sm:bg-dark-500">
@@ -89,6 +95,7 @@ export const ChooseChatPanel = () => {
                   index === 0 && 'border-t'
                 )}
                 key={latestMessage.id}
+                onClick={() => test(latestMessage)}
               >
                 <div className="flex-shrink-0">
                   {/*<UserAvatar*/}
