@@ -52,15 +52,19 @@ const PostModalComment = ({
   return (
     <div>
       <div className="flex flex-col-reverse gap-2">
-        <div className="flex lg:hidden lg:invisible gap-4 pb-2 pl-2 items-center">
-          <UserAvatar avatar={avatar} avatarSize={24} userId={ownerId} userName={username} />
-          <span>{description}</span>
-        </div>
-        <div className="h-auto  md:hidden lg:block lg:h-[270px] overflow-y-auto">
-          <div className="hidden invisible  lg:flex  lg:visible gap-4 pb-2 pl-2 items-center">
+        {description && (
+          <div className="flex lg:hidden lg:invisible gap-4 pb-2 pl-2 items-center">
             <UserAvatar avatar={avatar} avatarSize={24} userId={ownerId} userName={username} />
             <span>{description}</span>
           </div>
+        )}
+        <div className="h-auto  md:hidden lg:block lg:h-[270px] overflow-y-auto">
+          {description && (
+            <div className="hidden invisible  lg:flex  lg:visible gap-4 pb-2 pl-2 items-center">
+              <UserAvatar avatar={avatar} avatarSize={24} userId={ownerId} userName={username} />
+              <span>{description}</span>
+            </div>
+          )}
           <SingleComment
             commentBottom={'hidden lg:flex'}
             comments={comments?.items!}

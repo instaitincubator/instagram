@@ -25,7 +25,7 @@ export const HomePostImage = ({ images, postId }: Props) => {
   const leftHandleClick = () => {
     swiperRef?.current?.swiper.slidePrev()
   }
-  const { data: postLikeStatus } = useGetPostLikeStatusQuery(postId!)
+  const { data: postLikeStatus } = useGetPostLikeStatusQuery({ postId })
   const [updateLikeStatus] = useUpdatePostLikeStatusMutation()
 
   const onLike = () => {

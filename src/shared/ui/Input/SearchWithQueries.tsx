@@ -3,7 +3,13 @@ import React, { ChangeEvent, useEffect, useState } from 'react'
 import { Input } from '@/shared/ui/Input/Input'
 import { useRouter } from 'next/router'
 
-const SearchWithQueries = ({ placeholder }: { placeholder: string }) => {
+const SearchWithQueries = ({
+  className,
+  placeholder,
+}: {
+  className?: string
+  placeholder: string
+}) => {
   const router = useRouter()
   const [searchInput, setSearchInput] = useState(
     router.query.searchTerm ? router.query.searchTerm : ''
@@ -45,6 +51,7 @@ const SearchWithQueries = ({ placeholder }: { placeholder: string }) => {
 
   return (
     <Input
+      className={className}
       fullWidth
       onChange={changeSearchString}
       placeholder={placeholder}

@@ -39,7 +39,7 @@ const UserAvatar = ({
         {typeof userName === 'string' ? (
           <p>{userName}</p>
         ) : (
-          <p>{`${userName.firstName} ${userName.lastName}`}</p>
+          <p>{`${userName?.firstName} ${userName?.lastName}`}</p>
         )}
       </Link>
       {isShowedText && (

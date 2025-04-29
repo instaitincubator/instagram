@@ -3,6 +3,18 @@ export interface updatePostLikesRequest {
   postId: number
 }
 
+export interface getPostLikesRequest {
+  cursor?: number
+  pageNumber?: number
+  pageSize?: number
+  postId: number
+  search?: string
+}
+
+export interface getCommentLikesRequest extends getPostLikesRequest {
+  commentId: number
+}
+
 export interface updateCommentLikesRequest {
   commentId: number
   likeStatus: 'DISLIKE' | 'LIKE' | 'NONE'
@@ -24,7 +36,7 @@ interface Avatars {
   width: number
 }
 
-interface Items {
+export interface LikeItems {
   avatars: Avatars[]
   createdAt: string
   id: number
@@ -36,7 +48,7 @@ interface Items {
 
 export interface GetPostLikesResponse {
   isLiked: boolean
-  items: Items[]
+  items: LikeItems[]
   nextCursor: null | number
   page: number
   pageSize: number

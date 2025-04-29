@@ -3,9 +3,11 @@ import React from 'react'
 import Button from '@/shared/ui/Button/Button'
 import { Modal } from '@/shared/ui/Modal/Modal'
 import { cn } from '@/shared/utils/cn'
+
 type ModalType = {
   buttonsClassName?: string
   className?: string
+  hiddenOnStringClassName?: string
   onClose: () => void
   onDiscard?: () => void
   onDiscardText: string
@@ -18,6 +20,7 @@ type ModalType = {
 const CloseModal = ({
   buttonsClassName,
   className,
+  hiddenOnStringClassName,
   onClose,
   onDiscard,
   onDiscardText,
@@ -44,8 +47,11 @@ const CloseModal = ({
           {onDiscardText}
         </Button>
         <Button
+          className={cn(
+            'text-wrap leading-tight whitespace-normal px-[0]',
+            hiddenOnStringClassName
+          )}
           fullWidth
-          className={'text-wrap leading-tight whitespace-normal px-[0]'}
           onClick={onSave}
         >
           {onSaveString}

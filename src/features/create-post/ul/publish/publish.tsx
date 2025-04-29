@@ -55,7 +55,7 @@ export const Publish = ({ backStep }: Props) => {
             type="button"
             variant="text"
           >
-            <Image alt={'back button'} height={24} src={'./arrow-without-bg.svg'} width={24} />
+            <Image alt={'back button'} height={24} src={'/arrow-back-outline.svg'} width={24} />
           </Button>
           <h2 className="text-h2">{t.createPost.newPublication}</h2>
           <button className="text-h3 text-accent-500 m-[6px]" type="submit">

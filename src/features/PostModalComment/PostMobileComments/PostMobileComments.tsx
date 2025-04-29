@@ -46,21 +46,24 @@ const PostMobileComments = ({
         />
         <span className={'m-auto text-h2'}>{t.comments}</span>
       </div>
-      <div className="px-[20px] pb-[7px]">
-        <div className="flex gap-2 pl-2  items-center ">
-          <UserAvatar
-            avatar={avatar}
-            avatarSize={24}
-            className={'py-0'}
-            userId={ownerId}
-            userName={username}
-          />
-          <span>{description}</span>
+      {description && (
+        <div className="px-[20px] pb-[7px]">
+          <div className="flex gap-2 pl-2  items-center ">
+            <UserAvatar
+              avatar={avatar}
+              avatarSize={24}
+              className={'py-0'}
+              userId={ownerId}
+              userName={username}
+            />
+            <span>{description}</span>
+          </div>
+          <div className={'flex pl-11 items-center text-regular-14 text-light-900'}>
+            <FormatDateForPost createdAt={createdAt} />
+          </div>
         </div>
-        <div className={'flex pl-11 items-center text-regular-14 text-light-900'}>
-          <FormatDateForPost createdAt={createdAt} />
-        </div>
-      </div>
+      )}
+
       <div className=" border border-dark-100 w-full" />
       <div className={'px-[15px] pt-[19px]'}>
         <SingleComment comments={comments?.items!} isAllCommentViewed postId={postId} />
