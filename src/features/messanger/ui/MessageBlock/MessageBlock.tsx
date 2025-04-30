@@ -15,11 +15,11 @@ export const MessageBlock = () => {
         </div>
       </div>
 
-      {/* Mobile version */}
-      <div className={'md:hidden flex flex-col h-full'}>
+      {/*Mobile version */}
+      <div className={'md:hidden flex flex-col h-screen '}>
         <MessageHeader isMobile />
         <div className="flex-1 p-4 overflow-y-auto">{/* Здесь будут сообщения */}</div>
-        <div className="mt-[550px] bg-dark-300">
+        <div className="bg-dark-300 fixed bottom-[60px] w-full ">
           <MessageInput className={'focus:bg-dark-300 hover:bg-dark-300 '} />
         </div>
       </div>
