@@ -8,7 +8,11 @@ interface Props {
 
 export const MessageHeader = ({ isMobile }: Props) => (
   <header className="flex items-center bg-dark-500 text-white p-6 text-lg font-semibold h-[72px]">
-    {isMobile && <ArrowBack />}
+    {isMobile && (
+      <div className={isMobile ? '' : 'hidden'}>
+        <ArrowBack />
+      </div>
+    )}
     <p className={'pl-4 ml-[25px] md:hidden text-regular-16'}>{'Ekaterina Ivanova'}</p>
     <img
       src={'/avatar.png'}
