@@ -24,6 +24,8 @@ const CreateModal = (props: Props) => {
   const { t } = useTranslation()
   const router = useRouter()
   const [open, setIsOpen] = useState(false)
+  const [alertOpen, setIsAlertOpen] = useState(false)
+  const [alertText, setAlertText] = useState('')
   const dispatch = useAppDispatch()
   const { images } = useAppSelector(state => state.imageSlice)
   const [editButton, setEdit] = useState(false)
@@ -57,11 +59,17 @@ const CreateModal = (props: Props) => {
       if (files.length <= 10) {
         for (let i = 0; i < files.length; i++) {
           if (files[i].size <= 21200000) {
-            uploadImage(await saveImageHook(URL.createObjectURL(files[i]))).then(res =>
+            uploadImage(await saveImageHook(URL.createObjectURL(files[i]))).then(res => {
               dispatch(imageActions.setImage(res.data.images[0]))
-            )
+            })
+          } else {
+            setIsAlertOpen(true)
+            setAlertText(t.createPost.errorSize)
           }
         }
+      } else {
+        setIsAlertOpen(true)
+        setAlertText(t.createPost.maxCount)
       }
     }
   }
@@ -86,7 +94,7 @@ const CreateModal = (props: Props) => {
         </Button>
       </header>
       <div className=" mx-[54px] my-[19px] text-center overflow-hidden flex items-center md:mx-0 md:my-0 md:relative md:flex-grow">
-        {images.length >= 1 ? (
+        {images[0]?.url !== undefined ? (
           <>
             <div className="max-w-[252px] flex-shrink-0 m-auto md:max-w-[490px]">
               <PostImage arrImages={images} height={492} width={564} />
@@ -148,9 +156,6 @@ const CreateModal = (props: Props) => {
                   type="file"
                 />
               </label>
-              <Button fullWidth variant={'outline'}>
-                {t.createPost.openDraft}
-              </Button>
             </div>
           </div>
         )}
@@ -201,9 +206,25 @@ const CreateModal = (props: Props) => {
           </label>
         </div>
       </div>
-
+      {alertOpen && (
+        <CloseModal
+          buttonsClassName={'lg:flex-row-reverse'}
+          className={'mx-[15px] lg:mx-auto'}
+          hiddenOnStringClassName={'hidden'}
+          onClose={() => setIsAlertOpen(false)}
+          onDiscard={() => setIsAlertOpen(false)}
+          onDiscardText={t.createPost.discard}
+          onSave={() => {}}
+          onSaveString={t.createPost.saveDraft}
+          text={alertText}
+          title={t.createPost.close}
+        />
+      )}
       {open && (
         <CloseModal
+          buttonsClassName={'lg:flex-row-reverse'}
+          className={'mx-[15px] lg:mx-auto'}
+          hiddenOnStringClassName={'hidden'}
           onClose={handlerCloseModal}
           onDiscard={handlerDiscardModal}
           onDiscardText={t.createPost.discard}

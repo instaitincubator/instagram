@@ -59,12 +59,15 @@ export const CreatePost = () => {
       </Modal>
       {openModal && (
         <CloseModal
+          buttonsClassName={'lg:flex-row-reverse'}
+          hiddenOnStringClassName={'hidden'}
           onClose={closeModal}
           onDiscard={closeModal}
           onDiscardText={t.createPost.discard}
           onSave={() => {}}
           onSaveString={t.createPost.saveDraft}
           text={t.createPost.closeModal}
+          textClassName={'bg-accent-500'}
           title={t.createPost.close}
         />
       )}
