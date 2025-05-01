@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 
 import { useGetUserMessageQuery } from '@/features/messanger/Messanger-API'
+import { useMeQuery } from '@/services/auth/signInApi'
 import { Input } from '@/shared/ui/Input/Input'
 import { getToken } from '@/shared/utils/storage'
 import { io } from 'socket.io-client'
@@ -9,51 +10,22 @@ import { ChooseChatPanel } from './ui/ChooseChatPanel/ChooseChatPanel'
 
 export const Messanger = () => {
   const [userId, setUserId] = useState<null | number>(null)
-  const { data } = useGetUserMessageQuery({ id: 2979 })
+  const { data: me } = useMeQuery()
 
   const loadId = (e: any) => {
-    console.log(e)
-    setUserId(e.receiverId)
-    // data({ id: e.ownerId })
-  }
-
-  useEffect(() => {
-    const socket = io('https://inctagram.work', {
-      query: {
-        accessToken: getToken(),
-      },
-    })
-
-    socket.on('receive-message', messages => {
-      console.log(messages)
-    })
-
-    if (data) {
-      console.log(data.items)
+    if (e.receiverId === me?.userId) {
+      setUserId(e.ownerId)
+    } else {
+      setUserId(e.receiverId)
     }
-  }, [data])
+  }
 
   return (
     <div className="h-full flex">
       <div className="flex-1">
         <ChooseChatPanel sentId={loadId} />
       </div>
-      {/*{data.map((el, index) => (*/}
-      {/*  <div key={index}>{el}</div>*/}
-      {/*))}*/}
-      {/*<button onClick={clik}>x</button>*/}
       {userId && <MessageList id={userId} />}
-      <div>
-        {/*{data ? (*/}
-        {/*  data.items.map((el, index) => (*/}
-        {/*    <div key={index}>*/}
-        {/*      {el.id}-{el.messageText}*/}
-        {/*    </div>*/}
-        {/*  ))*/}
-        {/*) : (*/}
-        {/*  <div> Nothing</div>*/}
-        {/*)}*/}
-      </div>
     </div>
   )
 }
@@ -61,7 +33,13 @@ export const Messanger = () => {
 const MessageList = ({ id }: { id: number }) => {
   const { data } = useGetUserMessageQuery({ id })
   const [text, setText] = useState('')
+  const [messages, setMessages] = useState([])
 
+  useEffect(() => {
+    if (data) {
+      setMessages(data.items)
+    }
+  }, [data])
   useEffect(() => {
     const socket = io('https://inctagram.work', {
       query: {
@@ -70,13 +48,19 @@ const MessageList = ({ id }: { id: number }) => {
     })
 
     socket.on('receive-message', messages => {
-      console.log(messages)
+      setMessages(prevState => prevState.concat(messages))
+    })
+    socket.on('message-sent', message => {
+      setMessages(prevState => prevState.concat(message))
+
+      // Подтверждаем получение сообщения
+      socket.emit('acknowledge', { message, receiverId: id })
     })
 
-    if (data) {
-      console.log(data.items)
+    return () => {
+      socket.disconnect()
     }
-  }, [])
+  }, [id])
   const clik = () => {
     const socket = io('https://inctagram.work', {
       query: {
@@ -85,13 +69,27 @@ const MessageList = ({ id }: { id: number }) => {
     })
 
     socket.emit('receive-message', { message: text, receiverId: id })
+    socket.on('receive-message', messages => {
+      setMessages(prevState => prevState.concat(messages))
+    })
+    socket.on('message-sent', message => {
+      setMessages(prevState => prevState.concat(message))
+
+      // Подтверждаем получение сообщения
+      socket.emit('acknowledge', { message, receiverId: id })
+    })
+    setText('')
   }
 
   return (
     <div>
-      {data?.items.map(el => <div key={el.id}>{el.messageText}</div>)}
+      {messages.map((el: any) => (
+        <div key={el.id}>{el.messageText}</div>
+      ))}
       <Input onChange={event => setText(event.target.value)} value={text} />
-      <button onClick={clik}>x</button>
+      <button onClick={clik} type={'button'}>
+        x
+      </button>
     </div>
   )
 }
