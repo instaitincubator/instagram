@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { useMediaQuery } from 'react-responsive'
 
 import LogOutModal from '@/features/SideBar/modal/logOutModal'
 import { useLogOutMutation } from '@/services/auth/logOutApi'
@@ -50,9 +49,7 @@ export const SideBar = () => {
   const closeModal = () => setModal(false)
 
   return (
-    <nav
-      className={cn('relative w-fit min-w-[200px]bg-dark-700', 'short:pt-[30px] medium:pt-[73px]')}
-    >
+    <nav className={'relative min-w-[200px] bg-dark-700 pt-[73px] w-[220px]'}>
       {openModal && <LogOutModal confirm={logOutHandler} email={email} onClose={closeModal} />}
       <div className="flex flex-col justify-evenly h-fit pl-14 gap-[24px]">
         <CustomLink
