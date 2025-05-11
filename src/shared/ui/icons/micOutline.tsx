@@ -8,10 +8,10 @@ export const MicOutline = ({ className }: Props) => {
   return (
     <svg
       className={className}
-      width="24"
+      fill="none"
       height="24"
       viewBox="0 0 24 24"
-      fill="none"
+      width="24"
       xmlns="http://www.w3.org/2000/svg"
     >
       <g clipPath="url(#clip0_9015_17954)">
@@ -26,7 +26,7 @@ export const MicOutline = ({ className }: Props) => {
       </g>
       <defs>
         <clipPath id="clip0_9015_17954">
-          <rect width="24" height="24" fill="white" />
+          <rect fill="white" height="24" width="24" />
         </clipPath>
       </defs>
     </svg>
