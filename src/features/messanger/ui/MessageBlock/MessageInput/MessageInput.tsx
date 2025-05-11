@@ -24,12 +24,14 @@ export const MessageInput = ({ className, handlerSendMessage, setText, text }: P
     />
     {text ? (
       <div className={'text-nowrap text-accent-500'}>
-        <button onClick={handlerSendMessage}>Send message</button>
+        <button onClick={handlerSendMessage} type={'submit'}>
+          Send message
+        </button>
       </div>
     ) : (
       <div className="flex items-center">
         <MicOutline className="mr-2" />
-        <Image />
+        <Image alt={''} />
       </div>
     )}
   </div>

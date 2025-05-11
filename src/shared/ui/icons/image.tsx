@@ -1,10 +1,11 @@
 import React from 'react'
 
 interface Props {
+  alt?: string
   className?: string
 }
 
-export const Image = ({ className }: Props) => {
+export const Image = ({ alt, className }: Props) => {
   return (
     <svg
       className={className}

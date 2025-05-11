@@ -11,7 +11,7 @@ import {
 import { useDeclension } from '@/shared/hooks/useDeclension'
 import { useTranslation } from '@/shared/hooks/useTranslation'
 import Image from 'next/image'
-import pluralize from 'pluralize'
+// import pluralize from 'pluralize'
 
 interface Props {
   postId: number
