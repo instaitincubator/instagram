@@ -12,7 +12,11 @@ import { useRouter } from 'next/router'
 
 import { LoadingDots } from '../LoadingDots/LoadingDots'
 
-export const ChooseChatPanel = () => {
+interface Props {
+  handleSelectChat: (el: ChatMessage) => void
+}
+
+export const ChooseChatPanel = ({ handleSelectChat }: Props) => {
   const [page, setPage] = useState(0)
   const containerRef = useRef<HTMLDivElement>(null)
   const { t } = useTranslation()
@@ -63,6 +67,10 @@ export const ChooseChatPanel = () => {
     return <LoadingDots />
   }
 
+  const selectChat = (el: ChatMessage) => {
+    handleSelectChat(el)
+  }
+
   return (
     <div className="h-full flex flex-col w-full sm:border-r sm:border-dark-300 sm:bg-dark-500">
       <div className="p-4 h-[72px]">
@@ -85,10 +93,11 @@ export const ChooseChatPanel = () => {
             {sortedMessages.map((latestMessage, index) => (
               <div
                 className={cn(
-                  'p-2 border-b hover:bg-dark-500 border-dark-300 flex gap-4',
+                  'p-2 border-b hover:bg-dark-500 border-dark-300 flex gap-4 ',
                   index === 0 && 'border-t'
                 )}
                 key={latestMessage.id}
+                onClick={() => selectChat(latestMessage)}
               >
                 <div className="flex-shrink-0">
                   <UserAvatar

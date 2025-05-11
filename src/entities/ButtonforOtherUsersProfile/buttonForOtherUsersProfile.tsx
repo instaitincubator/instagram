@@ -7,6 +7,7 @@ import {
 import useIsMobile from '@/shared/hooks/useIsMobile'
 import Button from '@/shared/ui/Button/Button'
 import { cn } from '@/shared/utils/cn'
+import router from 'next/router'
 
 interface Props {
   fetchProfile: any
@@ -36,6 +37,10 @@ export const ButtonForOtherUsersProfile = ({
     }, 500)
   }
 
+  const handlerClickSendMessage = () => {
+    router.push(`/message`)
+  }
+
   return (
     !isProfileOwner && (
       <div
@@ -53,7 +58,7 @@ export const ButtonForOtherUsersProfile = ({
           {!isFollowing && <span>Follow</span>}
           {isFollowing && <span>UnFollow</span>}
         </Button>
-        <Button fullWidth size="xxl" variant="secondary">
+        <Button fullWidth onClick={handlerClickSendMessage} size="xxl" variant="secondary">
           Send Message
         </Button>
       </div>

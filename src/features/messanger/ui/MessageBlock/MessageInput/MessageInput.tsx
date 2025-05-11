@@ -6,22 +6,31 @@ import { MicOutline } from '@/shared/ui/icons/micOutline'
 
 interface Props {
   className?: string
+  handlerSendMessage: () => void
   isMobile?: boolean
+  setText: any
+  text: string
 }
 
-export const MessageInput = ({ className }: Props) => (
+export const MessageInput = ({ className, handlerSendMessage, setText, text }: Props) => (
   <div className={'p-4 flex '}>
     <Input
       className={`flex-1 border-none border-t-2 focus:outline-none ${className}`}
       fullWidth
-      onChange={() => {}}
+      onChange={event => setText(event.target.value)}
       placeholder={'Type Message'}
       type={''}
-      value={''}
+      value={text}
     />
-    <div className="flex items-center">
-      <MicOutline className="mr-2" />
-      <Image />
-    </div>
+    {text ? (
+      <div className={'text-nowrap text-accent-500'}>
+        <button onClick={handlerSendMessage}>Send message</button>
+      </div>
+    ) : (
+      <div className="flex items-center">
+        <MicOutline className="mr-2" />
+        <Image />
+      </div>
+    )}
   </div>
 )
