@@ -19,6 +19,8 @@ export const MessageHeader = ({ isMobile, userAvatar, userName }: Props) => (
     <p className={'pl-4 ml-[25px] md:hidden text-regular-16'}>{userName}</p>
     {userName ? (
       <Image
+        width={48}
+        height={48}
         alt={'avatar'}
         className={
           isMobile ? 'rounded-full w-[36px] h-[36px] ml-auto' : 'rounded-full w-[48px] h-[48px]'
