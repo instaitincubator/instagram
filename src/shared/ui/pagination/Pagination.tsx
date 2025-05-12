@@ -43,7 +43,9 @@ const Pagination: React.FC<PaginationParams> = ({
     <div className="flex">
       <ul className="flex items-center gap-2 list-none">
         <li
-          className={`flex justify-center items-center w-8 h-8 cursor-pointer ${currentPage === 1 ? 'opacity-50 pointer-events-none' : ''}`}
+          className={`flex justify-center items-center w-8 h-8 cursor-pointer ${
+            currentPage === 1 ? 'opacity-50 pointer-events-none' : ''
+          }`}
           onClick={() => +currentPage > 1 && onPageChange(+currentPage - 1)}
         >
           <ChevronLeftIcon className="w-4 h-4" />
@@ -64,7 +66,11 @@ const Pagination: React.FC<PaginationParams> = ({
           return (
             <li
               className={`flex justify-center items-center w-6 h-6 text-sm leading-6 rounded transition-colors duration-200 
-                            ${pageNumber === currentPage ? 'text-dark-900  bg-gray-100 w-[25px] h-[25px] text-regular-14' : 'text-light-100 hover:bg-none cursor-pointer'}`}
+                            ${
+                              pageNumber === currentPage
+                                ? 'text-dark-900  bg-gray-100 w-[25px] h-[25px] text-regular-14'
+                                : 'text-light-100 hover:bg-none cursor-pointer'
+                            }`}
               key={index}
               onClick={() => onPageChange(pageNumber)}
             >
@@ -74,7 +80,9 @@ const Pagination: React.FC<PaginationParams> = ({
         })}
 
         <li
-          className={`flex justify-center items-center w-8 h-8 cursor-pointer ${currentPage === lastPage ? 'opacity-50 pointer-events-none' : ''}}`}
+          className={`flex justify-center items-center w-8 h-8 cursor-pointer ${
+            currentPage === lastPage ? 'opacity-50 pointer-events-none' : ''
+          }}`}
           onClick={() => currentPage < lastPage && onPageChange(+currentPage + 1)}
         >
           <ChevronRightIcon className="w-4 h-4" />

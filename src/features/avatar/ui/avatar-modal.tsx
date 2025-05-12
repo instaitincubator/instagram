@@ -97,7 +97,9 @@ const AvatarModal = ({ avatar, onClose }: AvatarModalProps) => {
         </div>
       ) : (
         <div
-          className={`flex flex-col  items-center md:mt-[68px]  md:mb-[104px] ${error ? 'md:mt-[24px] md:px-[54px] md:mb-[92px]' : ' md:mx-[129px] '}`}
+          className={`flex flex-col  items-center md:mt-[68px]  md:mb-[104px] ${
+            error ? 'md:mt-[24px] md:px-[54px] md:mb-[92px]' : ' md:mx-[129px] '
+          }`}
         >
           {error && <ErrorAlert />}
           {avatar ? (

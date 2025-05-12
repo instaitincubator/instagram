@@ -1,10 +1,10 @@
 import { getPublicLayoutWithSidebar } from '@/app/layouts/PublicLayoutWithSidebar/PublicLayoutWithSidebar'
-import { Messanger } from '@/features/messanger/Messanger'
+import { Messenger } from '@/features/messanger/Messanger'
 
 const Messages = () => {
   return (
     <div className="h-full">
-      <Messanger />
+      <Messenger />
     </div>
   )
 }

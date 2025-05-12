@@ -41,7 +41,10 @@ export const useTableConfig = () => {
       case 1000:
         return '$10'
       default:
-        return `$${(price / 100).toLocaleString(undefined, { maximumFractionDigits: 2, minimumFractionDigits: 0 })}`
+        return `$${(price / 100).toLocaleString(undefined, {
+          maximumFractionDigits: 2,
+          minimumFractionDigits: 0,
+        })}`
     }
   }
 

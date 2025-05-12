@@ -226,6 +226,9 @@ const config: Config = {
       ml: '425px',
       sm: '480px',
       xl: '1440px',
+      short: { raw: '(max-height: 600px)' },
+      medium: { raw: '(min-height: 601px) and (max-height: 900px)' },
+      tall: { raw: '(min-height: 901px)' },
     },
   },
 }

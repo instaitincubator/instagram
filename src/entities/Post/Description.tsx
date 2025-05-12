@@ -26,7 +26,9 @@ export const Description = ({ description, isShowedText, toggleShowedText }: Pro
         animate={{
           maxHeight: isShowedText ? '192px' : '72px',
         }}
-        className={`break-words ${isShowedText ? 'line-clamp-none' : 'line-clamp-none'} max-h-[${isShowedText ? '192px' : '72px'}]`}
+        className={`break-words ${isShowedText ? 'line-clamp-none' : 'line-clamp-none'} max-h-[${
+          isShowedText ? '192px' : '72px'
+        }]`}
         initial={{
           maxHeight: '72px',
         }}
