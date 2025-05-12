@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { ArrowBack } from '@/shared/ui/icons/arrowBack'
+import Image from 'next/image'
 
 interface Props {
   isMobile?: boolean
@@ -17,7 +18,7 @@ export const MessageHeader = ({ isMobile, userAvatar, userName }: Props) => (
     )}
     <p className={'pl-4 ml-[25px] md:hidden text-regular-16'}>{userName}</p>
     {userName ? (
-      <img
+      <Image
         alt={'avatar'}
         className={
           isMobile ? 'rounded-full w-[36px] h-[36px] ml-auto' : 'rounded-full w-[48px] h-[48px]'

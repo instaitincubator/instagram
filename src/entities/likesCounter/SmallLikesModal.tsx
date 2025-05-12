@@ -19,7 +19,7 @@ export const SmallLikesModal = (props: Props) => {
 
   const likesEnding = useDeclension(likes?.length, ['я', 'и', 'й'])
 
-  console.log(isHovered, likes)
+  // console.log(isHovered, likes)
   useEffect(() => {
     if (isHovered) {
       setTimeOutId(
