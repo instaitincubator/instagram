@@ -38,7 +38,7 @@ export const MessangerApi = baseApi.injectEndpoints({
     }),
     getUserMessage: builder.query({
       query: arg => ({
-        url: `/api/v1/messenger/${arg.id}`,
+        url: `/api/v1/messenger/${arg.id} `,
       }),
     }),
   }),
