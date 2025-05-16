@@ -4,6 +4,7 @@ import { useGetUserMessageQuery } from '@/features/messanger/Messanger-API'
 import { ChatMessage } from '@/features/messanger/MessangerAPItypes'
 import { MessageHeader } from '@/features/messanger/ui/MessageBlock/MessageHeader/MessageHeader'
 import { getToken } from '@/shared/utils/storage'
+import Image from 'next/image'
 import { io } from 'socket.io-client'
 
 import { MessageInput } from './MessageInput/MessageInput'
@@ -70,7 +71,43 @@ export const MessageBlock = ({ id, userAvatar, userName }: Props) => {
         <MessageHeader userAvatar={userAvatar} userName={userName} />
         <div className="flex-1 p-4 overflow-y-auto">
           {messages && messages.length > 0 ? (
-            messages.map(el => <div key={el.id}>{el.messageText}</div>)
+            messages.map(el => {
+              const date = new Date(el.createdAt)
+              const hours = date.getHours().toString().padStart(2, '0')
+              const minutes = date.getMinutes().toString().padStart(2, '0')
+              const timeString = `${hours}:${minutes}`
+
+              return el.ownerId === id ? (
+                <div className={'flex justify-start pl-[6px]'} key={el.id}>
+                  <Image
+                    alt={'avatar'}
+                    className={'rounded-full w-[36px] h-[36px] mt-auto mr-[6px]'}
+                    height={48}
+                    src={userAvatar ? userAvatar : '/avatar.png'}
+                    width={48}
+                  />
+                  <div
+                    className={
+                      'flex flex-col items-end justify-start bg-dark-300 rounded-[8px] p-[6px]'
+                    }
+                  >
+                    <div>{el.messageText}</div>
+                    <div className="text-sm text-gray-400 pt-[6px]">{timeString}</div>
+                  </div>
+                </div>
+              ) : (
+                <div className={'flex justify-end'} key={el.id}>
+                  <div
+                    className={
+                      'flex  flex-col items-end  justify-end bg-accent-700 rounded-[8px] p-[6px] mt-[5px]'
+                    }
+                  >
+                    <div>{el.messageText}</div>
+                    <div className="text-sm text-gray-400 pt-[6px]">{timeString}</div>
+                  </div>
+                </div>
+              )
+            })
           ) : (
             <div
               className={
