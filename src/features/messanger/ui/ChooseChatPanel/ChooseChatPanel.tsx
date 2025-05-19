@@ -69,6 +69,7 @@ export const ChooseChatPanel = ({ handleSelectChat }: Props) => {
 
   const selectChat = (el: ChatMessage) => {
     handleSelectChat(el)
+    router.push(`/message/${el.receiverId}`)
   }
 
   return (
@@ -81,7 +82,7 @@ export const ChooseChatPanel = ({ handleSelectChat }: Props) => {
           dataLength={sortedMessages.length}
           endMessage={
             <p className="text-center p-2.5">
-              <b>{t.messanger.noMoreMessages}</b>
+              {!sortedMessages ? <b>{t.messanger.noMoreMessages}</b> : ''}
             </p>
           }
           hasMore={hasMore}

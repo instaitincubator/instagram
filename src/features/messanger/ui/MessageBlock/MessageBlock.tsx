@@ -70,7 +70,7 @@ export const MessageBlock = ({ id, userAvatar, userName }: Props) => {
       <div className={'hidden md:flex flex-col flex-1 '}>
         <MessageHeader userAvatar={userAvatar} userName={userName} />
         <div className="flex-1 p-4 overflow-y-auto">
-          {messages && messages.length > 0 ? (
+          {userName ? (
             messages.map(el => {
               const date = new Date(el.createdAt)
               const hours = date.getHours().toString().padStart(2, '0')

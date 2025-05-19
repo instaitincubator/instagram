@@ -74,6 +74,8 @@ export const UserInfo = ({ posts, postsForPublic, profileInfo }: Props) => {
                 isFollowing={userFollowingStatus?.isFollowing!}
                 isProfileOwner={isProfileOwner}
                 userId={profile.id}
+                name={profile.userName}
+                src={profile.avatars?.[0]?.url || ''}
               />
             )}
           </div>
@@ -114,6 +116,8 @@ export const UserInfo = ({ posts, postsForPublic, profileInfo }: Props) => {
           isFollowing={userFollowingStatus?.isFollowing!}
           isProfileOwner={isProfileOwner}
           userId={profile.id}
+          name={profile.userName}
+          src={profile.avatars?.[0]?.url || ''}
         />
       )}
     </div>
