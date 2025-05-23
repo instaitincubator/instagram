@@ -48,12 +48,16 @@ export const Messenger = () => {
   const showMessageBlock = isMobile ? selectedChat !== null : true
 
   return (
-    <div className="h-full flex flex-col sm:flex-row">
-      <div className={`${isMobile ? 'flex-1' : 'flex'} ${showChooseChatPanel ? 'flex' : 'hidden'}`}>
+    <div className="h-full flex flex-col sm:flex-row overflow-hidden">
+      <div
+        className={`${isMobile ? 'h-full w-full' : 'h-full w-[400px]'} ${
+          showChooseChatPanel ? 'flex' : 'hidden'
+        }`}
+      >
         <ChooseChatPanel handleSelectChat={handleSelectChat} />
       </div>
 
-      <div className={`flex-1 ${showMessageBlock ? 'flex' : 'hidden'}`}>
+      <div className={`h-full flex-1 ${showMessageBlock ? 'flex' : 'hidden'}`}>
         <MessageBlock id={userId} userAvatar={userDetails.userAvatar} userName={userDetails.name} />
       </div>
     </div>
