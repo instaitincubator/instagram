@@ -1,13 +1,13 @@
 import { getPublicLayoutWithSidebar } from '@/app/layouts/PublicLayoutWithSidebar/PublicLayoutWithSidebar'
 import { Messenger } from '@/features/messanger/Messanger'
 
-const MessagesIndex = () => {
+const Messages = () => {
   return (
-    <div className="h-full overflow-hidden">
+    <div className="h-full">
       <Messenger />
     </div>
   )
 }
 
-MessagesIndex.getLayout = getPublicLayoutWithSidebar
-export default MessagesIndex
+Messages.getLayout = getPublicLayoutWithSidebar
+export default Messages

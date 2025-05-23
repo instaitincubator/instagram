@@ -14,6 +14,8 @@ interface Props {
   isFollowing: boolean
   isProfileOwner: boolean
   userId: number
+  name: string
+  src: string
 }
 
 export const ButtonForOtherUsersProfile = ({
@@ -21,6 +23,8 @@ export const ButtonForOtherUsersProfile = ({
   isFollowing,
   isProfileOwner,
   userId,
+  src,
+  name,
 }: Props) => {
   const [followUser] = useFollowingUserMutation()
   const [unFollow] = useUnFollowingUserMutation()
@@ -38,7 +42,7 @@ export const ButtonForOtherUsersProfile = ({
   }
 
   const handlerClickSendMessage = () => {
-    router.push(`/message`)
+    router.push({ pathname: `/message/${userId}`, query: { name, src } })
   }
 
   return (

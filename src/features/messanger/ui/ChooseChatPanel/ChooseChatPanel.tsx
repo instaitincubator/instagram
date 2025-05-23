@@ -69,56 +69,59 @@ export const ChooseChatPanel = ({ handleSelectChat }: Props) => {
 
   const selectChat = (el: ChatMessage) => {
     handleSelectChat(el)
+    router.push(`/message/${el.receiverId}`)
   }
 
   return (
     <div className="h-full flex flex-col w-full sm:border-r sm:border-dark-300 sm:bg-dark-500">
-      <div className="p-4 h-[72px]">
+      <div className="p-4 h-[72px] flex-shrink-0">
         <SearchWithQueries placeholder={t.messanger.searchPlaceholder} />
       </div>
-      <div className="flex-1">
-        <InfiniteScroll
-          dataLength={sortedMessages.length}
-          endMessage={
-            <p className="text-center p-2.5">
-              <b>{t.messanger.noMoreMessages}</b>
-            </p>
-          }
-          hasMore={hasMore}
-          loader={isFetching ? <LoadingDots /> : null}
-          next={next}
-          scrollableTarget="scrollableDiv"
-        >
-          <div className="h-full overflow-auto" id="scrollableDiv" ref={containerRef}>
-            {sortedMessages.map((latestMessage, index) => (
-              <div
-                className={cn(
-                  'p-2 border-b hover:bg-dark-500 border-dark-300 flex gap-4 ',
-                  index === 0 && 'border-t'
-                )}
-                key={latestMessage.id}
-                onClick={() => selectChat(latestMessage)}
-              >
-                <div className="flex-shrink-0">
-                  <UserAvatar
-                    avatar={latestMessage.avatars[0]?.url}
-                    avatarSize={40}
-                    isShowedText={false}
-                    userId={latestMessage.ownerId}
-                    userName=""
-                  />
+      <div className="flex-1 relative">
+        <div className="absolute inset-0 overflow-y-auto overflow-x-hidden">
+          <InfiniteScroll
+            dataLength={sortedMessages.length}
+            endMessage={
+              <p className="text-center p-2.5">
+                {!sortedMessages ? <b>{t.messanger.noMoreMessages}</b> : ''}
+              </p>
+            }
+            hasMore={hasMore}
+            loader={isFetching ? <LoadingDots /> : null}
+            next={next}
+            scrollableTarget="scrollableDiv"
+          >
+            <div className="overflow-y-auto overflow-x-hidden [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]" id="scrollableDiv" ref={containerRef}>
+              {sortedMessages.map((latestMessage, index) => (
+                <div
+                  className={cn(
+                    'p-2 border-b hover:bg-dark-500 border-dark-300 flex gap-4 cursor-pointer',
+                    index === 0 && 'border-t'
+                  )}
+                  key={latestMessage.id}
+                  onClick={() => selectChat(latestMessage)}
+                >
+                  <div className="flex-shrink-0">
+                    <UserAvatar
+                      avatar={latestMessage.avatars[0]?.url}
+                      avatarSize={40}
+                      isShowedText={false}
+                      userId={latestMessage.ownerId}
+                      userName=""
+                    />
+                  </div>
+                  <div className="flex-grow flex flex-col justify-between py-2 min-w-0">
+                    <div className="font-medium truncate">{latestMessage.userName}</div>
+                    <div className="text-gray-600 truncate">{latestMessage.messageText}</div>
+                  </div>
+                  <div className="flex-shrink-0 text-xs text-gray-500">
+                    <FormatDateForPost createdAt={latestMessage.createdAt} />
+                  </div>
                 </div>
-                <div className="flex-grow flex flex-col justify-between py-2">
-                  <div className="font-medium">{latestMessage.userName}</div>
-                  <div className="text-gray-600">{latestMessage.messageText}</div>
-                </div>
-                <div className="flex-shrink-0 text-xs text-gray-500">
-                  <FormatDateForPost createdAt={latestMessage.createdAt} />
-                </div>
-              </div>
-            ))}
-          </div>
-        </InfiniteScroll>
+              ))}
+            </div>
+          </InfiniteScroll>
+        </div>
       </div>
     </div>
   )

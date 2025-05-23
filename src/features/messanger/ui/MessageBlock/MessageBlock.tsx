@@ -4,6 +4,7 @@ import { useGetUserMessageQuery } from '@/features/messanger/Messanger-API'
 import { ChatMessage } from '@/features/messanger/MessangerAPItypes'
 import { MessageHeader } from '@/features/messanger/ui/MessageBlock/MessageHeader/MessageHeader'
 import { getToken } from '@/shared/utils/storage'
+import Image from 'next/image'
 import { io } from 'socket.io-client'
 
 import { MessageInput } from './MessageInput/MessageInput'
@@ -24,6 +25,7 @@ export const MessageBlock = ({ id, userAvatar, userName }: Props) => {
       setMessages(data.items)
     }
   }, [data])
+
   useEffect(() => {
     const socket = io('https://inctagram.work', {
       query: {
@@ -32,10 +34,10 @@ export const MessageBlock = ({ id, userAvatar, userName }: Props) => {
     })
 
     socket.on('receive-message', messages => {
-      setMessages(prevState => prevState.concat(messages))
+      setMessages(prevState => [messages, ...prevState])
     })
     socket.on('message-sent', message => {
-      setMessages(prevState => prevState.concat(message))
+      setMessages(prevState => [message, ...prevState])
 
       socket.emit('acknowledge', { message, receiverId: id })
     })
@@ -53,10 +55,10 @@ export const MessageBlock = ({ id, userAvatar, userName }: Props) => {
 
     socket.emit('receive-message', { message: text, receiverId: id })
     socket.on('receive-message', messages => {
-      setMessages(prevState => prevState.concat(messages))
+      setMessages(prevState => [messages, ...prevState])
     })
     socket.on('message-sent', message => {
-      setMessages(prevState => prevState.concat(message))
+      setMessages(prevState => [message, ...prevState])
 
       socket.emit('acknowledge', { message, receiverId: id })
     })
@@ -64,20 +66,58 @@ export const MessageBlock = ({ id, userAvatar, userName }: Props) => {
   }
 
   return (
-    <div className="flex flex-col rounded-lg w-full h-full">
+    <div className="flex flex-col rounded-lg w-full h-full overflow-hidden">
       {/* Desktop version */}
-      <div className={'hidden md:flex flex-col flex-1 '}>
+      <div className={'hidden md:flex md:flex-col h-full w-full'}>
         <MessageHeader userAvatar={userAvatar} userName={userName} />
-        <div className="flex-1 p-4 overflow-y-auto">
-          {messages && messages.length > 0 ? (
-            messages.map(el => <div key={el.id}>{el.messageText}</div>)
+        <div className="flex-1 relative">
+          {userName ? (
+            <div className="absolute inset-0 p-4 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+              <div className="flex flex-col-reverse space-y-reverse space-y-4">
+                {messages.map(el => {
+                  const date = new Date(el.createdAt)
+                  const hours = date.getHours().toString().padStart(2, '0')
+                  const minutes = date.getMinutes().toString().padStart(2, '0')
+                  const timeString = `${hours}:${minutes}`
+
+                  return el.ownerId === id ? (
+                    <div className={'flex justify-start pl-[6px] w-full'} key={el.id}>
+                      <Image
+                        alt={'avatar'}
+                        className={'rounded-full w-[36px] h-[36px] mt-auto mr-[6px] flex-shrink-0'}
+                        height={48}
+                        src={userAvatar ? userAvatar : '/avatar.png'}
+                        width={48}
+                      />
+                      <div
+                        className={
+                          'flex flex-col items-start justify-start bg-dark-300 rounded-[8px] p-[6px] max-w-[70%]'
+                        }
+                      >
+                        <div className="break-words">{el.messageText}</div>
+                        <div className="text-sm text-gray-400 pt-[6px]">{timeString}</div>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className={'flex justify-end w-full'} key={el.id}>
+                      <div
+                        className={
+                          'flex flex-col items-end justify-end bg-accent-700 rounded-[8px] p-[6px] max-w-[70%]'
+                        }
+                      >
+                        <div className="break-words">{el.messageText}</div>
+                        <div className="text-sm text-gray-400 pt-[6px]">{timeString}</div>
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
           ) : (
-            <div
-              className={
-                'bg-dark-300 w-[293px] h-[48px] rounded-[8px] flex items-center justify-center absolute top-1/2 left-2/3 transform -translate-x-1/2 -translate-y-1/2'
-              }
-            >
-              Choose who you would like to talk to
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="bg-dark-300 px-6 py-3 rounded-[8px] text-center">
+                Choose who you would like to talk to
+              </div>
             </div>
           )}
         </div>
